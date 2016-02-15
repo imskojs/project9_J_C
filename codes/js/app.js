@@ -30,7 +30,7 @@
     angular.extend($rootScope, RootScope);
 
     // setInitialState();
-    $state.go('Main.PlaceDetail');
+    $state.go('Main.Footer.Home');
 
     $ionicPlatform.ready(onIonicPlatformReady);
 
