@@ -1,0 +1,50 @@
+ <ion-modal-view class="darker-bg70">
+  <ion-pane class="flex auto transparent-bg">
+    <div class="zero w80p">
+      <div class="relative w100p zero rt5px center positive-bg">
+        <p class="h40px zero f18px lh40px white bold">
+          쿠폰사용
+        </p>
+        <button class="button-clear icon ion-android-close absolute top0px bottom0px right0px"
+          ng-click="CouponDetail.closeModal()"
+        >
+        </button>
+      </div>
+      <div class="w100p zero p20px center rb5px white-bg">
+        <label class="item-input w80p auto zero positive-bb1px">
+          <i class="icon ion-ios-locked-outline"></i>
+          <input class="pr10px pl10px placeholder-positive"
+            type="password" placeholder="비밀번호"
+            ng-model="CouponDetail.Model.form.password"
+          >
+        </label>
+        <p class="zero mt20px mb20px color1">쿠폰을 사용합니다</p>
+        <div class="zero row dark-grey">
+          <div class="col-45 zero pr5px positive-br1px right">
+            <p class="zero letter-spacing-1">사용 가능기간</p>
+            <p class="zero letter-spacing-1">남은수량</p>
+            <p class="zero letter-spacing-1">현재날짜</p>
+          </div>
+          <div class="col zero pl5px left">
+            <p class="zero">
+              {{CouponDetail.Model.coupon.expirationDate | date: 'yyyy.MM.dd'}}
+            </p>
+            <p class="zero">
+              {{CouponDetail.Model.coupon.quantity}}
+            </p>
+            <p class="zero positive">
+              {{CouponDetail.getCurrentDate() | date: 'yyyy.MM.dd'}}
+            </p>
+          </div>
+        </div>
+        <div class="zero mt30px">
+          <button class="w80p h40px b0px white bold positive-bg"
+            ng-click="CouponDetail.useCoupon()"
+          >
+            쿠폰사용
+          </button>
+        </div>
+      </div>
+    </div>
+  </ion-pane>
+</ion-modal-view>

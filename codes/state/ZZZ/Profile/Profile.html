@@ -1,0 +1,111 @@
+<ion-view id="z-profile"
+  cache-view="true"
+  hide-back-button="true"
+  >
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-android-arrow-back"
+    ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    프로필 변경
+  </ion-nav-title>
+  <ion-content class="pt2px">
+
+    <!-- loading -->
+    <div class="w100p h95vh flex light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="Profile.Model.loading"
+      >
+      <ion-spinner class="spinner-40px mb88px" icon="ripple">
+      </ion-spinner>
+    </div>
+
+    <p class="zero positive bold ml5p f14px mt5px dark">
+      내 프로필
+    </p>
+
+    <!-- profile img -->
+    <div class="row zero mt5px flex-v">
+      <div class="col-auto flex ml3p">
+        <img class="w70px h70px r70px dark-b"
+          ng-src="{{ Profile.Model.form.files[0] || (Profile.Model.form | GetPhoto) }}"
+        >
+      </div>
+      <div class="col-auto f16px ml15px"
+        ng-click="Profile.getPhoto();"
+      >
+        <button class="button-icon positive-bg white r5px h30px">
+          사진변경
+        </button>
+      </div>
+    </div>
+
+    <!-- row -->
+    <div class="positive-bb1px w90p auto mt15px">
+      <p class="zero f14px dark bold">
+        이름
+      </p>
+      <p class="zero w100p f14px bold dark-grey mt5px mb3px">
+        {{Profile.Model.form.name || '이름을 입력해주세요'}}
+      </p>
+    </div>
+    <!-- row -->
+    <div class="positive-bb1px w90p auto mt15px">
+      <p class="zero f14px dark bold">
+        대화명
+      </p>
+      <p class="zero w100p f14px bold dark-grey mt5px mb3px">
+        {{Profile.Model.form.nickname || '대화명을 입력해주세요'}}
+      </p>
+    </div>
+
+    <hr class="darker-b2px mt20px mb20px">
+
+    <!-- row -->
+    <div class="light-grey-bg h44px w90p auto r5px flex-v pl5px mb15px">
+      <div class="col-35">
+        <p class="zero positive f14px bold letter-spacing-05">이름 변경</p>
+      </div>
+      <div class="col zero">
+        <input class="h20px f14px darker-grey bold"
+          type="text"
+          ng-model="Profile.Model.form.name"
+        >
+      </div>
+    </div>
+    <!-- row -->
+    <div class="light-grey-bg h44px w90p auto r5px flex-v pl5px mb15px">
+      <div class="col-35">
+        <p class="zero positive f14px bold letter-spacing-05">대화명 변경</p>
+      </div>
+      <div class="col zero">
+        <input class="h20px f14px darker-grey bold"
+          type="text"
+          ng-model="Profile.Model.form.nickname"
+        >
+      </div>
+    </div>
+
+    <div class="light-grey-bg h44px w90p auto r5px flex-v pl5px mb15px"
+      ng-click="goToState('Main.zPassword', null, 'forward')"
+    >
+      <div class="col-40">
+        <p class="zero positive f14px bold letter-spacing-05">비밀번호 재설정</p>
+      </div>
+      <div class="col zero flex-right mr5p">
+        <div class="ion-chevron-right f20px positive"></div>
+      </div>
+    </div>
+    
+  </ion-content>
+
+  <ion-footer-bar class="bar-positive footer zero flex">
+    <p class="zero w100p white f16px center bold"
+      ng-click="Profile.sendForm();"
+    >
+      변경 완료
+    </p>
+  </ion-footer-bar>
+</ion-view>

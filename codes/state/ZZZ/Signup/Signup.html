@@ -1,0 +1,125 @@
+<ion-view id="z-sign-up"
+  cache-view="true"
+  hide-back-button="true"
+  >
+<!--   <ion-header-bar class="bar bar-positive" align-title="center">
+    <h1 class="title">회원가입</h1>
+  </ion-header-bar>
+ --> 
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-android-arrow-back"
+    ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    회원가입
+  </ion-nav-title>
+  <ion-content class="pt1px">
+    <div class="w100p h100p flex light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="Signup.Model.loading"
+      >
+      <ion-spinner class="spinner-50px mb300px" icon="ripple">
+      </ion-spinner>
+    </div>
+    <p class="zero f14px pt15px dark bold ml5p mr5p">프로필 설정</p>
+    <div class="row zero flex-v mt10px ml5p mr5p">
+      <div class="col-auto zero r80px w80px h80px positive-b relative">
+        <img class="block r78px w78px h78px"
+          ng-src="{{Signup.Model.form.files[0]}}"
+        >
+        <div class="flex r78px w78px h78px absolute top0px left0px light-bg"
+          ng-if="Signup.Model.imgLoading === true"
+        >
+          <ion-spinner class="spinner-30px" icon="ripple">
+          </ion-spinner>
+        </div>
+      </div>
+      <div class="col zero">
+        <button class="button-icon pl5p pr5p positive-bg ml5p white f16px pt8px pb8px r2px"
+        ng-click="Signup.getPicture();"
+        >
+        <p class="zero center">
+          사진업로드
+        </p>
+        </button>
+      </div>
+    </div>
+    <p class="zero f14px dark bold mt25px ml5p w90p">이름</p>
+    <div class="row zero flex positive-bb ml5p w90p">
+      <div class="col zero">
+        <input id="name" class="positive f16px" type="text"
+        ng-model="Signup.Model.form.name"
+        >
+      </div>
+    </div>
+    <p class="zero f14px dark bold mt15px ml5p w90p">대화명</p>
+    <div class="row zero flex positive-bb ml5p w90p">
+      <div class="col zero">
+        <input id="nickname" class="positive f16px" type="text"
+        ng-model="Signup.Model.form.nickname"
+        >
+      </div>
+    </div>
+    <hr class="darker-b2px mt20px mb20px">
+    <p class="zero f14px dark bold mt15px ml5p w90p">이메일</p>
+    <div class="row zero flex positive-bb ml5p w90p">
+      <div class="col zero">
+        <input id="email" class="positive f16px" type="email"
+        ng-model="Signup.Model.form.email"
+        >
+      </div>
+    </div>
+    <hr class="darker-b2px mt20px mb20px">
+    <p class="zero f14px dark bold mt15px ml5p w90p">비밀번호 설정</p>
+    <div class="row zero flex positive-bb ml5p w90p">
+      <div class="col zero">
+        <input id="password" class="positive f16px" type="password"
+        ng-model="Signup.Model.form.password"
+        >
+      </div>
+    </div>
+    <p class="zero f14px dark bold mt15px ml5p w90p">비밀번호 다시 확인</p>
+    <div class="row zero flex positive-bb ml5p w90p">
+      <div class="col zero">
+        <input class="positive f16px" type="password"
+        ng-model="Signup.Model.confirmPassword"
+        >
+      </div>
+    </div>
+    <hr class="darker-b2px mt20px mb20px">
+    <div class="row zero ml5p w90p flex-v">
+      <div class="w25px h25px flex r5px positive-b"
+        ng-class="{'positive-bg': Signup.Model.agree}"
+        ng-click="Signup.Model.agree = !Signup.Model.agree"
+      >
+        <i class="ion-checkmark-round white f18px"></i>
+      </div>
+      <div class="col zero ml5p"
+        ng-click="Signup.Model.agree = !Signup.Model.agree"
+      >
+        <p class="zero f14px dark bold">
+        이용약관 동의
+        </p>
+      </div>
+      <div class="col zero flex-v"
+        ng-click="goToState('Main.zTerm')"
+      >
+        <div class="col zero">
+          <p class="zero f14px positive bold right">
+          약관보기
+          </p>
+        </div>
+        <div class="col-auto ml5p">
+          <i class="ion-arrow-right-b positive f18px"></i>
+        </div>
+      </div>
+    </div>
+    <p class="zero center positive-bg radius f20px stable pt10px pb10px mt25px w90p ml5p mb50px"
+      ng-click="Signup.register()"
+    >
+    가입완료
+    </p>
+  </ion-content>
+</ion-view>

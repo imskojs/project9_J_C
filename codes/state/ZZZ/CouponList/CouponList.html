@@ -1,0 +1,76 @@
+<ion-view id="z-coupon-list"
+  cache-view="true"
+  hide-back-button="true"
+>
+
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-android-arrow-back"
+    ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    CouponList
+  </ion-nav-title>
+
+  <ion-content class="pt1px">
+    <ion-refresher
+      on-refresh="CouponList.refresh()"
+    >
+    </ion-refresher>
+    <div class="w100p h100vh flex-h light-grey-bg absolute pt100px"
+      style="z-index: 2"
+      ng-if="CouponList.Model.loading"
+    >
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </div>
+      <p class="zero f14px color1 bold mt10px">
+        사용 가능한 쿠폰
+      </p>
+      <div class="row zero positive-br5px mt5px r5px shadow"
+        ng-repeat="coupon in CouponList.Model.coupons"
+        ng-click="goToState('Main.zCouponDetail', {
+          id: coupon.id
+        }, 'forward')"
+      >
+        <div class="col-40 positive-bg flex r5px">
+          <img class="fit w100p lazy-show"
+            alt="쿠폰 메인 사진"
+            ng-src="{{coupon.photos[0].url | Cloudinary400}}"
+          >
+        </div>
+        <div class="col zero ml5px pt5px">
+          <p class="zero f16px darker">
+            {{coupon.title}}
+          </p>
+          <p class="zero f14px color1">
+            {{coupon.content}}
+          </p>
+          <p class="zero darker f14px mt15px">
+            사용기간
+          </p>
+          <p class="zero f14px"
+            ng-if="coupon.expriationDate"
+          >
+            {{coupon.expirationDate | date: 'yyyy.MM.dd'}} 까지
+          </p>
+          <p class="zero f14px"
+            ng-if="!coupon.expriationDate"
+          >
+            제한 없음
+          </p>
+          <div class="row zero mt5px pb5px">
+            <div class="col-30">
+              남은수량
+            </div>
+            <div class="col zero red f20px">
+              {{coupon.quantity}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+  </ion-content>
+</ion-view>

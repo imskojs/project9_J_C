@@ -1,0 +1,79 @@
+<ion-view id="z-coupon-detail"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button icon ion-android-arrow-back"
+      ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title class="bold">
+    쿠폰
+  </ion-nav-title>
+
+  <ion-content>
+    <div class="w100p h100vh flex-h light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="CouponDetail.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mt100px" icon="ripple">
+      </ion-spinner>
+    </div>
+
+      <!-- ng-if="PostListPopular.Model.loadPhotos" -->
+    <ion-slide-box class="w100p auto"
+      show-pager="true"
+      >
+      <ion-slide
+        ng-repeat="photo in post.photos"
+        >
+        <img class="w100p block h270px lazy-show"
+        ng-src="{{photo.url | Cloudinary600}}"
+        >
+      </ion-slide>
+    </ion-slide-box>
+
+    <div class="zero">
+      <div class="zero p10px">
+        <h2 class="zero f20px dark-grey">{{getParam('placeName')}}</h2>
+        <p class="zero color1 bold">{{CouponDetail.Model.coupon.title}}</p>
+      </div>
+
+      <p class="h25px zero pl10px lh25px white bold positive-bg">쿠폰정보</p>
+
+      <div class="zero p10px dark-grey">
+        <p class="zero">
+          사용기간
+          <span class="ml5px bold"
+            ng-if="CouponDetail.Model.coupon.expirationDate"
+          >
+            {{CouponDetail.Model.coupon.expriationDate | date:'yyyy.MM.dd'}}
+          </span>
+          <span class="ml5px bold"
+            ng-if="!CouponDetail.Model.coupon.expirationDate"
+          >
+            사용기간 제한 없음
+          </span>
+        </p>
+        <p class="zero">
+          남은수량
+          <span class="ml5px bold red">
+            {{CouponDetail.Model.coupon.quantity}}
+          </span>
+        </p>
+        <p class="zero">
+          {{CouponDetail.Model.coupon.content}}
+        </p>
+      </div>
+      <div class="zero center mt20px mb20px">
+        <button class="w60p h40px b0px white bold positive-bg"
+          ng-click="CouponDetail.modal.show()"
+        >
+          쿠폰사용
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

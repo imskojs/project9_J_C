@@ -1,0 +1,157 @@
+<ion-view id="z-post-detail"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back"
+      ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title class="bold">
+    <p class="zero">PostDetail</p>
+  </ion-nav-title>
+
+  <ion-content class="has-header">
+    <div class="w100p h100vh flex-h light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="PostDetail.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mt100px" icon="ripple">
+      </ion-spinner>
+    </div>
+
+    <ion-refresher
+      on-refresh="PostDetail.refresh()"
+    >
+    </ion-refresher>
+
+    <ion-slide-box class="w100p auto"
+      show-pager="true"
+    >
+      <ion-slide
+        ng-repeat="photo in PostDetail.Model.post.photos"
+      >
+        <img class="w100p block h240px lazy-show"
+          ng-src="{{photo.url | Cloudinary600}}"
+        >
+      </ion-slide>
+    </ion-slide-box>
+
+    <div class="zero pt10px pb10px color1-bb1px">
+      <div class="w90p zero auto">
+        <p class="zero mb10px f16px darker bold text-overflow">
+          {{ PostDetail.Model.post.title }}
+        </p>
+        <div class="flex-v zero f12px grey text-overflow">
+          <p class="zero pr5px color5">
+            {{ PostDetail.Model.post.owner | GetName }}
+          </p>
+          /
+          <p class="zero pl5px">
+            {{ PostDetail.Model.post.updatedAt | date: 'yyyy.MM.dd HH:mm'}}
+          </p>
+          <p class="zero pl5px">
+            조회<span>{{ PostDetail.Model.post.views || 0 }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative zero positive-bg20">
+      <img class="absolute top5px left5px w50px h50px r50p" src="img/side_menu_02.png">
+      <div class="absolute top5px right30px zero">
+        <button class="b0px r5px white bold positive-bg"
+          ng-if="AppStorage.user.id === PostDetail.Model.post.owner.id"
+          ng-click="PostDetail.showBubble = !PostDetail.showBubble"
+        >
+          글관리
+          <i class="icon ion-arrow-down-b"></i>
+        </button>
+      </div>
+      <div class="zero absolute top35px right30px zero"
+        ng-show="PostDetail.showBubble"
+      >
+        <div class="bubble row w120px h30px zero center bold">
+          <p class="col zero lh26px"
+            ng-click="goToState('Main.zPostUpdate', {
+              id: getParam('id')
+            }, 'forward')"
+          >
+            수정
+          </p>
+          <p class="col zero lh26px"
+            ng-click="PostDetail.destroyPost()"
+          >
+            삭제
+          </p>
+        </div>
+      </div>
+      <div class="zero ml30px pt20px pr30px pb20px pl30px color1-bl1px">
+        <div class="flex-v zero mb5px">
+          <p class="zero pr5px f12px color5 bold">
+            {{ PostDetail.Model.post.owner | GetName }}
+          </p>
+          <p class="zero f10px grey">
+            {{ PostDetail.Model.post.updatedAt | date: 'yyyy.MM.dd HH:mm'}}
+          </p>
+        </div>
+        <p class="zero f12px lh14px darker">
+          {{ PostDetail.Model.post.content }}
+        </p>
+      </div>
+      <div class="flex-v absolute bottom5px left40px zero f12px darker bold">
+        <i class="icon ion-chevron-up"></i>
+        <p class="ml5px zero">
+          댓글 <span>{{PostDetail.Model.post.commentsCount || 0}}</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="zero color1-bb1px grey-bg30">
+      <div class="flex-v w90p pt10px pb10px zero auto">
+        <input class="h30px mr10px pl5px pr5px darker-b1px r3px white-bg"
+          type="text"
+          ng-model="PostDetail.Model.form.commentContent"
+        >
+        <button class="w90px h30px b0px r3px white bold black-bg"
+          ng-click="PostDetail.createComment()"
+        >
+          COMMENT
+        </button>
+      </div>
+
+      <div class="zero pt10px pb10px grey-bb1px"
+        ng-repeat="comment in PostDetail.Model.comments"
+      >
+        <div class="relative w90p zero auto">
+          <div class="flex-v zero mb10px grey text-overflow">
+            <p class="zero pr5px f16px color5 bold">
+              {{ comment.owner | GetName}}
+            </p>
+            /
+            <p class="zero pl5px f12px">
+              {{ comment.updatedAt | date: 'yyyy.MM.dd HH:mm' }}
+            </p>
+          </div>
+          <button class="button-clear ion-android-close absolute top0px right0px"
+            ng-if="AppStorage.user.id === comment.owner"
+            ng-click="PostDetail.destroyComment(comment.id)"
+          >
+          </button>
+          <p class="zero f14px dark-grey">
+            {{ comment.content }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <ion-infinite-scroll
+      on-infinite="PostDetail.loadMoreComments()"
+      immediate-check="false"
+      ng-if="PostDetail.Model.more"
+    >
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,55 @@
+<ion-view id="z-post-update"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back"
+      ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title class="bold">
+    <p class="zero">PostUpdate</p>
+  </ion-nav-title>
+
+  <ion-content class="top84px">
+    <div class="w100p h100vh flex-h light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="PostUpdate.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mt100px" icon="ripple">
+      </ion-spinner>
+    </div>
+    <div class="auto w90p zero pt20px pb20px">
+      <div class="zero mb20px">
+        <p class="zero mb10px positive bold">제목</p>
+        <input class="pl5px pr5px r3px placeholder-grey white-bg"
+          type="text" placeholder="제목을 입력해주세요"
+          ng-model="PostUpdate.Model.form.title"
+        >
+      </div>
+
+      <div class="zero mb20px">
+        <p class="zero mb10px positive bold">내용</p>
+        <textarea class="h100px pl5px pr5px r3px placeholder-grey white-bg"
+          placeholder="내용을 입력해 주세요"
+          ng-model="PostUpdate.Model.form.content"
+        ></textarea>
+      </div>
+
+      <div class="flex zero">
+        <button class="w100px h40px mr10px b0px r3px f18px white bold positive-bg"
+          ng-click="PostUpdate.updatePost()"
+        >
+          수정하기
+        </button>
+        <button class="w100px h40px b0px r3px f18px white bold positive-bg"
+          ng-click="goBack()"
+        >
+          취소하기
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

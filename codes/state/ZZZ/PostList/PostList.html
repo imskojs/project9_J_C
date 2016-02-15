@@ -1,0 +1,66 @@
+<ion-view id="z-post-list"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back"
+      ng-click="goBack()"
+    >
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title class="bold">
+    <p class="zero">PostList</p>
+  </ion-nav-title>
+
+  <ion-nav-buttons side="right">
+    <button class="button-icon ion-compose"
+      ng-click=""
+    >
+    </button>
+  </ion-nav-buttons>
+
+  <ion-content class="has-header">
+    <ion-refresher
+      on-refresh="PostList.refresh()"
+    >
+    </ion-refresher>
+    <div class="w100p h100vh flex-h light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="PostList.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mt100px" icon="ripple">
+      </ion-spinner>
+    </div>
+
+    <div class="zero pt10px pb10px color1-bb1px"
+      ng-repeat="post in PostList.Model.posts"
+      ng-click="goToState('Main.zPostDetail', { id: post.id }, 'forward')"
+    >
+      <div class="w90p zero auto">
+        <p class="zero mb10px f16px darker bold text-overflow">
+          {{ post.title }}
+        </p>
+        <div class="flex-v zero f12px grey text-overflow">
+          <p class="zero pr5px color5">
+            {{ post.owner.name || post.owner.nickname || post.owner.username }}
+          </p>
+          /
+          <p class="zero pl5px">
+            {{post.updatedAt | date:'yyyy.MM.dd HH:mm' }}
+          </p>
+          <p class="zero pl5px">
+            조회<span> {{post.views || 0}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <ion-infinite-scroll
+      on-infinite="PostList.loadMore()"
+      immediate-check="false"
+      ng-if="PostList.Model.more"
+    >
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

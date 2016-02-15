@@ -1,0 +1,80 @@
+<ion-view id="z-login"
+    cache-view="true"
+    >
+    <ion-content class="positive-bg pl13p pr13p">
+        <!-- Main logo -->
+        <img class="main-logo w80p auto block mb40px"
+        src="img/login_logo.png"
+        >
+        <!-- form.email -->
+        <div class="row zero flex stable-bb">
+            <div class="col-auto">
+                <i class="ion-email stable f25px"></i>
+            </div>
+            <div class="col zero ml5p">
+                <input  class="positive-bg stable f16px placeholder-f16px h25px"
+                type="email"
+                placeholder="이메일을 입력해주세요"
+                ng-model="Login.Model.form.identifier"
+                >
+            </div>
+        </div>
+        <!-- form.password -->
+        <div class="row zero flex mt15px stable-bb">
+            <div class="col-auto">
+                <i class="ion-locked stable f25px"></i>
+            </div>
+            <div class="col zero ml5p">
+                <input class="positive-bg stable f16px placeholder-f16px h25px"
+                type="password"
+                placeholder="비밀번호를 입력해주세요"
+                ng-model="Login.Model.form.password"
+                >
+            </div>
+        </div>
+        <div class="row zero">
+            <div class="col-30 ml60p">
+                <p class="zero f14px center stable mt10px mb10px right bold darker pt10px pb20px"
+                ng-click="goToState('Main.zSignUp', null, 'forward')"
+                >
+                회원가입
+                </p>
+            </div>
+        </div>
+        <!-- ng-click="Login.login();" -->
+        <button class="darker-bg button-icon w100p zero center stable f20px pt10px pb10px mt20px radius bold"
+        ng-click="Login.localLogin();"
+        >
+            로그인
+        </button>
+
+<!--         
+        <div class="row zero mt30px">
+            <div class="col flex"
+                ng-click="Login.loginWithFacebook()"
+                >
+                <img class="w80p"
+                src="img/login_icon03.png"
+                alt="facebook"
+                >
+            </div>
+            <div class="col flex"
+                ng-click="Login.loginWithTwitter()"
+                >
+                <img class="w80p"
+                src="img/login_icon04.png"
+                alt="twitter"
+                >
+            </div>
+            <div class="col flex"
+                ng-click="Login.loginWithGoogle()"
+                >
+                <img class="w80p"
+                src="img/login_icon05.png"
+                alt="google"
+                >
+            </div>
+        </div>
+ -->        
+    </ion-content>
+</ion-view>
