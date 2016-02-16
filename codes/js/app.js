@@ -30,7 +30,7 @@
     angular.extend($rootScope, RootScope);
 
     // setInitialState();
-    $state.go('Main.ReviewCreate');
+    $state.go('Main.CommentCreate');
 
     $ionicPlatform.ready(onIonicPlatformReady);
 

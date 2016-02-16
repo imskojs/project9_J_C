@@ -97,6 +97,16 @@
       }
     })
 
+    .state('Main.CommentCreate', {
+      url: '/CommentCreate',
+      views: {
+        Main: {
+          templateUrl: 'state/CommentCreate/CommentCreate.html',
+          controller: 'CommentCreateController as CommentCreate'
+        }
+      }
+    })
+
 
 
 

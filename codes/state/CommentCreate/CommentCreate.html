@@ -1,0 +1,91 @@
+<ion-view id="comment-create"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white">
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title>
+    <p class="zero pl1p">댓글 달기</p>
+  </ion-nav-title>
+
+  <ion-content class="">
+    <div class="relative h100p">
+
+      <div class="pt5px pb5px pl15px pr15px pt10px">  <!--리뷰Node 컨테이너 시작-->
+        <!--회원 프로필사진 | 아이디, 작성일자, 평점 | 삭제버튼-->
+        <div class="row zero mb10px">
+          <div class="col-15 zero flex mr2p">
+            <img class="h40px"
+              src="img/defaultimg.png" alt="프로필사진">
+          </div>
+          <div class="col-65 zero">
+            <div class="row zero mt5px">
+              <div class="col-auto flex-v">
+                <p class="zero f14px bold">{{"user아이디"}}</p>
+              </div>
+              <div class="col-auto flex-v">
+                <p class="zero f14px bold grey">&nbsp;|&nbsp;</p>
+              </div>
+              <div class="col-auto flex-v">
+                <p class="zero f12px grey">{{"2016.02.16"}}</p>
+              </div>
+            </div>
+            <div class="row zero positive f18px mt5px">
+              <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+              <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+              <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+              <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+              <div class="col-auto zero"><i class="ion-android-star-outline"></i></div>
+            </div>
+          </div>
+        </div>
+        <!--후기-->
+        <div class="row zero mt15px">
+          <div class="col zero">
+            <p>{{"술맛좋고 안주좋고 다 좋아요! 맛있게 잘 먹고갑니다. 주당어플 통해 할인받았더니 엄청 싸네요~"}}</p>
+          </div>
+        </div>
+        <!--사진-->
+        <div class="row zero mt5px" style="justify-content: space-between;">
+          <div class="col zero flex"><img class="w50px h50px r5px" src="img/_box200x200.png" alt="후기사진"></div>
+          <div class="col zero flex"><img class="w50px h50px r5px" src="img/_box200x200.png" alt="후기사진"></div>
+          <div class="col zero flex"><img class="w50px h50px r5px" src="img/_box200x200.png" alt="후기사진"></div>
+          <div class="col zero flex"><img class="w50px h50px r5px" src="img/_box200x200.png" alt="후기사진"></div>
+          <div class="col zero flex"><img class="w50px h50px r5px" src="img/_box200x200.png" alt="후기사진"></div>
+        </div>
+      </div>  <!--리뷰Node 컨테이너 끝-->
+
+      <hr class="b0px h2px grey-bg mt20px" />
+
+      <!--사장님 댓글-->
+      <div class="mt5px p10px absolute bottom0px w100p" style="background-color: #f7e8ed;">
+        <!--아이콘 | 사장님 아이디 | 작성일자-->
+        <div class="row zero pl10px">
+          <div class="col-auto zero">
+            <i class="ion-android-share pr5px"></i>
+          </div>
+          <div class="col-auto zero flex-v">
+            <p class="zero f12px bold">{{"사장님아이디"}}</p>
+          </div>
+        </div>
+
+        <form novalidate>
+          <div class="row zero mt5px">
+            <div class="col-90 zero">
+              <input class="p10px grey grey-b1px white-bg placeholder-grey h40px w100p br0px"
+                type="text" name="" placeholder="댓글을 남겨주세요." />
+            </div>
+            <div class="col-10 zero flex">
+              <div class="top4px right10px white-bg h40px w100p grey-b1px bl0px flex-v">
+                <p class="zero r50p center w32px h32px lh32px grey-bg white f13px">등록</p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
