@@ -30,7 +30,7 @@
     angular.extend($rootScope, RootScope);
 
     // setInitialState();
-    $state.go('Main.RequestUpdate');
+    $state.go('Main.GoogleMap');
 
     $ionicPlatform.ready(onIonicPlatformReady);
 

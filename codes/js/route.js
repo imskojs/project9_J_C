@@ -77,6 +77,16 @@
       }
     })
 
+    .state('Main.GoogleMap', {
+      url: '/GoogleMap',
+      views: {
+        Main: {
+          templateUrl: 'state/GoogleMap/GoogleMap.html',
+          controller: 'GoogleMapController as GoogleMap'
+        }
+      }
+    })
+
 
 
 
