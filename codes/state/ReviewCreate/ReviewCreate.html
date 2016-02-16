@@ -1,0 +1,113 @@
+<ion-view id="review-create"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white">
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title>
+    <p class="zero pl1p">리뷰</p>
+  </ion-nav-title>
+
+  <ion-content class="">
+
+    <!--상단 별점주는 공간-->
+    <div class="pl2p pr2p positive">  <!--컨테이너-->
+      <div class="row zero mt10px">
+        <div class="col zero flex">
+          <p class="zero f20px">{{"T Pub"}}</p>
+        </div>
+      </div>
+      <div class="row zero mt10px f24px flex">
+        <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+        <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+        <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+        <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+        <div class="col-auto zero"><i class="ion-android-star-outline"></i></div>
+      </div>
+      <div class="row zero mt10px mb20px">
+        <div class="col zero flex">
+          <p class="zero f12px">평점을 달아주세요.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="b0px h2px positive-bg" />
+
+    <!--상세 리뷰 작성공간-->
+    <div class="pl2p pr2p">  <!--컨테이너-->
+      <div class="row zero mb5px mt15px">
+        <div class="col zero">
+          <p class="f12px dark-grey bold">상세한 리뷰를 작성해주세요.</p>
+        </div>
+      </div>
+      <div class="row zero mb25px">
+        <div class="col zero">
+          <textarea class="w100p p10px"
+            style="background-color: #f7e8ed;"
+            rows="7" maxlength="1000" placeholder=""></textarea>
+        </div>
+      </div>
+
+    <!--사진등록 공간-->
+      <div class="row zero mb15px">
+        <div class="col zero">
+          <p class="f12px dark-grey bold">사진등록 (최대 5장)</p>
+        </div>
+      </div>
+      <div class="row zero mb30px">
+        <div class="col zero flex mr1p">
+          <img class="h50px r5px" src="img/camera.png" alt="">
+        </div>
+        <div class="col zero flex mr1p">
+          <div class="relative">
+            <i class="ion-ios-minus absolute positive f26px"
+              style="top: -15px; right: -5px;"></i>
+            <img class="h50px r5px" src="img/_box200x200.png" alt="">
+          </div>
+        </div>
+        <div class="col zero flex mr1p">
+          <div class="relative">
+            <i class="ion-ios-minus absolute positive f26px"
+              style="top: -15px; right: -5px;"></i>
+            <img class="h50px r5px" src="img/_box200x200.png" alt="">
+          </div>
+        </div>
+        <div class="col zero flex mr1p">
+          <div class="relative">
+            <i class="ion-ios-minus absolute positive f26px"
+              style="top: -15px; right: -5px;"></i>
+            <img class="h50px r5px" src="img/_box200x200.png" alt="">
+          </div>
+        </div>
+        <div class="col zero flex mr1p">
+          <div class="relative">
+            <i class="ion-ios-minus absolute positive f26px"
+              style="top: -15px; right: -5px;"></i>
+            <img class="h50px r5px" src="img/_box200x200.png" alt="">
+          </div>
+        </div>
+        <div class="col zero flex mr1p">
+          <div class="relative">
+            <i class="ion-ios-minus absolute positive f26px"
+              style="top: -15px; right: -5px;"></i>
+            <img class="h50px r5px" src="img/_box200x200.png" alt="">
+          </div>
+        </div>
+      </div>
+
+      <!--리뷰 등록하기 버튼-->
+      <div class="row zero">
+        <div class="col zero flex">
+          <p class="zero positive-bg r50px white pl30p pr30p pt10px pb10px">리뷰 등록하기</p>
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </ion-content>
+</ion-view>

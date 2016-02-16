@@ -30,7 +30,7 @@
     angular.extend($rootScope, RootScope);
 
     // setInitialState();
-    $state.go('Main.GoogleMap');
+    $state.go('Main.ReviewCreate');
 
     $ionicPlatform.ready(onIonicPlatformReady);
 

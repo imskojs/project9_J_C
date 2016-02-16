@@ -87,6 +87,16 @@
       }
     })
 
+    .state('Main.ReviewCreate', {
+      url: '/ReviewCreate',
+      views: {
+        Main: {
+          templateUrl: 'state/ReviewCreate/ReviewCreate.html',
+          controller: 'ReviewCreateController as ReviewCreate'
+        }
+      }
+    })
+
 
 
 
