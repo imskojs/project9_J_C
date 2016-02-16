@@ -20,7 +20,7 @@
 
   <ion-content class="has-header">
 
-    <div class="relative">
+    <div class="relative">  <!--placeDetail 전체 컨테이너-->
       <!--슬라이드 box-->
       <ion-slide-box class="w100p auto"
         show-pager="true"
@@ -93,24 +93,228 @@
         </div>
       </div>
 
-      <hr class="b0px h2px positive-bg"/>
+      <hr class="b0px h2px"
+        style="background-color: #f7e8ec;"/>
+
       <!-- 상세정보 -->
-      <!--주소-->
-      <!--영업시간-->
-      <!--규모-->
-      <!--한줄소개-->
-      <!--회원혜택-->
-      <!--이벤트-->
+      <div class="pt10px pr5p pb10px pl5p">  <!--상세정보 전체 컨테이너-->
+        <div class="row zero bold">
+          <div class="col zero">
+            <p class="positive f20px">[ 상세정보 ]</p>
+          </div>
+        </div>
+
+        <!--주소-->
+        <div class="row zero mt5px bold">
+          <div class="col zero">
+            <p class="positive f14px">주소</p>
+          </div>
+        </div>
+        <div class="row zero">
+          <div class="col zero">
+            <p class="f12px">{{"서울특별시 강남구 역삼동 723-1"}}</p>
+          </div>
+        </div>
+        <div class="row w100px zero flex-v p3 positive-bg white r20px">
+          <div class="col-auto zero">
+            <i class="ion-ios-location f14px"></i>
+          </div>
+          <div class="col-auto zero flex ml7px">
+            <p class="f14px zero">지도 보기</p>
+          </div>
+        </div>
+
+        <!--영업시간-->
+        <div class="row zero mt5px bold">
+          <div class="col zero">
+            <p class="positive f14px">영업시간</p>
+          </div>
+        </div>
+        <div class="row zero">
+          <div class="col zero">
+            <p class="f12px">평일 {{"18:00 ~ 02:00"}}</p>
+          </div>
+        </div>
+        <div class="row zero">
+          <div class="col zero">
+            <p class="f12px">주말 {{"18:00 ~ 04:00"}}</p>
+          </div>
+        </div>
+
+        <!--규모-->
+        <div class="row zero mt5px bold">
+          <div class="col zero">
+            <p class="positive f14px">규모</p>
+          </div>
+        </div>
+        <div class="row zero">
+          <div class="col zero">
+            <p class="f12px">{{"40"}}석</p>
+          </div>
+        </div>
+
+        <!--한줄소개-->
+        <div class="row zero mt5px bold">
+          <div class="col zero">
+            <p class="positive f14px">한줄소개</p>
+          </div>
+        </div>
+        <div class="row zero">
+          <div class="col zero">
+            <p class="f12px">{{"강남에 위치한 안주가 맛있는 펍입니다."}}</p>
+          </div>
+        </div>
+
+        <!--회원혜택-->
+        <div class="row zero mt5px bold">
+          <div class="col zero">
+            <p class="positive f14px">회원혜택</p>
+          </div>
+        </div>
+        <div class="row zero">
+          <div class="col zero">
+            <p class="f12px">{{"5% 할인"}}</p>
+          </div>
+        </div>
+        <div class="row zero">
+          <div class="col zero">
+            <p class="f12px">- 회원혜택은 제휴점 내규에 따라 적용됩니다.</p>
+          </div>
+        </div>
+        <div class="row zero">
+          <div class="col zero">
+            <p class="f12px">- 카운터에서 주당 앱을 보여주세요.</p>
+          </div>
+        </div>
+
+        <!--이벤트-->
+        <div class="row zero mt5px bold">
+          <div class="col zero">
+            <p class="positive f14px">이벤트</p>
+          </div>
+        </div>
+        <div class="row zero">
+          <div class="col zero">
+            <p class="f12px">{{"6시 ~ 7시 타임 이벤트 : 생맥주 1잔 2,000원"}}</p>
+          </div>
+        </div>
+        <div class="row zero">
+          <div class="col zero">
+            <p class="f12px">- 이벤트는 제휴점 내규에 따라 적용됩니다.</p>
+          </div>
+        </div>
+        <div class="row zero">
+          <div class="col zero">
+            <p class="f12px">- 카운터에서 주당 앱을 보여주세요.</p>
+          </div>
+        </div>
+      </div>
+
       <!--수정요청 버튼-->
+      <div class="row zero light-grey-bg dark-grey flex pt10px pb10px pr10p pl10p">
+        <div class="row flex black-b1px r50px pt5px pb5px pr10p pl10p">
+          <div class="col-auto zero">
+            <i class="ion-settings f20px"></i>
+          </div>
+          <div class="col-auto zero">
+            <p class="zero f20px ml10px">수정요청</p>
+          </div>
+        </div>
+      </div>
 
       <!--리뷰-->
+      <div class="row zero mt20px mb20px ml5p mr5p bold">
+        <div class="col zero">
+          <p class="zero positive f14px">리뷰 ( {{27}} )</p>
+        </div>
+      </div>
+
       <!--리뷰 List-->
+      <div class="row zero pl1p pr1p pt5px pb5px">  <!--리뷰 List 컨테이너-->
 
-      <!--리뷰 더보기 버튼
+        <div class="light-grey-b1px pt5px pb5px pl15px pr15px">  <!--리뷰Node 컨테이너 시작-->
+          <!--회원 프로필사진 | 아이디, 작성일자, 평점 | 삭제버튼-->
+          <div class="row zero">
+            <div class="col-15 zero flex">
+              <img class="h30px"
+                src="img/defaultimg.png" alt="프로필사진">
+            </div>
+            <div class="col-70 zero">
+              <div class="row zero mt5px">
+                <div class="col-auto flex-v">
+                  <p class="zero f12px bold">{{"user아이디"}}</p>
+                </div>
+                <div class="col-auto flex-v">
+                  <p class="zero f12px bold grey">&nbsp;|&nbsp;</p>
+                </div>
+                <div class="col-auto flex-v">
+                  <p class="zero f10px grey">{{"2016.02.16"}}</p>
+                </div>
+              </div>
+              <div class="row zero positive f16px mt5px">
+                <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+                <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+                <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+                <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
+                <div class="col-auto zero"><i class="ion-android-star-outline"></i></div>
+              </div>
+            </div>
+            <div class="col-15 zero flex mt5px">
+              <p class="dark-grey dark-grey-b1px r50px pl5px pr5px pt2px pb2px">삭제</p>
+            </div>
+          </div>
+          <!--후기-->
+          <div class="row zero mt5px">
+            <div class="col zero">
+              <p>{{"술맛좋고 안주좋고 다 좋아요! 맛있게 잘 먹고갑니다. 주당어플 통해 할인받았더니 엄청 싸네요~"}}</p>
+            </div>
+          </div>
+          <!--사진-->
+          <div class="row zero mt5px" style="justify-content: space-between;">
+            <div class="col zero flex-v"><img class="w50px h50px r5px pr1p" src="img/_box200x200.png" alt="후기사진"></div>
+            <div class="col zero flex-v"><img class="w50px h50px r5px pr1p" src="img/_box200x200.png" alt="후기사진"></div>
+            <div class="col zero flex-v"><img class="w50px h50px r5px pr1p" src="img/_box200x200.png" alt="후기사진"></div>
+            <div class="col zero flex-v"><img class="w50px h50px r5px pr1p" src="img/_box200x200.png" alt="후기사진"></div>
+            <div class="col zero flex-v"><img class="w50px h50px r5px" src="img/_box200x200.png" alt="후기사진"></div>
+          </div>
+          <!--사장님 댓글-->
+          <div class="mt5px p10px" style="background-color: #fcf3f6;">
+            <!--아이콘 | 사장님 아이디 | 작성일자-->
+            <div class="row zero">
+              <div class="col-auto zero">
+                <i class="ion-android-share pr5px"></i>
+              </div>
+              <div class="col-auto zero flex-v">
+                <p class="zero f12px bold">{{"사장님아이디"}}</p>
+              </div>
+              <div class="col-auto zero flex-v">
+                <p class="zero f12px bold grey">&nbsp;|&nbsp;</p>
+              </div>
+              <div class="col-auto zero flex-v">
+                <p class="zero f10px grey">{{"2016.02.16"}}</p>
+              </div>
+            </div>
+            <div class="row zero mt5px">
+              <div class="col zero">
+                <p>{{"맛있게 드셨다니 저희도 기분이 좋습니다! 다음에 또 이용해주세요~ 좋은 하루 보내세요!"}}</p>
+              </div>
+            </div>
+          </div>
+        </div>  <!--리뷰Node 컨테이너 끝-->
 
+      </div>  <!--리뷰 List 끝-->
 
-    </div>
+      <!--리뷰 더보기 버튼-->
+      <div class="row zero mt5px">
+        <div class="col zero flex">
+          <p class="grey p5 grey-b1px r30px">리뷰 더보기</p>
+        </div>
+      </div>
+
+    </div>  <!--상세정보 전체 컨테이너 끝-->
   </ion-content>
+
+
 
   <ion-footer-bar class="bar-positive footer zero">
     <div class="row zero">
