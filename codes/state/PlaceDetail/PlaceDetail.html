@@ -19,7 +19,97 @@
   </ion-nav-buttons>
 
   <ion-content class="has-header">
-    Place-Detail
+
+    <div class="relative">
+      <!--슬라이드 box-->
+      <ion-slide-box class="w100p auto"
+        show-pager="true"
+      >
+        <ion-slide>
+          <img class="w100p block h60vw lazy-show"
+            src="img/icon_recommend.png"
+          >
+        </ion-slide>
+        <ion-slide>
+          <img class="w100p block h60vw lazy-show"
+            src="img/icon_recommend.png"
+          >
+        </ion-slide>
+        <ion-slide>
+          <img class="w100p block h60vw lazy-show"
+            src="img/icon_recommend.png"
+          >
+        </ion-slide>
+      </ion-slide-box>
+
+      <!--슬라이드 위에 붙는 스티커-->
+      <div class="absolute h25px w100px top20px left0px positive-bg">
+        <div class="row zero h25px">
+          <div class="col zero h25px flex">
+            <p class="f12px white zero center">{{5}}% 할인</p>
+          </div>
+          <div class="col-10 dark-grey-bg h25px">
+          </div>
+        </div>
+      </div>
+
+      <!--업체명-->
+      <div class="row zero">
+        <div class="col zero center">
+          <p class="positive f24px bold mt15px">T Pub</p>
+        </div>
+      </div>
+      <!--별점-->
+      <div class="row zero flex positive">
+        <div class="col-auto zero"><i class="ion-android-star f20px m3px"></i></div>
+        <div class="col-auto zero"><i class="ion-android-star f20px m3px"></i></div>
+        <div class="col-auto zero"><i class="ion-android-star f20px m3px"></i></div>
+        <div class="col-auto zero"><i class="ion-android-star f20px m3px"></i></div>
+        <div class="col-auto zero"><i class="ion-android-star-outline f20px m3px"></i></div>
+      </div>
+      <!--(눈)조회수, (하트)즐겨찾기수-->
+      <div class="row zero flex grey">
+        <div class="col-auto zero flex"><i class="f18px m5px ion-eye "></i></div>
+        <div class="col-auto zero flex"><p class="f10px m5px">2,070</p></div>
+        <div class="col-auto zero flex"><i class="f16px m5px ion-heart "></i></div>
+        <div class="col-auto zero flex"><p class="f10px m5px">383</p></div>
+      </div>
+      <!--태그-->
+      <div class="row zero flex center f10px bold positive">
+        <div class="col zero ml5p">
+          <p class="p5 positive-b1px r3px">태그1</p>
+        </div>
+        <div class="col zero ml1p">
+          <p class="p5 positive-b1px r3px">태그2</p>
+        </div>
+        <div class="col zero ml1p">
+          <p class="p5 positive-b1px r3px">태그3</p>
+        </div>
+        <div class="col zero ml1p">
+          <p class="p5 positive-b1px r3px">태그4</p>
+        </div>
+        <div class="col zero ml1p mr5p">
+          <p class="p5 positive-b1px r3px">태그5</p>
+        </div>
+      </div>
+
+      <hr class="b0px h2px positive-bg"/>
+      <!-- 상세정보 -->
+      <!--주소-->
+      <!--영업시간-->
+      <!--규모-->
+      <!--한줄소개-->
+      <!--회원혜택-->
+      <!--이벤트-->
+      <!--수정요청 버튼-->
+
+      <!--리뷰-->
+      <!--리뷰 List-->
+
+      <!--리뷰 더보기 버튼
+
+
+    </div>
   </ion-content>
 
   <ion-footer-bar class="bar-positive footer zero">

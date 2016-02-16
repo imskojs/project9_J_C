@@ -13,26 +13,39 @@
     </p>
   </ion-nav-title>
 
-  <ion-nav-buttons side="right">
-    <button class="button-icon ion-android-search white">
-    </button>
-  </ion-nav-buttons>
 
   <ion-header-bar class="bar-subheader positive-bg zero"
     no-tap-scroll="true"
   >
-    <div class="row zero">
-      <div class="col zero">
+    <div class="row w100p">
+      <div class="col-80">
+        <input class="w100p h32px pl3p"
+          style="background-color: #e4d5da; color: #9b2142;"
+          type="text" value="업체명, 태그로 검색할 수 있습니다."
+        >
       </div>
-      <div class="col zero">
+      <div class="col-10"
+        style="background-color: #e4d5da;">
+        <i class="ion-backspace f30px lh30px positive"></i>
       </div>
-      <div class="col zero">
+      <div class="col-10 center">
+        <i class="ion-android-search f25px lh30px white"></i>
       </div>
     </div>
   </ion-header-bar>
 
-  <ion-content class="pl5p pr5p has-subheader">
-    Home
+  <ion-content class="has-subheader">
+    <div class="row mt30vw">
+      <div class="col flex">
+        <img class="w30p"
+          src="img/defaultimg.png">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col flex grey f16px">
+        <p>검색내역이 없습니다.</p>
+      </div>
+    </div>
   </ion-content>
 
 </ion-view>

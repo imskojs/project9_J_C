@@ -3,29 +3,95 @@
   hide-back-button="true"
 >
   <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-back white">
+    <button class="button-icon ion-android-arrow-back white">
     </button>
   </ion-nav-buttons>
 
-  <ion-nav-title class="bold">
-    <p class="zero pl5p">
-      JOODANG
-    </p>
+  <ion-nav-title>
+    <p class="zero pl1p">내 주변 추천술집</p>
   </ion-nav-title>
 
   <ion-header-bar class="h30px top44px light-grey-bb1px white-bg"
     no-tap-scroll="true"
   >
+    <div class="row pl3p">
+      <div class="col-10 flex-v">
+        <i class="ion-android-locate positive f20px pl4p"></i>
+      </div>
+      <div class="col-auto flex-v">
+        <p class="f14px zero">서울특별시 강남구 역삼동</p>
+      </div>
+      <div class="col flex-v pl5p">
+        <p class="f8px zero grey-bg r20px p5">재설정</p>
+      </div>
+    </div>
   </ion-header-bar>
 
   <ion-header-bar class="h35px top74px white-bg"
     no-tap-scroll="true"
   >
+    <div class="row zero pl3p">
+      <div class="col-auto zero flex-v pl5px pr5px r30px positive-b2px">
+        <p class="positive zero bold">프리미엄</p>
+      </div>
+    </div>
   </ion-header-bar>
 
-  <ion-content class="pl5p pr5p light-grey-bg"
+  <ion-content class=""
     top="109"
   >
-    Place-List
+    <div class="row zero grey-b1px">
+      <div class="col-40 zero flex light-grey-bg relative">
+        <img class="w50p" src="{{'img/defaultimg.png'}}" alt="매장 대표사진">
+        <div class="absolute h25px w100px top20px left0px positive-bg">
+          <div class="row zero h25px">
+            <div class="col zero h25px flex">
+              <p class="f12px white zero center">{{5}}% 할인</p>
+            </div>
+            <div class="col-10 dark-grey-bg h25px">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-60 zero p2p">
+        <div class="row zero">
+          <div class="col-70 zero">
+            <p class="f22px bold text-overflow zero">매장 이름</p>
+          </div>
+          <div class="col-auto zero flex-v f18px positive ion-ios-location mr2p"></div>
+          <div class="col-auto zero flex-v f16px positive">{{"60m"}}</div>
+        </div>
+        <div class="row zero mt5px">
+          <div class="col-auto zero mr2p"><i class="f16px ion-android-star positive"></i></div>
+          <div class="col-auto zero mr2p"><i class="f16px ion-android-star positive"></i></div>
+          <div class="col-auto zero mr2p"><i class="f16px ion-android-star positive"></i></div>
+          <div class="col-auto zero mr2p"><i class="f16px ion-android-star positive"></i></div>
+          <div class="col-auto zero mr2p"><i class="f16px ion-android-star-outline positive"></i></div>
+        </div>
+        <div class="row zero mt1px mb10px">
+          <div class="col zero">
+            <p class="zero text-overflow">서울시 강남구 역삼동 723-1</p>
+          </div>
+        </div>
+        <div class="row zero center">
+          <div class="col zero p1px">
+            <p class="p5 positive positive-b1px r3px f8px text-overflow">태그</p>
+          </div>
+          <div class="col zero p1px">
+            <p class="p5 positive positive-b1px r3px f8px text-overflow">태그</p>
+          </div>
+          <div class="col zero p1px">
+            <p class="p5 positive positive-b1px r3px f8px text-overflow">태그</p>
+          </div>
+          <div class="col zero p1px">
+            <p class="p5 positive positive-b1px r3px f8px text-overflow">태그</p>
+          </div>
+          <div class="col zero p1px">
+            <p class="p5 positive positive-b1px r3px f8px text-overflow">태그</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>
