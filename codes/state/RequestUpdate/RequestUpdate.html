@@ -1,0 +1,183 @@
+<!--아이오닉은 Main.html로 시작하며,
+    <ion-view 태그로 시작하고, 그 하위 자식으로
+    <ion-side-menus>
+      <ion-side-menu-content>
+        <ion-nav-bar>
+        <ion-nav-view name="">
+    형식으로 진행되는것이 보통인듯 하다.
+
+    <ion-nav-view 의 name속성의 값을 route.js의 views 어트리뷰트에서
+    angular.module("app").config([$stateProvider, function($stateProvider){
+      $stateProvider.state("Main", {
+        url: "/Main",
+        views: {
+          Main: {
+            templateUrl: "state/0Main/Main.html",
+            controller: "MainController as Main"
+          }
+        }
+      })
+    }]);
+
+    그 외의 페이지들은 <ion-view> 태그로 시작하여, 그 하위자식으로
+    <ion-nav-title||buttons> (상단, header)
+    <ion-content> (실제 내용, Web과 동일한 유형)
+    <ion-footer-bar> (네비게이션 버튼 등) 크게는 이렇게 3개의 파트로 나눠진다.
+    그들 내부에서 flex box를 이용해 레이아웃을 잡는것이 기본이다. -->
+
+<ion-view id="request-update"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white">
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title class="bold">
+    <p class="zero">수정 요청</p>
+  </ion-nav-title>
+
+  <ion-nav-buttons side="right">
+    <button class="button-icon ion-edit white f20px">
+    </button>
+  </ion-nav-buttons>
+
+  <ion-content class="has-header">
+    <!--수정요청에 대한 이미지 및 설명-->
+    <div class="positive-bg">
+      <div class="row zero">
+        <div class="col zero flex">
+          <img class="h100px"
+            src="img/defaultimg.png" alt="주당 이미지">
+        </div>
+      </div>
+      <div class="row zero pt20px pb30px">
+        <div class="col zero flex">
+          <p class="zero white f12px lh20px">
+            주당 앱에 표시된 주점 정보와 실제 방문 시<br/>
+            다른 내용이 있다면 '수정 요청' 을 해주세요.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!--설문지-->
+    <div class="pt10px pb10px">  <!--설문지 컨테이너-->
+      <!--업체명-->
+      <div class="row zero pl3p pr3p ">
+        <div class="col-30 zero">
+          <p class="zero">업체명</p>
+        </div>
+        <div class="col-70 zero">
+          <p class="zero positive bold">{{"T Pub"}}</p>
+        </div>
+      </div>
+
+      <hr class="b0px h1px positive-bg" />
+
+      <!--수정요청이유-->
+      <div class="row zero pl3p pr3p">
+        <div class="col-30 zero">
+          <p class="zero">수정요청이유</p>
+        </div>
+        <div class="col-70 zero">
+          <div class="row zero mb5px">
+            <div class="col-auto zero">
+              <i class="ion-ios-circle-outline positive f18px mr5px"></i>
+            </div>
+            <div class="col-auto zero">
+              <p class="zero f12px">업체정보가 달라요</p>
+            </div>
+          </div>
+          <div class="row zero mb5px">
+            <div class="col-auto zero">
+              <i class="ion-ios-checkmark positive f18px mr5px"></i>
+            </div>
+            <div class="col-auto zero">
+              <p class="zero f12px">메뉴 및 가격이 달라요</p>
+            </div>
+          </div>
+          <div class="row zero mb5px">
+            <div class="col-auto zero">
+              <i class="ion-ios-checkmark positive f18px mr5px"></i>
+            </div>
+            <div class="col-auto zero">
+              <p class="zero f12px">이벤트 및 회원혜택이 달라요</p>
+            </div>
+          </div>
+          <div class="row zero mb5px">
+            <div class="col-auto zero">
+              <i class="ion-ios-circle-outline positive f18px mr5px"></i>
+            </div>
+            <div class="col-auto zero">
+              <p class="zero f12px">없어진 업체이거나 다른 업체로 바뀌었어요</p>
+            </div>
+          </div>
+          <div class="row zero mb5px">
+            <div class="col-auto zero">
+              <i class="ion-ios-checkmark positive f18px mr5px"></i>
+            </div>
+            <div class="col-auto zero">
+              <p class="zero f12px">기타</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="b0px h1px positive-bg" />
+
+      <!--상세내용 작성-->
+      <div class="row zero pl3p pr3p">
+        <div class="col zero">
+          <p class="">상세내용작성</p>
+        </div>
+      </div>
+      <div class="row zero pl3p pr3p">
+        <div class="col zero">
+          <textarea class="w100p" rows="10" maxlength="1000" placeholder=""
+            style="background-color: #f7e8ed"></textarea>
+        </div>
+      </div>
+
+      <!--수정요청하기 버튼-->
+      <div class="row zero">
+        <div class="col zero flex">
+          <p class="zero mt20px pl10p pr10p pt10px pb10px positive-bg white f16px r20px">수정 요청하기</p>
+        </div>
+      </div>
+    <div>
+
+  </ion-content>
+
+
+<!--
+  <ion-footer-bar class="bar-positive footer zero">
+    <div class="row zero">
+
+      <div class="col zero flex">
+        <button class="button-icon ion-heart white f20px">
+        </button>
+      </div>
+
+      <div class="col zero flex light-grey-bl1px">
+        <button class="button-icon ion-chatbubble-working white f20px">
+        </button>
+      </div>
+
+      <div class="col zero flex light-grey-bl1px">
+        <button class="button-icon ion-clipboard white f20px">
+        </button>
+      </div>
+
+      <div class="col-40 flex light-grey-bl1px">
+        <button class="button-icon ion-ios-telephone white f20px">
+        </button>
+        <p class="zero">
+          전화하기
+        </p>
+      </div>
+
+    </div>
+  </ion-footer-bar> -->
+</ion-view>

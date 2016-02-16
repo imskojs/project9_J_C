@@ -65,7 +65,16 @@
           controller: 'PlaceDetailController as PlaceDetail'
         }
       }
+    })
 
+    .state('Main.RequestUpdate', {  //상태의 이름
+      url: '/RequestUpdate',        //접속할 angular의 url
+      views: {                      //ion-nav-view의 name속성의 값을 참조함.
+        Main: {                     //<ion-nav-view name="Main"> 태그에 렌더링할 대상을 설정
+          templateUrl: 'state/RequestUpdate/RequestUpdate.html',  //렌더링 할 html파일
+          controller: 'RequestUpdateController as RequestUpdate'  //html파일에서 사용할 Angular의 컨트롤러
+        }
+      }
     })
 
 
