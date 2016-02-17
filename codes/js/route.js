@@ -107,6 +107,16 @@
       }
     })
 
+    .state('Main.MessageCreate', {
+      url: '/MessageCreate',
+      views: {
+        Main: {
+          templateUrl: 'state/MessageCreate/MessageCreate.html',
+          controller: 'MessageCreateController as MessageCreate'
+        }
+      }
+    })
+
 
 
 

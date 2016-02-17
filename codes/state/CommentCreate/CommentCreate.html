@@ -11,8 +11,8 @@
     <p class="zero pl1p">댓글 달기</p>
   </ion-nav-title>
 
-  <ion-content class="">
-    <div class="relative h100p">
+  <ion-content class="bottom80px">  <!--footer bar에 height를 주면, 해당 크기만큼 content의 bottom을 준다.-->
+    <div class="relative">
 
       <div class="pt5px pb5px pl15px pr15px pt10px">  <!--리뷰Node 컨테이너 시작-->
         <!--회원 프로필사진 | 아이디, 작성일자, 평점 | 삭제버튼-->
@@ -61,31 +61,36 @@
       <hr class="b0px h2px grey-bg mt20px" />
 
       <!--사장님 댓글-->
-      <div class="mt5px p10px absolute bottom0px w100p" style="background-color: #f7e8ed;">
-        <!--아이콘 | 사장님 아이디 | 작성일자-->
-        <div class="row zero pl10px">
-          <div class="col-auto zero">
-            <i class="ion-android-share pr5px"></i>
-          </div>
-          <div class="col-auto zero flex-v">
-            <p class="zero f12px bold">{{"사장님아이디"}}</p>
-          </div>
-        </div>
-
-        <form novalidate>
-          <div class="row zero mt5px">
-            <div class="col-90 zero">
-              <input class="p10px grey grey-b1px white-bg placeholder-grey h40px w100p br0px"
-                type="text" name="" placeholder="댓글을 남겨주세요." />
-            </div>
-            <div class="col-10 zero flex">
-              <div class="top4px right10px white-bg h40px w100p grey-b1px bl0px flex-v">
-                <p class="zero r50p center w32px h32px lh32px grey-bg white f13px">등록</p>
-              </div>
-            </div>
-          </div>
-        </form>
+      <div class="mt5px p10px absolute bottom0px w100p" >
       </div>
     </div>
   </ion-content>
+
+
+  <!--아이콘 | 사장님 아이디 | 작성일자-->
+  <ion-footer-bar class="zero h80px flex"
+    style="background-color: #f7e8ed;">
+    <div class="relative w100p pl1p pr1p">
+      <div class="row zero pl10px">
+        <div class="col-auto zero">
+          <i class="ion-android-share pr5px"></i>
+        </div>
+        <div class="col-auto zero flex-v">
+          <p class="zero f12px bold">{{"사장님아이디"}}</p>
+        </div>
+      </div>
+
+      <div class="row zero mt5px">
+        <div class="col-90 zero">
+          <input class="p10px grey grey-b1px white-bg placeholder-grey h40px w100p br0px"
+            type="text" name="" placeholder="댓글을 남겨주세요." />
+        </div>
+        <div class="col-10 zero flex">
+          <div class="top4px right10px white-bg h40px w100p grey-b1px bl0px flex-v">
+            <p class="zero r50p center w32px h32px lh32px grey-bg white f13px">등록</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-footer-bar>
 </ion-view>
