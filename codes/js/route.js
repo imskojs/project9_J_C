@@ -139,7 +139,7 @@
     })
 
     .state('Main.Footer.EventList.JoodangEventList', {
-      url: '/EventList',
+      url: '/JoodangEventList',
       views: {
         JoodangEventList: {
           templateUrl: 'state/JoodangEventList/JoodangEventList.html',
@@ -149,10 +149,31 @@
     })
 
     .state('Main.Footer.EventList.BarEventList', {
+      url: '/BarEventList',
       views: {
-        JoodangEventList: {
+        BarEventList: {
           templateUrl: 'state/BarEventList/BarEventList.html',
           controller: 'BarEventListController as BarEventList'
+        }
+      }
+    })
+
+    .state('Main.JoodangEventDetail', {
+      url: '/JoodangEventDetail',
+      views: {
+        Main: {
+          templateUrl: 'state/JoodangEventDetail/JoodangEventDetail.html',
+          controller: 'JoodangEventDetailController as JoodangEventDetail'
+        }
+      }
+    })
+
+    .state('Main.BarEventDetail', {
+      url: '/BarEventDetail',
+      views: {
+        Main: {
+          templateUrl: 'state/BarEventDetail/BarEventDetail.html',
+          controller: 'BarEventDetailController as BarEventDetail'
         }
       }
     })
