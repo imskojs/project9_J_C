@@ -117,6 +117,16 @@
       }
     })
 
+    .state('Main.MenuList', {
+      url: '/MenuList',
+      views: {
+        Main: {
+          templateUrl: 'state/MenuList/MenuList.html',
+          controller: 'MenuListController as MenuList'
+        }
+      }
+    })
+
 
 
 
