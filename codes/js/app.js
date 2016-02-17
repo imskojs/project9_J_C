@@ -30,7 +30,7 @@
     angular.extend($rootScope, RootScope);
 
     // setInitialState();
-    $state.go('Main.MenuList');
+    $state.go('Main.Footer.EventList.BarEventList');
 
     $ionicPlatform.ready(onIonicPlatformReady);
 

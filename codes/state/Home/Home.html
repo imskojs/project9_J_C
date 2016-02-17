@@ -13,37 +13,40 @@
   </ion-nav-buttons>
 
 
-  <ion-content style="background: linear-gradient(#ac1e44, #d3302f);">
+  <ion-content class="pb15px"
+    style="background: linear-gradient(#ac1e44, #d3302f);">
+    <div style="display: flex; flex-direction: column; min-height: 100%;">
+      <div style="display: flex; flex: 1;">
+        <div style="margin: auto;">
 
-    <div class="row zero flex mt8vh">
-      <div class="col-60">
-        <img class="w100p" src="img/home01.png"
-        >
-      </div>
-    </div>
+          <div class="row zero flex">
+            <div class="col-60">
+              <img class="w100p" src="img/home01.png"
+              >
+            </div>
+          </div>
 
-    <div class="row zero flex mt3vh">
-      <div class="col-auto">
-        <i class="ion-wineglass f15px white"></i>
+          <div class="row zero flex mt3vh">
+            <div class="col-auto">
+              <i class="ion-wineglass f15px white"></i>
+            </div>
+
+            <div class="col-auto zero ml5px">
+              <p class="white f15px center zero">내 주변 추천술집</p>
+            </div>
+          </div>
+
+          <div class="row zero mt2vh flex">
+            <div class="col-auto p8 white-b r50px">
+              <p class="f20px zero mb5px white">보러가기</p>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      <div class="col-auto zero ml5px">
-        <p class="white f15px center zero">내 주변 추천술집</p>
-      </div>
-    </div>
-
-    <div class="row zero mt2vh flex">
-      <div class="col-auto p8 white-b r50px">
-        <p class="f20px zero mb5px white">보러가기</p>
-      </div>
-    </div>
-
-    <div class="absolute bottom60px row zero flex mt10vh">
-      <div class="col">
-        <img class="w95p auto h25vw"
-          ng-src="{{'img/theme_01.png'}}"
-        >
-      </div>
+      <img class="w95p auto h25vw"
+        ng-src="{{'img/theme_01.png'}}">
     </div>
 
   </ion-content>

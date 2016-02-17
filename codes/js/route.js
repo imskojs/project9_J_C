@@ -127,6 +127,36 @@
       }
     })
 
+    .state('Main.Footer.EventList', {
+      //위에 선언된 state의 Main을 체크하고, Footer를 체크한뒤, 그에대한 체인으로 EventList를 선언함.
+      url: '/EventList',
+      views: {
+        Footer: {  //<ion-nav-view name="Footer"> 태그를 상위객체 Footer에서 찾지만, 만약 없다해도 EventList의 내용이 렌더링되지 않을 뿐이며 에러는 발생되지 않는것으로 확인.
+          templateUrl: 'state/EventList/EventList.html',
+          controller: 'EventListController as EventList'
+        }
+      }
+    })
+
+    .state('Main.Footer.EventList.JoodangEventList', {
+      url: '/EventList',
+      views: {
+        JoodangEventList: {
+          templateUrl: 'state/JoodangEventList/JoodangEventList.html',
+          controller: 'JoodangEventListController as JoodangEventList'
+        }
+      }
+    })
+
+    .state('Main.Footer.EventList.BarEventList', {
+      views: {
+        JoodangEventList: {
+          templateUrl: 'state/BarEventList/BarEventList.html',
+          controller: 'BarEventListController as BarEventList'
+        }
+      }
+    })
+
 
 
 
