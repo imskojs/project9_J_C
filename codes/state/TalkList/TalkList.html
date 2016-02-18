@@ -1,0 +1,148 @@
+<ion-view id="talk-list"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <!-- <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white">
+    </button>
+  </ion-nav-buttons> -->
+
+  <ion-nav-buttons side="right">
+    <button class="button-icon ion-android-person white"></button>
+    <button class="button-icon ion-edit white"></button>
+  </ion-nav-buttons>
+
+  <ion-nav-title>
+    <p class="zero pl1p bold">주당톡</p>
+  </ion-nav-title>
+
+  <ion-header-bar class="h30px top44px grey-bb1px white-bg"
+    no-tap-scroll="true"
+  >
+    <div class="row zero pl3p pr3p">
+      <div class="col zero flex-v">  <!--왼쪽-->
+        <p class="zero f14px bold positive">자유톡</p>
+      </div>
+      <div class="col-30 zero flex-v">
+        <div class="relative w100p">  <!--오른쪽 선택박스-->
+          <div class="row zero dark-grey-b1px pl10p pr10p r3px">
+            <div class="col zero flex-v">
+              <p class="zero f14px bold dark-grey">자유톡</p>
+            </div>
+            <div class="col-10 zero flex-v"><i class="ion-arrow-down-b"></i></div>
+          </div>
+          <div class="absolute white w100p r3px darker-grey-bg pt10px pb10px"
+            style="opacity: 0.9;">  <!--메뉴선택-->
+            <div class="row zero pl10p pr10p opacity3">
+              <div class="col zero">
+                <p class="zero lh30px">전체</p>
+              </div>
+            </div>
+            <div class="row zero pl10p pr10p opacity3">
+              <div class="col zero">
+                <p class="zero lh30px">자유톡</p>
+              </div>
+            </div>
+            <div class="row zero pl10p pr10p opacity3">
+              <div class="col zero">
+                <p class="zero lh30px">연애톡</p>
+              </div>
+            </div>
+            <div class="row zero pl10p pr10p opacity3">
+              <div class="col zero">
+                <p class="zero lh30px">번개톡</p>
+              </div>
+            </div>
+            <div class="row zero pl10p pr10p opacity3">
+              <div class="col zero">
+                <p class="zero lh30px">유머톡</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-header-bar>
+
+
+
+  <ion-content class="top74px bold darker-grey">
+    <div>   <!--컨텐츠 컨테이너-->
+
+      <div>  <!--주당톡 List 컨테이너-->
+
+        <!--주당톡 Node 컨테이너 (공지)-->
+        <div class="grey-bb1px pl5p pr5p pt10px pb10px"
+          style="background-color: #fcf3f6;">
+          <div class="row zero">
+            <div class="col zero">
+              <p class="zero f14px">{{"[공지] 운영 원칙 및 게시판 정책"}}</p>
+            </div>
+          </div>
+        </div>  <!--주당톡 Node 컨테이너 종료-->
+
+        <!--주당톡 Node 컨테이너 (공지)-->
+        <div class="grey-bb1px pl5p pr5p pt10px pb10px"
+          style="background-color: #fcf3f6;">
+          <div class="row zero">
+            <div class="col zero">
+              <p class="zero f14px">{{"[공지] 주당 고객 감사 게시판 이벤트"}}</p>
+            </div>
+          </div>
+        </div>  <!--주당톡 Node 컨테이너 종료-->
+
+        <!--주당톡 Node 컨테이너 (일반)-->
+        <div class="grey-bb1px pl5p pr5p pt5px pb5px">
+          <div class="row zero">
+            <div class="col-auto zero mr2p">
+              <img class="h37px w37px r50p"
+                src="img/_box200x200.png" alt="프로필사진" />
+            </div>
+            <div class="col zero">
+              <div class="row zero mt0px">
+                <div class="col zero flex-v">
+                  <p class="zero">{{"[자유톡] 공덕역 꼼장어 맛집"}}</p>
+                </div>
+              </div>
+              <div class="row zero mt0px">
+                <div class="col-auto zero flex-v mr2p">
+                  <p class="zero f12px dark-grey">{{"user아이디"}}</p>
+                </div>
+                <div class="col-auto zero flex-v">
+                  <p class="zero f11px grey">{{"15:47"}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  <!--주당톡 Node 컨테이너 종료-->
+
+        <!--주당톡 Node 컨테이너 (일반)-->
+        <div class="grey-bb1px pl5p pr5p pt5px pb5px">
+          <div class="row zero">
+            <div class="col-auto zero mr2p">
+              <img class="h37px w37px r50p"
+                src="img/_box200x200.png" alt="프로필사진" />
+            </div>
+            <div class="col zero">
+              <div class="row zero mt0px">
+                <div class="col zero flex-v">
+                  <p class="zero">{{"[자유톡] 공덕역 꼼장어 맛집"}}</p>
+                </div>
+              </div>
+              <div class="row zero mt0px">
+                <div class="col-auto zero flex-v mr2p">
+                  <p class="zero f12px dark-grey">{{"user아이디"}}</p>
+                </div>
+                <div class="col-auto zero flex-v">
+                  <p class="zero f11px grey">{{"15:47"}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  <!--주당톡 Node 컨테이너 종료-->
+
+      </div>  <!--주당톡 List 컨테이너 종료-->
+
+    </div>  <!--컨텐츠 컨테이너 종료-->
+  </ion-content>
+</ion-view>

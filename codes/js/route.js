@@ -248,6 +248,16 @@
       }
     })
 
+    .state('Main.Footer.TalkList', {
+      url: '/TalkList',
+      views: {
+        Footer: {
+          templateUrl: 'state/TalkList/TalkList.html',
+          controller: 'TalkListController as TalkList'
+        }
+      }
+    })
+
 
 
 
