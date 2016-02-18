@@ -228,6 +228,28 @@
       }
     })
 
+    .state('Main.ThemeSearchList', {
+      url: '/ThemeSearchList',
+      views: {
+        Main: {
+          templateUrl: 'state/ThemeSearchList/ThemeSearchList.html',
+          controller: 'ThemeSearchListController as ThemeSearchList'
+        }
+      }
+    })
+
+    .state('Main.KeywordSearchList', {
+      url: '/KeywordSearchList',
+      views: {
+        Main: {
+          templateUrl: 'state/KeywordSearchList/KeywordSearchList.html',
+          controller: 'KeywordSearchListController as KeywordSearchList'
+        }
+      }
+    })
+
+
+
 
 
 
