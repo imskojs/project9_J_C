@@ -208,6 +208,15 @@
       }
     })
 
+    .state('Main.Footer.SearchTab.ProvinceList', {
+      url: '/ProvinceList',
+      views: {
+        ProvinceSearchTab: {
+          templateUrl: 'state/ProvinceList/ProvinceList.html',
+          controller: 'ProvinceListController as ProvinceList'
+        }
+      }
+    })
 
 
 
