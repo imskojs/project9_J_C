@@ -127,31 +127,31 @@
       }
     })
 
-    .state('Main.Footer.EventList', {
-      //위에 선언된 state의 Main을 체크하고, Footer를 체크한뒤, 그에대한 체인으로 EventList를 선언함.
-      url: '/EventList',
+    .state('Main.Footer.EventTab', {
+      //위에 선언된 state의 Main을 체크하고, Footer를 체크한뒤, 그에대한 체인으로 EventTab를 선언함.
+      url: '/EventTab',
       views: {
-        Footer: {  //<ion-nav-view name="Footer"> 태그를 상위객체 Footer에서 찾지만, 만약 없다해도 EventList의 내용이 렌더링되지 않을 뿐이며 에러는 발생되지 않는것으로 확인.
-          templateUrl: 'state/EventList/EventList.html',
-          controller: 'EventListController as EventList'
+        Footer: {  //<ion-nav-view name="Footer"> 태그를 상위객체 Footer에서 찾지만, 만약 없다해도 EventTab의 내용이 렌더링되지 않을 뿐이며 에러는 발생되지 않는것으로 확인.
+          templateUrl: 'state/EventTab/EventTab.html',
+          controller: 'EventTabController as EventTab'
         }
       }
     })
 
-    .state('Main.Footer.EventList.JoodangEventList', {
+    .state('Main.Footer.EventTab.JoodangEventList', {
       url: '/JoodangEventList',
       views: {
-        JoodangEventList: {
+        JoodangEventTab: {
           templateUrl: 'state/JoodangEventList/JoodangEventList.html',
           controller: 'JoodangEventListController as JoodangEventList'
         }
       }
     })
 
-    .state('Main.Footer.EventList.BarEventList', {
+    .state('Main.Footer.EventTab.BarEventList', {
       url: '/BarEventList',
       views: {
-        BarEventList: {
+        BarEventTab: {
           templateUrl: 'state/BarEventList/BarEventList.html',
           controller: 'BarEventListController as BarEventList'
         }
@@ -174,6 +174,36 @@
         Main: {
           templateUrl: 'state/BarEventDetail/BarEventDetail.html',
           controller: 'BarEventDetailController as BarEventDetail'
+        }
+      }
+    })
+
+    .state('Main.Footer.SearchTab', {
+      url: '/SearchTab',
+      views: {
+        Footer: {
+          templateUrl: 'state/SearchTab/SearchTab.html',
+          controller: 'SearchTabController as SearchTab'
+        }
+      }
+    })
+
+    .state('Main.Footer.SearchTab.ThemeList', {
+      url: '/ThemeList',
+      views: {
+        ThemeSearchTab: {
+          templateUrl: 'state/ThemeList/ThemeList.html',
+          controller: 'ThemeListController as ThemeList'
+        }
+      }
+    })
+
+    .state('Main.Footer.SearchTab.KeywordList', {
+      url: '/KeywordList',
+      views: {
+        KeywordSearchTab: {
+          templateUrl: 'state/KeywordList/KeywordList.html',
+          controller: 'KeywordListController as KeywordList'
         }
       }
     })

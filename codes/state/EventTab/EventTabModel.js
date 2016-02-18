@@ -2,11 +2,11 @@
   'use strict';
 
   angular.module('app')
-    .factory('EventListModel', EventListModel);
+    .factory('EventTabModel', EventTabModel);
 
-  EventListModel.$inject = [];
+  EventTabModel.$inject = [];
 
-  function EventListModel() {
+  function EventTabModel() {
 
     var Model = {
 
