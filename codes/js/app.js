@@ -30,7 +30,7 @@
     angular.extend($rootScope, RootScope);
 
     // setInitialState();
-    $state.go('Main.Footer.TalkList');
+    $state.go('Main.Footer.TalkCreate');
 
     $ionicPlatform.ready(onIonicPlatformReady);
 

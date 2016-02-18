@@ -1,0 +1,189 @@
+<ion-view id="talk-detail"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white">
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="right">
+    <button class="button-icon ion-android-person white"></button>
+    <button class="button-icon ion-edit white"></button>
+  </ion-nav-buttons>
+
+  <ion-nav-title>
+    <p class="zero pl1p bold">주당톡</p>
+  </ion-nav-title>
+
+  <ion-header-bar class="h30px top44px grey-bb1px white-bg"
+    no-tap-scroll="true"
+  >
+    <div class="row zero pl3p pr3p">
+      <div class="col zero flex-v">  <!--왼쪽-->
+        <p class="zero f14px bold positive">자유톡</p>
+      </div>
+    </div>
+  </ion-header-bar>
+
+
+
+  <ion-content class="top74px bold darker-grey">
+    <div class="pb100px">   <!--컨텐츠 컨테이너-->
+
+      <div>  <!--주당톡 List 컨테이너-->
+        <!--주당톡 Node 컨테이너 (일반)-->
+        <div class="grey-bb1px pl5p pr5p pt5px pb5px">
+          <div class="row zero">
+
+            <div class="col-auto zero mr2p flex-v">
+              <img class="h37px w37px r50p"
+                src="img/_box200x200.png" alt="프로필사진" />
+            </div>
+
+            <div class="col zero">
+              <div class="row zero mt0px">
+                <div class="col zero flex-v">
+                  <p class="zero">{{"[자유톡] 공덕역 꼼장어 맛집"}}</p>
+                </div>
+              </div>
+              <div class="row zero mt0px">
+                <div class="col-auto zero flex-v mr2p">
+                  <p class="zero f12px dark-grey">{{"user아이디"}}</p>
+                </div>
+                <div class="col-auto zero flex-v">
+                  <p class="zero f11px grey">{{"15:47"}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-auto zero">
+              <div class="row zero">
+                <div class="col zero flex">
+                  <div class="relative">
+                    <i class="zero f40px lh40px ion-android-more-vertical positive"></i>
+
+                    <div class="absolute top10px right10px w120px white-bg shadow">  <!--더보기 버튼 누르면 나오는 수정, 삭제버튼-->
+                      <div class="row zero mt0px grey-bb1px">
+                        <div class="col zero flex">
+                          <p class="zero f16px lh40px">수정</p>
+                        </div>
+                      </div>
+                      <div class="row zero mt0px" id="deleteBtn"
+                        ng-click="TalkDetail.openModal();">
+                        <div class="col zero flex">
+                          <p class="zero f16px lh40px">삭제</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  <!--주당톡 Node 컨테이너 종료-->
+      </div>  <!--주당톡 List 컨테이너 종료-->
+
+      <div class="row zero mt0px p15px dark-grey">
+        <div class="col zero">
+          <p>{{"글 내용 하나둘셋 넷 다섯여섯 일곱 여덟 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo aut, quisquam nemo nulla incidunt dicta quos minus. Amet molestiae, officia molestias explicabo distinctio aspernatur, est facilis voluptate, rerum laudantium non."}}</p>
+          <p>{{"글 내용 하나둘셋 넷 다섯여섯 일곱 여덟 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo aut, quisquam nemo nulla incidunt dicta quos minus. Amet molestiae, officia molestias explicabo distinctio aspernatur, est facilis voluptate, rerum laudantium non."}}</p>
+        </div>
+      </div>
+
+      <div class="row zero dark-grey p2p"
+        style="background-color: #f7e8ed;">
+        <div class="col zero flex-v">
+          <p class="zero">댓글 {{2}}개</p>
+        </div>
+      </div>
+
+      <!--주당톡 댓글 컨테이너-->
+      <div class="grey-bb1px pl3p pr3p pt5px pb5px">
+        <div class="row zero">
+
+          <div class="col-auto zero mr2p flex-v">
+            <img class="h37px w37px r50p"
+              src="img/_box200x200.png" alt="프로필사진" />
+          </div>
+
+          <div class="col zero">
+            <div class="row zero mt0px mb5px">
+              <div class="col-auto zero flex-v mr2p">
+                <p class="zero f12px dark-grey">{{"user아이디 또는 익명"}}</p>
+              </div>
+              <div class="col-auto zero flex-v">
+                <p class="zero f11px grey">{{"17:04"}}
+              </div>
+            </div>
+            <div class="row zero mt0px">
+              <div class="col zero flex-v">
+                <p class="zero">{{"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi natus, minima tempore vero assumenda quidem! Facere id repudiandae ducimus debitis at eos eum unde maiores, provident nihil molestias ad a."}}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>  <!--주당톡 댓글 컨테이너 종료-->
+
+      <!--주당톡 댓글 컨테이너-->
+      <div class="grey-bb1px pl3p pr3p pt5px pb5px">
+        <div class="row zero">
+
+          <div class="col-auto zero mr2p flex-v">
+            <img class="h37px w37px r50p"
+              src="img/_box200x200.png" alt="프로필사진" />
+          </div>
+
+          <div class="col zero">
+            <div class="row zero mt0px mb5px">
+              <div class="col-auto zero flex-v mr2p">
+                <p class="zero f12px dark-grey">{{"user아이디 또는 익명"}}</p>
+              </div>
+              <div class="col-auto zero flex-v">
+                <p class="zero f11px grey">{{"17:04"}}
+              </div>
+            </div>
+            <div class="row zero mt0px">
+              <div class="col zero flex-v">
+                <p class="zero">{{"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi natus, minima tempore vero assumenda quidem! Facere id repudiandae ducimus debitis at eos eum unde maiores, provident nihil molestias ad a."}}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>  <!--주당톡 댓글 컨테이너 종료-->
+
+    </div>  <!--컨텐츠 컨테이너 종료-->
+  </ion-content>
+
+
+  <!--아이콘 | 사장님 아이디 | 작성일자-->
+  <ion-footer-bar class="zero h85px flex bottom44px"
+    style="background-color: #f7e8ed;">
+    <div class="relative w100p pl1p pr1p">
+      <div class="row zero pl10px">
+        <div class="col-auto zero flex-v">
+          <i class="zero f20px lh24px pr5px ion-checkmark-circled positive"></i>
+        </div>
+        <div class="col-auto zero flex-v">
+          <p class="zero f16px lh24px bold">{{"익명"}}</p>
+        </div>
+      </div>
+
+      <div class="row zero mt5px">
+        <div class="col-90 zero">
+          <input class="p10px grey grey-b1px white-bg placeholder-grey h40px w100p br0px"
+            type="text" name="" placeholder="댓글을 달아주세요. (100자)" maxlength="100" />
+        </div>
+        <div class="col-10 zero flex">
+          <div class="top4px right10px white-bg h40px w100p grey-b1px bl0px flex-v">
+            <p class="zero r50p center w32px h32px lh32px grey-bg white f13px">등록</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-footer-bar>
+
+</ion-view>

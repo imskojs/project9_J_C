@@ -258,6 +258,36 @@
       }
     })
 
+    .state('Main.Footer.MyTalkList', {
+      url: '/MyTalkList',
+      views: {
+        Footer: {
+          templateUrl: 'state/MyTalkList/MyTalkList.html',
+          controller: 'MyTalkListController as MyTalkList'
+        }
+      }
+    })
+
+    .state('Main.Footer.TalkDetail', {
+      url: '/TalkDetail',
+      views: {
+        Footer: {
+          templateUrl: 'state/TalkDetail/TalkDetail.html',
+          controller: 'TalkDetailController as TalkDetail'
+        }
+      }
+    })
+
+    .state('Main.Footer.TalkCreate', {
+      url: '/TalkCreate',
+      views: {
+        Footer: {
+          templateUrl: 'state/TalkCreate/TalkCreate.html',
+          controller: 'TalkCreateController as TalkCreate'
+        }
+      }
+    })
+
 
 
 
