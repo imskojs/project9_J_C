@@ -218,6 +218,16 @@
       }
     })
 
+    .state('Main.ProvinceSearchList', {
+      url: '/ProvinceSearchList',
+      views: {
+        Main: {
+          templateUrl: 'state/ProvinceSearchList/ProvinceSearchList.html',
+          controller: 'ProvinceSearchListController as ProvinceSearchList'
+        }
+      }
+    })
+
 
 
 

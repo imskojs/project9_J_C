@@ -30,7 +30,7 @@
     angular.extend($rootScope, RootScope);
 
     // setInitialState();
-    $state.go('Main.Footer.SearchTab.ProvinceList');
+    $state.go('Main.ProvinceSearchList');
 
     $ionicPlatform.ready(onIonicPlatformReady);
 
