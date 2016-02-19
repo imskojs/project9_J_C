@@ -1,0 +1,45 @@
+<ion-modal-view
+  style="background-color: rgba(0,0,0,0.8);">
+  <ion-content class="p1px"
+    scroll="false"
+  >
+
+    <div class="mt120px w90p shadow pt10px pb10px auto white-bg">
+
+      <div class="row zero pt10px pb10px pl10p pr10p">
+        <div class="col zero flex">
+          <p class="zero f20px darker-grey bold">닉네임 수정</p>
+        </div>
+        <div class="col-auto zero flex"
+          ng-click="Profile.NicknameUpdateModal.hide();">
+          <i class="zero f20px bold ion-close-round"
+            style="color: gray;"></i>  <!--X버튼-->
+        </div>
+      </div>
+
+      <hr class="b0px h1px grey-bg" />
+
+      <div class="row zero pt10px pb10px pl10p pr10p mt5px">
+        <div class="col zero flex">
+          <p class="zero bold f14px darker-grey">변경할 닉네임을 입력해 주세요.</p>
+        </div>
+      </div>
+
+      <div class="row zero pt10px pb10px pl2p pr2p mt5px">
+        <div class="col zero">
+          <input class="placeholder-grey grey-bb2px p5px center f14px"
+            type="text" maxlength="10" placeholder="2~10자 한글, 영문, 숫자만 사용가능합니다.">
+        </div>
+      </div>
+
+      <div class="row zero pt10px pb10px pl10p pr10p mt20px">
+        <div class="col zero flex">
+          <p class="zero positive positive-b2px r30px f16px bold lh40px w100p center"
+            ng-click="Profile.NicknameUpdate();">확인</p>
+        </div>
+      </div>
+
+    </div>
+
+  </ion-content>
+</ion-modal-view>

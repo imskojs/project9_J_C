@@ -314,6 +314,108 @@
       controller: 'LoginController as Login'
     })
 
+    .state('Main.Footer.Profile', {
+      url: '/Profile',
+      views: {
+        Footer: {
+          templateUrl: 'state/Profile/Profile.html',
+          controller: 'ProfileController as Profile'
+        }
+      }
+    })
+
+    .state('Main.FavoriteList', {
+      url: '/FavoriteList',
+      views: {
+        Main: {
+          templateUrl: 'state/FavoriteList/FavoriteList.html',
+          controller: 'FavoriteListController as FavoriteList'
+        }
+      }
+    })
+
+    .state('Main.MyMessageList', {
+      url: '/MyMessageList',
+      views: {
+        Main: {
+          templateUrl: 'state/MyMessageList/MyMessageList.html',
+          controller: 'MyMessageListController as MyMessageList'
+        }
+      }
+    })
+
+    .state('Main.NoticeList', {
+      url: '/NoticeList',
+      views: {
+        Main: {
+          templateUrl: 'state/NoticeList/NoticeList.html',
+          controller: 'NoticeListController as NoticeList'
+        }
+      }
+    })
+
+    .state('Main.NoticeDetail', {
+      url: '/NoticeDetail',
+      views: {
+        Main: {
+          templateUrl: 'state/NoticeDetail/NoticeDetail.html',
+          controller: 'NoticeDetailController as NoticeDetail'
+        }
+      }
+    })
+
+    .state('Main.TermList', {
+      url: '/TermList',
+      views: {
+        Main: {
+          templateUrl: 'state/TermList/TermList.html',
+          controller: 'TermListController as TermList'
+        }
+      }
+    })
+
+    .state('Main.TermDetail', {
+      url: '/TermDetail',
+      views: {
+        Main: {
+          templateUrl: 'state/TermDetail/TermDetail.html',
+          controller: 'TermDetailController as TermDetail'
+        }
+      }
+    })
+
+    .state('Main.CustomerList', {
+      url: '/CustomerList',
+      views: {
+        Main: {
+          templateUrl: 'state/CustomerList/CustomerList.html',
+          controller: 'CustomerListController as CustomerList'
+        }
+      }
+    })
+
+    .state('Main.FaqList', {
+      url: '/FaqList',
+      views: {
+        Main: {
+          templateUrl: 'state/FaqList/FaqList.html',
+          controller: 'FaqListController as FaqList'
+        }
+      }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
