@@ -288,6 +288,32 @@
       }
     })
 
+    .state('Main.Footer.TalkUpdate', {
+      url: '/TalkUpdate',
+      views: {
+        Footer: {
+          templateUrl: 'state/TalkUpdate/TalkUpdate.html',
+          controller: 'TalkUpdateController as TalkUpdate'
+        }
+      }
+    })
+
+    .state('Main.Footer.SettingList', {
+      url: '/SettingList',
+      views: {
+        Footer: {
+          templateUrl: 'state/SettingList/SettingList.html',
+          controller: 'SettingListController as SettingList'
+        }
+      }
+    })
+
+    .state('Login', {
+      url: '/Login',
+      templateUrl: 'state/Login/Login.html',
+      controller: 'LoginController as Login'
+    })
+
 
 
 

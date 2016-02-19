@@ -1,0 +1,160 @@
+<ion-view id="setting-list"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <!-- <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white">
+    </button>
+  </ion-nav-buttons> -->
+
+  <ion-nav-title>
+    <p class="zero pl1p bold">더보기</p>
+  </ion-nav-title>
+
+  <ion-content class="">
+    <div>  <!--컨텐츠 컨테이너-->
+      <div>  <!--List 컨테이너-->
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+          <div class="row zero">
+
+            <!--로그인 안했을 경우-->
+            <!-- <div class="col zero flex-v">
+              <p class="zero f18px">로그인</p>
+            </div> -->
+            <div class="col zero flex-v" style="margin: -6px auto -6px" >
+              <img class="h40px r50p inline-block" src="img/_box200x200.png" alt="">
+              <p class="zero f18px ml7p">{{"user아이디"}}</p>
+              <span class="f18px black">&nbsp;님</span>
+            </div>
+            <div class="col-auto zero flex-v mr3p">
+              <p class="zero f16px">내정보수정</p>
+            </div>
+
+            <div class="col-auto zero flex-v">
+              <i class="zero f22px ion-arrow-right-b"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p white"
+          style="background-color: #be4b6a;">  <!--Node 컨테이너-->
+          <div class="row zero">
+            <div class="col zero flex-v">
+              <p class="zero f18px">즐겨찾기 모아보기</p>
+            </div>
+            <div class="col-auto zero flex-v">
+              <i class="zero f22px ion-arrow-right-b"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+          <div class="row zero">
+            <div class="col zero flex-v">
+              <p class="zero f18px">1:1쪽지 모아보기</p>
+            </div>
+            <div class="col-auto zero flex-v">
+              <i class="zero f22px ion-arrow-right-b"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+          <div class="row zero">
+            <div class="col zero flex-v">
+              <p class="zero f18px">공지사항</p>
+            </div>
+            <div class="col-auto zero flex-v">
+              <i class="zero f22px ion-arrow-right-b"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+          <div class="row zero">
+            <div class="col zero flex-v">
+              <p class="zero f18px">이용약관</p>
+            </div>
+            <div class="col-auto zero flex-v">
+              <i class="zero f22px ion-arrow-right-b"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+          <div class="row zero">
+            <div class="col zero flex-v">
+              <p class="zero f18px">고객센터</p>
+            </div>
+            <div class="col-auto zero flex-v">
+              <i class="zero f22px ion-arrow-right-b"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+          <div class="row zero">
+            <div class="col zero flex-v">
+              <p class="zero f18px">제휴문의</p>
+            </div>
+            <div class="col-auto zero flex-v">
+              <i class="zero f22px ion-arrow-right-b"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+          <div class="row zero">
+            <div class="col zero flex-v">
+              <p class="zero f18px">여기술집 등록해주세요</p>
+            </div>
+            <div class="col-auto zero flex-v">
+              <i class="zero f22px ion-arrow-right-b"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+          <div class="row zero">
+            <div class="col zero flex-v">
+              <p class="zero f18px">설정</p>
+            </div>
+            <div class="col-auto zero flex-v">
+              <i class="zero f22px ion-arrow-down-b positive"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey lighter-grey-bg">  <!--Node 컨테이너-->
+          <div class="row zero">
+            <div class="col zero flex-v">
+              <p class="zero f18px">푸쉬 알림 설정</p>
+            </div>
+            <div class="col-auto zero flex-v">
+              <label class="toggle toggle-assertive"
+                style="margin: -10px -10px -15px -10px;">
+                 <input type="checkbox">
+                 <div class="track">
+                   <div class="handle"></div>  <!--토글에서 움직이는 동그라미-->
+                 </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row zero">
+        <div class="col zero">
+          <img class="w100p mt50px"
+            src="img/customercenter.png" alt="주당 고객센터 이미지">
+        </div>
+      </div>
+    </div>
+  </ion-content>
+
+  <!-- <ion-footer-bar class="bottom44px zero">
+  </ion-footer-bar> -->
+
+</ion-view>
