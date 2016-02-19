@@ -404,6 +404,36 @@
       }
     })
 
+    .state('Main.ContactCreate', {
+      url: '/ContactCreate',
+      views: {
+        Main: {
+          templateUrl: 'state/ContactCreate/ContactCreate.html',
+          controller: 'ContactCreateController as ContactCreate'
+        }
+      }
+    })
+
+    .state('Main.CompanyCreate', {
+      url: '/CompanyCreate',
+      views: {
+        Main: {
+          templateUrl: 'state/CompanyCreate/CompanyCreate.html',
+          controller: 'CompanyCreateController as CompanyCreate'
+        }
+      }
+    })
+
+    .state('Main.RequestCreate', {
+      url: '/RequestCreate',
+      views: {
+        Main: {
+          templateUrl: 'state/RequestCreate/RequestCreate.html',
+          controller: 'RequestCreateController as RequestCreate'
+        }
+      }
+    })
+
 
 
 
