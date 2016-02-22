@@ -40,7 +40,11 @@
           return $rootScope.goToState(state, params, 'forward');
         }
         //TalkList
-      } else if ($state.includes('Main.Footer.TalkList')) {
+      } else if ($state.includes('Main.Footer.TalkList') ||
+                 $state.includes('Main.Footer.MyTalkList') ||
+                 $state.includes('Main.Footer.TalkDetail') ||
+                 $state.includes('Main.Footer.TalkCreate') ||
+                 $state.includes('Main.Footer.TalkUpdate') ) {
         if (state === 'Main.Footer.Home' ||
           state === 'Main.Footer.EventTab.JoodangEventList' ||
           state === 'Main.Footer.SearchTab.ProvinceList'
@@ -50,7 +54,8 @@
           return $rootScope.goToState(state, params, 'forward');
         }
         //SettingList
-      } else if ($state.includes('Main.Footer.SettingList')) {
+      } else if ($state.includes('Main.Footer.SettingList') ||
+                 $state.includes('Main.Footer.Profile') ) {
         if (state === 'Main.Footer.Home' ||
           state === 'Main.Footer.EventTab.JoodangEventList' ||
           state === 'Main.Footer.SearchTab.ProvinceList' ||
