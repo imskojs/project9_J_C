@@ -15,33 +15,26 @@
 
 
   <ion-content class="pb15px"
-    style="background: linear-gradient(#ac1e44, #d3302f);">
+    style="background: linear-gradient(#ac1e44, #d3302f);"
+    scroll="false"
+    >
     <div>  <!--컨텐츠 컨테이너-->
 
-      <div class="row zero flex pt8vh">
-        <div class="col-60">
+      <div class="row zero flex pt5vh">
+        <div class="col-55">
           <img class="w100p" src="img/home01.png" />
         </div>
       </div>
-
-      <!-- <div class="row zero flex mt3vh">
-        <div class="col-auto">
-          <i class="ion-wineglass f15px white"></i>
-        </div>
-
-        <div class="col-auto zero ml5px">
-          <p class="white f15px center zero">내 주변 추천술집</p>
-        </div>
-      </div> -->
 
       <div class="row zero mt5vh flex">
         <div class="col-auto p8 white-b r50px"
           ng-click="goToState('Main.PlaceList', {}, 'forward');">
           <p class="f20px zero mb5px white">보러가기</p>
+
         </div>
       </div>
 
-      <div class="row zero absolute bottom0px">
+      <div class="row zero absolute bottom8px">
         <div class="col zero flex">
           <img class="w95p auto h25vw"
             ng-src="{{'img/theme_01.png'}}" />
@@ -51,3 +44,14 @@
     </div>
   </ion-content>
 </ion-view>
+<!--  -->
+<!--  -->
+      <!-- <div class="row zero flex mt3vh">
+        <div class="col-auto">
+          <i class="ion-wineglass f15px white"></i>
+        </div>
+
+        <div class="col-auto zero ml5px">
+          <p class="white f15px center zero">내 주변 추천술집</p>
+        </div>
+      </div> -->
