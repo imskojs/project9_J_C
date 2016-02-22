@@ -10,8 +10,8 @@ img {
 }
 
 .lazy-show {
-  -webkit-animation: lazyShowAnimation 1s;
-  animation: lazyShowAnimation 1s;
+  -webkit-animation: lazyShowAnimation 2s;
+  animation: lazyShowAnimation 2s;
 }
 
 @-webkit-keyframes lazyShowAnimation {
