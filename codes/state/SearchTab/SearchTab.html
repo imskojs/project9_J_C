@@ -2,10 +2,11 @@
   cache-view="true"
   hide-back-button="true"
 >
-  <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+<!--   <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
-  </ion-nav-buttons>
+  </ion-nav-buttons> -->
 
   <ion-nav-title>
     <p class="zero pl1p">검색</p>
@@ -13,9 +14,12 @@
 
   <ion-header-bar class="bar-subheader zero white-bg row bold"
     no-tap-scroll="true">
-    <div class="col zero flex grey-b1px positive positive-bb3px">지역</div>
-    <div class="col zero flex grey-b1px bl0px grey">테마</div>
-    <div class="col zero flex grey-b1px bl0px grey">키워드</div>
+    <div class="col zero flex grey-b1px positive positive-bb3px"
+      ng-click="goToState('Main.Footer.SearchTab.ProvinceList', {}, 'enter');">지역</div>
+    <div class="col zero flex grey-b1px bl0px grey"
+      ng-click="goToState('Main.Footer.SearchTab.ThemeList', {}, 'enter');">테마</div>
+    <div class="col zero flex grey-b1px bl0px grey"
+      ng-click="goToState('Main.Footer.SearchTab.KeywordList', {}, 'enter');">키워드</div>
   </ion-header-bar>
 
   <ion-nav-view name="ProvinceSearchTab"></ion-nav-view>

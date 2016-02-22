@@ -2,10 +2,11 @@
   cache-view="true"
   hide-back-button="true"
 >
-  <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+<!--   <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
-  </ion-nav-buttons>
+  </ion-nav-buttons> -->
 
   <ion-nav-title>
     <p class="zero pl1p">검색</p>
@@ -255,10 +256,10 @@
           </div>
         </div>  <!--가로 줄 종료-->
 
-        <div class="div row zero mt20px pb40px">
-          <div class="col zero flex">
-            <p class="zero lh40px pr25p pl25p r30px white positive-bg">결과검색</p>
-          </div>
+        <!--결과검색 버튼-->
+        <div class="flex mt20px pb40px">
+          <div class="white positive-bg lh40px pr25p pl25p r30px f18px"
+            ng-click="goToState('Main.KeywordSearchList', {}, 'forward');">결과검색</div>
         </div>
 
       </div>  <!--Keyword List 컨테이너 종료-->

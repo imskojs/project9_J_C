@@ -3,6 +3,15 @@
   hide-back-button="true"
 >
 
+<!--
+  // direction of navigation
+  var DIRECTION_BACK = 'back';
+  var DIRECTION_FORWARD = 'forward';
+  var DIRECTION_ENTER = 'enter';
+  var DIRECTION_EXIT = 'exit';
+  var DIRECTION_SWAP = 'swap';
+  var DIRECTION_NONE = 'none'; -->
+
 <ion-nav-view name="Footer" class="positive-bg">
 </ion-nav-view>
 
@@ -11,29 +20,34 @@
   <div class="row zero flex-v h44px">
 
     <div class="col zero flex-h">
-      <button class="button-icon ion-android-home positive">
+      <button class="button-icon ion-android-home positive"
+        ng-click="goToState('Main.Footer.Home', {}, 'enter');">
       </button>
     </div>
 
     <div class="col zero flex-h">
-      <button class="button-icon ion-wand grey">
+      <button class="button-icon ion-wand grey"
+        ng-click="goToState('Main.Footer.EventTab.JoodangEventList', {}, 'enter');">
       </button>
     </div>
 
     <div class="col zero flex-h"
       style="margin-top: -9px"
     >
-      <button class="button-icon ion-android-search white-bg r50p p5px grey w44px grey-bt1px">
+      <button class="button-icon ion-android-search white-bg r50p p5px grey w44px grey-bt1px"
+        ng-click="goToState('Main.Footer.SearchTab.ProvinceList', {}, 'enter');">
       </button>
     </div>
 
     <div class="col zero flex-h">
-      <button class="button-icon ion-android-chat grey">
+      <button class="button-icon ion-android-chat grey"
+        ng-click="goToState('Main.Footer.TalkList', {}, 'enter');">
       </button>
     </div>
 
     <div class="col zero flex-h">
-      <button class="button-icon ion-android-more-horizontal grey">
+      <button class="button-icon ion-android-more-horizontal grey"
+        ng-click="goToState('Main.Footer.SettingList', {}, 'enter');">
       </button>
     </div>
 

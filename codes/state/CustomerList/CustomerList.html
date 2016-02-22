@@ -3,7 +3,8 @@
   hide-back-button="true"
 >
   <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
   </ion-nav-buttons>
 
@@ -15,7 +16,9 @@
     <div>  <!--컨텐츠 컨테이너-->
       <div class="">  <!--List 컨테이너-->
 
-        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+        <!--Node 컨테이너-->
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey"
+          ng-click="goToState('Main.FaqList', {}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
               <p class="zero f16px">자주 묻는 질문</p>
@@ -26,7 +29,9 @@
           </div>
         </div>
 
-        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+        <!--Node 컨테이너-->
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey"
+          ng-click="goToState('Main.ContactCreate', {}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
               <p class="zero f16px">문의하기</p>

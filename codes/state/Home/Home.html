@@ -8,7 +8,8 @@
   </ion-nav-title>
 
   <ion-nav-buttons side="right">
-    <button class="button-icon ion-android-search white">
+    <button class="button-icon ion-android-search white"
+      ng-click="goToState('Main.Search', {}, 'foward');">
     </button>
   </ion-nav-buttons>
 
@@ -34,7 +35,8 @@
       </div> -->
 
       <div class="row zero mt5vh flex">
-        <div class="col-auto p8 white-b r50px">
+        <div class="col-auto p8 white-b r50px"
+          ng-click="goToState('Main.PlaceList', {}, 'forward');">
           <p class="f20px zero mb5px white">보러가기</p>
         </div>
       </div>

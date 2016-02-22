@@ -3,7 +3,8 @@
   hide-back-button="true"
 >
   <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
   </ion-nav-buttons>
 
@@ -14,7 +15,8 @@
   </ion-nav-title>
 
   <ion-nav-buttons side="right">
-    <button class="button-icon ion-edit white f20px">
+    <button class="button-icon ion-edit white f20px"
+      ng-click="goToState('Main.ReviewCreate', {}, 'forward');">
     </button>
   </ion-nav-buttons>
 
@@ -119,7 +121,8 @@
           <div class="col-auto zero">
             <i class="ion-ios-location f14px"></i>
           </div>
-          <div class="col-auto zero flex ml7px">
+          <div class="col-auto zero flex ml7px"
+            ng-click="goToState('Main.GoogleMap', {}, 'forward');">
             <p class="f14px zero">지도 보기</p>
           </div>
         </div>
@@ -212,7 +215,8 @@
 
       <!--수정요청 버튼-->
       <div class="row zero light-grey-bg dark-grey flex pt10px pb10px pr10p pl10p">
-        <div class="row flex black-b1px r50px pt5px pb5px pr10p pl10p">
+        <div class="row flex black-b1px r50px pt5px pb5px pr10p pl10p"
+          ng-click="goToState('Main.RequestUpdate', {}, 'forward');">
           <div class="col-auto zero">
             <i class="ion-settings f20px"></i>
           </div>
@@ -310,10 +314,8 @@
       </div>  <!--리뷰 List 끝-->
 
       <!--리뷰 더보기 버튼-->
-      <div class="row zero mt5px">
-        <div class="col zero flex">
-          <p class="grey p5 grey-b1px r30px">리뷰 더보기</p>
-        </div>
+      <div class="flex zero mt10px mb10px">
+        <div class="grey grey-b1px r20px pt5px pb5px pl10p pr10p">리뷰 더보기</div>
       </div>
 
     </div>  <!--상세정보 전체 컨테이너 끝-->
@@ -329,12 +331,14 @@
         </button>
       </div>
 
-      <div class="col zero flex light-grey-bl1px">
+      <div class="col zero flex light-grey-bl1px"
+        ng-click="goToState('Main.MessageCreate', {}, 'forward');">
         <button class="button-icon ion-chatbubble-working white f20px">
         </button>
       </div>
 
-      <div class="col zero flex light-grey-bl1px">
+      <div class="col zero flex light-grey-bl1px"
+        ng-click="goToState('Main.MenuList', {}, 'forward');">
         <button class="button-icon ion-clipboard white f20px">
         </button>
       </div>

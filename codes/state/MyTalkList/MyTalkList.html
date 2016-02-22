@@ -3,7 +3,8 @@
   hide-back-button="true"
 >
   <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
   </ion-nav-buttons>
 
@@ -15,8 +16,10 @@
     <div>   <!--컨텐츠 컨테이너-->
 
       <div>  <!--주당톡 List 컨테이너-->
-        <!--주당톡 Node 컨테이너 (일반)-->
-        <div class="grey-bb1px pl5p pr5p pt10px pb10px">
+
+        <!--주당톡 Node 컨테이너-->
+        <div class="grey-bb1px pl5p pr5p pt10px pb10px"
+          ng-click="goToState('Main.Footer.TalkDetail', {}, 'forward');">
           <div class="row zero">
             <div class="col-auto zero mr2p">
               <img class="h37px w37px r50p"
@@ -40,8 +43,9 @@
           </div>
         </div>  <!--주당톡 Node 컨테이너 종료-->
 
-        <!--주당톡 Node 컨테이너 (일반)-->
-        <div class="grey-bb1px pl5p pr5p pt10px pb10px">
+        <!--주당톡 Node 컨테이너-->
+        <div class="grey-bb1px pl5p pr5p pt10px pb10px"
+          ng-click="goToState('Main.Footer.TalkDetail', {}, 'forward');">
           <div class="row zero">
             <div class="col-auto zero mr2p">
               <img class="h37px w37px r50p"

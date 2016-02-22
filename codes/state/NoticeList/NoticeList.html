@@ -3,7 +3,8 @@
   hide-back-button="true"
 >
   <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
   </ion-nav-buttons>
 
@@ -15,7 +16,9 @@
     <div>  <!--컨텐츠 컨테이너-->
       <div>  <!--List 컨테이너-->
 
-        <div class="bold grey-bb1px pt12px pb12px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+        <!--Node 컨테이너-->
+        <div class="bold grey-bb1px pt12px pb12px pl5p pr5p dark-grey"
+          ng-click="goToState('Main.NoticeDetail', {}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
               <p class="zero f14px">{{"공지사항 게시물 제목"}}</p>
@@ -26,7 +29,9 @@
           </div>
         </div>
 
-        <div class="bold grey-bb1px pt12px pb12px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+        <!--Node 컨테이너-->
+        <div class="bold grey-bb1px pt12px pb12px pl5p pr5p dark-grey"
+          ng-click="goToState('Main.NoticeDetail', {}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
               <p class="zero f14px">{{"공지사항 게시물 제목"}}</p>

@@ -30,7 +30,8 @@
   hide-back-button="true"
 >
   <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
   </ion-nav-buttons>
 
@@ -144,10 +145,9 @@
       </div>
 
       <!--수정요청하기 버튼-->
-      <div class="row zero">
-        <div class="col zero flex">
-          <p class="zero mt20px pl10p pr10p pt10px pb10px positive-bg white f16px r20px">수정 요청하기</p>
-        </div>
+      <div class="flex"
+        ng-click="">
+        <p class="zero mt20px pl10p pr10p pt10px pb10px positive-bg white f16px r20px">수정 요청하기</p>
       </div>
     <div>
 

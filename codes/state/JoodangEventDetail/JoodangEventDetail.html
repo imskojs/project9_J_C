@@ -3,7 +3,8 @@
   hide-back-button="true"
 >
   <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
   </ion-nav-buttons>
 
@@ -28,10 +29,9 @@
           <p class="zero zero f18px lh24px positive bold text-overflow">{{"주당 X 칵테일시음회 초대권 증정 일이삼사오육칠팔 구십 하나둘셋"}}</p>
         </div>
       </div>
-      <div class="row zero mt0px mb20px">
-        <div class="col zero flex">
-          <p class="zero zero f12px lh26px positive pr10p pl10p r20px positive-bg white">이벤트 바로가기</p>
-        </div>
+      <div class="flex mt0px mb20px">
+        <div class="white positive-bg r30px pt5px pb5px pr10p pl10p "
+          ng-click="goToState('', {}, 'forward');">이벤트 바로가기</div>
       </div>
 
       <hr class="b0px h2px positive-bg"/>
