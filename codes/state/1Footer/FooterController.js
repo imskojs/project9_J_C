@@ -23,14 +23,14 @@
       // Home
       if ($state.includes('Main.Footer.Home')) {
         return $rootScope.goToState(state, params, 'forward');
-        //
+        // JoodangEventList
       } else if ($state.includes('Main.Footer.EventTab.JoodangEventList')) {
         if (state === 'Main.Footer.Home') {
           return $rootScope.goToState(state, params, 'back');
         } else {
           return $rootScope.goToState(state, params, 'forward');
         }
-        //Main.Footer.SearchTab.ProvinceList
+        //SearchList
       } else if ($state.includes('Main.Footer.SearchTab.ProvinceList')) {
         if (state === 'Main.Footer.Home' ||
           state === 'Main.Footer.EventTab.JoodangEventList'
@@ -39,6 +39,7 @@
         } else {
           return $rootScope.goToState(state, params, 'forward');
         }
+        //TalkList
       } else if ($state.includes('Main.Footer.TalkList')) {
         if (state === 'Main.Footer.Home' ||
           state === 'Main.Footer.EventTab.JoodangEventList' ||
@@ -48,6 +49,7 @@
         } else {
           return $rootScope.goToState(state, params, 'forward');
         }
+        //SettingList
       } else if ($state.includes('Main.Footer.SettingList')) {
         if (state === 'Main.Footer.Home' ||
           state === 'Main.Footer.EventTab.JoodangEventList' ||
