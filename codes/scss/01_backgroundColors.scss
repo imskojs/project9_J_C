@@ -21,3 +21,11 @@
 [nav-view-transition] {
   background-color: $lighter !important;
 }
+
+
+@for $i from 0 through 10 {
+  //.opacity0 ... opacity5 ... opacity10
+  .opacity#{$i} {
+    opacity: #{$i/10} !important;
+  }
+}
