@@ -2,10 +2,11 @@
   cache-view="true"
   hide-back-button="true"
 >
-  <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+<!--   <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
-  </ion-nav-buttons>
+  </ion-nav-buttons> -->
 
   <ion-nav-title>
     <p class="zero pl1p">EVENT</p>
@@ -13,8 +14,10 @@
 
   <ion-header-bar class="bar-subheader zero white-bg row bold"
     no-tap-scroll="true">
-    <div class="col zero flex grey-b1px positive positive-bb3px">주당이벤트</div>
-    <div class="col zero flex grey-b1px bl0px grey">주점이벤트</div>
+    <div class="col zero flex grey-b1px positive positive-bb3px"
+      ng-click="goToState('Main.Footer.EventTab.JoodangEventList', {}, 'enter');">주당이벤트</div>
+    <div class="col zero flex grey-b1px bl0px grey"
+      ng-click="goToState('Main.Footer.EventTab.BarEventList', {}, 'enter');">주점이벤트</div>
   </ion-header-bar>
 
   <ion-nav-view name="JoodangEventTab"></ion-nav-view>

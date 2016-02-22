@@ -2,10 +2,11 @@
   cache-view="true"
   hide-back-button="true"
 >
-  <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+<!--   <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
-  </ion-nav-buttons>
+  </ion-nav-buttons> -->
 
   <ion-nav-title>
     <p class="zero pl1p">검색</p>
@@ -30,6 +31,7 @@
         <!--지역 Node 컨테이너-->
         <!-- <div class="relative"
           ng-repeat="(key, value) in ProvinceList.Model.province"
+          ng-click="goToState('Main.ProvinceSearchList', {}, 'forward');"
         >
           <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
             <div class="col zero pl2p">
@@ -53,8 +55,8 @@
         </div> -->
         <!--==================================================================-->
 
-
-        <div class="relative">  <!--서울 Node 컨테이너-->
+        <!--서울 Node 컨테이너-->
+        <div class="relative">
           <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
             <div class="col zero pl2p">
               <p class="zero lh16px">서울</p>
@@ -76,7 +78,8 @@
           </div>
         </div>
 
-        <div class="relative">  <!--경기 Node 컨테이너-->
+        <!--경기 Node 컨테이너-->
+        <div class="relative">
           <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
             <div class="col zero pl2p">
               <p class="zero lh16px">경기</p>
@@ -98,7 +101,8 @@
           </div>
         </div>
 
-        <div class="relative">  <!--인천 Node 컨테이너-->
+        <!--인천 Node 컨테이너-->
+        <div class="relative">
           <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
             <div class="col zero pl2p">
               <p class="zero lh16px">인천</p>
@@ -120,7 +124,8 @@
           </div>
         </div>
 
-        <div class="relative">  <!--강원 Node 컨테이너-->
+        <!--강원 Node 컨테이너-->
+        <div class="relative">
           <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
             <div class="col zero pl2p">
               <p class="zero lh16px">강원</p>
@@ -142,7 +147,8 @@
           </div>
         </div>
 
-        <div class="relative">  <!--부산 Node 컨테이너-->
+        <!--부산 Node 컨테이너-->
+        <div class="relative">
           <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
             <div class="col zero pl2p">
               <p class="zero lh16px">부산</p>
@@ -164,7 +170,8 @@
           </div>
         </div>
 
-        <div class="relative">  <!--경남 Node 컨테이너-->
+        <!--경남 Node 컨테이너-->
+        <div class="relative">
           <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
             <div class="col zero pl2p">
               <p class="zero lh16px">경남</p>

@@ -3,13 +3,16 @@
   hide-back-button="true"
 >
   <!-- <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
   </ion-nav-buttons> -->
 
   <ion-nav-buttons side="right">
-    <button class="button-icon ion-android-person white"></button>
-    <button class="button-icon ion-edit white"></button>
+    <button class="button-icon ion-android-person white"
+      ng-click="goToState('Main.Footer.MyTalkList', {}, 'forward');"></button>
+    <button class="button-icon ion-edit white"
+      ng-click="goToState('Main.Footer.TalkCreate', {}, 'forward');"></button>
   </ion-nav-buttons>
 
   <ion-nav-title>
@@ -73,7 +76,8 @@
 
         <!--주당톡 Node 컨테이너 (공지)-->
         <div class="grey-bb1px pl5p pr5p pt10px pb10px"
-          style="background-color: #fcf3f6;">
+          style="background-color: #fcf3f6;"
+          ng-click="goToState('Main.Footer.TalkDetail', {}, 'forward');">
           <div class="row zero">
             <div class="col zero">
               <p class="zero f14px">{{"[공지] 운영 원칙 및 게시판 정책"}}</p>
@@ -83,7 +87,8 @@
 
         <!--주당톡 Node 컨테이너 (공지)-->
         <div class="grey-bb1px pl5p pr5p pt10px pb10px"
-          style="background-color: #fcf3f6;">
+          style="background-color: #fcf3f6;"
+          ng-click="goToState('Main.Footer.TalkDetail', {}, 'forward');">
           <div class="row zero">
             <div class="col zero">
               <p class="zero f14px">{{"[공지] 주당 고객 감사 게시판 이벤트"}}</p>
@@ -92,7 +97,8 @@
         </div>  <!--주당톡 Node 컨테이너 종료-->
 
         <!--주당톡 Node 컨테이너 (일반)-->
-        <div class="grey-bb1px pl5p pr5p pt5px pb5px">
+        <div class="grey-bb1px pl5p pr5p pt5px pb5px"
+          ng-click="goToState('Main.Footer.TalkDetail', {}, 'forward');">
           <div class="row zero">
             <div class="col-auto zero mr2p">
               <img class="h37px w37px r50p"
@@ -117,7 +123,8 @@
         </div>  <!--주당톡 Node 컨테이너 종료-->
 
         <!--주당톡 Node 컨테이너 (일반)-->
-        <div class="grey-bb1px pl5p pr5p pt5px pb5px">
+        <div class="grey-bb1px pl5p pr5p pt5px pb5px"
+          ng-click="goToState('Main.Footer.TalkDetail', {}, 'forward');">
           <div class="row zero">
             <div class="col-auto zero mr2p">
               <img class="h37px w37px r50p"

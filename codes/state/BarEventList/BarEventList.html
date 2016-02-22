@@ -2,10 +2,11 @@
   cache-view="true"
   hide-back-button="true"
 >
-  <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+<!--   <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
-  </ion-nav-buttons>
+  </ion-nav-buttons> -->
 
   <ion-nav-title>
     <p class="zero pl1p">EVENT</p>  <!--상위로부터 상속은 되지않음-->
@@ -15,7 +16,9 @@
     <div class="relative">  <!--컨텐츠 컨테이너-->
       <div class="relative p1p">  <!--주당이벤트 List 컨테이너-->
 
-        <div class="relative mb4px grey-b1px">  <!--주당이벤트 Node-->
+        <!--주당이벤트 Node-->
+        <div class="relative mb4px grey-b1px"
+          ng-click="goToState('Main.BarEventDetail', {}, 'forward');">
           <div class="row zero">
             <div class="col zero">
               <img class="w100p h100px" src="img/_box200x200.png" alt="이벤트 사진">
@@ -40,7 +43,9 @@
           </div>
         </div>  <!--주당이벤트 Node 종료-->
 
-        <div class="relative mb4px grey-b1px">  <!--주당이벤트 Node-->
+        <!--주당이벤트 Node-->
+        <div class="relative mb4px grey-b1px"
+          ng-click="goToState('Main.BarEventDetail', {}, 'forward');">
           <div class="row zero">
             <div class="col zero">
               <img class="w100p h100px" src="img/_box200x200.png" alt="이벤트 사진">
@@ -65,7 +70,9 @@
           </div>
         </div>  <!--주당이벤트 Node 종료-->
 
-        <div class="relative mb4px grey-b1px">  <!--주당이벤트 Node-->
+        <!--주당이벤트 Node-->
+        <div class="relative mb4px grey-b1px"
+          ng-click="goToState('Main.BarEventDetail', {}, 'forward');">
           <div class="row zero">
             <div class="col zero">
               <img class="w100p h100px" src="img/_box200x200.png" alt="이벤트 사진">

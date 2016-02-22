@@ -3,19 +3,22 @@
   hide-back-button="true"
 >
   <ion-nav-buttons side="left">
-    <button class="button-icon ion-android-arrow-back white">
+    <button class="button-icon ion-android-arrow-back white"
+      ng-click="goBack();">
     </button>
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p bold">내 정보 수정</p>
+    <p class="zero pl1p bold">1:1 쪽지 모아보기</p>
   </ion-nav-title>
 
   <ion-content class="">
     <div>  <!--컨텐츠 컨테이너-->
       <div>  <!--List 컨테이너-->
 
-        <div class="bold grey-bb1px pt5px pb5px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+        <!--Node 컨테이너-->
+        <div class="bold grey-bb1px pt5px pb5px pl5p pr5p dark-grey"
+          ng-click="goToState('Main.MessageCreate', {}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
               <div class="relative">
@@ -33,7 +36,9 @@
           </div>
         </div>
 
-        <div class="bold grey-bb1px pt5px pb5px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+        <!--Node 컨테이너-->
+        <div class="bold grey-bb1px pt5px pb5px pl5p pr5p dark-grey"
+          ng-click="goToState('Main.MessageCreate', {}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
               <div class="relative">
