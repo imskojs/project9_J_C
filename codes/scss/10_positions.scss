@@ -1,7 +1,7 @@
 //====================================================
 //  Positions
 //====================================================
-@for $i from 0 through 600 {
+@for $i from -100 through 600 {
   @each $app-direction in $app-directions {
     // .top0px, ..., .left300px
     .#{$app-direction}#{$i}px {
