@@ -30,7 +30,7 @@
     angular.extend($rootScope, RootScope);
 
     // setInitialState();
-    $state.go('Main.Footer.TalkCreate');
+    $state.go('Main.RequestCreate');
 
     $ionicPlatform.ready(onIonicPlatformReady);
 

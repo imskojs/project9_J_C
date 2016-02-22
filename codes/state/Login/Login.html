@@ -1,0 +1,84 @@
+<ion-view id="login"
+  cache-view="true"
+  hide-back-button="true"><!-- 아래 태그들은 <ion-nav-bar> 안에 들어갈 경우에만 사용할 수 있다.
+  <ion-nav-title class="bold">
+    <p class="zero pl5p">
+      JOODANG
+    </p>
+  </ion-nav-title>
+
+  <ion-nav-buttons side="right">
+    <button class="button-icon ion-android-search white">
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-bar class="bar-positive" align-title="left">
+  </ion-nav-bar>
+    ==> 이는 App에서 하나만 사용할 수 있다.
+    <ion-nav-bar>를 사용할 수 없는 경우에는 ion-header-bar를 대신 사용한다.
+  -->
+
+
+  <ion-header-bar class="bar-positive"
+    no-tap-scroll="true"
+  >
+    <button class="button-icon ion-android-arrow-back white"></button>
+  </ion-header-bar>
+
+  <ion-nav-view name="Login" class="positive-bg">
+  </ion-nav-view>
+
+
+  <ion-content style="background: linear-gradient(#ac1e44, #d3302f);">
+    <div class="pt5p pb5p pl10p pr10p">  <!--컨텐츠 컨테이너-->
+
+      <div class="row zero mt0px">
+        <div class="col zero flex">
+          <img class="h170px" src="img/login01.png" />
+        </div>
+      </div>
+
+      <div class="row zero mt5p">
+        <div class="col zero flex">
+          <p class="zero bold f40px white">JOODANG</p>
+        </div>
+      </div>
+
+      <hr class="b0px h2px white-bg w20p mt5p" />
+
+      <div class="row zero mt0px f16px lh22px white center mt5p">
+        <div class="col zero flex">
+          <p class="zero">
+            주당 회원이 되시면<br>
+            다양한 혜택이 기다리고 있습니다!
+          </p>
+        </div>
+      </div>
+
+      <!--카카오 계정으로 로그인-->
+      <div class="row zero mt0px mt15p">
+        <div class="col zero flex">
+          <img class="h60px"
+            src="img/login02.png" alt="" />
+        </div>
+      </div>
+
+      <!--페이스북 로그인-->
+      <div class="row zero mt0px mt3p">
+        <div class="col zero flex">
+          <img class="h60px"
+            src="img/login03.png" alt="" />
+        </div>
+      </div>
+
+      <div class="row zero mt0px f12px lh22px white center mt5p">
+        <div class="col zero flex">
+          <p class="zero">로그인시 이용약관, 개인정보 취급방침에 동의합니다.</p>
+        </div>
+      </div>
+
+      <!--레이아웃 조금만 조정하면 다음으로 넘어가자.-->
+
+    </div>
+  </ion-content>
+</ion-view>

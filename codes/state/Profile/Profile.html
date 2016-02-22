@@ -1,0 +1,53 @@
+<ion-view id="profile"
+  cache-view="true"
+  hide-back-button="true"
+>
+  <ion-nav-buttons side="left">
+    <button class="button-icon ion-android-arrow-back white">
+    </button>
+  </ion-nav-buttons>
+
+  <ion-nav-title>
+    <p class="zero pl1p bold">내 정보 수정</p>
+  </ion-nav-title>
+
+  <ion-content class="">
+    <div>  <!--컨텐츠 컨테이너-->
+      <div>  <!--List 컨테이너-->
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+          <div class="row zero">
+            <div class="col zero flex-v" style="margin: -6px auto -6px" >
+              <img class="h40px r50p inline-block" src="{{'img/_box200x200.png'}}" alt="">
+              <p class="zero f18px ml7p">{{"user아이디"}}</p>
+              <span class="f18px black">&nbsp;님</span>
+            </div>
+            <div class="col-auto zero flex-v">
+              <p class="zero f12px lh20px w75px center dark-grey-b1px r20px">로그아웃</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+          <div class="row zero">
+            <div class="col-20 zero flex-v">
+              <p class="zero f14px">닉네임</p>
+            </div>
+            <div class="col zero flex-v">
+              <p class="zero f14px black">{{"user아이디"}}</p>
+            </div>
+            <div class="col-auto zero flex-v">
+              <p class="zero f12px lh20px w75px center dark-grey-b1px r20px"
+                ng-click="Profile.NicknameUpdateModal.show();">수정</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </ion-content>
+
+  <!-- <ion-footer-bar class="bottom44px zero">
+  </ion-footer-bar> -->
+
+</ion-view>
