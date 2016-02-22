@@ -781,7 +781,7 @@ progress[value]::-webkit-progress-bar {
 //====================================================
 //  Margin
 //====================================================
-@for $i from -100 through 600 {
+@for $i from 0 through 600 {
   // .m0, ..., .m300
   .m#{$i} {
     margin: #{$i}px #{$i}% !important;
@@ -1098,8 +1098,6 @@ progress[value]::-webkit-progress-bar {
     background-color: $white !important;
   }
 }
-
-background: linear-gradient(#ac1e44, #d3302f);
 
 #z-post-detail {
   ion-content {
