@@ -141,7 +141,7 @@
     .state('Main.Footer.EventTab.JoodangEventList', {
       url: '/JoodangEventList',
       views: {
-        JoodangEventTab: {
+        EventTab: {
           templateUrl: 'state/JoodangEventList/JoodangEventList.html',
           controller: 'JoodangEventListController as JoodangEventList'
         }
@@ -151,7 +151,7 @@
     .state('Main.Footer.EventTab.BarEventList', {
       url: '/BarEventList',
       views: {
-        BarEventTab: {
+        EventTab: {
           templateUrl: 'state/BarEventList/BarEventList.html',
           controller: 'BarEventListController as BarEventList'
         }
@@ -191,7 +191,7 @@
     .state('Main.Footer.SearchTab.ThemeList', {
       url: '/ThemeList',
       views: {
-        ThemeSearchTab: {
+        SearchTab: {
           templateUrl: 'state/ThemeList/ThemeList.html',
           controller: 'ThemeListController as ThemeList'
         }
@@ -201,7 +201,7 @@
     .state('Main.Footer.SearchTab.KeywordList', {
       url: '/KeywordList',
       views: {
-        KeywordSearchTab: {
+        SearchTab: {
           templateUrl: 'state/KeywordList/KeywordList.html',
           controller: 'KeywordListController as KeywordList'
         }
@@ -211,7 +211,7 @@
     .state('Main.Footer.SearchTab.ProvinceList', {
       url: '/ProvinceList',
       views: {
-        ProvinceSearchTab: {
+        SearchTab: {
           templateUrl: 'state/ProvinceList/ProvinceList.html',
           controller: 'ProvinceListController as ProvinceList'
         }

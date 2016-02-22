@@ -217,7 +217,8 @@ textarea {
 
 .bar {
   .title {
-    color: $stable !important;
+    //color: $stable !important;
+    color: $white !important;
   }
 }
 
@@ -468,7 +469,7 @@ img {
   }
   &::before {
     font-size: 24px !important;
-    color: $stable;
+    color: $white;
   }
 }
 
@@ -781,7 +782,7 @@ progress[value]::-webkit-progress-bar {
 //====================================================
 //  Margin
 //====================================================
-@for $i from 0 through 600 {
+@for $i from -100 through 600 {
   // .m0, ..., .m300
   .m#{$i} {
     margin: #{$i}px #{$i}% !important;
@@ -817,7 +818,7 @@ progress[value]::-webkit-progress-bar {
 //====================================================
 //  Padding
 //====================================================
-@for $i from 0 through 600 {
+@for $i from -100 through 600 {
   // .p0, ..., .p300
   .p#{$i} {
     padding: #{$i}px #{$i}% !important;

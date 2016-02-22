@@ -23,7 +23,7 @@
       // Home
       if ($state.includes('Main.Footer.Home')) {
         return $rootScope.goToState(state, params, 'forward');
-        // 
+        //
       } else if ($state.includes('Main.Footer.EventTab.JoodangEventList')) {
         if (state === 'Main.Footer.Home') {
           return $rootScope.goToState(state, params, 'back');
@@ -51,7 +51,7 @@
       } else if ($state.includes('Main.Footer.SettingList')) {
         if (state === 'Main.Footer.Home' ||
           state === 'Main.Footer.EventTab.JoodangEventList' ||
-          state === 'Main.Footer.SearchTap.ProvinceList' ||
+          state === 'Main.Footer.SearchTab.ProvinceList' ||
           state === 'Main.Footer.TalkList'
         ) {
           return $rootScope.goToState(state, params, 'back');
