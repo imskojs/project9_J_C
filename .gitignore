@@ -12,3 +12,5 @@ www/css/
 www/js/
 www/view/
 codes/lib/
+codes/scss/ionic.app.all.scss
+codes/scss/ionic.lib.all.scss
