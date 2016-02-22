@@ -110,9 +110,10 @@
     //====================================================
     function goBack(direction) {
       Message.hide();
-      if (direction) {
-        $ionicViewSwitcher.nextDirection(direction);
-      }
+      // if (direction) {
+      //   $ionicViewSwitcher.nextDirection(direction);
+      // }
+      $ionicViewSwitcher.nextDirection('back');
       $ionicHistory.goBack();
     }
     //====================================================
