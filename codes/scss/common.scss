@@ -3,3 +3,45 @@
     background-color: $white !important;
   }
 }
+
+
+
+#customer-list {
+  .com-bottom30.9vw {
+    bottom: 30.9vw;
+  }
+}
+
+
+
+#home {
+  .com-gradient-bg {
+    background: linear-gradient(#ac1e44, #d3302f);
+  }
+}
+
+#login {
+  .com-gradient-bg {
+    background: linear-gradient(#ac1e44, #d3302f);
+  }
+}
+
+
+/* 모달에 대한 배경색 */
+ion-modal-view.modal-bg {
+  background-color: rgba(0,0,0, 0.8);
+}
+
+
+/* 나중에 SASS로 옮길예정 */
+.opacity0 { opacity: 0; }
+.opacity1 { opacity: 0.1; }
+.opacity2 { opacity: 0.2; }
+.opacity3 { opacity: 0.3; }
+.opacity4 { opacity: 0.4; }
+.opacity5 { opacity: 0.5; }
+.opacity6 { opacity: 0.6; }
+.opacity7 { opacity: 0.7; }
+.opacity8 { opacity: 0.8; }
+.opacity9 { opacity: 0.9; }
+.opacity10 { opacity: 1; }

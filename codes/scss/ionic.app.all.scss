@@ -10,6 +10,7 @@ $balanced: #33cd5f !default;
 $energized: #ffc900 !default;
 $assertive: #e1053e !default;
 $royal: #886aea !default;
+
 $dark: #104e80 !default;
 $darker: #000 !default;
 $white: #fff !default;
@@ -19,10 +20,12 @@ $light-grey: #eaeaea !default;
 $grey: #cccccc !default;
 $dark-grey: #666 !default;
 $darker-grey: #333 !default;
+
 $red: red !default;
 $green: green !default;
 $blue: blue !default;
-$color0: pink !default;
+
+$color0: #dcc1c8 !default;  //MessageCreate의 내가보낸쪽지 배경색
 $color1: pink !default;
 $color2: pink !default;
 $color3: pink !default;
@@ -693,7 +696,7 @@ progress[value]::-webkit-progress-bar {
 //====================================================
 //  Positions
 //====================================================
-@for $i from 0 through 600 {
+@for $i from -100 through 600 {
   @each $app-direction in $app-directions {
     // .top0px, ..., .left300px
     .#{$app-direction}#{$i}px {
@@ -1100,6 +1103,47 @@ progress[value]::-webkit-progress-bar {
   }
 }
 
+
+
+#customer-list {
+  .com-bottom30.9vw {
+    bottom: 30.9vw;
+  }
+}
+
+
+
+#home {
+  .com-gradient-bg {
+    background: linear-gradient(#ac1e44, #d3302f);
+  }
+}
+
+#login {
+  .com-gradient-bg {
+    background: linear-gradient(#ac1e44, #d3302f);
+  }
+}
+
+
+/* 모달에 대한 배경색 */
+ion-modal-view.modal-bg {
+  background-color: rgba(0,0,0, 0.8);
+}
+
+
+/* 나중에 SASS로 옮길예정 */
+.opacity0 { opacity: 0; }
+.opacity1 { opacity: 0.1; }
+.opacity2 { opacity: 0.2; }
+.opacity3 { opacity: 0.3; }
+.opacity4 { opacity: 0.4; }
+.opacity5 { opacity: 0.5; }
+.opacity6 { opacity: 0.6; }
+.opacity7 { opacity: 0.7; }
+.opacity8 { opacity: 0.8; }
+.opacity9 { opacity: 0.9; }
+.opacity10 { opacity: 1; }
 #z-post-detail {
   ion-content {
     .bubble {
