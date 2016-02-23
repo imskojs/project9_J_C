@@ -17,19 +17,20 @@
   init.$inject = [
     '$ionicPlatform', '$window', '$rootScope', '$state',
     'RootScope', 'Preload', 'PushService',
-    'DEV_MODE', 'Assets'
+    'DEV_MODE', 'Assets', 'BackButton'
   ];
 
   function init(
     $ionicPlatform, $window, $rootScope, $state,
     RootScope, Preload, PushService,
-    DEV_MODE, Assets
+    DEV_MODE, Assets, BackButton
   ) {
 
     Preload.assets(Assets);
     angular.extend($rootScope, RootScope);
 
     // setInitialState();
+    // $state.go('Main.Footer.Home');
     $state.go('Main.Footer.Home');
 
     $ionicPlatform.ready(onIonicPlatformReady);
@@ -41,9 +42,12 @@
       if ($window.cordova && $window.cordova.plugins.Keyboard) {
         // PushService.registerDevice();
         $window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        BackButton.register();
       }
       if ($window.StatusBar) {
-        $window.StatusBar.styleDefault();
+        // $window.StatusBar.styleDefault();
+        $window.StatusBar.backgroundColorByHexString("#9b2142");
+        //안드로이드 5.0 이상에서만 작동
       }
       setInitialState();
     }

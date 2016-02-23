@@ -1,43 +1,37 @@
 (function() {
   'use strict';
   angular.module('app')
-    .controller('zLoginController', zLoginController);
+    .controller('zLoginController', LoginController);
 
-  zLoginController.$inject = [
-    '$cordovaOauth', '$scope',
-    'zLoginModel', 'Users', 'U', 'Message',
-    'FACEBOOK_KEY', 'TWITTER_CONSUMER_KEY', 'TWITTER_CONSUMER_SECRET', 'GOOGLE_OAUTH_CLIENT_ID', 'AppStorage'
+  LoginController.$inject = [
+    '$http',
+    'zLoginModel', 'Users', 'Util', 'Message', 'Oauth', 'AppStorage',
+    'FACEBOOK_KEY', 'KAKAO_KEY', 'SERVER_URL'
+    /*, 'TWITTER_CONSUMER_KEY', 'TWITTER_CONSUMER_SECRET', 'GOOGLE_OAUTH_CLIENT_ID'*/
   ];
 
-  function zLoginController(
-    $cordovaOauth, $scope,
-    zLoginModel, Users, U, Message,
-    FACEBOOK_KEY, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, GOOGLE_OAUTH_CLIENT_ID, AppStorage
+  function LoginController(
+    $http,
+    LoginModel, Users, Util, Message, Oauth, AppStorage,
+    FACEBOOK_KEY, KAKAO_KEY, SERVER_URL
+    /*, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, GOOGLE_OAUTH_CLIENT_ID*/
   ) {
 
     var Login = this;
-    Login.Model = zLoginModel;
+    Login.Model = LoginModel;
 
     Login.localLogin = localLogin;
     Login.loginWithFacebook = loginWithFacebook;
-    Login.loginWithTwitter = loginWithTwitter;
-    Login.loginWithGoogle = loginWithGoogle;
-
-    $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
-    //====================================================
-    //  View events
-    //====================================================
-    function onBeforeEnter() {
-      U.freeze(false);
-    }
-
+    Login.loginWithKakao = loginWithKakao;
+    // Login.loginWithTwitter = loginWithTwitter;
+    // Login.loginWithGoogle = loginWithGoogle;
 
     //====================================================
     //  Implementation
     //====================================================
     function localLogin() {
       Message.loading();
-      return userLogin()
+      Users.login({}, LoginModel.form).$promise
         .then(function(userWrapper) {
           Message.hide();
           console.log("---------- userWrapper ----------");
@@ -45,7 +39,7 @@
           AppStorage.user = userWrapper.user;
           AppStorage.token = userWrapper.token;
           AppStorage.isFirstTime = false;
-          U.goToState('Main.MainTab.PostList.PostListRecent', null, 'forward');
+          Util.goToState('Main.MainTab.PostList.PostListRecent', null, 'forward');
         })
         .catch(function(err) {
           console.log("---------- err ----------");
@@ -59,67 +53,55 @@
     }
 
     function loginWithFacebook() {
-      return $cordovaOauth.facebook(FACEBOOK_KEY, ["email", "public_profile"])
-        .then(function(res) {
-          console.log("---------- res ----------");
-          console.log(res);
-          //====================================================
-          //  TODO: send token to our server
-          //====================================================
+      return Oauth.facebook(FACEBOOK_KEY, ["email", "public_profile"])
+        .then(function() {
+          Util.goToState('Main.MainTab.PostList.PostListRecent', null, 'forward');
         })
         .catch(function(err) {
-          console.log("---------- err ----------");
-          console.log(err);
+          Util.error(err);
         });
     }
 
-    function loginWithTwitter() {
-      return $cordovaOauth.twitter(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
-        .then(function(res) {
-          console.log("---------- res ----------");
-          console.log(res);
-          //====================================================
-          //  TODO: send token to our server
-          //====================================================
+    function loginWithKakao() {
+      return Oauth.kakao(KAKAO_KEY)
+        .then(function() {
+          Util.goToState('Main.MainTab.PostList.PostListRecent', null, 'forward');
         })
         .catch(function(err) {
-          console.log("---------- err ----------");
-          console.log(err);
-          console.log("HAS TYPE: " + typeof err);
+          Util.error(err);
         });
     }
 
-    function loginWithGoogle() {
-      return $cordovaOauth.google(GOOGLE_OAUTH_CLIENT_ID, [
-          "https://www.googleapis.com/auth/urlshortener", "https://www.googleapis.com/auth/userinfo.email",
-          "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/plus.me"
-        ])
-        .then(function(res) {
-          console.log("---------- res ----------");
-          console.log(res);
-          //====================================================
-          //  TODO: send token to our server
-          //====================================================
-        })
-        .catch(function(err) {
-          console.log("---------- err ----------");
-          console.log(err);
-          console.log("HAS TYPE: " + typeof err);
-        });
-    }
+    // function loginWithTwitter() {
+    //   return $cordovaOauth.twitter(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET)
+    //     .then(function(res) {
+    //       console.log("---------- res ----------");
+    //       console.log(res);
+    //       console.log("HAS TYPE: " + typeof res);
+    //     })
+    //     .catch(function(err) {
+    //       console.log("---------- err ----------");
+    //       console.log(err);
+    //       console.log("HAS TYPE: " + typeof err);
+    //     });
+    // }
 
-    //====================================================
-    //  REST
-    //====================================================
-    function userLogin() {
-      return Users.login({}, {
-          identifier: zLoginModel.form.identifier,
-          password: zLoginModel.form.password
-        }).$promise
-        .then(function(userWrapper) {
-          return userWrapper;
-        });
-    }
+    // function loginWithGoogle() {
+    //   return $cordovaOauth.google(GOOGLE_OAUTH_CLIENT_ID, [
+    //       "https://www.googleapis.com/auth/urlshortener", "https://www.googleapis.com/auth/userinfo.email",
+    //       "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/plus.me"
+    //     ])
+    //     .then(function(res) {
+    //       console.log("---------- res ----------");
+    //       console.log(res);
+    //       console.log("HAS TYPE: " + typeof res);
+    //     })
+    //     .catch(function(err) {
+    //       console.log("---------- err ----------");
+    //       console.log(err);
+    //       console.log("HAS TYPE: " + typeof err);
+    //     });
+    // }
 
   }
 })();

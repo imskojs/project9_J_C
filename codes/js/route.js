@@ -462,8 +462,12 @@
 
     .state('Main.zSignup', {
       url: '/zSignup',
-      templateUrl: 'state/ZZZ/Signup/Signup.html',
-      controller: 'zSignupController as Signup'
+      views: {
+        Main: {
+          templateUrl: 'state/ZZZ/Signup/Signup.html',
+          controller: 'zSignupController as Signup'
+        }
+      }
     })
 
     .state('Main.zTerms', {

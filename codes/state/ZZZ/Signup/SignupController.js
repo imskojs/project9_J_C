@@ -5,12 +5,12 @@
 
   zSignupController.$inject = [
     '$scope', '$timeout',
-    'zSignupModel', 'Photo', 'Users', 'U', 'Message', 'Dom'
+    'zSignupModel', 'Photo', 'Users', 'Util', 'Message', 'Dom'
   ];
 
   function zSignupController(
     $scope, $timeout,
-    zSignupModel, Photo, Users, U, Message, Dom
+    zSignupModel, Photo, Users, Util, Message, Dom
   ) {
 
     var Signup = this;
@@ -25,7 +25,7 @@
     //  View Events
     //====================================================
     function onBeforeEnter() {
-      U.freeze(false);
+      Util.freeze(false);
     }
 
     //====================================================
@@ -61,10 +61,10 @@
           Message.alert('회원가입 알림', '회원가입을 성공적으로 하셨습니다.');
         })
         .then(function() {
-          U.goToState('zLogin', null, 'back');
+          Util.goToState('zLogin', null, 'back');
         })
         .catch(function(err) {
-          U.error(err);
+          Util.error(err);
         });
     }
 

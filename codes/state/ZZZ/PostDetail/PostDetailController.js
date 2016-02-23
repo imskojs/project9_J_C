@@ -5,7 +5,7 @@
 
   zPostDetailController.$inject = [
     '$scope', '$state', '$q',
-    'zPostDetailModel', 'Posts', 'Comments', 'Message', 'U'
+    'zPostDetailModel', 'Posts', 'Comments', 'Message', 'Util'
   ];
 
   function zPostDetailController(
@@ -34,29 +34,29 @@
     // View Events
     //====================================================
     function onBeforeEnter() {
-      if (!U.hasPreviousStates(noLoadingStates)) {
-        U.loading(zPostDetailModel);
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        Util.loading(zPostDetailModel);
         initPromise = init();
       } else {
-        U.freeze(false);
+        Util.freeze(false);
       }
     }
 
     function onAfterEnter() {
-      if (!U.hasPreviousStates(noLoadingStates)) {
+      if (!Util.hasPreviousStates(noLoadingStates)) {
         return initPromise
           .then(function(array) {
             var post = array[0];
             var commentsWrapper = array[1];
-            U.bindData(post, zPostDetailModel, 'post');
-            U.bindData(commentsWrapper, zPostDetailModel, 'comments');
+            Util.bindData(post, zPostDetailModel, 'post');
+            Util.bindData(commentsWrapper, zPostDetailModel, 'comments');
             console.log("---------- post ----------");
             console.log(post);
             console.log("---------- commentsWrapper ----------");
             console.log(commentsWrapper);
           })
           .catch(function(err) {
-            U.error(err);
+            Util.error(err);
           });
       } else {}
     }
@@ -73,18 +73,18 @@
         .then(function(array) {
           var post = array[0];
           var commentsWrapper = array[1];
-          U.bindData(post, zPostDetailModel, 'post');
-          U.bindData(commentsWrapper, zPostDetailModel, 'comments');
+          Util.bindData(post, zPostDetailModel, 'post');
+          Util.bindData(commentsWrapper, zPostDetailModel, 'comments');
           console.log("---------- post ----------");
           console.log(post);
           console.log("---------- commentsWrapper ----------");
           console.log(commentsWrapper);
         })
         .catch(function(err) {
-          U.error(err);
+          Util.error(err);
         })
         .finally(function() {
-          U.broadcast($scope);
+          Util.broadcast($scope);
         });
     }
 
@@ -96,15 +96,15 @@
           }
         })
         .then(function(commentsWrapper) {
-          U.appendData(commentsWrapper, zPostDetailModel, 'comments');
+          Util.appendData(commentsWrapper, zPostDetailModel, 'comments');
           console.log("---------- commentsWrapper ----------");
           console.log(commentsWrapper);
         })
         .catch(function(err) {
-          U.error(err);
+          Util.error(err);
         })
         .finally(function() {
-          U.broadcast($scope);
+          Util.broadcast($scope);
         });
     }
 
@@ -117,10 +117,10 @@
           return Message.alert('글삭제 알림', '글을 성공적으로 삭제하였습니다.');
         })
         .then(function() {
-          U.goToState('Main.zPostList', null, 'back');
+          Util.goToState('Main.zPostList', null, 'back');
         })
         .catch(function(err) {
-          U.error(err);
+          Util.error(err);
         });
     }
 
@@ -137,7 +137,7 @@
           reset();
         })
         .catch(function(err) {
-          U.error(err);
+          Util.error(err);
         });
     }
 
@@ -154,7 +154,7 @@
           return Message.alert('댓글 알림', '댓글을 성공적으로 삭제하였습니다.');
         })
         .catch(function(err) {
-          U.error(err);
+          Util.error(err);
         });
     }
 
@@ -166,7 +166,7 @@
     }
 
     function reset() {
-      U.resetSlides();
+      Util.resetSlides();
       PostDetail.showBubble = false;
       PostDetail.commentContent = '';
     }

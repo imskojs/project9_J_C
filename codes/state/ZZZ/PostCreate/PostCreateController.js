@@ -5,12 +5,12 @@
 
   zPostCreateController.$inject = [
     '$scope', '$q',
-    'zPostCreateModel', 'Posts', 'U', 'Message'
+    'zPostCreateModel', 'Posts', 'Util', 'Message'
   ];
 
   function zPostCreateController(
     $scope, $q,
-    zPostCreateModel, Posts, U, Message
+    zPostCreateModel, Posts, Util, Message
   ) {
     var initPromise;
     var noLoadingStates = [];
@@ -27,24 +27,24 @@
     //  View Events
     //====================================================
     function onBeforeEnter() {
-      if (!U.hasPreviousStates(noLoadingStates)) {
-        U.loading(zPostCreateModel);
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        Util.loading(zPostCreateModel);
         initPromise = init();
       } else {
-        U.freeze(false);
+        Util.freeze(false);
       }
     }
 
     function onAfterEnter() {
-      if (!U.hasPreviousStates(noLoadingStates)) {
+      if (!Util.hasPreviousStates(noLoadingStates)) {
         return initPromise
           .then(function(message) {
-            U.freeze(false);
+            Util.freeze(false);
             console.log("---------- message ----------");
             console.log(message);
           })
           .catch(function(err) {
-            U.error(err);
+            Util.error(err);
           });
       } else {}
     }
@@ -65,10 +65,10 @@
           return Message.alert('글작성 알림', '글을 성공적으로 작성하였습니다.');
         })
         .then(function() {
-          U.goToState('Main.zPostList', null, 'back');
+          Util.goToState('Main.zPostList', null, 'back');
         })
         .catch(function(err) {
-          U.error(err);
+          Util.error(err);
         });
     }
 

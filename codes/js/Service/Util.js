@@ -3,15 +3,15 @@
   'use strict';
 
   angular.module('app')
-    .factory('U', U);
+    .factory('Util', Util);
 
-  U.$inject = [
+  Util.$inject = [
     '$ionicHistory', '$ionicScrollDelegate', '$timeout', '$filter', '$window', '$rootScope',
     '$ionicSideMenuDelegate', '$state', '$ionicViewSwitcher', '$ionicSlideBoxDelegate',
     'Message', 'RootScope', 'Dom'
   ];
 
-  function U(
+  function Util(
     $ionicHistory, $ionicScrollDelegate, $timeout, $filter, $window, $rootScope,
     $ionicSideMenuDelegate, $state, $ionicViewSwitcher, $ionicSlideBoxDelegate,
     Message, RootScope, Dom
@@ -123,12 +123,12 @@
       $rootScope.$broadcast('scroll.refreshComplete');
       $rootScope.$broadcast('scroll.infiniteScrollComplete');
       if (err.data && err.data.invalidAttributes && err.data.invalidAttributes.username) {
-        return Message.alert('회원가입 알림', '이미 존제하는 이메일입니다. 다른이메일을 입력해주세요.')
+        return Message.alert('회원가입 알림', '이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.')
           .then(function() {
             Dom.focusById('email');
           });
       } else if (err.data && err.data.invalidAttributes && err.data.invalidAttributes.email) {
-        return Message.alert('회원가입 알림', '이미 존제하는 이메일입니다. 다른이메일을 입력해주세요.')
+        return Message.alert('회원가입 알림', '이미 존재하는 이메일입니다. 다른 이메일을 입력해주세요.')
           .then(function() {
             Dom.focusById('email');
           });
@@ -151,7 +151,7 @@
           model.more = data.more !== undefined ? data.more : model.more;
           model.total = data.total !== undefined ? data.total : model.total;
         } else {
-          // if data is a dataObject 
+          // if data is a dataObject
           model[name] = data;
         }
         if (!loadingModel) {
@@ -203,15 +203,15 @@
     function scrollTo(Model) {
       if (Model) {
         if (Model.scrollPosition === undefined) {
-          console.log('no CtrlAs.Model.scollPosition -- U.scrollTo');
+          console.log('no CtrlAs.Model.scollPosition -- Util.scrollTo');
         }
         if (Model.handle) {
           $ionicScrollDelegate.$getByHandle(Model.handle).scrollTo(undefined, Model.scrollPosition, false);
         } else {
-          console.log('no CtrlAs.Model.handle -- U.scrollTo');
+          console.log('no CtrlAs.Model.handle -- Util.scrollTo');
         }
       } else {
-        console.log('no CtrlAs.Model -- U.scrollTo');
+        console.log('no CtrlAs.Model -- Util.scrollTo');
       }
     }
 

@@ -5,12 +5,12 @@
 
   zProfileController.$inject = [
     '$scope', '$timeout',
-    'zProfileModel', 'Users', 'AppStorage', 'U', 'Photo', 'Message'
+    'zProfileModel', 'Users', 'AppStorage', 'Util', 'Photo', 'Message'
   ];
 
   function zProfileController(
     $scope, $timeout,
-    zProfileModel, Users, AppStorage, U, Photo, Message
+    zProfileModel, Users, AppStorage, Util, Photo, Message
   ) {
     var Profile = this;
     Profile.Model = zProfileModel;
@@ -24,7 +24,7 @@
     //  View Events
     //====================================================
     function onBeforeEnter() {
-      U.freeze(false);
+      Util.freeze(false);
     }
 
     function onAfterEnter() {
@@ -40,7 +40,7 @@
           }, 0);
         })
         .catch(function(err) {
-          return U.error(err);
+          return Util.error(err);
         });
 
     }
@@ -56,7 +56,7 @@
         .catch(function(err) {
           console.log("---------- err.data.message === cancelled ----------");
           console.log(err.data.message);
-          // U.error(err);
+          // Util.error(err);
         });
     }
 
@@ -70,7 +70,7 @@
           return Message.alert('프로필 변경 알림.', '프로필을 성공적으로 변경하였습니다.');
         })
         .then(function() {
-          U.goBack();
+          Util.goBack();
 
         })
         .catch(function(err) {

@@ -17,8 +17,6 @@
                 placeholder="이메일을 입력해주세요"
                 ng-model="Login.Model.form.identifier"
                 >
-                <!--LoginController를 route.js에서 이 페이지에서 Login 으로 As 해주었기 떄문에 사용가능-->
-                <!--입력받는 이메일을 LoginModel.js의 form.identifier 에 바인딩시킨다-->
             </div>
         </div>
         <!-- form.password -->
@@ -32,13 +30,12 @@
                 placeholder="비밀번호를 입력해주세요"
                 ng-model="Login.Model.form.password"
                 >
-                <!--입력받는 비밀번호를 LoginModel.js의 form.password 에 바인딩시킨다-->
             </div>
         </div>
         <div class="row zero">
             <div class="col-30 ml60p">
                 <p class="zero f14px center stable mt10px mb10px right bold darker pt10px pb20px"
-                ng-click="goToState('Main.zSignup', null, 'forward')"
+                ng-click="goToState('Main.zSignUp', null, 'forward')"
                 >
                 회원가입
                 </p>
@@ -51,7 +48,7 @@
             로그인
         </button>
 
-
+<!--         
         <div class="row zero mt30px">
             <div class="col flex"
                 ng-click="Login.loginWithFacebook()"
@@ -62,14 +59,22 @@
                 >
             </div>
             <div class="col flex"
-                ng-click="Login.loginWithKakao()"
+                ng-click="Login.loginWithTwitter()"
                 >
                 <img class="w80p"
-                src="img/login_icon06.png"
-                alt="kakao"
+                src="img/login_icon04.png"
+                alt="twitter"
+                >
+            </div>
+            <div class="col flex"
+                ng-click="Login.loginWithGoogle()"
+                >
+                <img class="w80p"
+                src="img/login_icon05.png"
+                alt="google"
                 >
             </div>
         </div>
-
+ -->        
     </ion-content>
 </ion-view>

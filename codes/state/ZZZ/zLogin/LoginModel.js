@@ -2,11 +2,11 @@
   'use strict';
 
   angular.module('app')
-    .factory('zLoginModel', LoginModel);
+    .factory('zLoginModel', zLoginModel);
 
-  LoginModel.$inject = [];
+  zLoginModel.$inject = [];
 
-  function LoginModel() {
+  function zLoginModel() {
 
     var model = {
       form: {

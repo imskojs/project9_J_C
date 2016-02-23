@@ -5,7 +5,7 @@
 
   zPasswordController.$inject = [
     '$scope',
-    'zPasswordModel', 'Users', 'Message', 'U'
+    'zPasswordModel', 'Users', 'Message', 'Util'
   ];
 
   function zPasswordController(
@@ -23,7 +23,7 @@
     //  View Events
     //====================================================
     function onBeforeEnter() {
-      U.freeze(false);
+      Util.freeze(false);
     }
 
     function onBeforeLeave() {
@@ -45,7 +45,7 @@
         })
         .then(function() {
           reset();
-          U.goBack();
+          Util.goBack();
         })
         .catch(function(err) {
           console.log("---------- err ----------");

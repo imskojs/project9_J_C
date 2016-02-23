@@ -5,12 +5,12 @@
 
   zPostListController.$inject = [
     '$scope', '$q',
-    'zPostListModel', 'U', 'Posts'
+    'zPostListModel', 'Util', 'Posts'
   ];
 
   function zPostListController(
     $scope, $q,
-    zPostListModel, U, Posts
+    zPostListModel, Util, Posts
   ) {
     var initPromise;
     var noLoadingStates = [
@@ -29,24 +29,24 @@
     // View Events
     //====================================================
     function onBeforeEnter() {
-      if (!U.hasPreviousStates(noLoadingStates)) {
-        U.loading(zPostListModel);
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        Util.loading(zPostListModel);
         initPromise = init();
       } else {
-        U.freeze(false);
+        Util.freeze(false);
       }
     }
 
     function onAfterEnter() {
-      if (!U.hasPreviousStates(noLoadingStates)) {
+      if (!Util.hasPreviousStates(noLoadingStates)) {
         return initPromise
           .then(function(postsWrapper) {
             console.log("---------- postsWrapper ----------");
             console.log(postsWrapper);
-            U.bindData(postsWrapper, zPostListModel, 'posts');
+            Util.bindData(postsWrapper, zPostListModel, 'posts');
           })
           .catch(function(err) {
-            U.error(err);
+            Util.error(err);
           });
       } else {}
     }
@@ -59,13 +59,13 @@
         .then(function(postsWrapper) {
           console.log("---------- postsWrapper ----------");
           console.log(postsWrapper);
-          U.bindData(postsWrapper, zPostListModel, 'posts');
+          Util.bindData(postsWrapper, zPostListModel, 'posts');
         })
         .catch(function(err) {
-          U.error(err);
+          Util.error(err);
         })
         .finally(function() {
-          U.broadcast($scope);
+          Util.broadcast($scope);
         });
     }
 
@@ -77,13 +77,13 @@
           }
         })
         .then(function(postsWrapper) {
-          U.appendData(postsWrapper, zPostListModel, 'posts');
+          Util.appendData(postsWrapper, zPostListModel, 'posts');
         })
         .catch(function(err) {
-          U.error(err);
+          Util.error(err);
         })
         .finally(function() {
-          U.broadcast($scope);
+          Util.broadcast($scope);
         });
     }
 

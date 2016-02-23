@@ -5,7 +5,7 @@
 
   zCouponListController.$inject = [
     '$scope', '$state', '$q',
-    'zCouponListModel', 'Coupons', 'Message', 'U'
+    'zCouponListModel', 'Coupons', 'Message', 'Util'
   ];
 
   function zCouponListController(
@@ -28,22 +28,22 @@
     //  View Events
     //====================================================
     function onBeforeEnter() {
-      if (!U.areSiblingViews(noLoadingStates)) {
-        U.loading(zCouponListModel);
+      if (!Util.areSiblingViews(noLoadingStates)) {
+        Util.loading(zCouponListModel);
         initPromise = init();
       } else {
-        U.freeze(false);
+        Util.freeze(false);
       }
     }
 
     function onAfterEnter() {
-      if (!U.areSiblingViews(noLoadingStates)) {
+      if (!Util.areSiblingViews(noLoadingStates)) {
         return initPromise
           .then(function(couponsWrapper) {
-            U.bindData(couponsWrapper, zCouponListModel, 'coupons');
+            Util.bindData(couponsWrapper, zCouponListModel, 'coupons');
           })
           .catch(function(err) {
-            U.error(err);
+            Util.error(err);
           });
       } else {}
     }
@@ -54,13 +54,13 @@
     function refresh() {
       return init()
         .then(function(couponsWrapper) {
-          U.bindData(couponsWrapper, zCouponListModel, 'coupons');
+          Util.bindData(couponsWrapper, zCouponListModel, 'coupons');
         })
         .catch(function(err) {
-          U.error(err);
+          Util.error(err);
         })
         .finally(function() {
-          U.broadcast($scope);
+          Util.broadcast($scope);
         });
     }
 
@@ -72,7 +72,7 @@
     }
 
     //====================================================
-    // REST 
+    // REST
     //====================================================
     function couponFind(extraQuery, extraOperation) {
       var queryWrapper = {

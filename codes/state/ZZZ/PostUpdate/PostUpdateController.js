@@ -5,12 +5,12 @@
 
   zPostUpdateController.$inject = [
     '$scope', '$state', '$q',
-    'zPostUpdateModel', 'U', 'Posts', 'Message'
+    'zPostUpdateModel', 'Util', 'Posts', 'Message'
   ];
 
   function zPostUpdateController(
     $scope, $state, $q,
-    zPostUpdateModel, U, Posts, Message
+    zPostUpdateModel, Util, Posts, Message
   ) {
     var initPromise;
     var noLoadingStates = [];
@@ -27,24 +27,24 @@
     // View Events
     //====================================================
     function onBeforeEnter() {
-      if (!U.hasPreviousStates(noLoadingStates)) {
-        U.loading(zPostUpdateModel);
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        Util.loading(zPostUpdateModel);
         initPromise = init();
       } else {
-        U.freeze(false);
+        Util.freeze(false);
       }
     }
 
     function onAfterEnter() {
-      if (!U.hasPreviousStates(noLoadingStates)) {
+      if (!Util.hasPreviousStates(noLoadingStates)) {
         return initPromise
           .then(function(post) {
-            U.bindData(post, zPostUpdateModel, 'form');
+            Util.bindData(post, zPostUpdateModel, 'form');
             console.log("---------- post ----------");
             console.log(post);
           })
           .catch(function(err) {
-            U.error(err);
+            Util.error(err);
           });
       } else {}
     }
@@ -65,12 +65,12 @@
           return Message.alert('글 수정 알림', '글수정을 완료하였습니다.');
         })
         .then(function() {
-          U.goToState('Main.zPostDetail', {
+          Util.goToState('Main.zPostDetail', {
             id: $state.params.id
           }, 'back');
         })
         .catch(function(err) {
-          U.error(err);
+          Util.error(err);
         });
     }
 

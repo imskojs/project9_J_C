@@ -5,13 +5,13 @@
 
   zTermsController.$inject = [
     '$scope',
-    'zTermModel', 'U',
+    'zTermModel', 'Util',
     'APP_NAME_KOREAN'
   ];
 
   function zTermsController(
     $scope,
-    zTermModel, U,
+    zTermModel, Util,
     APP_NAME_KOREAN
   ) {
     var Terms = this;
@@ -24,7 +24,7 @@
     //  View Events
     //====================================================
     function onBeforeEnter() {
-      U.freeze(false);
+      Util.freeze(false);
     }
     //====================================================
     //  Implementation

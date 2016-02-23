@@ -5,12 +5,12 @@
 
   zCouponDetailController.$inject = [
     '$scope', '$ionicModal', '$state', '$q',
-    'zCouponDetailModel', 'Coupons', 'U', 'AppStorage', 'Message'
+    'zCouponDetailModel', 'Coupons', 'Util', 'AppStorage', 'Message'
   ];
 
   function zCouponDetailController(
     $scope, $ionicModal, $state, $q,
-    zCouponDetailModel, Coupons, U, AppStorage, Message
+    zCouponDetailModel, Coupons, Util, AppStorage, Message
   ) {
 
     var initPromise;
@@ -32,11 +32,11 @@
     // View Event
     //====================================================
     function onBeforeEnter() {
-      if (!U.hasPreviousStates(noLoadingStates)) {
-        U.loading(zCouponDetailModel);
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        Util.loading(zCouponDetailModel);
         initPromise = init();
       } else {
-        U.freeze(false);
+        Util.freeze(false);
       }
     }
 
@@ -44,13 +44,13 @@
       if (!CouponDetail.modal) {
         createModal();
       }
-      if (!U.hasPreviousStates(noLoadingStates)) {
+      if (!Util.hasPreviousStates(noLoadingStates)) {
         return initPromise
           .then(function(coupon) {
-            U.bindData(coupon, zCouponDetailModel, 'coupon');
+            Util.bindData(coupon, zCouponDetailModel, 'coupon');
           })
           .catch(function(err) {
-            U.error(err);
+            Util.error(err);
           });
       } else {}
     }
