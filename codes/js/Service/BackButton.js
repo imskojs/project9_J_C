@@ -7,11 +7,13 @@
     .factory('BackButton', BackButton);
 
   BackButton.$inject = [
-    '$window', '$ionicPlatform', '$ionicHistory'
+    '$window', '$ionicPlatform', '$ionicHistory',
+    'RootScope'
   ];
 
   function BackButton(
-    $window, $ionicPlatform, $ionicHistory
+    $window, $ionicPlatform, $ionicHistory,
+    RootScope
   ) {
 
     var service = {
@@ -21,10 +23,10 @@
     function register () {
       return $ionicPlatform.registerBackButtonAction(function(e) {  //backButton이 눌려졌을때 호출되는 콜백
         e.preventDefault();
-        if (areStates(['Main.Home'])) {  //홈화면에서 백버튼을 누르면
+        if (RootScope.areStates(['Main.Footer.Home'])) {  //홈화면에서 백버튼을 누르면
           return ionic.Platform.exitApp();  //앱종료
         }
-        if (areStates(['Main.PostList'])) {
+        if (RootScope.areStates(['Main.PostList'])) {
         }
         $ionicHistory.goBack();
       }, 101);  //101을 사용하면 100보다 우선순위가 높아진다. 오버라이딩 가능.
