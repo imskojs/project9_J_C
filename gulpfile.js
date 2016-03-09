@@ -14,12 +14,15 @@ var argv = require('yargs').argv;
 var gulpif = require('gulp-if');
 var stripDebug = require('gulp-strip-debug');
 var filenames = require('gulp-filenames');
+var babel = require('gulp-babel');
+var cached = require('gulp-cached');
+var remember = require('gulp-remember');
 
 var paths = {
   img: ['./codes/img/**/*.*'],
   view: ['./codes/**/*.html', '!./codes/lib/**'],
   sassLib: [
-    // 3rd Part lib 
+    // 3rd Part lib
     './codes/lib/ng-img-crop-full-extended/source/scss/ng-img-crop.scss',
     // ionic lib (imports)
     './codes/scss/00_variables.scss',
@@ -138,6 +141,11 @@ gulp.task('sass', function(done) {
 
 gulp.task('js', function(done) {
   gulp.src(paths.js)
+    .pipe(cached('013_clientJooDang'))
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(remember('013_clientJooDang'))
     .pipe(concat('app.all.js'))
     .pipe(gulpif(argv.production, stripDebug()))
     // .pipe(gulpif(argv.production, uglify({

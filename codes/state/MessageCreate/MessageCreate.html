@@ -13,202 +13,73 @@
   </ion-nav-title>
 
   <ion-content class="">
-    <div class="relative w100p h100p pt10px lighter-bg">  <!--메세지 컨테이너-->
+    <!--List 컨테이너-->
+    <div class="relative w100p h100p pt10px lighter-bg">
 
-      <!--내가 보낸 쪽지-->
-      <div class="row zero pb20px pl3p pr3p">
-        <div class="col-85 zero r5px pl5p pr5p shadow color0-bg">
-          <div class="row zero">
-            <div class="col-auto zero flex mr10px">
-              <p class="zero lh25px f12px positive bold">{{"user아이디"}}</p>
-            </div>
-            <div class="col zero flex-v">
-              <p class="zero lh25px f10px dark-grey">{{"2016.02.16 21:29"}}</p>
-            </div>
-          </div>
-          <div class="row zero">
-            <div class="col zero">
-              <p class="">{{"안녕하세요? 문의사항이 있어 쪽지보냅니다. 2월 16일 22시 30석 예약 가능할까요?"}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-15 zero flex-h pt5px">
-          <img class="h40px r50p"
-            src="img/_box200x200.png" alt="프로필사진">
-        </div>
-      </div>
+      <!--Node 컨테이너-->
+      <div ng-repeat="message in vm.Model.messages">
 
-      <!--남으로부터 받은 쪽지-->
-      <div class="row zero pb20px pl3p pr3p">
-        <div class="col-15 zero flex-h pt5px">
-          <img class="h40px r50p"
-            src="img/_box200x200.png" alt="프로필사진">
-        </div>
-        <div class="col-85 zero r5px pl5p pr5p shadow white-bg">
-          <div class="row zero">
-            <div class="col-auto zero flex mr10px">
-              <p class="zero lh25px f12px positive bold">{{"업체이름"}}</p>
-            </div>
-            <div class="col zero flex-v">
-              <p class="zero lh25px f10px dark-grey">{{"2016.02.16 21:35"}}</p>
-            </div>
-          </div>
-          <div class="row zero">
-            <div class="col zero">
-              <p class="">{{"안녕하세요, 회원님 문의주신 날짜와 시간 30석 예약 가능합니다. 예약일정 잡아드릴까요?"}}</p>
-            </div>
+        <!--날짜가 바뀌었을 때-->
+        <div class="row zero pb20px">
+          <div class="col zero flex color0-bg">
+            <p class="zero">{{message.createdAt | date: 'yyyy.MM.dd'}}</p>
           </div>
         </div>
-      </div>
 
-      <!--날짜가 바뀌었을 때-->
-      <div class="row zero pb20px">
-        <div class="col zero flex color0-bg">
-          <p class="zero">{{"2016.02.16"}}</p>
+        <!--내가 보낸 쪽지-->
+        <div class="row zero pb20px pl3p pr3p"
+          ng-if="message.sender.id === AppStorage.user.id">
+          <div class="col-85 zero r5px pl5p pr5p shadow color0-bg">
+            <div class="row zero">
+              <div class="col-auto zero flex mr10px">
+                <p class="zero lh25px f12px positive bold">{{message.sender.nickname}}</p>
+              </div>
+              <div class="col zero flex-v">
+                <p class="zero lh25px f10px dark-grey">{{message.createdAt | date: 'yyyy.MM.dd HH.mm'}}</p>
+              </div>
+            </div>
+            <div class="row zero">
+              <div class="col zero">
+                <p class="">{{message.content}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-15 zero flex-h pt5px">
+            <img class="h40px r50p"
+              ng-src="{{message.sender.profilePhoto.url}}" alt="프로필사진">
+          </div>
         </div>
-      </div>
 
-      <!--내가 보낸 쪽지-->
-      <div class="row zero pb20px pl3p pr3p">
-        <div class="col-85 zero r5px pl5p pr5p shadow color0-bg">
-          <div class="row zero">
-            <div class="col-auto zero flex mr10px">
-              <p class="zero lh25px f12px positive bold">{{"user아이디"}}</p>
-            </div>
-            <div class="col zero flex-v">
-              <p class="zero lh25px f10px dark-grey">{{"2016.02.16 21:29"}}</p>
-            </div>
+        <!--남으로부터 받은 쪽지-->
+        <div class="row zero pb20px pl3p pr3p"
+          ng-if="message.sender.id !== AppStorage.user.id">
+          <div class="col-15 zero flex-h pt5px">
+            <img class="h40px r50p"
+              ng-src="{{message.sender.profilePhoto.url}}" alt="프로필사진">
           </div>
-          <div class="row zero">
-            <div class="col zero">
-              <p class="">{{"예약좀 할께요!"}}</p>
+          <div class="col-85 zero r5px pl5p pr5p shadow white-bg">
+            <div class="row zero">
+              <div class="col-auto zero flex mr10px">
+                <p class="zero lh25px f12px positive bold">{{message.sender.nickname}}</p>
+              </div>
+              <div class="col zero flex-v">
+                <p class="zero lh25px f10px dark-grey">{{message.createdAt | date: 'yyyy.MM.dd HH.mm'}}</p>
+              </div>
+            </div>
+            <div class="row zero">
+              <div class="col zero">
+                <p class="">{{message.content}}</p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-15 zero flex-h pt5px">
-          <img class="h40px r50p"
-            src="img/_box200x200.png" alt="프로필사진">
-        </div>
-      </div>
 
-      <!--내가 보낸 쪽지-->
-      <div class="row zero pb20px pl3p pr3p">
-        <div class="col-85 zero r5px pl5p pr5p shadow color0-bg">
-          <div class="row zero">
-            <div class="col-auto zero flex mr10px">
-              <p class="zero lh25px f12px positive bold">{{"user아이디"}}</p>
-            </div>
-            <div class="col zero flex-v">
-              <p class="zero lh25px f10px dark-grey">{{"2016.02.16 21:29"}}</p>
-            </div>
-          </div>
-          <div class="row zero">
-            <div class="col zero">
-              <p class="">{{"예약좀 할께요!"}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-15 zero flex-h pt5px">
-          <img class="h40px r50p"
-            src="img/_box200x200.png" alt="프로필사진">
-        </div>
-      </div>
+      </div>  <!--Node 컨테이너 종료-->
 
-      <!--내가 보낸 쪽지-->
-      <div class="row zero pb20px pl3p pr3p">
-        <div class="col-85 zero r5px pl5p pr5p shadow color0-bg">
-          <div class="row zero">
-            <div class="col-auto zero flex mr10px">
-              <p class="zero lh25px f12px positive bold">{{"user아이디"}}</p>
-            </div>
-            <div class="col zero flex-v">
-              <p class="zero lh25px f10px dark-grey">{{"2016.02.16 21:29"}}</p>
-            </div>
-          </div>
-          <div class="row zero">
-            <div class="col zero">
-              <p class="">{{"예약좀 할께요!"}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-15 zero flex-h pt5px">
-          <img class="h40px r50p"
-            src="img/_box200x200.png" alt="프로필사진">
-        </div>
-      </div>
-
-      <!--내가 보낸 쪽지-->
-      <div class="row zero pb20px pl3p pr3p">
-        <div class="col-85 zero r5px pl5p pr5p shadow color0-bg">
-          <div class="row zero">
-            <div class="col-auto zero flex mr10px">
-              <p class="zero lh25px f12px positive bold">{{"user아이디"}}</p>
-            </div>
-            <div class="col zero flex-v">
-              <p class="zero lh25px f10px dark-grey">{{"2016.02.16 21:29"}}</p>
-            </div>
-          </div>
-          <div class="row zero">
-            <div class="col zero">
-              <p class="">{{"예약좀 할께요!"}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-15 zero flex-h pt5px">
-          <img class="h40px r50p"
-            src="img/_box200x200.png" alt="프로필사진">
-        </div>
-      </div>
-
-      <!--내가 보낸 쪽지-->
-      <div class="row zero pb20px pl3p pr3p">
-        <div class="col-85 zero r5px pl5p pr5p shadow color0-bg">
-          <div class="row zero">
-            <div class="col-auto zero flex mr10px">
-              <p class="zero lh25px f12px positive bold">{{"user아이디"}}</p>
-            </div>
-            <div class="col zero flex-v">
-              <p class="zero lh25px f10px dark-grey">{{"2016.02.16 21:29"}}</p>
-            </div>
-          </div>
-          <div class="row zero">
-            <div class="col zero">
-              <p class="">{{"예약좀 할께요!"}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-15 zero flex-h pt5px">
-          <img class="h40px r50p"
-            src="img/_box200x200.png" alt="프로필사진">
-        </div>
-      </div>
-
-      <!--내가 보낸 쪽지-->
-      <div class="row zero pb20px pl3p pr3p">
-        <div class="col-85 zero r5px pl5p pr5p shadow color0-bg">
-          <div class="row zero">
-            <div class="col-auto zero flex mr10px">
-              <p class="zero lh25px f12px positive bold">{{"user아이디"}}</p>
-            </div>
-            <div class="col zero flex-v">
-              <p class="zero lh25px f10px dark-grey">{{"2016.02.16 21:29"}}</p>
-            </div>
-          </div>
-          <div class="row zero">
-            <div class="col zero">
-              <p class="">{{"예약좀 할께요!"}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-15 zero flex-h pt5px">
-          <img class="h40px r50p"
-            src="img/_box200x200.png" alt="프로필사진">
-        </div>
-      </div>
-
-    </div>  <!--메세지 컨테이너 종료-->
-
+    </div>  <!--List 컨테이너 종료-->
   </ion-content>
+
+
 
   <!--쪽지 문의하는 input 박스-->
   <ion-footer-bar class="zero">

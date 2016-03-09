@@ -4,11 +4,13 @@
     .controller('MainController', MainController);
 
   MainController.$inject = [
+    '_MockData',
     '$scope', '$state', '$ionicSideMenuDelegate', '$ionicModal',
     'MainModel', 'AppStorage'
   ];
 
   function MainController(
+    _MockData,
     $scope, $state, $ionicSideMenuDelegate, $ionicModal,
     MainModel, AppStorage
   ) {

@@ -10,13 +10,13 @@
 
   <ion-nav-buttons side="right">
     <button class="button-icon ion-android-person white"
-      ng-click="goToState('Main.Footer.MyTalkList', {}, 'forward');"></button>
+      ng-click="vm.goToState('Main.Footer.MyTalkList', {}, 'forward', '내글관리', '로그인 후에 이용가능합니다.');"></button>
     <button class="button-icon ion-edit white"
-      ng-click="goToState('Main.Footer.TalkCreate', {}, 'forward');"></button>
+      ng-click="goToState('Main.Footer.TalkCreate', {}, 'forward', '내글관리', '로그인 후에 이용가능합니다.');"></button>
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p bold">주당톡</p>
+    <p class="zero pl1p">주당톡</p>
   </ion-nav-title>
 
   <ion-header-bar class="h30px top44px grey-bb1px white-bg"
@@ -24,38 +24,46 @@
   >
     <div class="row zero pl3p pr3p">
       <div class="col zero flex-v">  <!--왼쪽-->
-        <p class="zero f14px bold positive">자유톡</p>
+        <p class="zero f14px bold positive">{{vm.Model.selectedCategory}}</p>
       </div>
       <div class="col-30 zero flex-v">
-        <div class="relative w100p">  <!--오른쪽 선택박스-->
+        <div class="relative w100p"
+          ng-click="vm.categoryToggle();">  <!--오른쪽 선택박스-->
           <div class="row zero dark-grey-b1px pl10p pr10p r3px">
             <div class="col zero flex-v">
-              <p class="zero f14px bold dark-grey">자유톡</p>
+              <p class="zero f14px bold dark-grey">{{vm.Model.selectedCategory}}</p>
             </div>
             <div class="col-10 zero flex-v"><i class="ion-arrow-down-b"></i></div>
           </div>
-          <div class="absolute white w100p r3px darker-grey-bg pt10px pb10px opacity9">  <!--메뉴선택-->
-            <div class="row zero pl10p pr10p">
+          <!--메뉴선택박스-->
+          <div class="absolute white w100p r3px darker-grey-bg pt10px pb10px opacity9"
+            ng-if="vm.Model.categoryToggle">
+            <div class="row zero pl10p pr10p"
+              ng-click="vm.selectCategory('전체');">
               <div class="col zero">
                 <p class="zero lh30px">전체</p>
               </div>
             </div>
-            <div class="row zero pl10p pr10p">
+            <div class="row zero pl10p pr10p"
+              ng-click="vm.selectCategory('자유톡');">
               <div class="col zero">
                 <p class="zero lh30px">자유톡</p>
               </div>
             </div>
-            <div class="row zero pl10p pr10p">
+            <div class="row zero pl10p pr10p"
+              ng-click="vm.selectCategory('연애톡');">
               <div class="col zero">
                 <p class="zero lh30px">연애톡</p>
               </div>
             </div>
-            <div class="row zero pl10p pr10p">
+            <div class="row zero pl10p pr10p"
+              ng-click="vm.selectCategory('번개톡');">
               <div class="col zero">
                 <p class="zero lh30px">번개톡</p>
               </div>
             </div>
-            <div class="row zero pl10p pr10p">
+            <div class="row zero pl10p pr10p"
+              ng-click="vm.selectCategory('유머톡');">
               <div class="col zero">
                 <p class="zero lh30px">유머톡</p>
               </div>
@@ -71,74 +79,52 @@
   <ion-content class="top74px bold darker-grey">
     <div>   <!--컨텐츠 컨테이너-->
 
+      <div>  <!--공지 List 컨테이너-->
+
+        <!--공지 Node 컨테이너-->
+        <div class="grey-bb1px pl5p pr5p pt10px pb10px lighter-bg"
+          ng-repeat="notice in vm.Model.notices
+                    | orderBy: notice.id"
+          ng-click="goToState('Main.Footer.TalkDetail', {postId: notice.id}, 'forward');">
+          <div class="row zero">
+            <div class="col zero">
+              <p class="zero f14px">[공지] {{notice.title}}</p>
+            </div>
+          </div>
+        </div>  <!--공지 Node 컨테이너 종료-->
+
+      </div>  <!--공지 List 컨테이너 종료-->
+
+
+
       <div>  <!--주당톡 List 컨테이너-->
 
-        <!--주당톡 Node 컨테이너 (공지)-->
-        <div class="grey-bb1px pl5p pr5p pt10px pb10px lighter-bg"
-          ng-click="goToState('Main.Footer.TalkDetail', {}, 'forward');">
-          <div class="row zero">
-            <div class="col zero">
-              <p class="zero f14px">{{"[공지] 운영 원칙 및 게시판 정책"}}</p>
-            </div>
-          </div>
-        </div>  <!--주당톡 Node 컨테이너 종료-->
-
-        <!--주당톡 Node 컨테이너 (공지)-->
-        <div class="grey-bb1px pl5p pr5p pt10px pb10px lighter-bg"
-          ng-click="goToState('Main.Footer.TalkDetail', {}, 'forward');">
-          <div class="row zero">
-            <div class="col zero">
-              <p class="zero f14px">{{"[공지] 주당 고객 감사 게시판 이벤트"}}</p>
-            </div>
-          </div>
-        </div>  <!--주당톡 Node 컨테이너 종료-->
-
-        <!--주당톡 Node 컨테이너 (일반)-->
+        <!--주당톡 Node 컨테이너-->
         <div class="grey-bb1px pl5p pr5p pt5px pb5px"
-          ng-click="goToState('Main.Footer.TalkDetail', {}, 'forward');">
+          ng-repeat="post in vm.Model.posts
+                    | filter: vm.filterCategory(vm.Model.selectedCategory)
+                    | orderBy: post.id"
+          ng-click="goToState('Main.Footer.TalkDetail', {postId: post.id}, 'forward');">
           <div class="row zero">
-            <div class="col-auto zero mr2p">
+            <div class="col-auto zero mr2p flex-v">
               <img class="h37px w37px r50p"
-                src="img/_box200x200.png" alt="프로필사진" />
+                ng-src="{{post.photos[0].url}}" alt="프로필사진" />
             </div>
             <div class="col zero">
               <div class="row zero mt0px">
                 <div class="col zero flex-v">
-                  <p class="zero">{{"[자유톡] 공덕역 꼼장어 맛집"}}</p>
+                  <p class="zero">[{{post.category}}] {{post.title}}</p>
                 </div>
               </div>
               <div class="row zero mt0px">
                 <div class="col-auto zero flex-v mr2p">
-                  <p class="zero f12px dark-grey">{{"user아이디"}}</p>
+                  <p class="zero f12px dark-grey">
+                    <span ng-if="post.showInTalk">{{post.createdBy.nickname}}</span>
+                    <span ng-if="!post.showInTalk">익명</span>
+                  </p>
                 </div>
                 <div class="col-auto zero flex-v">
-                  <p class="zero f11px grey">{{"15:47"}}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>  <!--주당톡 Node 컨테이너 종료-->
-
-        <!--주당톡 Node 컨테이너 (일반)-->
-        <div class="grey-bb1px pl5p pr5p pt5px pb5px"
-          ng-click="goToState('Main.Footer.TalkDetail', {}, 'forward');">
-          <div class="row zero">
-            <div class="col-auto zero mr2p">
-              <img class="h37px w37px r50p"
-                src="img/_box200x200.png" alt="프로필사진" />
-            </div>
-            <div class="col zero">
-              <div class="row zero mt0px">
-                <div class="col zero flex-v">
-                  <p class="zero">{{"[자유톡] 공덕역 꼼장어 맛집"}}</p>
-                </div>
-              </div>
-              <div class="row zero mt0px">
-                <div class="col-auto zero flex-v mr2p">
-                  <p class="zero f12px dark-grey">{{"user아이디"}}</p>
-                </div>
-                <div class="col-auto zero flex-v">
-                  <p class="zero f11px grey">{{"15:47"}}
+                  <p class="zero f11px grey">{{post.createdAt | date: 'HH:ss'}}</p>
                 </div>
               </div>
             </div>

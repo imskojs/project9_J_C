@@ -9,7 +9,8 @@
   function PlaceDetailModel() {
 
     var Model = {
-
+      loading: false,
+      place: {},
     };
 
     return Model;

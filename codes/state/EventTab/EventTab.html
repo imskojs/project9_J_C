@@ -12,12 +12,16 @@
     <p class="zero pl1p">EVENT</p>
   </ion-nav-title>
 
-  <ion-header-bar class="bar-subheader zero white-bg row bold"
+  <ion-header-bar class="bar-subheader zero white-bg row grey bold"
     no-tap-scroll="true">
-    <div class="col zero flex grey-b1px positive positive-bb3px"
-      ng-click="goToState('Main.Footer.EventTab.JoodangEventList', {}, 'enter');">주당이벤트</div>
-    <div class="col zero flex grey-b1px bl0px grey"
-      ng-click="goToState('Main.Footer.EventTab.BarEventList', {}, 'enter');">주점이벤트</div>
+    <div class="col zero flex grey-b1px"
+      ng-class="{'positive positive-bb3px': vm.Model.currentTab === '주당이벤트'}"
+      ng-click="vm.Model.currentTab = $event.currentTarget.textContent;
+                goToState('Main.Footer.EventTab.JoodangEventList', {}, 'back');">주당이벤트</div>
+    <div class="col zero flex grey-b1px bl0px"
+      ng-class="{'positive positive-bb3px': vm.Model.currentTab === '주점이벤트'}"
+      ng-click="vm.Model.currentTab = $event.currentTarget.textContent;
+                goToState('Main.Footer.EventTab.BarEventList', {}, 'forward');">주점이벤트</div>
   </ion-header-bar>
 
   <ion-nav-view name="EventTab"></ion-nav-view>

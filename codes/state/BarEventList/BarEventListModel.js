@@ -9,7 +9,8 @@
   function BarEventListModel() {
 
     var Model = {
-
+      loading: false,
+      events: []
     };
 
     return Model;

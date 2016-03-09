@@ -9,7 +9,11 @@
 
   function CompanyCreateModel() {
     var Model = {
-
+      placeName: '',
+      phoneNumber: '',
+      location: '',
+      title: '',
+      content: ''
     };
     return Model;
   }

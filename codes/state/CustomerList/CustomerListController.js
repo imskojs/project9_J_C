@@ -4,10 +4,12 @@
     .controller('CustomerListController', CustomerListController);
 
   CustomerListController.$inject = [
+    '_MockData',
     'CustomerListModel'
   ];
 
-  function CustomerListController(CustomerListModel) {
+  function CustomerListController(
+    _MockData,CustomerListModel) {
     var CustomerList = this;
     CustomerList.Model = CustomerListModel;
 

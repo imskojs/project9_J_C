@@ -1,0 +1,49 @@
+
+<div class="col-40 zero flex lighter-grey-bg relative">
+  <!--업체 사진-->
+  <img class="absolute top0px left0px w100p h100p"
+    ng-src="{{place.photos[0].url}}" alt="매장 대표사진" />
+  <!--할인 및 이벤트정보-->
+  <div class="absolute top8px left0px w70px h25px"
+     ng-if="place.showDiscountTag">
+    <div class="row zero h20px">
+      <div class="col zero h25px flex positive-bg">
+        <p class="f12px zero white center">{{place.discountTitle}}</p>
+      </div>
+      <div class="col-10 zero">
+        <img class="h25px" src="img/home_detail_tag.png" alt="끝에 잘리는이미지" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-60 zero pt1p pb1p pl2p pr2p">
+  <!--업체명-->
+  <div class="row zero">
+    <div class="col zero">
+      <p class="zero f20px lh26px bold text-overflow">{{place.name}}</p>
+    </div>
+    <div class="col-auto zero flex-v f18px positive ion-ios-location mr2p"></div>
+    <div class="col-auto zero flex-v f16px positive">{{"60m"}}</div>
+  </div>
+  <!--업체 점수 표현-->
+  <div class="row zero mt5px f16px"
+    average-stars
+    rating="place.averageRating"
+    vm="vm"
+  >
+  </div>
+  <!--업체 주소-->
+  <div class="row zero mt1px mb10px">
+    <div class="col zero">
+      <p class="zero text-overflow">{{place.address}}</p>
+    </div>
+  </div>
+  <!--업체 태그-->
+  <div class="row zero center">
+    <div class="col zero p1px"
+      ng-repeat="tag in place.tags">
+      <p class="p5 positive positive-b1px r3px f8px text-overflow">{{tag}}</p>
+    </div>
+  </div>
+</div>

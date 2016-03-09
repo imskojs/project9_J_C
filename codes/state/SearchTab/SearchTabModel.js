@@ -9,6 +9,8 @@
   function SearchTabModel() {
 
     var Model = {
+      loading: false,
+      currentTab: ''
 
     };
 

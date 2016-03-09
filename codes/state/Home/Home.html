@@ -16,9 +16,19 @@
 
   <ion-content class="pb15px com-gradient-bg"
     scroll="false"
-    >
-    <div>  <!--컨텐츠 컨테이너-->
+  >
 
+    <div class="w100p h100vh flex-h light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="vm.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mt100px" icon="ripple">
+      </ion-spinner>
+    </div>
+
+
+
+    <div>  <!--컨텐츠 컨테이너-->
       <div class="row zero flex pt5vh">
         <div class="col-55">
           <img class="w100p" src="img/home01.png" />
@@ -33,10 +43,19 @@
         </div>
       </div>
 
-      <div class="row zero absolute bottom8px">
-        <div class="col zero flex">
-          <img class="w95p auto h25vw"
-            ng-src="{{'img/theme_01.png'}}" />
+
+      <div class="row zero flex absolute bottom8px">
+        <div class="col-95 zero flex">
+          <!--슬라이드 box-->
+          <ion-slide-box class="w100p auto"
+            show-pager="false"
+          >
+            <ion-slide ng-repeat="banner in vm.Model.banners">
+              <img class="w100p block h25vw lazy-show"
+                ng-src="{{banner.photo.url}}"
+              >
+            </ion-slide>
+          </ion-slide-box>
         </div>
       </div>
 

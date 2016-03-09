@@ -9,6 +9,7 @@
   function TermListModel() {
 
     var Model = {
+      loading: false,
 
     };
 

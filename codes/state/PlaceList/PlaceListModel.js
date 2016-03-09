@@ -9,6 +9,20 @@
   function PlaceListModel() {
 
     var Model = {
+      loading: false,
+      places: [null],
+      // premium: {
+      //   places: [
+      //   ]
+      // },
+      // special: {
+      //   places: [
+      //   ]
+      // },
+      // normal: {
+      //   places: [
+      //   ]
+      // }
 
     };
 

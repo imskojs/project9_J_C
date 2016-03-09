@@ -9,7 +9,16 @@
 
   function RequestUpdateModel() {
     var Model = {
-
+      loading: false,
+      update: {
+        place: { id: '' },
+        infomation: false,
+        menuAndPrice: false,
+        eventAndDiscount: false,
+        stateChange: false,
+        other: false,
+        detail: ''
+      }
     };
     return Model;
   }

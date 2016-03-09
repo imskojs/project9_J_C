@@ -4,10 +4,12 @@
     .controller('SearchController', SearchController);
 
   SearchController.$inject = [
+    '_MockData',
     'SearchModel'
   ];
 
   function SearchController(
+    _MockData,
     SearchModel
   ) {
     var Search = this;

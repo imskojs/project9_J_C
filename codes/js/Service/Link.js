@@ -68,6 +68,7 @@
     // Output
     //InAppBrowser open new window with url
     function open(link) {
+      console.log("1232131232132135216341256448934 :::\n", 1232131232132135216341256448934);
       return $window.open(link, '_system');
     }
 

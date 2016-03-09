@@ -4,16 +4,54 @@
     .controller('ProvinceListController', ProvinceListController);
 
   ProvinceListController.$inject = [
-    'ProvinceListModel'
+    '_MockData',
+    '$scope',
+    'ProvinceListModel', 'Util', 'Events'
   ];
 
-  function ProvinceListController(ProvinceListModel) {
-    var ProvinceList = this;
-    ProvinceList.Model = ProvinceListModel;
+  function ProvinceListController(
+    _MockData,
+    $scope,
+    ProvinceListModel, Util, Events
+  ) {
+    var initPromise;
+    var noLoadingStates = [];
+    var vm = this;
+    vm.Model = ProvinceListModel;
 
+    $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
+    $scope.$on('$ionicView.afterEnter', onAfterEnter);
 
     //====================================================
-    //  Implementation
+    //  View Event
+    //====================================================
+
+    function onBeforeEnter() {
+
+    }
+
+    function onAfterEnter() {
+
+    }
+
+    //====================================================
+    //  VM
+    //====================================================
+
+    //====================================================
+    //  Private
+    //====================================================
+
+    function init() {
+      //업체정보를 가져오는 로직
+    }
+
+    //====================================================
+    //  Modals
+    //====================================================
+
+    //====================================================
+    //  REST
     //====================================================
   }
 })();

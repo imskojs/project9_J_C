@@ -18,26 +18,14 @@
 
         <!--Node 컨테이너-->
         <div class="bold grey-bb1px pt12px pb12px pl5p pr5p dark-grey"
-          ng-click="goToState('Main.NoticeDetail', {}, 'forward');">
+          ng-click="goToState('Main.NoticeDetail', {}, 'forward');"
+          ng-repeat="notice in vm.Model.notices">
           <div class="row zero">
             <div class="col zero flex-v">
-              <p class="zero f14px">{{"공지사항 게시물 제목"}}</p>
+              <p class="zero f14px">{{notice.title}}</p>
             </div>
             <div class="col-auto zero flex-v">
-              <p class="zero f12px">{{"2016.02.19"}}</p>
-            </div>
-          </div>
-        </div>
-
-        <!--Node 컨테이너-->
-        <div class="bold grey-bb1px pt12px pb12px pl5p pr5p dark-grey"
-          ng-click="goToState('Main.NoticeDetail', {}, 'forward');">
-          <div class="row zero">
-            <div class="col zero flex-v">
-              <p class="zero f14px">{{"공지사항 게시물 제목"}}</p>
-            </div>
-            <div class="col-auto zero flex-v">
-              <p class="zero f12px">{{"2016.02.19"}}</p>
+              <p class="zero f12px">{{notice.date}}</p>
             </div>
           </div>
         </div>

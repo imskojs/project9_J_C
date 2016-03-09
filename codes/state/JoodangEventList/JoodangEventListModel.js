@@ -9,7 +9,8 @@
   function JoodangEventListModel() {
 
     var Model = {
-
+      loading: false,
+      events: []
     };
 
     return Model;

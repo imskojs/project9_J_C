@@ -32,7 +32,7 @@
       views: {
         Footer: {
           templateUrl: 'state/Home/Home.html',
-          controller: 'HomeController as Home'
+          controller: 'HomeController as vm'
         }
       }
     })
@@ -52,27 +52,33 @@
       views: {
         Main: {
           templateUrl: 'state/PlaceList/PlaceList.html',
-          controller: 'PlaceListController as PlaceList'
+          controller: 'PlaceListController as vm'
         }
       }
     })
 
     .state('Main.PlaceDetail', {
+      params: {
+        placeId: ''
+      },
       url: '/PlaceDetail',
       views: {
         Main: {
           templateUrl: 'state/PlaceDetail/PlaceDetail.html',
-          controller: 'PlaceDetailController as PlaceDetail'
+          controller: 'PlaceDetailController as vm'
         }
       }
     })
 
-    .state('Main.RequestUpdate', {  //상태의 이름
-      url: '/RequestUpdate',        //접속할 angular의 url
-      views: {                      //ion-nav-view의 name속성의 값을 참조함.
-        Main: {                     //<ion-nav-view name="Main"> 태그에 렌더링할 대상을 설정
-          templateUrl: 'state/RequestUpdate/RequestUpdate.html',  //렌더링 할 html파일
-          controller: 'RequestUpdateController as RequestUpdate'  //html파일에서 사용할 Angular의 컨트롤러
+    .state('Main.RequestUpdate', { //상태의 이름
+      params: {
+        placeId: ''
+      },
+      url: '/RequestUpdate', //접속할 angular의 url
+      views: { //ion-nav-view의 name속성의 값을 참조함.
+        Main: { //<ion-nav-view name="Main"> 태그에 렌더링할 대상을 설정
+          templateUrl: 'state/RequestUpdate/RequestUpdate.html', //렌더링 할 html파일
+          controller: 'RequestUpdateController as vm' //html파일에서 사용할 Angular의 컨트롤러
         }
       }
     })
@@ -88,41 +94,55 @@
     })
 
     .state('Main.ReviewCreate', {
+      params: {
+        placeId: ''
+      },
       url: '/ReviewCreate',
       views: {
         Main: {
           templateUrl: 'state/ReviewCreate/ReviewCreate.html',
-          controller: 'ReviewCreateController as ReviewCreate'
+          controller: 'ReviewCreateController as vm'
         }
       }
     })
 
     .state('Main.CommentCreate', {
+      params: {
+        placeId: '',
+        reviewId: ''
+      },
       url: '/CommentCreate',
       views: {
         Main: {
           templateUrl: 'state/CommentCreate/CommentCreate.html',
-          controller: 'CommentCreateController as CommentCreate'
+          controller: 'CommentCreateController as vm'
         }
       }
     })
 
     .state('Main.MessageCreate', {
+      params: {
+        placeId: '',
+        messageId: ''
+      },
       url: '/MessageCreate',
       views: {
         Main: {
           templateUrl: 'state/MessageCreate/MessageCreate.html',
-          controller: 'MessageCreateController as MessageCreate'
+          controller: 'MessageCreateController as vm'
         }
       }
     })
 
     .state('Main.MenuList', {
+      params: {
+        placeId: ''
+      },
       url: '/MenuList',
       views: {
         Main: {
           templateUrl: 'state/MenuList/MenuList.html',
-          controller: 'MenuListController as MenuList'
+          controller: 'MenuListController as vm'
         }
       }
     })
@@ -131,9 +151,9 @@
       //위에 선언된 state의 Main을 체크하고, Footer를 체크한뒤, 그에대한 체인으로 EventTab를 선언함.
       url: '/EventTab',
       views: {
-        Footer: {  //<ion-nav-view name="Footer"> 태그를 상위객체 Footer에서 찾지만, 만약 없다해도 EventTab의 내용이 렌더링되지 않을 뿐이며 에러는 발생되지 않는것으로 확인.
+        Footer: { //<ion-nav-view name="Footer"> 태그를 상위객체 Footer에서 찾지만, 만약 없다해도 EventTab의 내용이 렌더링되지 않을 뿐이며 에러는 발생되지 않는것으로 확인.
           templateUrl: 'state/EventTab/EventTab.html',
-          controller: 'EventTabController as EventTab'
+          controller: 'EventTabController as vm'
         }
       }
     })
@@ -143,7 +163,7 @@
       views: {
         EventTab: {
           templateUrl: 'state/JoodangEventList/JoodangEventList.html',
-          controller: 'JoodangEventListController as JoodangEventList'
+          controller: 'JoodangEventListController as vm'
         }
       }
     })
@@ -153,27 +173,33 @@
       views: {
         EventTab: {
           templateUrl: 'state/BarEventList/BarEventList.html',
-          controller: 'BarEventListController as BarEventList'
+          controller: 'BarEventListController as vm'
         }
       }
     })
 
     .state('Main.JoodangEventDetail', {
+      params: {
+        eventId: ''
+      },
       url: '/JoodangEventDetail',
       views: {
         Main: {
           templateUrl: 'state/JoodangEventDetail/JoodangEventDetail.html',
-          controller: 'JoodangEventDetailController as JoodangEventDetail'
+          controller: 'JoodangEventDetailController as vm'
         }
       }
     })
 
     .state('Main.BarEventDetail', {
+      params: {
+        eventId: ''
+      },
       url: '/BarEventDetail',
       views: {
         Main: {
           templateUrl: 'state/BarEventDetail/BarEventDetail.html',
-          controller: 'BarEventDetailController as BarEventDetail'
+          controller: 'BarEventDetailController as vm'
         }
       }
     })
@@ -183,7 +209,7 @@
       views: {
         Footer: {
           templateUrl: 'state/SearchTab/SearchTab.html',
-          controller: 'SearchTabController as SearchTab'
+          controller: 'SearchTabController as vm'
         }
       }
     })
@@ -193,7 +219,7 @@
       views: {
         SearchTab: {
           templateUrl: 'state/ThemeList/ThemeList.html',
-          controller: 'ThemeListController as ThemeList'
+          controller: 'ThemeListController as vm'
         }
       }
     })
@@ -203,7 +229,7 @@
       views: {
         SearchTab: {
           templateUrl: 'state/KeywordList/KeywordList.html',
-          controller: 'KeywordListController as KeywordList'
+          controller: 'KeywordListController as vm'
         }
       }
     })
@@ -213,37 +239,47 @@
       views: {
         SearchTab: {
           templateUrl: 'state/ProvinceList/ProvinceList.html',
-          controller: 'ProvinceListController as ProvinceList'
+          controller: 'ProvinceListController as vm'
         }
       }
     })
 
     .state('Main.ProvinceSearchList', {
+      params: {
+        province: '',
+      },
       url: '/ProvinceSearchList',
       views: {
         Main: {
           templateUrl: 'state/ProvinceSearchList/ProvinceSearchList.html',
-          controller: 'ProvinceSearchListController as ProvinceSearchList'
+          controller: 'ProvinceSearchListController as vm'
         }
       }
     })
 
     .state('Main.ThemeSearchList', {
+      params: {
+        themeTitle: '',
+      },
       url: '/ThemeSearchList',
       views: {
         Main: {
           templateUrl: 'state/ThemeSearchList/ThemeSearchList.html',
-          controller: 'ThemeSearchListController as ThemeSearchList'
+          controller: 'ThemeSearchListController as vm'
         }
       }
     })
 
     .state('Main.KeywordSearchList', {
+      params: {
+        keywords: '',
+        keywordString: ''
+      },
       url: '/KeywordSearchList',
       views: {
         Main: {
           templateUrl: 'state/KeywordSearchList/KeywordSearchList.html',
-          controller: 'KeywordSearchListController as KeywordSearchList'
+          controller: 'KeywordSearchListController as vm'
         }
       }
     })
@@ -253,7 +289,7 @@
       views: {
         Footer: {
           templateUrl: 'state/TalkList/TalkList.html',
-          controller: 'TalkListController as TalkList'
+          controller: 'TalkListController as vm'
         }
       }
     })
@@ -263,17 +299,20 @@
       views: {
         Footer: {
           templateUrl: 'state/MyTalkList/MyTalkList.html',
-          controller: 'MyTalkListController as MyTalkList'
+          controller: 'MyTalkListController as vm'
         }
       }
     })
 
     .state('Main.Footer.TalkDetail', {
+      params: {
+        postId: ''
+      },
       url: '/TalkDetail',
       views: {
         Footer: {
           templateUrl: 'state/TalkDetail/TalkDetail.html',
-          controller: 'TalkDetailController as TalkDetail'
+          controller: 'TalkDetailController as vm'
         }
       }
     })
@@ -283,17 +322,20 @@
       views: {
         Footer: {
           templateUrl: 'state/TalkCreate/TalkCreate.html',
-          controller: 'TalkCreateController as TalkCreate'
+          controller: 'TalkCreateController as vm'
         }
       }
     })
 
     .state('Main.Footer.TalkUpdate', {
+      params: {
+        postId: ''
+      },
       url: '/TalkUpdate',
       views: {
         Footer: {
           templateUrl: 'state/TalkUpdate/TalkUpdate.html',
-          controller: 'TalkUpdateController as TalkUpdate'
+          controller: 'TalkUpdateController as vm'
         }
       }
     })
@@ -303,7 +345,7 @@
       views: {
         Footer: {
           templateUrl: 'state/SettingList/SettingList.html',
-          controller: 'SettingListController as SettingList'
+          controller: 'SettingListController as vm'
         }
       }
     })
@@ -311,7 +353,7 @@
     .state('Login', {
       url: '/Login',
       templateUrl: 'state/Login/Login.html',
-      controller: 'LoginController as Login'
+      controller: 'LoginController as vm'
     })
 
     .state('Main.Footer.Profile', {
@@ -319,7 +361,7 @@
       views: {
         Footer: {
           templateUrl: 'state/Profile/Profile.html',
-          controller: 'ProfileController as Profile'
+          controller: 'ProfileController as vm'
         }
       }
     })
@@ -329,7 +371,7 @@
       views: {
         Main: {
           templateUrl: 'state/FavoriteList/FavoriteList.html',
-          controller: 'FavoriteListController as FavoriteList'
+          controller: 'FavoriteListController as vm'
         }
       }
     })
@@ -339,7 +381,7 @@
       views: {
         Main: {
           templateUrl: 'state/MyMessageList/MyMessageList.html',
-          controller: 'MyMessageListController as MyMessageList'
+          controller: 'MyMessageListController as vm'
         }
       }
     })
@@ -349,17 +391,20 @@
       views: {
         Main: {
           templateUrl: 'state/NoticeList/NoticeList.html',
-          controller: 'NoticeListController as NoticeList'
+          controller: 'NoticeListController as vm'
         }
       }
     })
 
     .state('Main.NoticeDetail', {
+      params: {
+        noticeId: ''
+      },
       url: '/NoticeDetail',
       views: {
         Main: {
           templateUrl: 'state/NoticeDetail/NoticeDetail.html',
-          controller: 'NoticeDetailController as NoticeDetail'
+          controller: 'NoticeDetailController as vm'
         }
       }
     })
@@ -399,7 +444,7 @@
       views: {
         Main: {
           templateUrl: 'state/FaqList/FaqList.html',
-          controller: 'FaqListController as FaqList'
+          controller: 'FaqListController as vm'
         }
       }
     })
@@ -409,7 +454,7 @@
       views: {
         Main: {
           templateUrl: 'state/ContactCreate/ContactCreate.html',
-          controller: 'ContactCreateController as ContactCreate'
+          controller: 'ContactCreateController as vm'
         }
       }
     })
@@ -419,7 +464,7 @@
       views: {
         Main: {
           templateUrl: 'state/CompanyCreate/CompanyCreate.html',
-          controller: 'CompanyCreateController as CompanyCreate'
+          controller: 'CompanyCreateController as vm'
         }
       }
     })
@@ -429,7 +474,7 @@
       views: {
         Main: {
           templateUrl: 'state/RequestCreate/RequestCreate.html',
-          controller: 'RequestCreateController as RequestCreate'
+          controller: 'RequestCreateController as vm'
         }
       }
     })

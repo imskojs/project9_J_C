@@ -7,13 +7,13 @@
 
   Util.$inject = [
     '$ionicHistory', '$ionicScrollDelegate', '$timeout', '$filter', '$window', '$rootScope',
-    '$ionicSideMenuDelegate', '$state', '$ionicViewSwitcher', '$ionicSlideBoxDelegate',
+    '$ionicSideMenuDelegate', '$state', '$ionicViewSwitcher', '$ionicSlideBoxDelegate', '$q',
     'Message', 'RootScope', 'Dom'
   ];
 
   function Util(
     $ionicHistory, $ionicScrollDelegate, $timeout, $filter, $window, $rootScope,
-    $ionicSideMenuDelegate, $state, $ionicViewSwitcher, $ionicSlideBoxDelegate,
+    $ionicSideMenuDelegate, $state, $ionicViewSwitcher, $ionicSlideBoxDelegate, $q,
     Message, RootScope, Dom
   ) {
 
@@ -37,7 +37,7 @@
       loading: loading
     };
 
-    _.defaults(service, RootScope);
+    _.defaults(service, RootScope);  //extends
 
     return service;
 
@@ -144,20 +144,21 @@
     }
 
     function bindData(data, model, name, emitEventTrue, loadingModel) {
+      let deferred = $q.defer();
       $timeout(function() {
         // if data is a dataArrayWrapper
         if (name[name.length - 1] === 's') {
           model[name] = data[name];
-          model.more = data.more !== undefined ? data.more : model.more;
-          model.total = data.total !== undefined ? data.total : model.total;
+          model.more = data.more !== undefined ? data.more : model.more; //infinite scroll에서 사용
+          model.total = data.total !== undefined ? data.total : model.total; //admin
         } else {
           // if data is a dataObject
-          model[name] = data;
+          model[name] = data; //model에 property를 넣어줌.
         }
         if (!loadingModel) {
           model.loading = false;
         } else {
-          loadingModel.loading = false;
+          loadingModel.loading = false; //부분적 로딩으로 사용
         }
         freeze(false);
         update();
@@ -167,7 +168,9 @@
         if (emitEventTrue) {
           $rootScope.$broadcast('$rootScope:bindDataComplete');
         }
+        deferred.resolve();
       }, 0);
+      return deferred.promise;
     }
 
     function appendData(dataWrapper, model, name, emitEventTrue) {

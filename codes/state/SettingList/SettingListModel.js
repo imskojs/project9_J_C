@@ -9,6 +9,7 @@
   function SettingListModel() {
 
     var Model = {
+      loading: false,
 
     };
 

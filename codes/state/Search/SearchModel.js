@@ -9,6 +9,7 @@
   function SearchModel() {
 
     var Model = {
+      loading: false,
 
     };
 

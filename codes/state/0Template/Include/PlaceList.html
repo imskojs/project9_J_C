@@ -1,0 +1,75 @@
+<!--프리미엄 리스트-->
+<div class="row zero pl3p pr3p h40px flex-v white-bg">
+  <div class="col-auto zero flex-v pl5p pr5p r30px h30px positive-b2px">
+    <p class="zero positive bold">프리미엄</p>
+  </div>
+</div>
+
+<!--매장 List 컨테이너-->
+<div>
+  <!--매장 Node 컨테이너-->
+  <div class="row zero white-bg grey-bt1px grey-bb1px mt5px"
+    ng-click="goToState('Main.PlaceDetail', {placeId: place.id}, 'forward');"
+    ng-repeat="place in vm.Model.places | filter: {category: 'PREMIUM'}"
+    ng-include="'state/0Template/Include/PlaceList-node.html'">
+  </div>  <!--매장 Node 컨테이너 종료-->
+
+  <!--더보기 버튼-->
+  <div class="flex zero mt10px mb10px">
+    <div class="dark-grey-b1px r20px pt5px pb5px pl10p pr10p"
+      ng-click="vm.more('PREMIUM');">더보기</div>
+  </div>
+
+</div>  <!--매장 List 컨테이너 종료-->
+
+
+
+<!--스페셜 리스트-->
+<div class="row zero pl3p pr3p h40px flex-v white-bg">
+  <div class="col-auto zero flex-v pl5p pr5p r30px h30px positive-b2px">
+    <p class="zero positive bold">스페셜</p>
+  </div>
+</div>
+
+<!--매장 List 컨테이너-->
+<div>
+  <!--매장 Node 컨테이너-->
+  <div class="row zero white-bg grey-bt1px grey-bb1px mt5px"
+    ng-click="goToState('Main.PlaceDetail', {placeId: place.id}, 'forward');"
+    ng-repeat="place in vm.Model.places | filter: {category: 'SPECIAL'}"
+    ng-include="'state/0Template/Include/PlaceList-node.html'">
+  </div>  <!--매장 Node 컨테이너 종료-->
+
+  <!--더보기 버튼-->
+  <div class="flex zero mt10px mb10px">
+    <div class="dark-grey-b1px r20px pt5px pb5px pl10p pr10p"
+      ng-click="vm.more('SPECIAL');">더보기</div>
+  </div>
+
+</div>  <!--매장 List 컨테이너 종료-->
+
+
+
+<!--일반 리스트-->
+<div class="row zero pl3p pr3p h40px flex-v white-bg">
+  <div class="col-auto zero flex-v pl5p pr5p r30px h30px positive-b2px">
+    <p class="zero positive bold">일반</p>
+  </div>
+</div>
+
+<!--매장 List 컨테이너-->
+<div>
+  <!--매장 Node 컨테이너-->
+  <div class="row zero white-bg grey-bt1px grey-bb1px mt5px"
+    ng-click="goToState('Main.PlaceDetail', {placeId: place.id}, 'forward');"
+    ng-repeat="place in vm.Model.places | filter: {category: 'NORMAL'}"
+    ng-include="'state/0Template/Include/PlaceList-node.html'">
+  </div>  <!--매장 Node 컨테이너 종료-->
+
+  <!--더보기 버튼-->
+  <div class="flex zero mt10px mb10px">
+    <div class="dark-grey-b1px r20px pt5px pb5px pl10p pr10p"
+      ng-click="vm.more('NORMAL');">더보기</div>
+  </div>
+
+</div>  <!--매장 List 컨테이너 종료-->

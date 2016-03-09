@@ -9,7 +9,8 @@
   function HomeModel() {
 
     var Model = {
-
+      loading: false,
+      banners: []
     };
 
     return Model;

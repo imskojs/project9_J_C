@@ -35,7 +35,7 @@
     </button>
   </ion-nav-buttons>
 
-  <ion-nav-title class="bold">
+  <ion-nav-title class="">
     <p class="zero">수정 요청</p>
   </ion-nav-title>
 
@@ -78,41 +78,56 @@
           <p class="zero">수정요청이유</p>
         </div>
         <div class="col-70 zero">
-          <div class="row zero mb5px">
+          <div class="row zero mb5px"
+            ng-click="vm.checkBox(vm.Model.update, 'infomation');">
             <div class="col-auto zero">
-              <i class="ion-ios-circle-outline positive f18px mr5px"></i>
+              <i class="positive f18px mr5px"
+                ng-class="{'ion-ios-checkmark': vm.Model.update.infomation,
+                          'ion-ios-circle-outline': !vm.Model.update.infomation}"></i>
             </div>
             <div class="col-auto zero">
               <p class="zero f12px">업체정보가 달라요</p>
             </div>
           </div>
-          <div class="row zero mb5px">
+          <div class="row zero mb5px"
+            ng-click="vm.checkBox(vm.Model.update, 'menuAndPrice');">
             <div class="col-auto zero">
-              <i class="ion-ios-checkmark positive f18px mr5px"></i>
+              <i class="positive f18px mr5px"
+                ng-class="{'ion-ios-checkmark': vm.Model.update.menuAndPrice,
+                          'ion-ios-circle-outline': !vm.Model.update.menuAndPrice}"></i>
             </div>
             <div class="col-auto zero">
               <p class="zero f12px">메뉴 및 가격이 달라요</p>
             </div>
           </div>
-          <div class="row zero mb5px">
+          <div class="row zero mb5px"
+            ng-click="vm.checkBox(vm.Model.update, 'eventAndDiscount');">
             <div class="col-auto zero">
-              <i class="ion-ios-checkmark positive f18px mr5px"></i>
+              <i class="positive f18px mr5px"
+                ng-class="{'ion-ios-checkmark': vm.Model.update.eventAndDiscount,
+                          'ion-ios-circle-outline': !vm.Model.update.eventAndDiscount}"></i>
             </div>
             <div class="col-auto zero">
               <p class="zero f12px">이벤트 및 회원혜택이 달라요</p>
             </div>
           </div>
-          <div class="row zero mb5px">
+          <div class="row zero mb5px"
+            ng-click="vm.checkBox(vm.Model.update, 'stateChange');">
             <div class="col-auto zero">
-              <i class="ion-ios-circle-outline positive f18px mr5px"></i>
+              <i class="positive f18px mr5px"
+                ng-class="{'ion-ios-checkmark': vm.Model.update.stateChange,
+                          'ion-ios-circle-outline': !vm.Model.update.stateChange}"></i>
             </div>
             <div class="col-auto zero">
               <p class="zero f12px">없어진 업체이거나 다른 업체로 바뀌었어요</p>
             </div>
           </div>
-          <div class="row zero mb5px">
+          <div class="row zero mb5px"
+            ng-click="vm.checkBox(vm.Model.update, 'other');">
             <div class="col-auto zero">
-              <i class="ion-ios-checkmark positive f18px mr5px"></i>
+              <i class="positive f18px mr5px"
+                ng-class="{'ion-ios-checkmark': vm.Model.update.other,
+                          'ion-ios-circle-outline': !vm.Model.update.other}"></i>
             </div>
             <div class="col-auto zero">
               <p class="zero f12px">기타</p>
@@ -133,6 +148,7 @@
         <div class="col zero">
           <form novalidate>
             <textarea class="w100p p10px light-bg"
+              ng-model="vm.Model.update.detail"
               rows="7" maxlength="1000" placeholder=""></textarea>
           </form>
         </div>
@@ -141,7 +157,7 @@
       <!--수정요청하기 버튼-->
       <div class="flex">
         <p class="zero mt20px pl10p pr10p pt10px pb10px positive-bg white f16px r20px"
-          ng-click="">수정 요청하기</p>
+          ng-click="vm.requestUpdate();">수정 요청하기</p>
       </div>
     <div>
 

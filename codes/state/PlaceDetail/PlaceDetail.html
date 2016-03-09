@@ -10,13 +10,13 @@
 
   <ion-nav-title class="bold">
     <p class="zero">
-      T Pub
+      {{vm.Model.place.name}}
     </p>
   </ion-nav-title>
 
   <ion-nav-buttons side="right">
     <button class="button-icon ion-edit white f20px"
-      ng-click="goToState('Main.ReviewCreate', {}, 'forward');">
+      ng-click="goToState('Main.ReviewCreate', {placeId: vm.Model.place.id}, 'forward');">
     </button>
   </ion-nav-buttons>
 
@@ -27,71 +27,49 @@
       <ion-slide-box class="w100p auto"
         show-pager="true"
       >
-        <ion-slide>
+        <ion-slide ng-repeat="photo in vm.Model.place.photos">
           <img class="w100p block h60vw lazy-show"
-            src="img/icon_recommend.png"
-          >
-        </ion-slide>
-        <ion-slide>
-          <img class="w100p block h60vw lazy-show"
-            src="img/icon_recommend.png"
-          >
-        </ion-slide>
-        <ion-slide>
-          <img class="w100p block h60vw lazy-show"
-            src="img/icon_recommend.png"
+            ng-src="{{photo.url}}"
           >
         </ion-slide>
       </ion-slide-box>
 
       <!--슬라이드 위에 붙는 스티커-->
-      <div class="absolute h25px w100px top20px left0px positive-bg">
+      <div class="absolute h25px w100px top20px left0px"
+        ng-if="vm.Model.place.showDiscountTag">
         <div class="row zero h25px">
-          <div class="col zero h25px flex">
-            <p class="f12px white zero center">{{5}}% 할인</p>
+          <div class="col zero h25px flex positive-bg">
+            <p class="f12px white zero center">{{vm.Model.place.discountTitle}}</p>
           </div>
-          <div class="col-10 dark-grey-bg h25px">
-          </div>
+          <img class="col-10 h25px" src="img/home_detail_tag.png">
         </div>
       </div>
 
       <!--업체명-->
       <div class="row zero">
         <div class="col zero center">
-          <p class="positive f24px bold mt15px">T Pub</p>
+          <p class="positive f24px bold mt15px">{{vm.Model.place.name}}</p>
         </div>
       </div>
-      <!--별점-->
-      <div class="row zero flex positive">
-        <div class="col-auto zero"><i class="ion-android-star f20px m3px"></i></div>
-        <div class="col-auto zero"><i class="ion-android-star f20px m3px"></i></div>
-        <div class="col-auto zero"><i class="ion-android-star f20px m3px"></i></div>
-        <div class="col-auto zero"><i class="ion-android-star f20px m3px"></i></div>
-        <div class="col-auto zero"><i class="ion-android-star-outline f20px m3px"></i></div>
+      <!--업체 점수 표현-->
+      <div class="row zero flex f20px"
+        average-stars
+        rating="vm.Model.place.averageRating"
+        vm="vm"
+      >
       </div>
       <!--(눈)조회수, (하트)즐겨찾기수-->
       <div class="row zero flex grey">
         <div class="col-auto zero flex"><i class="f18px m5px ion-eye "></i></div>
-        <div class="col-auto zero flex"><p class="f10px m5px">2,070</p></div>
+        <div class="col-auto zero flex"><p class="f10px m5px">{{vm.Model.place.viewCount}}</p></div>
         <div class="col-auto zero flex"><i class="f16px m5px ion-heart "></i></div>
-        <div class="col-auto zero flex"><p class="f10px m5px">383</p></div>
+        <div class="col-auto zero flex"><p class="f10px m5px">{{vm.Model.place.favoriteCount}}</p></div>
       </div>
       <!--태그-->
-      <div class="row zero flex center f10px bold positive">
-        <div class="col zero ml5p">
-          <p class="p5 positive-b1px r3px">태그1</p>
-        </div>
-        <div class="col zero ml1p">
-          <p class="p5 positive-b1px r3px">태그2</p>
-        </div>
-        <div class="col zero ml1p">
-          <p class="p5 positive-b1px r3px">태그3</p>
-        </div>
-        <div class="col zero ml1p">
-          <p class="p5 positive-b1px r3px">태그4</p>
-        </div>
-        <div class="col zero ml1p mr5p">
-          <p class="p5 positive-b1px r3px">태그5</p>
+      <div class="row zero flex center f10px bold positive pl3p pr3p">
+        <div class="col zero ml1p"
+          ng-repeat="tag in vm.Model.place.tags">
+          <p class="p5 positive-b1px r3px text-overflow">{{tag}}</p>
         </div>
       </div>
 
@@ -113,7 +91,7 @@
         </div>
         <div class="row zero">
           <div class="col zero">
-            <p class="f12px">{{"서울특별시 강남구 역삼동 723-1"}}</p>
+            <p class="f12px">{{vm.Model.place.address}}</p>
           </div>
         </div>
         <div class="row w100px zero flex-v p3 positive-bg white r20px">
@@ -134,12 +112,12 @@
         </div>
         <div class="row zero">
           <div class="col zero">
-            <p class="f12px">평일 {{"18:00 ~ 02:00"}}</p>
+            <p class="f12px">평일 {{vm.Model.place.hours}}</p>
           </div>
         </div>
         <div class="row zero">
           <div class="col zero">
-            <p class="f12px">주말 {{"18:00 ~ 04:00"}}</p>
+            <p class="f12px">주말 {{vm.Model.place.hours}}</p>
           </div>
         </div>
 
@@ -151,7 +129,7 @@
         </div>
         <div class="row zero">
           <div class="col zero">
-            <p class="f12px">{{"40"}}석</p>
+            <p class="f12px">{{vm.Model.place.size}}</p>
           </div>
         </div>
 
@@ -163,7 +141,7 @@
         </div>
         <div class="row zero">
           <div class="col zero">
-            <p class="f12px">{{"강남에 위치한 안주가 맛있는 펍입니다."}}</p>
+            <p class="f12px">{{vm.Model.place.summary}}</p>
           </div>
         </div>
 
@@ -175,9 +153,9 @@
         </div>
         <div class="row zero">
           <div class="col zero">
-            <p class="f12px">{{"5% 할인"}}</p>
+            <p class="f12px">{{vm.Model.place.discountTitle}}</p>
           </div>
-        </div>
+        </div><!--
         <div class="row zero">
           <div class="col zero">
             <p class="f12px">- 회원혜택은 제휴점 내규에 따라 적용됩니다.</p>
@@ -187,35 +165,37 @@
           <div class="col zero">
             <p class="f12px">- 카운터에서 주당 앱을 보여주세요.</p>
           </div>
-        </div>
+        </div> -->
 
-        <!--이벤트-->
-        <div class="row zero mt5px bold">
-          <div class="col zero">
-            <p class="positive f14px">이벤트</p>
+        <!--이벤트 컨테이너-->
+        <div ng-if="vm.Model.place.showEventTag">
+          <div class="row zero mt5px bold">
+            <div class="col zero">
+              <p class="positive f14px">이벤트</p>
+            </div>
           </div>
-        </div>
-        <div class="row zero">
-          <div class="col zero">
-            <p class="f12px">{{"6시 ~ 7시 타임 이벤트 : 생맥주 1잔 2,000원"}}</p>
+          <div class="row zero">
+            <div class="col zero">
+              <p class="f12px">{{vm.Model.place.eventContent}}</p>
+            </div>
+          </div><!--
+          <div class="row zero">
+            <div class="col zero">
+              <p class="f12px">- 이벤트는 제휴점 내규에 따라 적용됩니다.</p>
+            </div>
           </div>
-        </div>
-        <div class="row zero">
-          <div class="col zero">
-            <p class="f12px">- 이벤트는 제휴점 내규에 따라 적용됩니다.</p>
-          </div>
-        </div>
-        <div class="row zero">
-          <div class="col zero">
-            <p class="f12px">- 카운터에서 주당 앱을 보여주세요.</p>
-          </div>
+          <div class="row zero">
+            <div class="col zero">
+              <p class="f12px">- 카운터에서 주당 앱을 보여주세요.</p>
+            </div>
+          </div> -->
         </div>
       </div>
 
       <!--수정요청 버튼-->
       <div class="row zero light-grey-bg dark-grey flex pt10px pb10px pr10p pl10p">
         <div class="row flex black-b1px r50px pt5px pb5px pr10p pl10p"
-          ng-click="goToState('Main.RequestUpdate', {}, 'forward');">
+          ng-click="goToState('Main.RequestUpdate', {placeId: vm.Model.place.id}, 'forward');">
           <div class="col-auto zero">
             <i class="ion-settings f20px"></i>
           </div>
@@ -228,87 +208,97 @@
       <!--리뷰-->
       <div class="row zero mt20px mb20px ml5p mr5p bold">
         <div class="col zero">
-          <p class="zero positive f14px">리뷰 ( {{27}} )</p>
+          <p class="zero positive f14px">리뷰 ( {{vm.Model.place.reviewCount}} )</p>
         </div>
       </div>
 
       <!--리뷰 List-->
       <div class="row zero pl1p pr1p pt5px pb5px">  <!--리뷰 List 컨테이너-->
 
-        <div class="light-grey-b1px pt5px pb5px pl15px pr15px">  <!--리뷰Node 컨테이너 시작-->
-          <!--회원 프로필사진 | 아이디, 작성일자, 평점 | 삭제버튼-->
-          <div class="row zero">
-            <div class="col-15 zero flex">
-              <img class="h30px"
-                src="img/defaultimg.png" alt="프로필사진">
-            </div>
-            <div class="col-65 zero">
-              <div class="row zero mt5px">
-                <div class="col-auto flex-v">
-                  <p class="zero f12px bold">{{"user아이디"}}</p>
+        <!--리뷰 Node 컨테이너 시작-->
+        <div class="col zero">
+          <div class="light-grey-b1px pl2p pr2p pt5px pb10px mb5px"
+            ng-repeat="review in vm.Model.place.reviews">
+            <!--회원 프로필사진 | 아이디, 작성일자, 평점 | 삭제버튼-->
+            <div class="row zero">
+              <div class="col-15 zero flex">
+                <img class="h30px"
+                  ng-src="{{review.owner.profilePhoto.url}}" alt="프로필사진">
+              </div>
+              <div class="col-65 zero">
+                <div class="row zero mt5px">
+                  <div class="col-auto flex-v">
+                    <p class="zero f12px bold">{{review.owner.nickname}}</p>
+                  </div>
+                  <div class="col-auto flex-v">
+                    <p class="zero f12px bold grey">&nbsp;|&nbsp;</p>
+                  </div>
+                  <div class="col-auto flex-v">
+                    <p class="zero f10px grey">{{review.createdAt | date: 'yyyy.MM.dd HH.mm'}}</p>
+                  </div>
                 </div>
-                <div class="col-auto flex-v">
+                <!--점수 표현-->
+                <div class="row zero positive f16px mt5px"
+                  average-stars
+                  rating="review.rating"
+                  vm="vm"
+                >
+                </div>
+              </div>
+              <div class="col-20 zero flex mt5px">
+                <!-- <p class="dark-grey dark-grey-b1px min-w50px r50px pl5px pr5px pt2px pb2px"
+                  ng-click="vm.reviewDelete();">삭제</p> -->
+                <!--사장님 전용 댓글달기버튼-->
+                <p class="grey-bg white min-w67px r50px pl8px pr8px pt4px pb7px f12px"
+                  ng-click="goToState('Main.CommentCreate', {placeId: vm.Model.place.id, reviewId: review.id}, 'forward');">댓글달기</p>
+              </div>
+            </div>
+            <!--후기-->
+            <div class="row zero mt5px">
+              <div class="col zero">
+                <p>{{review.content}}</p>
+              </div>
+            </div>
+            <!--사진 (최대 5장)-->
+            <div class="row zero mt5px">
+              <div class="col zero flex-v"
+                ng-repeat="photo in review.photos">
+                <img class="w50px h50px r5px pr1p"
+                  ng-src="{{photo.url}}" alt="후기사진" />
+              </div>
+              <div class="col zero flex-v"
+                ng-repeat="count in vm.getAverageRating(5-review.photos.length)">
+                <div class="w50px h50px r5px pr1p"></div>
+              </div>
+            </div>
+            <!--사장님 댓글-->
+            <div class="mt5px p10px relative lighter-bg">
+              <!--사장님 댓글 삭제버튼-->
+              <!-- <p class="absolute top8px right10px dark-grey dark-grey-b1px r50px pl5px pr5px pt2px pb2px"
+                  ng-click="vm.commentDelete();">삭제</p> -->
+              <!--아이콘 | 사장님 아이디 | 작성일자-->
+              <div class="row zero">
+                <div class="col-auto zero">
+                  <i class="ion-reply pr5px"></i>
+                </div>
+                <div class="col-auto zero flex-v">
+                  <p class="zero f12px bold">{{review.comment.owner.nickname}}</p>
+                </div>
+                <div class="col-auto zero flex-v">
                   <p class="zero f12px bold grey">&nbsp;|&nbsp;</p>
                 </div>
-                <div class="col-auto flex-v">
-                  <p class="zero f10px grey">{{"2016.02.16"}}</p>
+                <div class="col-auto zero flex-v">
+                  <p class="zero f10px grey">{{review.comment.owner.createdAt | date: 'yyyy.MM.dd HH.mm'}}</p>
                 </div>
               </div>
-              <div class="row zero positive f16px mt5px">
-                <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
-                <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
-                <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
-                <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
-                <div class="col-auto zero"><i class="ion-android-star-outline"></i></div>
-              </div>
-            </div>
-            <div class="col-20 zero flex mt5px">
-              <!-- <p class="dark-grey dark-grey-b1px r50px pl5px pr5px pt2px pb2px"
-                ng-click="">삭제</p> -->
-              <!--사장님 전용 댓글달기버튼-->
-              <p class="grey-bg white r50px pl8px pr8px pt4px pb7px f12px"
-                ng-click="goToState('Main.CommentCreate', {}, 'forward');">댓글달기</p>
-            </div>
-          </div>
-          <!--후기-->
-          <div class="row zero mt5px">
-            <div class="col zero">
-              <p>{{"술맛좋고 안주좋고 다 좋아요! 맛있게 잘 먹고갑니다. 주당어플 통해 할인받았더니 엄청 싸네요~"}}</p>
-            </div>
-          </div>
-          <!--사진-->
-          <div class="row zero mt5px">
-            <div class="col zero flex-v"><img class="w50px h50px r5px pr1p" src="img/_box200x200.png" alt="후기사진"></div>
-            <div class="col zero flex-v"><img class="w50px h50px r5px pr1p" src="img/_box200x200.png" alt="후기사진"></div>
-            <div class="col zero flex-v"><img class="w50px h50px r5px pr1p" src="img/_box200x200.png" alt="후기사진"></div>
-            <div class="col zero flex-v"><img class="w50px h50px r5px pr1p" src="img/_box200x200.png" alt="후기사진"></div>
-            <div class="col zero flex-v"><img class="w50px h50px r5px" src="img/_box200x200.png" alt="후기사진"></div>
-          </div>
-          <!--사장님 댓글-->
-          <div class="mt5px p10px relative lighter-bg">
-            <!--사장님 댓글 삭제버튼-->
-            <!-- <p class="absolute top8px right10px dark-grey dark-grey-b1px r50px pl5px pr5px pt2px pb2px">삭제</p> -->
-            <!--아이콘 | 사장님 아이디 | 작성일자-->
-            <div class="row zero">
-              <div class="col-auto zero">
-                <i class="ion-android-share pr5px"></i>
-              </div>
-              <div class="col-auto zero flex-v">
-                <p class="zero f12px bold">{{"사장님아이디"}}</p>
-              </div>
-              <div class="col-auto zero flex-v">
-                <p class="zero f12px bold grey">&nbsp;|&nbsp;</p>
-              </div>
-              <div class="col-auto zero flex-v">
-                <p class="zero f10px grey">{{"2016.02.16"}}</p>
+
+              <div class="row zero mt5px">
+                <div class="col zero">
+                  <p>{{review.comment.content}}</p>
+                </div>
               </div>
             </div>
 
-            <div class="row zero mt5px">
-              <div class="col zero">
-                <p>{{"맛있게 드셨다니 저희도 기분이 좋습니다! 다음에 또 이용해주세요~ 좋은 하루 보내세요!"}}</p>
-              </div>
-            </div>
           </div>
         </div>  <!--리뷰Node 컨테이너 끝-->
 
@@ -333,13 +323,13 @@
       </div>
 
       <div class="col zero flex light-grey-bl1px"
-        ng-click="goToState('Main.MessageCreate', {}, 'forward');">
+        ng-click="goToState('Main.MessageCreate', {placeId: vm.Model.place.id}, 'forward');">
         <button class="button-icon ion-chatbubble-working white f20px">
         </button>
       </div>
 
       <div class="col zero flex light-grey-bl1px"
-        ng-click="goToState('Main.MenuList', {}, 'forward');">
+        ng-click="goToState('Main.MenuList', {placeId: vm.Model.place.id}, 'forward');">
         <button class="button-icon ion-clipboard white f20px">
         </button>
       </div>

@@ -9,7 +9,13 @@
   function ReviewCreateModel() {
 
     var Model = {
-
+      loading: false,
+      review: {
+        rating: 0,
+        content: '',
+        place: { id: '' },
+        photos: []  //{name, url}
+      }
     };
 
     return Model;

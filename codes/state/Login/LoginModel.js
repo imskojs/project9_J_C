@@ -9,6 +9,7 @@
   function LoginModel() {
 
     var Model = {
+      loading: false,
 
     };
 

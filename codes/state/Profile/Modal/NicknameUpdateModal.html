@@ -10,7 +10,7 @@
           <p class="zero f20px darker-grey bold">닉네임 수정</p>
         </div>
         <div class="col-auto zero flex"
-          ng-click="Profile.NicknameUpdateModal.hide();">
+          ng-click="vm.NicknameUpdateModal.hide();">
           <i class="zero f20px bold ion-close-round grey"></i>  <!--X버튼-->
         </div>
       </div>
@@ -23,17 +23,18 @@
         </div>
       </div>
 
-      <div class="row zero pt10px pb10px pl2p pr2p mt5px">
+      <div class="row zero pt10px pb10px pl10p pr10p mt5px">
         <div class="col zero">
           <input class="placeholder-grey grey-bb2px p5px center f14px"
-            type="text" maxlength="10" placeholder="2~10자 한글, 영문, 숫자만 사용가능합니다.">
+            type="text" maxlength="10" placeholder="2~10자 한글, 영문, 숫자만 사용가능합니다."
+            ng-model="vm.Model.user.hopeNickname" />
         </div>
       </div>
 
       <div class="row zero pt10px pb10px pl10p pr10p mt20px">
         <div class="col zero flex">
           <p class="zero positive positive-b2px r30px f16px bold lh40px w100p center"
-            ng-click="Profile.NicknameUpdate();">확인</p>
+            ng-click="vm.NicknameUpdate();">확인</p>
         </div>
       </div>
 

@@ -101,7 +101,7 @@
         .then(function(result) {
           result.provider = 'facebook';
           return $http({
-            url: SERVER_URL + '/user/registerPassport',
+            url: SERVER_URL + '/user/loginWithOauth',
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -134,7 +134,7 @@
           browserRef.close();
           var requestToken = (event.url).split("code=")[1];
           $http({
-              method: "post",
+              method: 'POST',
               url: "https://kauth.kakao.com/oauth/token",
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -166,7 +166,7 @@
           result.provider = 'kakao';
           console.log("result :::\n", result);
           return $http({
-            url: SERVER_URL + '/user/registerPassport',
+            url: SERVER_URL + '/user/loginWithOauth',
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

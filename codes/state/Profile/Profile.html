@@ -19,11 +19,12 @@
         <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
           <div class="row zero">
             <div class="col zero flex-v mt-6px mb-6px">
-              <img class="h40px r50p inline-block" ng-src="{{'img/_box200x200.png'}}" alt="">
-              <p class="zero f18px ml7p">{{"user아이디"}}</p>
+              <img class="h40px r50p inline-block" ng-src="{{vm.Model.user.profilePhoto.url}}" alt="프로필사진">
+              <p class="zero f18px ml7p">{{vm.Model.user.nickname}}</p>
               <span class="f18px black">&nbsp;님</span>
             </div>
-            <div class="col-auto zero flex-v">
+            <div class="col-auto zero flex-v"
+              ng-click="vm.logout();">
               <p class="zero f12px lh20px w75px center dark-grey-b1px r20px">로그아웃</p>
             </div>
           </div>
@@ -35,11 +36,11 @@
               <p class="zero f14px">닉네임</p>
             </div>
             <div class="col zero flex-v">
-              <p class="zero f14px black">{{"user아이디"}}</p>
+              <p class="zero f14px black">{{vm.Model.user.nickname}}</p>
             </div>
-            <div class="col-auto zero flex-v">
-              <p class="zero f12px lh20px w75px center dark-grey-b1px r20px"
-                ng-click="Profile.NicknameUpdateModal.show();">수정</p>
+            <div class="col-auto zero flex-v"
+              ng-click="vm.NicknameUpdateModal.show();">
+              <p class="zero f12px lh20px w75px center dark-grey-b1px r20px">수정</p>
             </div>
           </div>
         </div>

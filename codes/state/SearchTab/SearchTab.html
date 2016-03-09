@@ -14,12 +14,21 @@
 
   <ion-header-bar class="bar-subheader zero white-bg row bold"
     no-tap-scroll="true">
-    <div class="col zero flex grey-b1px positive positive-bb3px"
-      ng-click="goToState('Main.Footer.SearchTab.ProvinceList', {}, 'enter');">지역</div>
-    <div class="col zero flex grey-b1px bl0px grey"
-      ng-click="goToState('Main.Footer.SearchTab.ThemeList', {}, 'enter');">테마</div>
-    <div class="col zero flex grey-b1px bl0px grey"
-      ng-click="goToState('Main.Footer.SearchTab.KeywordList', {}, 'enter');">키워드</div>
+    <div class="col zero flex grey-b1px"
+      ng-class="{'positive positive-bb3px': vm.Model.currentTab === 'PROVINCE',
+                 'grey': vm.Model.currentTab !== 'PROVINCE'}"
+      ng-click="vm.goToState('Main.Footer.SearchTab.ProvinceList', {}, 'enter');
+                vm.Model.currentTab = 'PROVINCE';">지역</div>
+    <div class="col zero flex grey-b1px bl0px"
+      ng-class="{'positive positive-bb3px': vm.Model.currentTab === 'THEME',
+                 'grey': vm.Model.currentTab !== 'THEME'}"
+      ng-click="vm.goToState('Main.Footer.SearchTab.ThemeList', {}, 'enter');
+                vm.Model.currentTab = 'THEME';">테마</div>
+    <div class="col zero flex grey-b1px bl0px"
+      ng-class="{'positive positive-bb3px': vm.Model.currentTab === 'KEYWORD',
+                 'grey': vm.Model.currentTab !== 'KEYWORD'}"
+      ng-click="vm.goToState('Main.Footer.SearchTab.KeywordList', {}, 'enter');
+                vm.Model.currentTab = 'KEYWORD';">키워드</div>
   </ion-header-bar>
 
   <ion-nav-view name="SearchTab"></ion-nav-view>

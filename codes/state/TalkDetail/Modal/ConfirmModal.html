@@ -13,11 +13,12 @@
 
         <div class="row zero mt0px flex">
           <div class="col-30 zero flex positive-b1px r5px pt5px pb5px positive mr10px"
-              ng-click="TalkDetail.closeModal();">
-            <p class="zero f18px lh30px ">취소</p>
+            ng-click="vm.closeModal();">
+            <p class="zero f18px lh30px">취소</p>
           </div>
-          <div class="col-30 zero flex positive-b1px r5px pt5px pb5px white positive-bg">
-            <p class="zero f18px lh30px ">삭제</p>
+          <div class="col-30 zero flex positive-b1px r5px pt5px pb5px white positive-bg"
+            ng-click="vm.talkDelete();">
+            <p class="zero f18px lh30px">삭제</p>
           </div>
         </div>
 

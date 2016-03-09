@@ -4,10 +4,12 @@
     .controller('GoogleMapController', GoogleMapController);
 
   GoogleMapController.$inject = [
+    '_MockData',
     'GoogleMapModel'
   ];
 
   function GoogleMapController(
+    _MockData,
     GoogleMapModel
   ) {
     var GoogleMap = this;

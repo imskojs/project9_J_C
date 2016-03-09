@@ -9,7 +9,10 @@
 
   function ContactCreateModel() {
     var Model = {
-
+      email: '',
+      phoneNumber: '',
+      title: '',
+      content: ''
     };
     return Model;
   }

@@ -40,7 +40,8 @@
         </div>
         <div class="col-80 zero flex-v">
           <input class="placeholder-grey grey-b1px r3px p10px white-bg"
-            type="text" maxlength="50" placeholder="상호명을 입력해주세요" />
+            type="text" maxlength="50" placeholder="상호명을 입력해주세요"
+            ng-model="vm.Model.placeName" />
         </div>
       </div>
 
@@ -51,7 +52,8 @@
         </div>
         <div class="col-80 zero flex-v">
           <input class="placeholder-grey grey-b1px r3px p10px white-bg"
-            type="text" maxlength="20" placeholder="연락처를 입력해주세요" />
+            type="text" maxlength="20" placeholder="연락처를 입력해주세요"
+            ng-model="vm.Model.phoneNumber" />
         </div>
       </div>
 
@@ -62,7 +64,8 @@
         </div>
         <div class="col-80 zero flex-v">
           <input class="placeholder-grey grey-b1px r3px p10px white-bg"
-            type="text" maxlength="50" placeholder="지역을 입력해주세요" />
+            type="text" maxlength="50" placeholder="지역을 입력해주세요"
+            ng-model="vm.Model.location" />
         </div>
       </div>
 
@@ -73,7 +76,8 @@
         </div>
         <div class="col-80 zero flex-v">
           <input class="placeholder-grey grey-b1px r3px p10px white-bg"
-            type="text" maxlength="50" placeholder="제목을 입력해주세요" />
+            type="text" maxlength="50" placeholder="제목을 입력해주세요"
+            ng-model="vm.Model.title" />
         </div>
       </div>
 
@@ -84,13 +88,15 @@
         </div>
         <div class="col-80 zero flex-v">
           <textarea class="placeholder-grey grey-b1px r3px p10px"
-            placeholder="상세내용을 입력해주세요." rows="4"></textarea>
+            placeholder="상세내용을 입력해주세요." rows="4"
+            ng-model="vm.Model.content"></textarea>
         </div>
       </div>
 
       <!--문의하기 버튼-->
       <div class="flex mt20px">
-        <p class="zero pl25p pr25p pt10px pb10px positive-bg white f16px r20px">문의하기</p>
+        <p class="zero pl25p pr25p pt10px pb10px positive-bg white f16px r20px"
+          ng-click="vm.companyCreate();">문의하기</p>
       </div>
 
     </div>

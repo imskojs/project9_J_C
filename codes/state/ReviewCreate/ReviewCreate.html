@@ -22,12 +22,43 @@
         </div>
       </div>
       <div class="row zero mt10px f24px flex">
-        <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
-        <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
-        <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
-        <div class="col-auto zero"><i class="ion-android-star mr3px"></i></div>
-        <div class="col-auto zero"><i class="ion-android-star-outline"></i></div>
+        <div class="col-auto zero"
+          ng-click="vm.setRating(1)">
+          <i class="mr3px"
+            ng-class="{'ion-android-star': vm.Model.review.rating > 0,
+                      'ion-android-star-outline': vm.Model.review.rating < 1}"></i>
+        </div>
+        <div class="col-auto zero"
+          ng-click="vm.setRating(2)">
+          <i class="mr3px"
+            ng-class="{'ion-android-star': vm.Model.review.rating > 1,
+                      'ion-android-star-outline': vm.Model.review.rating < 2}"></i>
+        </div>
+        <div class="col-auto zero"
+          ng-click="vm.setRating(3)">
+          <i class="mr3px"
+            ng-class="{'ion-android-star': vm.Model.review.rating > 2,
+                      'ion-android-star-outline': vm.Model.review.rating < 3}"></i>
+        </div>
+        <div class="col-auto zero"
+          ng-click="vm.setRating(4)">
+          <i class="mr3px"
+            ng-class="{'ion-android-star': vm.Model.review.rating > 3,
+                      'ion-android-star-outline': vm.Model.review.rating < 4}"></i>
+        </div>
+        <div class="col-auto zero"
+          ng-click="vm.setRating(5)">
+          <i class="mr3px"
+            ng-class="{'ion-android-star': vm.Model.review.rating > 4,
+                      'ion-android-star-outline': vm.Model.review.rating < 5}"></i>
+        </div>
       </div>
+      <!--점수 표현--><!--
+      <div class="row zero flex mt10px f24px"
+        average-stars
+        rating="5"
+        vm="vm"
+      > -->
       <div class="row zero mt10px mb20px">
         <div class="col zero flex">
           <p class="zero f12px">평점을 달아주세요.</p>
@@ -48,6 +79,7 @@
         <div class="col zero">
           <form novalidate>
             <textarea class="w100p p10px light-bg"
+              ng-model="vm.Model.review.content"
               rows="7" maxlength="1000" placeholder=""></textarea>
           </form>
         </div>
@@ -94,10 +126,23 @@
           </div>
         </div>
       </div>
+      <!--사진 (최대 5장)-->
+      <!-- <div class="row zero mt5px">
+        <div class="col zero flex-v"
+          ng-repeat="photo in review.photos">
+          <img class="w50px h50px r5px pr1p"
+            ng-src="{{photo.url}}" alt="후기사진" />
+        </div>
+        <div class="col zero flex-v"
+          ng-repeat="count in vm.getAverageRating(5-review.photos.length)">
+          <div class="w50px h50px r5px pr1p"></div>
+        </div>
+      </div> -->
 
       <!--리뷰 등록하기 버튼-->
       <div class="flex">
-        <p class="zero positive-bg r50px white pl30p pr30p pt10px pb10px">리뷰 등록하기</p>
+        <p class="zero positive-bg r50px white f16px pl30p pr30p pt10px pb10px"
+          ng-click="vm.reviewCreate();">리뷰 등록하기</p>
       </div>
 
     </div>

@@ -4,16 +4,62 @@
     .controller('ThemeListController', ThemeListController);
 
   ThemeListController.$inject = [
-    'ThemeListModel'
+    '_MockData',
+    '$scope',
+    'ThemeListModel', 'RootScope'
   ];
 
-  function ThemeListController(ThemeListModel) {
-    var ThemeList = this;
-    ThemeList.Model = ThemeListModel;
+  function ThemeListController(
+    _MockData,
+    $scope,
+    ThemeListModel, RootScope
+  ) {
+    var initPromise;
+    var noLoadingStates = [];
+    var vm = this;
+    vm.Model = ThemeListModel;
+    vm.search = search;
 
+    $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
+    $scope.$on('$ionicView.afterEnter', onAfterEnter);
 
     //====================================================
-    //  Implementation
+    //  View Event
+    //====================================================
+
+    function onBeforeEnter() {
+
+    }
+
+    function onAfterEnter() {
+
+    }
+
+    function search (theme) {
+      console.log("theme.title :::\n", theme.title);
+      RootScope.goToState('Main.ThemeSearchList', {
+        themeTitle: theme.title
+      }, 'forward');
+    }
+
+    //====================================================
+    //  VM
+    //====================================================
+
+    //====================================================
+    //  Private
+    //====================================================
+
+    function init() {
+      //업체정보를 가져오는 로직
+    }
+
+    //====================================================
+    //  Modals
+    //====================================================
+
+    //====================================================
+    //  REST
     //====================================================
   }
 })();

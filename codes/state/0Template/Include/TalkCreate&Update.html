@@ -1,0 +1,127 @@
+<!--게시판 선택하는부분-->
+<div class="row zero pl3p pr3p pt7px pb7px">
+  <div class="col-auto zero flex-v mr10p">  <!--왼쪽-->
+    <p class="zero f16px bold">게시판선택</p>
+  </div>
+  <div class="col-30 zero flex-v">
+    <div class="relative w100p"
+      ng-click="vm.categoryToggle();">  <!--오른쪽 선택박스-->
+      <div class="row zero dark-grey-b1px pl10p pr10p r3px">
+        <div class="col zero flex-v">
+          <p class="zero f14px lh30px bold dark-grey">{{vm.Model.post.category}}</p>
+        </div>
+        <div class="col-10 zero flex-v"><i class="ion-arrow-down-b"></i></div>
+      </div>
+      <div class="absolute white w100p r3px darker-grey-bg pt10px pb10px opacity9"
+        ng-if="vm.Model.categoryToggle">  <!--메뉴선택-->
+        <div class="row zero pl10p pr10p"
+          ng-click="vm.selectCategory('전체');">
+          <div class="col zero">
+            <p class="zero lh30px">전체</p>
+          </div>
+        </div>
+        <div class="row zero pl10p pr10p"
+          ng-click="vm.selectCategory('자유톡');">
+          <div class="col zero">
+            <p class="zero lh30px">자유톡</p>
+          </div>
+        </div>
+        <div class="row zero pl10p pr10p"
+          ng-click="vm.selectCategory('연애톡');">
+          <div class="col zero">
+            <p class="zero lh30px">연애톡</p>
+          </div>
+        </div>
+        <div class="row zero pl10p pr10p"
+          ng-click="vm.selectCategory('번개톡');">
+          <div class="col zero">
+            <p class="zero lh30px">번개dsdas톡</p>
+          </div>
+        </div>
+        <div class="row zero pl10p pr10p"
+          ng-click="vm.selectCategory('유머톡');">
+          <div class="col zero">
+            <p class="zero lh30px">유머톡</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="b0px h2px positive-bg" />
+
+<!--게시판 작성공간-->
+<div class="pl2p pr2p">  <!--컨테이너-->
+  <!--제목-->
+  <div class="row zero mb5px mt15px">
+    <div class="col zero flex-v">
+      <p class="zero f14px dark-grey bold">제목</p>
+    </div>
+    <div class="col-auto zero flex-v"
+      ng-click="vm.isAnnonymousToggle();">
+      <i class="zero f20px pr5px ion-checkmark-circled"
+        ng-class="{
+          'positive': !vm.Model.post.showInTalk,
+          'grey': vm.Model.post.showInTalk
+        }"></i>
+    </div>
+    <div class="col-auto zero flex">
+      <p class="zero f14px">익명</p>
+    </div>
+  </div>
+  <div class="row zero mb25px mt0px">
+    <div class="col zero">
+      <input class="w100p p10px light-bg" type="text"
+        maxlength="50" placeholder=""
+        ng-model="vm.Model.post.title" />
+    </div>
+  </div>
+
+  <!--상세내용-->
+  <div class="row zero mb5px mt15px">
+    <div class="col zero">
+      <p class="f14px dark-grey bold">상세내용</p>
+    </div>
+  </div>
+  <div class="row zero mb25px">
+    <div class="col zero">
+      <textarea class="w100p p10px light-bg"
+        rows="7" maxlength="1000" placeholder=""
+        ng-model="vm.Model.post.content"></textarea>
+    </div>
+  </div>
+
+  <!--사진등록 공간-->
+  <div class="row zero mb15px">
+    <div class="col zero">
+      <p class="f14px dark-grey bold">사진등록 (최대 5장)</p>
+    </div>
+  </div>
+  <div class="row zero mb30px">
+    <div class="col-16 zero flex mr1p"
+      ng-click="vm.camera();">
+      <img class="h50px r5px" src="img/camera.png" alt="">
+    </div>
+    <!--사진 Node-->
+    <div class="col-16 zero flex mr1p">
+      <div class="relative">
+        <img class="absolute positive h26px top-15px right-5px"
+          src="img/icon_photo_delete.png"
+          ng-click="vm.photoDelete();" />
+        <img class="h50px r5px"
+          ng-src="{{'img/_box200x200.png'}}">
+      </div>
+    </div>  <!--사진 Node 종료-->
+  </div>
+
+  <!--글쓰기 또는 수정하기 버튼-->
+  <div class="flex">
+    <p class="zero positive-bg r50px white pl30p pr30p pt10px pb10px"
+      ng-click="vm.updateTalk();">
+      <span ng-if="!vm.Model.post.id">글쓰기</span>
+      <span ng-if="vm.Model.post.id">수정하기</span>
+    </p>
+  </div>
+
+</div>

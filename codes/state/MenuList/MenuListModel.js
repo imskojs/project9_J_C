@@ -9,7 +9,8 @@
   function MenuListModel() {
 
     var Model = {
-
+      loading: false,
+      products: []
     };
 
     return Model;

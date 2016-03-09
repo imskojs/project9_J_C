@@ -9,7 +9,8 @@
   function EventTabModel() {
 
     var Model = {
-
+      loading: false,
+      currentTab: '주당이벤트',
     };
 
     return Model;

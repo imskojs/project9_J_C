@@ -24,14 +24,12 @@
         </div>
       </div>
 
-      <div class="relative bold dark-grey">  <!--지역 리스트 컨테이너-->
-
+      <div class="relative bold dark-grey">  <!--지역 List 컨테이너-->
 
         <!--==================================================================-->
         <!--지역 Node 컨테이너-->
-        <!-- <div class="relative"
-          ng-repeat="(key, value) in ProvinceList.Model.province"
-        >
+        <div class="relative"
+          ng-repeat="(key, valueArray) in vm.Model.province">
           <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
             <div class="col zero pl2p">
               <p class="zero lh16px">{{key}}</p>
@@ -39,167 +37,23 @@
             <div class="col-auto zero pr3p">
               <i class="zero lh16px ion-arrow-up-b"></i>
             </div>
-          </div> -->
+          </div>
 
           <!--하위 카테고리 컨테이너-->
-          <!-- <div class="relative">
+          <div class="relative">
             <div class="row zero mt0px wrap">
               <div class="col-50 zero flex-v pl4p pr4p pt7px pb7px grey-br grey-bb"
-                ng-click="goToState('Main.ProvinceSearchList', {}, 'forward');"
-                ng-repeat="value in value"
+                ng-click="goToState('Main.ProvinceSearchList', { province: value.text }, 'forward');"
+                ng-repeat="value in valueArray"
               >
                 <p class="zero lh16px f12px">{{value.text}}</p>
               </div>
             </div>
           </div>
-        </div> -->
+        </div>  <!--Node 컨테이너 종료-->
         <!--==================================================================-->
 
-        <!--서울 Node 컨테이너-->
-        <div class="relative">
-          <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
-            <div class="col zero pl2p">
-              <p class="zero lh16px">서울</p>
-            </div>
-            <div class="col-auto zero pr3p">
-              <i class="zero lh16px ion-arrow-up-b positive"></i>
-            </div>
-          </div>
-
-          <div class="relative">  <!--하위 카테고리 컨테이너-->
-            <!--하위 카테고리(섹션)-->
-            <div class="row zero mt0px wrap">
-              <div class="col-50 zero flex-v pl4p pr4p pt7px pb7px grey-br grey-bb"
-                ng-click="goToState('Main.ProvinceSearchList', {}, 'forward');"
-                ng-repeat="province in ProvinceList.Model.province['서울']"
-              >
-                <p class="zero lh16px f12px">{{province.text}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--경기 Node 컨테이너-->
-        <div class="relative">
-          <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
-            <div class="col zero pl2p">
-              <p class="zero lh16px">경기</p>
-            </div>
-            <div class="col-auto zero pr3p">
-              <i class="zero lh16px ion-arrow-up-b positive"></i>
-            </div>
-          </div>
-
-          <div class="relative">  <!--하위 카테고리 컨테이너-->
-            <!--하위 카테고리(섹션)-->
-            <div class="row zero mt0px wrap">
-              <div class="col-50 zero flex-v pl4p pr4p pt7px pb7px grey-br grey-bb"
-                ng-click="goToState('Main.ProvinceSearchList', {}, 'forward');"
-                ng-repeat="province in ProvinceList.Model.province['경기']"
-              >
-                <p class="zero lh16px f12px">{{province.text}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--인천 Node 컨테이너-->
-        <div class="relative">
-          <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
-            <div class="col zero pl2p">
-              <p class="zero lh16px">인천</p>
-            </div>
-            <div class="col-auto zero pr3p">
-              <i class="zero lh16px ion-arrow-up-b positive"></i>
-            </div>
-          </div>
-
-          <div class="relative">  <!--하위 카테고리 컨테이너-->
-            <!--하위 카테고리(섹션)-->
-            <div class="row zero mt0px wrap">
-              <div class="col-50 zero flex-v pl4p pr4p pt7px pb7px grey-br grey-bb"
-                ng-click="goToState('Main.ProvinceSearchList', {}, 'forward');"
-                ng-repeat="province in ProvinceList.Model.province['인천']"
-              >
-                <p class="zero lh16px f12px">{{province.text}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--강원 Node 컨테이너-->
-        <div class="relative">
-          <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
-            <div class="col zero pl2p">
-              <p class="zero lh16px">강원</p>
-            </div>
-            <div class="col-auto zero pr3p">
-              <i class="zero lh16px ion-arrow-up-b positive"></i>
-            </div>
-          </div>
-
-          <div class="relative">  <!--하위 카테고리 컨테이너-->
-            <!--하위 카테고리(섹션)-->
-            <div class="row zero mt0px wrap">
-              <div class="col-50 zero flex-v pl4p pr4p pt7px pb7px grey-br grey-bb"
-                ng-click="goToState('Main.ProvinceSearchList', {}, 'forward');"
-                ng-repeat="province in ProvinceList.Model.province['강원']"
-              >
-                <p class="zero lh16px f12px">{{province.text}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--부산 Node 컨테이너-->
-        <div class="relative">
-          <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
-            <div class="col zero pl2p">
-              <p class="zero lh16px">부산</p>
-            </div>
-            <div class="col-auto zero pr3p">
-              <i class="zero lh16px ion-arrow-up-b positive"></i>
-            </div>
-          </div>
-
-          <div class="relative">  <!--하위 카테고리 컨테이너-->
-            <!--하위 카테고리(섹션)-->
-            <div class="row zero mt0px wrap">
-              <div class="col-50 zero flex-v pl4p pr4p pt7px pb7px grey-br grey-bb"
-                ng-click="goToState('Main.ProvinceSearchList', {}, 'forward');"
-                ng-repeat="province in ProvinceList.Model.province['부산']"
-              >
-                <p class="zero lh16px f12px">{{province.text}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--경남 Node 컨테이너-->
-        <div class="relative">
-          <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
-            <div class="col zero pl2p">
-              <p class="zero lh16px">경남</p>
-            </div>
-            <div class="col-auto zero pr3p">
-              <i class="zero lh16px ion-arrow-up-b positive"></i>
-            </div>
-          </div>
-
-          <div class="relative">  <!--하위 카테고리 컨테이너-->
-            <!--하위 카테고리(섹션)-->
-            <div class="row zero mt0px wrap">
-              <div class="col-50 zero flex-v pl4p pr4p pt7px pb7px grey-br grey-bb"
-                ng-click="goToState('Main.ProvinceSearchList', {}, 'forward');"
-                ng-repeat="province in ProvinceList.Model.province['경남']"
-              >
-                <p class="zero lh16px f12px">{{province.text}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      </div>  <!--지역 List컨테이너 종료-->
 
     </div>
   </ion-content>

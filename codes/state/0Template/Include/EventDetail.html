@@ -1,0 +1,83 @@
+<!--이벤트 사진 슬라이드박스-->
+<ion-slide-box class="w100p h180px" show-pager="true">
+  <ion-slide class=""
+    ng-repeat="photo in vm.Model.event.photos">
+    <img class="w100p h180px"
+      ng-src="{{photo.url}}" alt="이벤트 사진">
+  </ion-slide>
+</ion-slide-box>
+
+<!--이벤트 제목-->
+<div class="row zero mt5px">
+  <div class="col zero pt10px pb10px pl5p pr5p flex">
+    <p class="zero zero f18px lh24px positive bold text-overflow">{{vm.Model.event.title}}</p>
+  </div>
+</div>
+<div class="flex mt0px mb20px">
+  <div class="white positive-bg r30px pt5px pb5px pr10p pl10p "
+    ng-click="open(vm.Model.event.homepage);"
+    ng-if="vm.Model.event.showLinkButton">
+    <span ng-if="vm.Model.event.category === 'JOODANG-EVENT'">이벤트 바로가기</span>
+    <span ng-if="vm.Model.event.category === 'BAR-EVENT'">업체상세정보 바로가기</span>
+  </div>
+    <!--현재 이벤트 페이지 존재하지않음-->
+</div>
+
+<hr class="b0px h2px positive-bg"/>
+
+<!--이벤트 상세내용-->
+<div class="f12px lh20px bold dark-grey pt10px pb10px pl5p pr5p">
+
+  <!--기간-->
+  <div class="row zero mt0px">
+    <div class="col zero">
+      <p class="zero positive">기간</p>
+    </div>
+  </div>
+  <div class="row zero mt0px mb18px">
+    <div class="col zero">
+      <p class="zero">{{vm.Model.event.duration}}</p>
+    </div>
+  </div>
+
+  <!--장소-->
+  <div class="row zero mt0px">
+    <div class="col zero">
+      <p class="zero positive">장소</p>
+    </div>
+  </div>
+  <div class="row zero mt0px mb18px">
+    <div class="col zero">
+      <p class="zero">{{vm.Model.event.location}}</p>
+    </div>
+  </div>
+
+  <!--이벤트 상세내용-->
+  <div class="row zero mt0px">
+    <div class="col zero">
+      <p class="zero positive">이벤트 상세내용</p>
+    </div>
+  </div>
+  <div class="row zero mt0px mb18px">
+    <div class="col zero">
+      <p class="zero">
+        {{vm.Model.event.content}}
+      </p>
+    </div>
+  </div>
+
+  <!--주의사항-->
+  <div class="row zero mt0px">
+    <div class="col zero">
+      <p class="zero positive">주의사항</p>
+    </div>
+  </div>
+  <div class="row zero mt0px mb18px">
+    <div class="col zero"><!--
+      <p class="zero">* 만 19세 이상만 적용 가능합니다.</p>
+      <p class="zero">* 당첨자는 해당 바에서 주당 앱을 보여주세요.</p> -->
+      <p class="zero">{{vm.Model.event.warning}}</p>
+    </div>
+  </div>
+
+</div>

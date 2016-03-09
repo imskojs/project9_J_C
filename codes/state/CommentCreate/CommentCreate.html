@@ -25,13 +25,13 @@
           <div class="col-65 zero">
             <div class="row zero mt5px">
               <div class="col-auto flex-v">
-                <p class="zero f14px bold">{{"user아이디"}}</p>
+                <p class="zero f14px bold">{{vm.Model.review.owner.nickname}}</p>
               </div>
               <div class="col-auto flex-v">
                 <p class="zero f14px bold grey">&nbsp;|&nbsp;</p>
               </div>
               <div class="col-auto flex-v">
-                <p class="zero f12px grey">{{"2016.02.16"}}</p>
+                <p class="zero f12px grey">{{vm.Model.review.createdAt}}</p>
               </div>
             </div>
             <div class="row zero positive f18px mt5px">
@@ -46,7 +46,7 @@
         <!--후기-->
         <div class="row zero mt15px">
           <div class="col zero">
-            <p>{{"술맛좋고 안주좋고 다 좋아요! 맛있게 잘 먹고갑니다. 주당어플 통해 할인받았더니 엄청 싸네요~"}}</p>
+            <p>{{vm.Model.review.content}}</p>
           </div>
         </div>
         <!--사진-->
@@ -73,21 +73,23 @@
     <div class="relative w100p pl1p pr1p">
       <div class="row zero pl10px">
         <div class="col-auto zero">
-          <i class="ion-android-share pr5px"></i>
+          <i class="ion-reply f18px pr5px"></i>
         </div>
         <div class="col-auto zero flex-v">
-          <p class="zero f12px bold">{{"사장님아이디"}}</p>
+          <p class="zero f12px bold">{{vm.Model.user.nickname}}</p>
         </div>
       </div>
 
       <div class="row zero mt5px">
         <div class="col-90 zero">
           <input class="p10px grey grey-b1px white-bg placeholder-grey h40px w100p br0px"
-            type="text" name="" placeholder="댓글을 남겨주세요." />
+            type="text" name="" placeholder="댓글을 남겨주세요."
+            ng-model="vm.Model.comment.content" />
         </div>
         <div class="col-10 zero flex">
           <div class="top4px right10px white-bg h40px w100p grey-b1px bl0px flex-v">
-            <p class="zero r50p center w32px h32px lh32px grey-bg white f13px">등록</p>
+            <p class="zero r50p center w32px h32px lh32px grey-bg white f13px"
+              ng-click="vm.commentCreate();">등록</p>
           </div>
         </div>
       </div>

@@ -25,13 +25,12 @@
     RootScope, Preload, PushService,
     DEV_MODE, Assets, BackButton
   ) {
-
     Preload.assets(Assets);
     angular.extend($rootScope, RootScope);
 
-    // setInitialState();
-    // $state.go('Main.Footer.Home');
-    $state.go('Main.Footer.Home');
+    if (DEV_MODE) {
+      setInitialState();
+    }
 
     $ionicPlatform.ready(onIonicPlatformReady);
 
@@ -42,6 +41,7 @@
       if ($window.cordova && $window.cordova.plugins.Keyboard) {
         // PushService.registerDevice();
         $window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        PushService.registerDevice(); //디바이스의 id를 등록
         BackButton.register();
       }
       if ($window.StatusBar) {
@@ -60,12 +60,11 @@
         $state.go('Main.WalkThrough');
       } else if (!$rootScope.AppStorage.token) {
         // Not logged in user logic
-        // $state.go('Main.Home');
-        // $state.go('Main.Home');
+        $state.go('Main.Footer.TalkList');
       } else {
         // Normal user logic
         // $state.go('Main.Home');
-        $state.go('Main.zPostList');
+        $state.go('Main.Footer.Home');
       }
     }
 

@@ -24,24 +24,17 @@
 
       <hr class="b0px h2px positive-bg" />
 
-      <!--Food List-->
-      <div class="relative dark-grey">  <!--Food List 컨테이너 -->
+      <!--Food List 컨테이너-->
+      <div class="relative dark-grey">
 
-        <div class="row zero pb5px">  <!--Food Node-->
+        <!--Food Node-->
+        <div class="row zero pb5px"
+          ng-repeat="product in vm.Model.products | filter: {category: 'FOOD'}">
           <div class="col zero">
-            <p class="f12px bold">{{"HAND MADE COCONUT COOKIE 하나둘셋넷 다섯여섯일곱 여덟아홉 열 열하나 열둘"}}</p>
+            <p class="f12px bold">{{product.name}}</p>
           </div>
           <div class="zero flex">
-            <p class="f12px bold grey">{{"10,000원 / 1set (5개입)"}}</p>
-          </div>
-        </div>
-
-        <div class="row zero pb5px">  <!--Food Node-->
-          <div class="col zero">
-            <p class="f12px bold">{{"HAND MADE BROWNIE"}}</p>
-          </div>
-          <div class="zero flex">
-            <p class="f12px bold grey">{{"5,000원 / 1 조각"}}</p>
+            <p class="f12px bold grey">{{product.price}}</p>
           </div>
         </div>
 
@@ -56,24 +49,17 @@
 
       <hr class="b0px h2px positive-bg" />
 
-      <!--Drinks List-->
-      <div class="relative dark-grey">  <!--Drinks List 컨테이너 -->
+      <!--Drinks List 컨테이너-->
+      <div class="relative dark-grey">
 
-        <div class="row zero pb5px">  <!--Food Node-->
+        <!--Food Node-->
+        <div class="row zero pb5px"
+          ng-repeat="product in vm.Model.products | filter: {category: 'DRINK'}">
           <div class="col zero">
-            <p class="f12px bold">{{"PALATE WRECKER DOUBLE IPA / 355ml / 9.5%"}}</p>
+            <p class="f12px bold">{{product.name}}</p>
           </div>
           <div class="zero flex">
-            <p class="f12px bold grey">{{"6,000"}} 원</p>
-          </div>
-        </div>
-
-        <div class="row zero pb5px">  <!--Food Node-->
-          <div class="col zero">
-            <p class="f12px bold">{{"DARK SEAS IMPERIAL STOUT / 355ml / 9.8%"}}</p>
-          </div>
-          <div class="zero flex">
-            <p class="f12px bold grey">{{"6,000"}} 원</p>
+            <p class="f12px bold grey">{{product.price}}</p>
           </div>
         </div>
 
