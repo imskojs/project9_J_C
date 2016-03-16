@@ -37,7 +37,7 @@
       loading: loading
     };
 
-    _.defaults(service, RootScope);  //extends
+    _.defaults(service, RootScope); //extends
 
     return service;
 
@@ -174,6 +174,7 @@
     }
 
     function appendData(dataWrapper, model, name, emitEventTrue) {
+      let deferred = $q.defer();
       $timeout(function() {
         if (name[name.length - 1] === 's') {
           angular.forEach(dataWrapper[name], function(item) {
@@ -191,7 +192,9 @@
           // if data is a data
           console.error('no dataArrayWrapper.dataArray perhaps dataWrapper is dataObject.');
         }
+        deferred.resolve();
       }, 0);
+      return deferred.promise;
     }
 
     function broadcast($scope) {

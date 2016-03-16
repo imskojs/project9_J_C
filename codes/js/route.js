@@ -42,7 +42,7 @@
       views: {
         Main: {
           templateUrl: 'state/Search/Search.html',
-          controller: 'SearchController as Search'
+          controller: 'SearchController as vm'
         }
       }
     })
@@ -84,11 +84,16 @@
     })
 
     .state('Main.GoogleMap', {
+      params: {
+        placeAddress: '',
+        placeId: '',
+        place: {}
+      },
       url: '/GoogleMap',
       views: {
         Main: {
           templateUrl: 'state/GoogleMap/GoogleMap.html',
-          controller: 'GoogleMapController as GoogleMap'
+          controller: 'GoogleMapController as vm'
         }
       }
     })
@@ -108,8 +113,8 @@
 
     .state('Main.CommentCreate', {
       params: {
-        placeId: '',
-        reviewId: ''
+        reviewId: '',
+        reviewOwner: ''
       },
       url: '/CommentCreate',
       views: {

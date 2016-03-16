@@ -29,13 +29,13 @@
 
   Oauth.$inject = [
     '$q', '$window', '$http', '$timeout',
-    'Message', 'AppStorage',
+    'Message', 'AppStorage', 'Users',
     'OAUTH_CALLBACK_URL', 'SERVER_URL'
   ];
 
   function Oauth(
     $q, $window, $http, $timeout,
-    Message, AppStorage,
+    Message, AppStorage, Users,
     OAUTH_CALLBACK_URL, SERVER_URL
   ) {
 
@@ -112,7 +112,20 @@
         .then(function(dataWrapper) {
           var userWrapper = dataWrapper.data;
           console.log("userWrapper :::\n", userWrapper);
-          AppStorage.user = userWrapper.user;
+          var userFindOne = Users.findOne({
+            where: {
+              id: userWrapper.user.id
+            },
+            populate: ['roles', 'profilePhoto']
+          });
+          return $q.all([dataWrapper, userFindOne]);
+        })
+        .then(function(array) {
+          var dataWrapper = array[0];
+          var user = array[1];
+          var userWrapper = dataWrapper.data;
+          console.log("userWrapper :::\n", userWrapper);
+          AppStorage.user = user;
           AppStorage.token = userWrapper.token;
           AppStorage.isFirstTime = false;
           return userWrapper;
@@ -173,10 +186,24 @@
             },
             data: result
           });
-        }).then(function(dataWrapper) {
+        })
+        .then(function(dataWrapper) {
           var userWrapper = dataWrapper.data;
           console.log("userWrapper :::\n", userWrapper);
-          AppStorage.user = userWrapper.user;
+          var userFindOne = Users.findOne({
+            where: {
+              id: userWrapper.user.id
+            },
+            populate: ['roles', 'profilePhoto']
+          });
+          return $q.all([dataWrapper, userFindOne]);
+        })
+        .then(function(array) {
+          var dataWrapper = array[0];
+          var user = array[1];
+          var userWrapper = dataWrapper.data;
+          console.log("userWrapper :::\n", userWrapper);
+          AppStorage.user = user;
           AppStorage.token = userWrapper.token;
           AppStorage.isFirstTime = false;
           return userWrapper;

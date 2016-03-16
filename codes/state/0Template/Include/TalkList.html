@@ -1,0 +1,35 @@
+<div>  <!--주당톡 List 컨테이너-->
+
+  <!--주당톡 Node 컨테이너-->
+  <div class="grey-bb1px pl5p pr5p pt5px pb5px"
+    ng-repeat="post in vm.Model.posts
+              | filter: vm.filterCategory(vm.Model.selectedCategory)
+              | orderBy: post.id"
+    ng-click="goToState('Main.Footer.TalkDetail', {postId: post.id}, 'forward');">
+    <div class="row zero">
+      <div class="col-auto zero mr2p flex-v">
+        <img class="h37px w37px r50p"
+          ng-src="{{post.photos[0].url}}" alt="프로필사진" />
+      </div>
+      <div class="col zero">
+        <div class="row zero mt0px">
+          <div class="col zero flex-v">
+            <p class="zero">[{{post.category}}] {{post.title}}</p>
+          </div>
+        </div>
+        <div class="row zero mt0px">
+          <div class="col-auto zero flex-v mr2p">
+            <p class="zero f12px dark-grey">
+              <span ng-if="post.showInTalk">{{post.createdBy.nickname}}</span>
+              <span ng-if="!post.showInTalk">익명</span>
+            </p>
+          </div>
+          <div class="col-auto zero flex-v">
+            <p class="zero f11px grey">{{post.createdAt | date: 'HH:ss'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  <!--주당톡 Node 컨테이너 종료-->
+
+</div>  <!--주당톡 List 컨테이너 종료-->

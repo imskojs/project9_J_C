@@ -1,59 +1,67 @@
 (function(angular) {
   'use strict';
   angular.module('app')
-    .factory('Comments', Comments);
+    .factory('Reviews', Reviews);
 
-  Comments.$inject = [
+  Reviews.$inject = [
     '$resource',
-    'SERVER_URL', 'Photo'
+    'SERVER_URL'
   ];
 
-  function Comments(
+  function Reviews(
     $resource,
-    SERVER_URL, Photo
+    SERVER_URL
   ) {
 
-    var commentUrl = SERVER_URL + '/comment' +
-     '/:uri';
+    var reviewUrl = SERVER_URL + '/review' +
+      '/:uri';
+
     var params = {
-      uri: '@uri'
+      uri: '@uri',
     };
 
     var actions = {
+
       find: {
         method: 'GET',
         params: {
           uri: 'find'
         }
       },
+
       findOne: {
         method: 'GET',
         params: {
           uri: 'findOne'
         }
       },
-      createComment: {
+
+      createReview: {
         method: 'POST',
         params: {
-          uri: 'createComment'
+          uri: 'createReview'
         }
       },
-      updateComment: {
+
+      updateReview: {
         method: 'PUT',
         params: {
-          uri: 'updateComment'
+          uri: 'updateReview'
         }
       },
-      destroyComment: {
+
+      destroyReview: {
         method: 'DELETE',
         params: {
-          uri: 'destroyComment'
+          uri: 'destroyReview'
         }
       }
+
     };
 
 
-    var service = $resource(commentUrl, params, actions);
+
+    var service = $resource(reviewUrl, params, actions);
 
     return service;
 

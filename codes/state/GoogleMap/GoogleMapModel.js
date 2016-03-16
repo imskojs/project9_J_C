@@ -10,7 +10,7 @@
 
     var Model = {
       loading: false,
-
+      place: {}
     };
 
     return Model;

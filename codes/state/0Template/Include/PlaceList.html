@@ -10,14 +10,18 @@
   <!--매장 Node 컨테이너-->
   <div class="row zero white-bg grey-bt1px grey-bb1px mt5px"
     ng-click="goToState('Main.PlaceDetail', {placeId: place.id}, 'forward');"
-    ng-repeat="place in vm.Model.places | filter: {category: 'PREMIUM'}"
+    ng-repeat="place in vm.Model.PREMIUM.places"
     ng-include="'state/0Template/Include/PlaceList-node.html'">
   </div>  <!--매장 Node 컨테이너 종료-->
 
   <!--더보기 버튼-->
   <div class="flex zero mt10px mb10px">
     <div class="dark-grey-b1px r20px pt5px pb5px pl10p pr10p"
-      ng-click="vm.more('PREMIUM');">더보기</div>
+      ng-click="vm.loadMore('PREMIUM');"
+      ng-if="!vm.Model.PREMIUM.buttonLoading">더보기</div>
+    <ion-spinner class="spinner-32px" icon="ripple"
+      ng-if="vm.Model.PREMIUM.buttonLoading">
+    </ion-spinner>
   </div>
 
 </div>  <!--매장 List 컨테이너 종료-->
@@ -36,14 +40,17 @@
   <!--매장 Node 컨테이너-->
   <div class="row zero white-bg grey-bt1px grey-bb1px mt5px"
     ng-click="goToState('Main.PlaceDetail', {placeId: place.id}, 'forward');"
-    ng-repeat="place in vm.Model.places | filter: {category: 'SPECIAL'}"
+    ng-repeat="place in vm.Model.SPECIAL.places"
     ng-include="'state/0Template/Include/PlaceList-node.html'">
   </div>  <!--매장 Node 컨테이너 종료-->
 
   <!--더보기 버튼-->
   <div class="flex zero mt10px mb10px">
     <div class="dark-grey-b1px r20px pt5px pb5px pl10p pr10p"
-      ng-click="vm.more('SPECIAL');">더보기</div>
+      ng-click="vm.loadMore('SPECIAL');"
+      ng-if="!vm.Model.SPECIAL.buttonLoading">더보기</div>
+    <ion-spinner class="spinner-32px" icon="ripple"
+      ng-if="vm.Model.SPECIAL.buttonLoading">
   </div>
 
 </div>  <!--매장 List 컨테이너 종료-->
@@ -62,14 +69,17 @@
   <!--매장 Node 컨테이너-->
   <div class="row zero white-bg grey-bt1px grey-bb1px mt5px"
     ng-click="goToState('Main.PlaceDetail', {placeId: place.id}, 'forward');"
-    ng-repeat="place in vm.Model.places | filter: {category: 'NORMAL'}"
+    ng-repeat="place in vm.Model.NORMAL.places"
     ng-include="'state/0Template/Include/PlaceList-node.html'">
   </div>  <!--매장 Node 컨테이너 종료-->
 
   <!--더보기 버튼-->
   <div class="flex zero mt10px mb10px">
     <div class="dark-grey-b1px r20px pt5px pb5px pl10p pr10p"
-      ng-click="vm.more('NORMAL');">더보기</div>
+      ng-click="vm.loadMore('NORMAL');"
+      ng-if="!vm.Model.NORMAL.buttonLoading">더보기</div>
+    <ion-spinner class="spinner-32px" icon="ripple"
+      ng-if="vm.Model.NORMAL.buttonLoading">
   </div>
 
 </div>  <!--매장 List 컨테이너 종료-->

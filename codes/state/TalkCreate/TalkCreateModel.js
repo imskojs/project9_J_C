@@ -15,7 +15,7 @@
         id: '',
         title: '',
         category: '',
-        showInTalk: true,  //true이면 보이기, false면 익명
+        isAnnonymous: true,  //true이면 보이기, false면 익명
         content: '',
         photos: []
       }

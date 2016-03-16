@@ -6,13 +6,13 @@
   MenuListController.$inject = [
     '_MockData',
     '$scope', '$state',
-    'MenuListModel', 'Util'
+    'MenuListModel', 'Util', 'Products'
   ];
 
   function MenuListController(
     _MockData,
     $scope, $state,
-    MenuListModel, Util
+    MenuListModel, Util, Products
   ) {
     var initPromise;
     var noLoadingStates = [];
@@ -30,7 +30,7 @@
     function onBeforeEnter() {
       if (!Util.hasPreviousStates(noLoadingStates)) {
         Util.loading(MenuListModel);
-        // initPromise = init();
+        initPromise = init();
       } else {
         Util.freeze(false);
       }
@@ -38,11 +38,13 @@
     }
 
     function onAfterEnter() {
-      // initPromise
-      //   .then(place => {    //{id: 1300, name: 'asda' ... }
-      //     Util.bindData(place, MenuListModel, 'place');  //Model['place'] = place
-      //   })
-      vm.Model.products = _MockData.products;
+      initPromise
+        .then(productsWrapper => {    //{id: 1300, name: 'asda' ... }
+          Util.bindData(productsWrapper, MenuListModel, 'products');  //Model['place'] = place
+        })
+        .catch(err => {
+          console.log("err :::\n", err);
+        });
     }
 
     function onBeforeLeave() {
@@ -59,9 +61,9 @@
 
     function init() {
       //$state.params.productId 를 통해 Place를 findOne()
-      return productFind({id: $state.params.placeId})
-        .then(products => {
-          return products;
+      return productFind({place: $state.params.placeId})
+        .then(productsWrapper => {
+          return productsWrapper;
         });
     }
 
@@ -88,9 +90,10 @@
 
       angular.extend(queryWrapper.query.where, extraQuery);
       angular.extend(queryWrapper.query, extraOperation);
-      return Places.findOne(queryWrapper).$promise
-        .then(products => {    //{id: 1300, name: 'asda' ... }
-          return products;
+      return Products.find(queryWrapper).$promise
+        .then(productsWrapper => {    //{id: 1300, name: 'asda' ... }
+          console.log("productsWrapper :::\n", productsWrapper);
+          return productsWrapper;
         });
     }
   }

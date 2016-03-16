@@ -11,11 +11,16 @@
     var Model = {
       loading: false,
       review: {
-        rating: 0,
+        rating: 5,
         content: '',
-        place: { id: '' },
-        photos: []  //{name, url}
-      }
+        place: '',
+        photos: []
+      },
+      images: [],
+      tempFiles: [],
+      files: [],
+      create: [],
+      destroy: []
     };
 
     return Model;

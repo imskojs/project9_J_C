@@ -54,6 +54,7 @@ var paths = {
   js: [
     './codes/js/app.js',
     './codes/js/route.js',
+    './codes/js/Class/**/*.js',
     './codes/js/Config/**/*.js',
     './codes/js/Interceptor/**/*.js',
     './codes/js/Service/**/*.js',
@@ -65,6 +66,7 @@ var paths = {
   lib: [
     // Non-Angular 3rd Party Libraries
     './codes/lib/jQuery/dist/jquery.js',
+    './codes/lib/Geolib/src/geolib.js',
     './codes/lib/lodash/lodash.js',
     './codes/lib/moment/moment.js',
     './codes/lib/jsSHA/src/sha1.js',

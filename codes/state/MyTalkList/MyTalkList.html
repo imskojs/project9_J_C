@@ -15,41 +15,8 @@
   <ion-content class="bold darker-grey">
     <div>   <!--컨텐츠 컨테이너-->
 
-      <div>  <!--주당톡 List 컨테이너-->
-
-
-        <!--주당톡 Node 컨테이너-->
-        <div ng-class="{
-            'grey-bb1px pl5p pr5p pt10px pb10px lighter-bg': talk.category === '공지',
-            'grey-bb1px pl5p pr5p pt5px pb5px': talk.category !== '공지'
-          }"
-          ng-repeat="talk in vm.Model.talkList"
-          ng-click="goToState('Main.Footer.TalkDetail', {talkId: talk.id}, 'forward');">
-          <div class="row zero"
-            ng-if="talk.category !== '공지'">
-            <div class="col-auto zero mr2p">
-              <img class="h37px w37px r50p"
-                ng-src="{{talk.photos[0].url}}" alt="프로필사진" />
-            </div>
-            <div class="col zero">
-              <div class="row zero mt0px">
-                <div class="col zero flex-v">
-                  <p class="zero">[{{talk.category}}] {{talk.title}}</p>
-                </div>
-              </div>
-              <div class="row zero mt0px">
-                <div class="col-auto zero flex-v mr2p">
-                  <p class="zero f12px dark-grey">{{talk.createdBy}}</p>
-                </div>
-                <div class="col-auto zero flex-v">
-                  <p class="zero f11px grey">{{talk.updatedBy}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>  <!--주당톡 Node 컨테이너 종료-->
-
-      </div>  <!--주당톡 List 컨테이너 종료-->
+      <div ng-include="'state/0Template/Include/TalkList.html'">
+      </div>
 
     </div>  <!--컨텐츠 컨테이너 종료-->
   </ion-content>

@@ -86,10 +86,15 @@
     <div class="col-90 zero">
       <form novalidate>
         <input class="p10px grey grey-b1px white-bg placeholder-grey h44px w100p br0px"
-          type="text" name="" placeholder="주점에 1:1 쪽지 문의하기" />
+          type="text" placeholder="주점에 1:1 쪽지 문의하기"
+          ng-model="vm.Model.message.content"
+          ng-enter="vm.create()"
+        >
       </form>
     </div>
-    <div class="col-10 zero flex">
+    <div class="col-10 zero flex"
+      ng-click="vm.create()"
+    >
       <div class="top4px right10px white-bg h44px w100p grey-b1px bl0px flex-v">
         <i class="ion-android-send zero r50p center w32px lh32px grey-bg white f16px"></i>
       </div>

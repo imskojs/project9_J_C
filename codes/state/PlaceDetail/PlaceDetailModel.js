@@ -11,6 +11,8 @@
     var Model = {
       loading: false,
       place: {},
+      reviews: [],
+      comments: [],
     };
 
     return Model;

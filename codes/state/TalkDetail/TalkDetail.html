@@ -106,7 +106,7 @@
 
       <!--주당톡 Node 컨테이너-->
       <div class="grey-bb1px pl3p pr3p pt5px pb5px"
-        ng-repeat="comment in vm.Model.post.comments">
+        ng-repeat="comment in vm.Model.comments">
         <div class="row zero">
 
           <div class="col-auto zero mr2p flex-v">
@@ -132,6 +132,13 @@
 
         </div>
       </div>  <!--주당톡 Node 컨테이너 종료-->
+
+      <!-- Loading -->
+      <section class="h48px flex-h grey-bb1px"
+        ng-if="vm.Model.loading">
+        <ion-spinner class="spinner-40px" icon="ripple">
+        </ion-spinner>
+      </section>
 
     </div>  <!--컨텐츠 컨테이너 종료-->
   </ion-content>

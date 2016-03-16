@@ -6,24 +6,31 @@
   ReviewCreateController.$inject = [
     '_MockData',
     '$scope', '$q', '$state',
-    'ReviewCreateModel', 'Util', 'RootScope', 'Places'
+    'ReviewCreateModel', 'Util', 'RootScope', 'Places', 'Reviews', 'Photo',
+    'Upload', 'Message',
+    'SERVER_URL'
   ];
 
   function ReviewCreateController(
     _MockData,
     $scope, $q, $state,
-    ReviewCreateModel, Util, RootScope, Places
+    ReviewCreateModel, Util, RootScope, Places, Reviews, Photo,
+    Upload, Message,
+    SERVER_URL
   ) {
     var initPromise;
     var noLoadingStates = [];
     var vm = this;
     vm.Model = ReviewCreateModel;
-    vm.setRating = setRating;
-    vm.reviewCreate = reviewCreate;
+
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
     $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+
+    vm.setRating = setRating;
+    vm.getPhoto = getPhoto;
+    vm.create = create;
 
     //====================================================
     //  View Event
@@ -31,21 +38,24 @@
 
     function onBeforeEnter() {
       if (!Util.hasPreviousStates(noLoadingStates)) {
-        Util.loading(ReviewCreateModel);
-        // initPromise = init();
-      } else {
-        Util.freeze(false);
+        // Util.loading(vm.Model);
+        initPromise = init();
       }
-      console.log("$state.params.placeId :::\n", $state.params.placeId);
     }
 
     function onAfterEnter() {
-      // initPromise
-      //   .then(place => {    //{id: 1300, name: 'asda' ... }
-      //     Util.bindData(place, ReviewCreateModel, 'place');  //Model['place'] = place
-      //   })
-      vm.Model.review.place.id = $state.params.placeId;
-
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        return initPromise
+          .then((message) => {
+            console.log("message :::\n", message);
+            Util.freeze(false);
+          })
+          .catch((err) => {
+            Util.error(err);
+          });
+      } else {
+        Util.freeze(false);
+      }
     }
 
     function onBeforeLeave() {
@@ -55,9 +65,47 @@
     //====================================================
     //  VM
     //====================================================
+    function getPhoto() {
+      if (vm.Model.images.length >= 5) {
+        Message.alert('사진수 초과', '사진은 최대 5개 까지만 업로드 가능합니다.');
+        return false;
+      }
+      return Photo.get('camera', 800, true, 600, 'square')
+        .then((blob) => {
+          vm.Model.images.push(blob);
+        })
+        .catch((err) => {
+          console.log("err :::\n", err);
+        });
+    }
 
-    //리뷰 더보기 버튼 클릭
-    function setRating (rating) {
+    function create() {
+      Message.loading();
+      return createPhotos()
+        .then((idsWrapper) => {
+          if (!idsWrapper) {
+            return false;
+          }
+          let ids = idsWrapper.ids;
+          let photos = Util.PhotoClass.createPhotoIds(vm.Model.images, vm.Model.review.photos, ids);
+          vm.Model.review.photos = photos;
+        })
+        .then(() => {
+          return reviewCreateReview();
+        })
+        .then((review) => {
+          console.log("review :::\n", review);
+          return Message.alert("리뷰 등록 알림", "리뷰가 성공적으로 등록되었습니다.");
+        })
+        .then(() => {
+          Util.goBack();
+        })
+        .catch((err) => {
+          Util.error(err);
+        });
+    }
+
+    function setRating(rating) {
       vm.Model.review.rating = rating;
       console.log("vm.Model.review.rating :::\n", vm.Model.review.rating);
     }
@@ -65,19 +113,28 @@
     //====================================================
     //  Private
     //====================================================
-
     function init() {
-      //$state.params.placeId 를 통해 Place를 findOne()
-      return placeFind({id: $state.params.placeId})
-        .then(place => {
-          return place;
-        });
+      return $q.resolve({
+        message: 'empty'
+      });
     }
 
     function reset() {
-      vm.Model.review.rating = 0;
-      vm.Model.review.content = '';
-      vm.Model.review.photos = [];
+      let defaultObj = {
+        loading: false,
+        review: {
+          rating: 5,
+          content: '',
+          place: '',
+          photos: []
+        },
+        images: [],
+        tempFiles: [],
+        files: [],
+        create: [],
+        destroy: []
+      };
+      angular.copy(defaultObj, vm.Model);
     }
 
     //====================================================
@@ -87,16 +144,45 @@
     //====================================================
     //  REST
     //====================================================
-
-    function reviewCreate () {
-      console.log("vm.Model.review.rating :::\n", vm.Model.review.rating);
-      console.log("vm.Model.review.content :::\n", vm.Model.review.content);
-      console.log("vm.Model.review.photos :::\n", vm.Model.review.photos);
-      var queryWrapper = {
-        where: {},
+    function createPhotos() {
+      Util.PhotoClass.processCreate(vm.Model.images, vm.Model.create, vm.Model.files);
+      let uploadOptions = {
+        url: SERVER_URL + '/photo/createPhotos',
+        method: 'POST',
+        file: vm.Model.files,
+        fields: {
+          query: {
+            create: vm.Model.create
+          }
+        },
+        headers: {
+          enctype: "multipart/form-data"
+        }
       };
-      //Review.create(queryWrapper);
-      RootScope.goToState('Main.PlaceDetail', {placeId: vm.Model.review.place.id}, 'forward');
+      let promise = Upload.upload(uploadOptions);
+      return promise
+        .then((dataWrapper) => {
+          let idsWrapper = dataWrapper.data;
+          return idsWrapper;
+        });
     }
-  }
+
+    function reviewCreateReview(extraQuery) {
+      vm.Model.review.place = $state.params.placeId;
+      let queryWrapper = {
+        query: vm.Model.review
+      };
+      angular.extend(queryWrapper.query, extraQuery);
+      console.log("queryWrapper --reviewCreateReview-- :::\n", queryWrapper);
+      return Reviews.createReview(queryWrapper).$promise
+        .then((review) => {
+          return review;
+        });
+    }
+
+  } // end
 })();
+
+// RootScope.goToState('Main.PlaceDetail', {
+//   placeId: vm.Model.review.place.id
+// }, 'forward');

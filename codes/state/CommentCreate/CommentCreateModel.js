@@ -12,6 +12,7 @@
       loading: false,
       user: {},  //로그인한 유저 본인, 세션
       review: {},
+      reviewOwner: {},
       comment: {
         content: ''
       }

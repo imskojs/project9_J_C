@@ -120,6 +120,10 @@
             var modalHiddenListenerOff = array[1];
             modalHiddenListenerOff();
             return base64;
+          })
+          .then(function(base64) {
+            console.log("base64 should be blob :::\n", base64);
+            return base64;
           });
       }
 

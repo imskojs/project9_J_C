@@ -22,15 +22,25 @@
 
   <ion-content class="has-header">
 
+    <section class="w100p h100vh flex-h light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="vm.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mt150px" icon="ripple">
+      </ion-spinner>
+    </section>
+
     <div class="relative">  <!--placeDetail 전체 컨테이너-->
       <!--슬라이드 box-->
-      <ion-slide-box class="w100p auto"
-        show-pager="true"
-      >
+      <ion-slide-box class="w100p auto" show-pager="true">
         <ion-slide ng-repeat="photo in vm.Model.place.photos">
           <img class="w100p block h60vw lazy-show"
-            ng-src="{{photo.url}}"
-          >
+            ng-src="{{photo.url}}" />
+        </ion-slide>
+        <!--포토가 하나도 없을경우-->
+        <ion-slide ng-if="!mv.Model.place.photos">
+          <img class="w100p block h60vw lazy-show"
+            src="img/no_image.png" />
         </ion-slide>
       </ion-slide-box>
 
@@ -68,7 +78,7 @@
       <!--태그-->
       <div class="row zero flex center f10px bold positive pl3p pr3p">
         <div class="col zero ml1p"
-          ng-repeat="tag in vm.Model.place.tags">
+          ng-repeat="tag in vm.Model.place.tags track by $index">
           <p class="p5 positive-b1px r3px text-overflow">{{tag}}</p>
         </div>
       </div>
@@ -99,7 +109,11 @@
             <i class="ion-ios-location f14px"></i>
           </div>
           <div class="col-auto zero flex ml7px"
-            ng-click="goToState('Main.GoogleMap', {}, 'forward');">
+            ng-click="goToState('Main.GoogleMap', {
+              placeAddress: vm.Model.place.address,
+              placeId: $state.params.placeId,
+              place: vm.Model.place
+            }, 'forward');">
             <p class="f14px zero">지도 보기</p>
           </div>
         </div>
@@ -214,16 +228,19 @@
 
       <!--리뷰 List-->
       <div class="row zero pl1p pr1p pt5px pb5px">  <!--리뷰 List 컨테이너-->
-
         <!--리뷰 Node 컨테이너 시작-->
         <div class="col zero">
           <div class="light-grey-b1px pl2p pr2p pt5px pb10px mb5px"
-            ng-repeat="review in vm.Model.place.reviews">
+            ng-repeat="review in vm.Model.reviews">
             <!--회원 프로필사진 | 아이디, 작성일자, 평점 | 삭제버튼-->
             <div class="row zero">
               <div class="col-15 zero flex">
-                <img class="h30px"
-                  ng-src="{{review.owner.profilePhoto.url}}" alt="프로필사진">
+                <img class="h35px"
+                  ng-if="review.owner.profilePhoto.url"
+                  ng-src="{{review.owner.profilePhoto.url}}" />
+                <img class="h35px"
+                  ng-if="!review.owner.profilePhoto.url"
+                  src="img/defaultimg.png" />
               </div>
               <div class="col-65 zero">
                 <div class="row zero mt5px">
@@ -250,7 +267,7 @@
                   ng-click="vm.reviewDelete();">삭제</p> -->
                 <!--사장님 전용 댓글달기버튼-->
                 <p class="grey-bg white min-w67px r50px pl8px pr8px pt4px pb7px f12px"
-                  ng-click="goToState('Main.CommentCreate', {placeId: vm.Model.place.id, reviewId: review.id}, 'forward');">댓글달기</p>
+                  ng-click="goToState('Main.CommentCreate', {reviewId: review.id, reviewOwner: review.owner}, 'forward');">댓글달기</p>
               </div>
             </div>
             <!--후기-->
@@ -263,40 +280,43 @@
             <div class="row zero mt5px">
               <div class="col zero flex-v"
                 ng-repeat="photo in review.photos">
-                <img class="w50px h50px r5px pr1p"
+                <img class="w50px h50px r5px"
                   ng-src="{{photo.url}}" alt="후기사진" />
-              </div>
+              </div><!--
               <div class="col zero flex-v"
                 ng-repeat="count in vm.getAverageRating(5-review.photos.length)">
                 <div class="w50px h50px r5px pr1p"></div>
-              </div>
+              </div> -->
             </div>
             <!--사장님 댓글-->
-            <div class="mt5px p10px relative lighter-bg">
+            <div class="mt5px p10px relative lighter-bg"
+              ng-repeat="comment in review.comments"
+            >
               <!--사장님 댓글 삭제버튼-->
-              <!-- <p class="absolute top8px right10px dark-grey dark-grey-b1px r50px pl5px pr5px pt2px pb2px"
-                  ng-click="vm.commentDelete();">삭제</p> -->
+              <p class="absolute top8px right10px dark-grey dark-grey-b1px r50px f12px pl5px pr5px pt2px pb2px"
+                  ng-click="vm.commentDelete();">삭제</p>
               <!--아이콘 | 사장님 아이디 | 작성일자-->
               <div class="row zero">
                 <div class="col-auto zero">
                   <i class="ion-reply pr5px"></i>
                 </div>
                 <div class="col-auto zero flex-v">
-                  <p class="zero f12px bold">{{review.comment.owner.nickname}}</p>
+                  <p class="zero f12px bold">사장님</p>
                 </div>
                 <div class="col-auto zero flex-v">
                   <p class="zero f12px bold grey">&nbsp;|&nbsp;</p>
                 </div>
                 <div class="col-auto zero flex-v">
-                  <p class="zero f10px grey">{{review.comment.owner.createdAt | date: 'yyyy.MM.dd HH.mm'}}</p>
+                  <p class="zero f10px grey">{{comment.createdAt | date: 'yyyy.MM.dd HH.mm'}}</p>
                 </div>
               </div>
 
               <div class="row zero mt5px">
                 <div class="col zero">
-                  <p>{{review.comment.content}}</p>
+                  <p>{{comment.content}}</p>
                 </div>
               </div>
+
             </div>
 
           </div>
@@ -323,7 +343,9 @@
       </div>
 
       <div class="col zero flex light-grey-bl1px"
-        ng-click="goToState('Main.MessageCreate', {placeId: vm.Model.place.id}, 'forward');">
+        ng-click="goToState('Main.MessageCreate', {
+          ownerId: vm.Model.place.owner
+        }, 'forward');">
         <button class="button-icon ion-chatbubble-working white f20px">
         </button>
       </div>

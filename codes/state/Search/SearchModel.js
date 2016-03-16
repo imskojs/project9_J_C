@@ -10,7 +10,8 @@
 
     var Model = {
       loading: false,
-
+      searchWord: '',
+      places: []
     };
 
     return Model;

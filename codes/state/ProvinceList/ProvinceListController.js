@@ -18,6 +18,7 @@
     var noLoadingStates = [];
     var vm = this;
     vm.Model = ProvinceListModel;
+    vm.toggle = toggle;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
@@ -26,17 +27,22 @@
     //  View Event
     //====================================================
 
-    function onBeforeEnter() {
+    function onBeforeEnter() {}
 
-    }
-
-    function onAfterEnter() {
-
-    }
+    function onAfterEnter() {}
 
     //====================================================
     //  VM
     //====================================================
+
+    function toggle(key) {
+      var index = vm.Model.toggleArray.indexOf(key);
+      if (index != -1) {
+        vm.Model.toggleArray.splice(index, 1);
+      } else {
+        vm.Model.toggleArray.push(key);
+      }
+    }
 
     //====================================================
     //  Private

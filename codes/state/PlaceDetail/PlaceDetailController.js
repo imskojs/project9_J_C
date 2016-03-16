@@ -6,13 +6,13 @@
   PlaceDetailController.$inject = [
     '_MockData',
     '$scope', '$state',
-    'PlaceDetailModel', 'Util', 'Places'
+    'PlaceDetailModel', 'Util', 'Places', 'Reviews', 'Comments'
   ];
 
   function PlaceDetailController(
     _MockData,
     $scope, $state,
-    PlaceDetailModel, Util, Places
+    PlaceDetailModel, Util, Places, Reviews, Comments
   ) {
     var initPromise;
     var noLoadingStates = [];
@@ -33,8 +33,8 @@
 
     function onBeforeEnter() {
       if (!Util.hasPreviousStates(noLoadingStates)) {
-        Util.loading(PlaceDetailModel);
-        // initPromise = init();
+        Util.loading(vm.Model);
+        initPromise = init();
       } else {
         Util.freeze(false);
       }
@@ -42,13 +42,30 @@
     }
 
     function onAfterEnter() {
-      // initPromise
-      //   .then(place => {    //{id: 1300, name: 'asda' ... }
-      //     Util.bindData(place, PlaceDetailModel, 'place');  //Model['place'] = place
-      //   })
-      var place = _MockData.findOne($state.params.placeId);
-      console.log("place :::\n", place);
-      Util.bindData(place, PlaceDetailModel, 'place');
+      initPromise
+        .then(place => {    //{id: 1300, name: 'asda' ... }
+          Util.bindData(place, vm.Model, 'place');  //Model['place'] = place
+        })
+        .then(() => {
+          return restAPI(
+            { place: $state.params.placeId },
+            {
+              populate: ['photos', 'comments', 'owner'],
+              limit: 5
+            },
+            Reviews,
+            'find'
+          );
+        })
+        .then((reviewsWrapper) => {
+          Util.bindData(reviewsWrapper, vm.Model, 'reviews');
+        })
+        .then(() => {
+          console.log("vm.Model :::\n", vm.Model);
+        })
+        .catch((err) => {
+          return console.log("err :::\n", err);
+        });
     }
 
     function onBeforeLeave() {
@@ -78,10 +95,16 @@
     //====================================================
 
     function init() {
+      // let placePromise = find({id: $state.params.placeId}, null, Places, 'findOne');
       //$state.params.placeId 를 통해 Place를 findOne()
-      return placeFind({id: $state.params.placeId})
-        .then(place => {
-          return place;
+      return restAPI(
+          { id: $state.params.placeId },
+          null,
+          Places,
+          'findOne'
+        )
+        .then(obj => {
+          return obj;
         });
     }
 
@@ -99,7 +122,7 @@
     //  REST
     //====================================================
 
-    function placeFind(extraQuery, extraOperation) {
+    function restAPI(extraQuery, extraOperation, Obj, method) {
       let queryWrapper = {
         query: {
           where: {},
@@ -108,18 +131,30 @@
 
       angular.extend(queryWrapper.query.where, extraQuery);
       angular.extend(queryWrapper.query, extraOperation);
-      return Places.findOne(queryWrapper).$promise
-        .then(place => {    //{id: 1300, name: 'asda' ... }
-          return place;
+      return Obj[method](queryWrapper).$promise
+        .then(obj => {    //{id: 1300, name: 'asda' ... }
+          console.log('쿼리 성공! ==> ', obj);
+          return obj;
         });
     }
 
+    // 유저 리뷰삭제 버튼 클릭
     function reviewDelete () {
       // implementation
     }
 
-    function commentDelete () {
-      // implementation
+    // 사장님 댓글삭제 버튼 클릭
+    function commentDelete (id) {
+      let queryWrapper = {
+        query: {
+          where: {id: id}
+        }
+      };
+      return Comment.destroyComment(queryWrapper).$promise
+        .then(obj => {
+          console.log("obj :::\n", obj);
+          reload();
+        })
     }
   }
 })();

@@ -11,8 +11,13 @@
 
     var Model = {
       loading: false,
-      user: {},
-      messages: []
+      // [{dayBreaker: true}, {dayBreaker: false}]
+      messages: [],
+      message: {
+        sender: '',
+        receiver: '',
+        content: ''
+      }
     };
 
     return Model;

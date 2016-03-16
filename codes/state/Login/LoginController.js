@@ -29,10 +29,10 @@
     //====================================================
 
     function loginWithKakao() {
-      return oauthKakao()
+      return Oauth.kakao(KAKAO_KEY)
         .then((userWrapper) => {
           console.log("userWrapper :::\n", userWrapper);
-          Util.goToState('Main.SettingList', {}, 'forward');
+          Util.goToState('Main.Footer.Home', {}, 'forward');
         })
         .catch((err) => {
           console.log("err :::\n", err);
@@ -44,7 +44,7 @@
       return Oauth.facebook(FACEBOOK_KEY, ["email", "public_profile"])
         .then((userWrapper) => {
           console.log("userWrapper :::\n", userWrapper);
-          Util.goToState('Main.SettingList', {}, 'forward');
+          Util.goToState('Main.Footer.Home', {}, 'forward');
         })
         .catch((err) => {
           Util.error(err);

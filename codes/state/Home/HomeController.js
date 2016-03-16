@@ -6,13 +6,13 @@
   HomeController.$inject = [
     '_MockData',
     '$scope',
-    'Util', 'HomeModel', 'Banners'
+    'Util', 'HomeModel', 'Banners', 'CurrentPosition', 'AppStorage'
   ];
 
   function HomeController(
     _MockData,
     $scope,
-    Util, HomeModel, Banners
+    Util, HomeModel, Banners, CurrentPosition, AppStorage
   ) {
     var initPromise;
     var noLoadingStates = [];
@@ -21,6 +21,8 @@
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
+
+    vm.goToStateIfGPS = goToStateIfGPS;
 
     //====================================================
     //  View Event
@@ -54,6 +56,25 @@
     //====================================================
     //  VM
     //====================================================
+    function goToStateIfGPS(state, params, direction) {
+      if (AppStorage.currentPosition) {
+        return Util.goToState(state, params, direction);
+      } else {
+        AppStorage.currentPosition = {};
+      }
+      return CurrentPosition.set(AppStorage.currentPosition)
+        .then(() => {
+          return Util.goToState(state, params, direction);
+        })
+        .catch((err) => {
+          AppStorage.currentPosition = null;
+          if (err.message === 'geolocationOff') {
+            return false;
+          }
+          return Util.error(err);
+        });
+
+    }
 
     //====================================================
     //  Private

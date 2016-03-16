@@ -60,7 +60,7 @@
         $state.go('Main.WalkThrough');
       } else if (!$rootScope.AppStorage.token) {
         // Not logged in user logic
-        $state.go('Main.Footer.TalkList');
+        $state.go('Main.Footer.Home');
       } else {
         // Normal user logic
         // $state.go('Main.Home');

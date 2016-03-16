@@ -10,7 +10,7 @@
 //     active-icon="img/map_iconselect.png"
 //     center-marker="true"
 //     idle-event="true"
-//     vm="GoogleMap"
+//     vm="vm"
 //     places="GoogleMap.Model.products"
 //   >
 
@@ -219,14 +219,14 @@
               if (geoJson.length === 0) {
                 return false;
               }
-              if ($state.params.id) {
+              if ($state.params.placeId) {
                 map.setCenter(new google.maps.LatLng(
                   Number(geoJson.features[0] && geoJson.features[0].geometry.coordinates[1]),
                   Number(geoJson.features[0] && geoJson.features[0].geometry.coordinates[0])
                 ));
               }
               map.data.addGeoJson(geoJson);
-            }, 0);
+            }, 5);
           });
 
           map.data.addListener('click', function(event) {
@@ -242,17 +242,19 @@
           scope.$on('relayout', function() {
             $timeout(function() {
               google.maps.event.trigger(map, 'resize');
-            }, 5);
+            }, 0);
           });
 
           if (attrs.idleEvent === 'true') {
-            map.addListener('idle', function() {
-              var lng = map.getCenter().lng();
-              var lat = map.getCenter().lat();
-              AppStorage[attrs.id].lastCenter.lat = lat;
-              AppStorage[attrs.id].lastCenter.lng = lng;
-              scope.$emit('googleMap:centerChanged', AppStorage[attrs.id].lastCenter);
-            });
+            if (!$state.params.placeId) {
+              map.addListener('idle', function() {
+                var lng = map.getCenter().lng();
+                var lat = map.getCenter().lat();
+                AppStorage[attrs.id].lastCenter.lat = lat;
+                AppStorage[attrs.id].lastCenter.lng = lng;
+                scope.$emit('googleMap:centerChanged', AppStorage[attrs.id].lastCenter);
+              });
+            }
           }
 
         }; /*link ends*/

@@ -10,19 +10,20 @@
 
     var Model = {
       loading: false,
-      places: [null],
-      // premium: {
-      //   places: [
-      //   ]
-      // },
-      // special: {
-      //   places: [
-      //   ]
-      // },
-      // normal: {
-      //   places: [
-      //   ]
-      // }
+      longitude: 126,
+      latitude: 37,
+      PREMIUM: {
+        places: [],
+        buttonLoading: false
+      },
+      SPECIAL: {
+        places: [],
+        buttonLoading: false
+      },
+      NORMAL: {
+        places: [],
+        buttonLoading: false
+      }
 
     };
 

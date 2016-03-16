@@ -14,10 +14,35 @@
   function Distance($window) {
 
     var service = {
-      between: $window.geolib.getDistance
+      between: $window.geolib.getDistance,
+      createDistanceProperty: createDistanceProperty
     };
 
     return service;
+
+    //(
+    //  places: Array<Place>,
+    //  currentPosition: {
+    //    latitude: Integer,
+    //    longitude: Integer
+    //  }
+    //)
+    // => Void    // place.distance created
+    function createDistanceProperty(places, currentPosition) {
+      angular.forEach(places, (place) => {
+        let geoJSON = place.geoJSON;
+        let placeLongitude = geoJSON.coordinates[0];
+        let placeLatitude = geoJSON.coordinates[1];
+        var distance = service.between({
+          latitude: placeLatitude,
+          longitude: placeLongitude
+        }, {
+          latitude: currentPosition.latitude,
+          longitude: currentPosition.longitude
+        });
+        place.distance = distance;
+      });
+    }
 
   }
 })(angular);

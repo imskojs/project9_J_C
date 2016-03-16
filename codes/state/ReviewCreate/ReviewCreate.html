@@ -91,41 +91,38 @@
           <p class="f12px dark-grey bold">사진등록 (최대 5장)</p>
         </div>
       </div>
+
       <div class="row zero mb30px">
-        <div class="col zero flex mr1p">
-          <img class="h50px r5px" src="img/camera.png" alt="">
+        <!-- camera -->
+        <div class="col zero flex mr1p"
+          ng-click="vm.getPhoto()"
+        >
+          <img class="h50px r5px" src="img/camera.png" alt="Camera">
         </div>
-        <div class="col zero flex mr1p">
+
+        <!-- Image Preview -->
+        <div class="col zero flex mr1p"
+          ng-repeat="image in vm.Model.images"
+          ng-click="PhotoClass.deselectImage(vm.Model.images, $index)"
+        >
           <div class="relative">
-            <img src="img/icon_photo_delete.png" class="absolute positive h26px top-15px right-5px" />
-            <img class="h50px r5px" src="img/_box200x200.png" alt="">
+            <img class="absolute positive h26px top-15px right-5px"
+              alt="지우기 버튼"
+              src="img/icon_photo_delete.png"
+            >
+            <img class="h50px r5px" 
+              alt="리뷰 사진"
+              ngf-src="image" 
+              ng-if="!image.id"
+            >
+            <img class="h50px r5px" 
+              alt="리뷰 사진"
+              ng-src="{{image.url}}" 
+              ng-if="image.id"
+            >
           </div>
-        </div>
-        <div class="col zero flex mr1p">
-          <div class="relative">
-            <img src="img/icon_photo_delete.png" class="absolute positive h26px top-15px right-5px" />
-            <img class="h50px r5px" src="img/_box200x200.png" alt="">
-          </div>
-        </div>
-        <div class="col zero flex mr1p">
-          <div class="relative">
-            <img src="img/icon_photo_delete.png" class="absolute positive h26px top-15px right-5px" />
-            <img class="h50px r5px" src="img/_box200x200.png" alt="">
-          </div>
-        </div>
-        <div class="col zero flex mr1p">
-          <div class="relative">
-            <img src="img/icon_photo_delete.png" class="absolute positive h26px top-15px right-5px" />
-            <img class="h50px r5px" src="img/_box200x200.png" alt="">
-          </div>
-        </div>
-        <div class="col zero flex mr1p">
-          <div class="relative">
-            <img src="img/icon_photo_delete.png" class="absolute positive h26px top-15px right-5px" />
-            <img class="h50px r5px" src="img/_box200x200.png" alt="">
-          </div>
-        </div>
-      </div>
+        </div> <!-- Image Preview End -->
+      </div> 
       <!--사진 (최대 5장)-->
       <!-- <div class="row zero mt5px">
         <div class="col zero flex-v"
@@ -142,7 +139,7 @@
       <!--리뷰 등록하기 버튼-->
       <div class="flex">
         <p class="zero positive-bg r50px white f16px pl30p pr30p pt10px pb10px"
-          ng-click="vm.reviewCreate();">리뷰 등록하기</p>
+          ng-click="vm.create();">리뷰 등록하기</p>
       </div>
 
     </div>

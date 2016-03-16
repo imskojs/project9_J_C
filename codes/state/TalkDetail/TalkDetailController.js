@@ -5,17 +5,17 @@
 
   TalkDetailController.$inject = [
     '_MockData',
-    '$scope', '$q', '$state', '$ionicModal',
+    '$scope', '$q', '$state', '$ionicModal', '$ionicScrollDelegate',
     'TalkDetailModel', 'Util', 'RootScope', 'Posts', 'Comments', 'Message', 'AppStorage'
   ];
 
   function TalkDetailController(
     _MockData,
-    $scope, $q, $state, $ionicModal,
+    $scope, $q, $state, $ionicModal, $ionicScrollDelegate,
     TalkDetailModel, Util, RootScope, Posts, Comments, Message, AppStorage
   ) {
     var initPromise;
-    var noLoadingStates = [];
+    var noLoadingStates = ['Main.Footer.TalkDetail'];
     var vm = this;
     vm.Model = TalkDetailModel;
     vm.isAnnonymousToggle = isAnnonymousToggle;
@@ -45,7 +45,7 @@
     function onBeforeEnter() {
       console.log("$state.params :::\n", $state.params);
       if (!Util.hasPreviousStates(noLoadingStates)) {
-        Util.loading(TalkDetailModel);
+        Util.loading(vm.Model);
         initPromise = init();
         //2개의 array Promise가 들어있는 Promise array 를 initPromise 변수에 대입
       } else {
@@ -54,23 +54,34 @@
     }
 
     function onAfterEnter() {
-      initPromise
-        .then((array) => {
-          let noticePostsWrapper = array[0];  //공지
-          let normalPostsWrapper = array[1];  //일반 주당톡
-          // TalkDetailModel.posts = noticePostWrapper.posts;  //바인딩 되는것은 이거나 아래나 똑같지만,
-          // Util.bindData(postsWrapper, TalkDetailModel, 'posts');  //content 안에서 refresh 하는듯한 로직이 담겨있다.
-          // console.log("TalkDetailModel :::\n", TalkDetailModel);
-        })
-          /*  bindData(data, model, name, emitPostTrue, loadingModel)
-              "data를 이 model에 넣는다, name이라는 attribute를 만들고" 라고 해석해면 될듯.
-              model[name] = data;
-              model[name] = data[name];  3번째 인자의 끝이 s로 끝나는경우
-              ==> Model.posts = PostWrapper
-              ==> Model.posts = PostWrapper.posts  */
-      TalkDetailModel.post = _MockData.findOne($state.params.postId);
-      console.log("TalkDetailModel :::\n", TalkDetailModel);
-      Util.freeze(false);
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        return initPromise
+          .then((array) => {
+            console.log("array :::\n", array);
+            let post = array[0]; //object
+            let commentsWrapper = array[1]; //object
+            vm.Model.post = post;
+            return Util.bindData(commentsWrapper, vm.Model, 'comments');
+          })
+          .then(() => {
+            console.log("vm.Model :::\n", vm.Model);
+          })
+          .catch((err) => {
+            console.log("err :::\n", err);
+          });
+
+      } else {
+        Util.freeze(false);
+      }
+
+      /*  bindData(data, model, name, emitPostTrue, loadingModel)
+          "data를 이 model에 넣는다, name이라는 attribute를 만들고" 라고 해석해면 될듯.
+          model[name] = data;
+          model[name] = data[name];  3번째 인자의 끝이 s로 끝나는경우
+          ==> Model.posts = PostWrapper
+          ==> Model.posts = PostWrapper.posts  */
+      // vm.Model.post = _MockData.findOne($state.params.postId);
+      // console.log("vm.Model :::\n", vm.Model);
     }
 
     function onBeforeLeave() {
@@ -84,11 +95,11 @@
 
     function openModal() {
       vm.ConfirmModal.show();
-    };
+    }
 
     function closeModal() {
       vm.ConfirmModal.hide();
-    };
+    }
 
     function isAnnonymousToggle() {
       if (vm.Model.isAnnonymous) {
@@ -100,8 +111,12 @@
 
     function toggleMore() {
       switch (vm.Model.toggleMore) {
-        case true : vm.Model.toggleMore = false; return;
-        case false: vm.Model.toggleMore = true; return;
+        case true:
+          vm.Model.toggleMore = false;
+          return;
+        case false:
+          vm.Model.toggleMore = true;
+          return;
       }
     }
 
@@ -116,25 +131,27 @@
     //  Private
     //====================================================
 
-    function init() {  //서버에서 data를 가져오는 작업을 진행함.
-      let noticePostPromise = postFind( {category: 'NOTICE'}, {limit: 5} );
-      let normalPostPromise = postFind( {'!': {category: 'NOTICE'}}, {limit: null} );
-      return $q.all([noticePostPromise, normalPostPromise])
-        .then(array => {
-          return array;
-        });
-
-      let commentPromise = commentFind({ category: 'PREMIUM' });
-      return $q.all([commentPromise])
+    function init() {
+      let postPromise = postFind({ id: $state.params.postId });
+      let commentPromise = commentFind({ post: $state.params.postId });
+      return $q.all([postPromise, commentPromise])
         .then((array) => {
           return array;
-        })
+        });
     }
 
     function reset() {
-      vm.Model.isAnnonymous = false;
-      vm.Model.toggleMore = false;
-      vm.Model.comment.content = '';
+      var defaultObj = {
+        loading: false,
+        isAnnonymous: false,
+        toggleMore: false,
+        post: {},
+        comments: [],
+        comment: {
+          content: ''
+        }
+      };
+      angular.copy(defaultObj, vm.Model);
     }
 
     //====================================================
@@ -155,12 +172,12 @@
       };
       angular.extend(queryWrapper.query.where, extraQuery);
       angular.extend(queryWrapper.query, extraOperation);
-      return Posts.find(queryWrapper).$promise
-        .then((postsWrapper) => {
-          console.log("postsWrapper :::\n", postsWrapper);
-          // Resource object안에 array가 존재
-          // {events: [{id:101, name:'aaa'}, {id: 102, name:'bbb'} ...]}
-          return postsWrapper;
+      return Posts.findOne(queryWrapper).$promise
+        .then((post) => {
+          console.log("post :::\n", post);
+          // find()    ==> 반드시 Array를 리턴
+          // findOne() ==> 반드시 Object를 리턴
+          return post;
         });
     }
 
@@ -168,16 +185,16 @@
       let queryWrapper = {
         query: {
           where: {},
-          keywords: $state.params.keywords,
+          // keywords: $state.params.keywords,
           sort: {},
           limit: 30
         }
       };
       angular.extend(queryWrapper.query.where, extraQuery);
       angular.extend(queryWrapper.query, extraOperation);
-      return Places.find(queryWrapper).$promise
-        .then((commentList) => {
-          return commentList;
+      return Comments.find(queryWrapper).$promise
+        .then((commentsWrapper) => {
+          return commentsWrapper;
         });
     }
 
@@ -186,18 +203,30 @@
       // if (!AppStorage.token) {
       //   return Message.alert('알림', '댓글은 로그인 후에 작성할 수 있습니다.');
       // }
-      console.log("vm.Model.comment.content :::\n", vm.Model.comment.content);
-      console.log("vm.Model.isAnnonymous :::\n", vm.Model.isAnnonymous);
-      console.log("vm.Model.post.id :::\n", vm.Model.post.id);
-      //1. Validation Check 진행
-      //2. vm.Model.isAnnonymous
-      //   vm.Model.comment.content
-      //   vm.Model.현재시간
-      //   vm.Model.게시물id
-      //   session.유저id 를 가지고 서버로 쿼리전송
-      //3. DB insert성공시 해당 댓글을 vm.Model.commentList 에 바인딩
-      reset();
-      $state.reload();
+      if (vm.Model.comment.content.length < 2) {
+        return Message.alert('알림', '내용을 입력하세요.');
+      }
+      vm.Model.loading = true;
+      var queryWrapper = {
+        query: {
+          post: $state.params.postId,
+          isAnnonymous: vm.Model.isAnnonymous,
+          content: vm.Model.comment.content,
+          category: 'POST-COMMENT'
+        }
+      };
+      $ionicScrollDelegate.scrollBottom();
+      vm.Model.isAnnonymous = false;
+      vm.Model.comment.content = '';
+      return Comments.createComment({}, queryWrapper).$promise
+        .then(function(commentsWrapper) {
+          console.log("commentsWrapper :::\n", commentsWrapper);
+          // reset();
+          return Util.bindData(commentsWrapper, vm.Model, 'comments');
+        })
+        .then(() => {
+          vm.Model.loading = false;
+        });
     }
 
     function talkDelete() {

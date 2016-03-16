@@ -14,9 +14,10 @@
       isAnnonymous: false,
       toggleMore: false,
       post: {},
+      comments: [],
       comment: {
         content: ''
-      },
+      }
     };
 
     return Model;

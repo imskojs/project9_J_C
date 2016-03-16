@@ -21,9 +21,11 @@
         <i class="ion-android-locate positive f20px pl4p"></i>
       </div>
       <div class="col-auto flex-v">
-        <p class="f14px zero">서울특별시 강남구 역삼동</p>
+        <p class="f14px zero">{{AppStorage.currentAddress}}</p>
       </div>
-      <div class="col flex-v pl5p">
+      <div class="col flex-v pl5p"
+        ng-click="vm.setCurrentPosition()"
+      >
         <p class="f8px zero grey-bg r20px p5">재설정</p>
       </div>
     </div>
@@ -40,11 +42,18 @@
   </ion-header-bar> -->
 
   <ion-content class="light-grey-bg top74px">
-    <div>   <!--컨텐츠 컨테이너-->
+    <!-- Loading -->
+    <section class="w100p h100vh flex-h light-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="vm.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mt150px" icon="ripple">
+      </ion-spinner>
+    </section>
 
+    <div>   <!--컨텐츠 컨테이너-->
       <div ng-include="'state/0Template/Include/PlaceList.html'">
       </div>
-
     </div>  <!--컨텐츠 컨테이너 종료-->
   </ion-content>
 </ion-view>

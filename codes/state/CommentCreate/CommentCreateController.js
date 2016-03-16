@@ -5,14 +5,14 @@
 
   CommentCreateController.$inject = [
     '_MockData',
-    '$scope', '$state',
-    'CommentCreateModel', 'Util', 'RootScope', 'Users', 'AppStorage'
+    '$scope', '$state', '$q',
+    'CommentCreateModel', 'Util', 'RootScope', 'AppStorage', 'Users', 'Reviews', 'Comments'
   ];
 
   function CommentCreateController(
     _MockData,
-    $scope, $state,
-    CommentCreateModel, Util, RootScope, Users, AppStorage
+    $scope, $state, $q,
+    CommentCreateModel, Util, RootScope, AppStorage, Users, Reviews, Comments
   ) {
     var initPromise;
     var noLoadingStates = [];
@@ -30,10 +30,10 @@
     //====================================================
 
     function onBeforeEnter() {
+      console.log('\n\n\n====================\n'+$state.current.url+'\n====================\n');
       if (!Util.hasPreviousStates(noLoadingStates)) {
-        Util.loading(CommentCreateModel);
-        // initPromise = init();
-        //3개의 array Promise가 들어있는 array Promise 를 initPromise 변수에 대입
+        Util.loading(vm.Model);
+        initPromise = init();
       } else {
         Util.freeze(false);
       }
@@ -41,13 +41,16 @@
     }
 
     function onAfterEnter() {
-      // initPromise
-      //   .then(place => {    //{id: 1300, name: 'asda' ... }
-      //     Util.bindData(place, CommentCreateModel, 'place');  //Model['place'] = place
-      //   })
-      var review = _MockData.findOne($state.params.reviewId);
-      console.log("review :::\n", review);
-      Util.bindData(review, CommentCreateModel, 'review');
+      initPromise
+        .then(array => {
+          let user = array[0];
+          let review = array[1];
+          vm.Model.reviewOwner = user;
+          Util.bindData(review, vm.Model, 'review');
+        })
+      // var review = _MockData.findOne($state.params.reviewId);
+      // console.log("review :::\n", review);
+      // Util.bindData(review, vm.Model, 'review');
 
       vm.Model.user = AppStorage.user;
     }
@@ -74,15 +77,25 @@
     //====================================================
 
     function init() {
-      //return userFindOne();
-      return reviewFind({id: $state.params.reviewId})
-        .then(place => {
-          return place;
+      let userPromise = userFind({ id: $state.params.reviewOwner.id });
+      let reviewPromise = reviewFind({ id: $state.params.reviewId }, { populate: ['photos'] });
+      return $q.all([userPromise, reviewPromise])
+        .then(array => {
+          return array;
         });
     }
 
     function reset() {
-      vm.Model.comment.content = '';
+      var defaultObj = {
+        loading: false,
+        user: {},  //로그인한 유저 본인, 세션
+        review: {},
+        reviewOwner: {},
+        comment: {
+          content: ''
+        }
+      };
+      angular.copy(defaultObj, vm.Model);
     }
 
     //====================================================
@@ -93,9 +106,20 @@
     //  REST
     //====================================================
 
-    function userFindOne() {
-      return Users.findOne({id: AppStorage.user.id})
-        .$promise;
+    function userFind(extraQuery, extraOperation) {
+      let queryWrapper = {
+        query: {
+          where: {},
+        }
+      };
+
+      angular.extend(queryWrapper.query.where, extraQuery);
+      angular.extend(queryWrapper.query, extraOperation);
+      return Users.findOne(queryWrapper).$promise
+        .then(user => {
+          console.log("user :::\n", user);
+          return user;
+        });
     }
 
     function reviewFind(extraQuery, extraOperation) {
@@ -107,16 +131,27 @@
 
       angular.extend(queryWrapper.query.where, extraQuery);
       angular.extend(queryWrapper.query, extraOperation);
-      return Review.findOne(queryWrapper).$promise
+      return Reviews.findOne(queryWrapper).$promise
         .then(review => {    //{id: 1300, name: 'asda' ... }
+          console.log("review :::\n", review);
           return review;
         });
     }
 
     function commentCreate() {
-      console.log("vm.Model.comment.content :::\n", vm.Model.comment.content);
-      // Comment.create()
-      RootScope.goToState('Main.PlaceDetail', {placeId: $state.params.placeId}, 'forward');
+      vm.Model.loading = true;
+      let queryWrapper = {
+        query: {
+          review: $state.params.reviewId,
+          content: vm.Model.comment.content,
+          category: 'REVIEW-COMMENT'
+        }
+      };
+      return Comments.createComment(null, queryWrapper).$promise
+        .then((createdComment) => {
+          vm.Model.loading = false;
+          RootScope.goBack('forward');
+        })
     }
   }
 })();

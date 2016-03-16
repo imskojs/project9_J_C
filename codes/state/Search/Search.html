@@ -14,33 +14,63 @@
 
 
   <ion-header-bar class="bar-subheader positive-bg zero"
-    no-tap-scroll="true">
+    no-tap-scroll="true"
+  >
     <div class="row w100p">
+
       <div class="col-80">
         <input class="w100p h32px pl3p color0-bg placeholder-positive"
           type="text" placeholder="업체명, 태그로 검색할 수 있습니다."
+          ng-model="vm.Model.searchWord"
+          ng-enter="vm.search()"
         >
       </div>
-      <div class="col-10 color0-bg flex">
+
+      <div class="col-10 color0-bg flex"
+        ng-click="vm.Model.searchWord = ''"
+      >
         <img class="h24px" src="img/icon_search_x.png" />
       </div>
-      <div class="col-10 center">
+
+      <div class="col-10 center"
+        ng-click="vm.search()"
+      >
         <i class="ion-android-search f25px lh30px white"></i>
       </div>
     </div>
   </ion-header-bar>
 
   <ion-content class="has-subheader">
-    <div class="row mt30vw">
-      <div class="col flex">
-        <img class="w30p"
-          src="img/defaultimg.png">
+
+    <!-- Loading -->
+    <section class="w100p h100p flex-h lighter-grey-bg absolute"
+      style="z-index: 2"
+      ng-if="vm.Model.loading"
+    >
+      <ion-spinner class="spinner-40px mt150px" icon="ripple">
+      </ion-spinner>
+    </section>
+
+    <!--검색 결과가 존재하지 않을 경우-->
+    <div ng-if="vm.Model.places.length === 0">
+      <div class="row pt30vw">
+        <div class="col flex">
+          <img class="w30p"
+            src="img/defaultimg.png">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col flex grey f16px">
+          <p>검색내역이 없습니다.</p>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col flex grey f16px">
-        <p>검색내역이 없습니다.</p>
-      </div>
+
+    <!--검색 결과가 존재할 경우-->
+    <div class="row zero white-bg grey-bt1px grey-bb1px mt5px"
+      ng-click="goToState('Main.PlaceDetail', {placeId: place.id}, 'forward');"
+      ng-repeat="place in vm.Model.places"
+      ng-include="'state/0Template/Include/PlaceList-node.html'">
     </div>
   </ion-content>
 

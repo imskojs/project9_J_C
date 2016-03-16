@@ -9,6 +9,8 @@
   function ProvinceListModel(Province) {
 
     var Model = {
+      loading: false,
+      toggleArray: [],
       province: Province
     };
 

@@ -76,10 +76,10 @@
     //====================================================
 
     function isAnnonymousToggle () {
-      if (vm.Model.post.showInTalk) {
-        vm.Model.post.showInTalk = false;
+      if (vm.Model.post.isAnnonymous) {
+        vm.Model.post.isAnnonymous = false;
       } else {
-        vm.Model.post.showInTalk = true;
+        vm.Model.post.isAnnonymous = true;
       }
     }
 
@@ -128,10 +128,10 @@
 
     function reset() {
       vm.Model.post.category = '';
-      vm.Model.post.showInTalk = true;  //true이면 보이기, false면 익명
+      vm.Model.post.isAnnonymous = true;  //true이면 보이기, false면 익명
       vm.Model.post.title = '';
       vm.Model.post.content = '';
-      vm.Model.post.photos = [];
+      //vm.Model.post.photos = [];
     }
 
     //====================================================
@@ -164,7 +164,7 @@
     function updateTalk() {
       console.log("$state.params.postId ==> ", $state.params.postId);
       console.log("vm.Model.post.category ==> ", vm.Model.post.category);
-      console.log("vm.Model.post.showInTalk ==> ", vm.Model.post.showInTalk);  //true이면 보이기, false면 익명
+      console.log("vm.Model.post.isAnnonymous ==> ", vm.Model.post.isAnnonymous);  //true이면 보이기, false면 익명
       console.log("vm.Model.post.title ==> ", vm.Model.post.title);
       console.log("vm.Model.post.content ==> ", vm.Model.post.content);
       console.log("vm.Model.post.photos ==> ", vm.Model.post.photos);

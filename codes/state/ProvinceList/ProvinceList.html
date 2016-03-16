@@ -30,17 +30,22 @@
         <!--지역 Node 컨테이너-->
         <div class="relative"
           ng-repeat="(key, valueArray) in vm.Model.province">
-          <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg">
+          <div class="row zero mt0px pt7px pb7px pr10px pl10px grey-bb1px white-bg"
+            ng-click="vm.toggle(key);">
             <div class="col zero pl2p">
               <p class="zero lh16px">{{key}}</p>
             </div>
             <div class="col-auto zero pr3p">
-              <i class="zero lh16px ion-arrow-up-b"></i>
+              <i class="zero lh16px ion-arrow-down-b"
+                ng-if="vm.Model.toggleArray.indexOf(key) == -1"></i>
+              <i class="zero lh16px ion-arrow-up-b positive"
+                ng-if="vm.Model.toggleArray.indexOf(key) != -1"></i>
             </div>
           </div>
 
           <!--하위 카테고리 컨테이너-->
-          <div class="relative">
+          <div class="relative"
+            ng-if="vm.Model.toggleArray.indexOf(key) != -1">
             <div class="row zero mt0px wrap">
               <div class="col-50 zero flex-v pl4p pr4p pt7px pb7px grey-br grey-bb"
                 ng-click="goToState('Main.ProvinceSearchList', { province: value.text }, 'forward');"

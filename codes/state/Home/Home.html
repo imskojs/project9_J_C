@@ -9,7 +9,7 @@
 
   <ion-nav-buttons side="right">
     <button class="button-icon ion-android-search white"
-      ng-click="goToState('Main.Search', {}, 'forward');">
+      ng-click="vm.goToStateIfGPS('Main.Search', {}, 'forward');">
     </button>
   </ion-nav-buttons>
 
@@ -37,9 +37,9 @@
 
       <div class="row zero mt5vh flex">
         <div class="col-auto p8 white-b r50px"
-          ng-click="goToState('Main.PlaceList', {}, 'forward');"
+          ng-click="vm.goToStateIfGPS('Main.PlaceList', null, 'forward')"
         >
-          <p class="f20px zero white">보러가기</p>
+          <p class="f20px zero white center w100p">보러가기</p>
         </div>
       </div>
 

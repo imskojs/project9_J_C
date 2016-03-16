@@ -34,7 +34,7 @@
     function onBeforeEnter() {
       // console.log("$state.params :::\n", $state.params);
       if (!Util.hasPreviousStates(noLoadingStates)) {
-        Util.loading(TalkListModel);
+        Util.loading(vm.Model);
         initPromise = init();
         //2개의 array Promise가 들어있는 Promise array 를 initPromise 변수에 대입
       } else {
@@ -47,9 +47,9 @@
         .then((array) => {
           let noticePostsWrapper = array[0];  //공지
           let normalPostsWrapper = array[1];  //일반 주당톡
-          // TalkListModel.posts = noticePostWrapper.posts;  //바인딩 되는것은 이거나 아래나 똑같지만,
-          // Util.bindData(postsWrapper, TalkListModel, 'posts');  //content 안에서 refresh 하는듯한 로직이 담겨있다.
-          // console.log("TalkListModel :::\n", TalkListModel);
+          vm.Model.posts = noticePostsWrapper.posts;  //바인딩 되는것은 이거나 아래나 똑같지만,
+          Util.bindData(normalPostsWrapper, vm.Model, 'posts');  //content 안에서 refresh 하는듯한 로직이 담겨있다.
+          console.log("vm.Model :::\n", vm.Model);
         })
           /*  bindData(data, model, name, emitPostTrue, loadingModel)
               "data를 이 model에 넣는다, name이라는 attribute를 만들고" 라고 해석해면 될듯.
@@ -57,15 +57,15 @@
               model[name] = data[name];  3번째 인자의 끝이 s로 끝나는경우
               ==> Model.posts = PostWrapper
               ==> Model.posts = PostWrapper.posts  */
-      console.log("_MockData :::\n", _MockData);
-      TalkListModel.notices.push(_MockData.post4);  //공지
-      Util.bindData(_MockData, TalkListModel, 'posts');
-      console.log("TalkListModel :::\n", TalkListModel);
+      // console.log("_MockData :::\n", _MockData);
+      // vm.Model.notices.push(_MockData.post4);  //공지
+      // Util.bindData(_MockData, vm.Model, 'posts');
+      // console.log("vm.Model :::\n", vm.Model);
       Util.freeze(false);
     }
 
     function onBeforeLeave() {
-      TalkListModel.notices.pop();  //id의 track by 오류가 발생함.
+      vm.Model.notices.pop();  //id의 track by 오류가 발생함.
       return reset();
     }
 
@@ -97,9 +97,9 @@
     }
 
     function goToState(state, params, direction, messageTitle, messageContent) {
-      if (!AppStorage.token) {
-        return Message.alert(messageTitle, messageContent);
-      }
+      // if (!AppStorage.token) {
+      //   return Message.alert(messageTitle, messageContent);
+      // }
       RootScope.goToState(state, params, direction);
     }
 
@@ -108,8 +108,8 @@
     //====================================================
 
     function init() {  //서버에서 data를 가져오는 작업을 진행함.
-      let noticePostPromise = postFind( {category: 'NOTICE'}, {limit: 5} );
-      let normalPostPromise = postFind( {'!': {category: 'NOTICE'}}, {limit: null} );
+      let noticePostPromise = postFind( {showInTalk: false}, {limit: 5} );
+      let normalPostPromise = postFind( {showInTalk: true} );
       return $q.all([noticePostPromise, normalPostPromise])
         .then(array => {
           return array;
@@ -133,8 +133,9 @@
     function postFind(extraQuery, extraOperation) {
       let queryWrapper = {
         query: {
-          where: {},
-          sort: {},
+          where: {
+          },
+          // sort: {},
           populate: ['photos']
         }
       };

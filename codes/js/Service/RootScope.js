@@ -14,14 +14,14 @@
   RootScope.$inject = [
     '$state', '$stateParams', '$ionicHistory', '$ionicSideMenuDelegate', '$timeout',
     '$rootScope', '$ionicViewSwitcher', '$ionicModal', '$ionicScrollDelegate',
-    'Message', 'AppStorage', 'Favorite', 'Link',
+    'Message', 'AppStorage', 'Favorite', 'Link', 'PhotoClass',
     'DEV_MODE'
   ];
 
   function RootScope(
     $state, $stateParams, $ionicHistory, $ionicSideMenuDelegate, $timeout,
     $rootScope, $ionicViewSwitcher, $ionicModal, $ionicScrollDelegate,
-    Message, AppStorage, Favorite, Link,
+    Message, AppStorage, Favorite, Link, PhotoClass,
     DEV_MODE
   ) {
     var service = {
@@ -41,6 +41,7 @@
       closeSideMenu: closeSideMenu,
       comingSoon: comingSoon,
       DEV_MODE: DEV_MODE,
+      PhotoClass: new PhotoClass(),
 
       likePost: Favorite.likePost,
       likePlace: Favorite.likePlace,

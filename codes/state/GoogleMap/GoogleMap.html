@@ -19,14 +19,23 @@
         <i class="ion-navigate f18px positive"></i>
       </div>
       <div class="col-90 flex-v">
-        <p class="f14px zero">{{"서울특별시 강남구 역삼동 723-1"}}</p>
+        <p class="f14px zero">{{$state.params.placeAddress}}</p>
       </div>
     </div>
   </ion-header-bar>
 
-  <ion-content class="top74px">
-    <div>
-      Google Map API
-    </div>
+  <ion-content class="top74px"
+    scroll="false"
+  >
+  <!-- active-icon="img/icon_map.png" -->
+  <!-- idle-event="true" -->
+  <div id="gm0"
+    google-map
+    icon="img/icon_map.png"
+    center-marker="true"
+    vm="vm"
+    places="vm.Model.place"
+  >
+  </div>
   </ion-content>
 </ion-view>
