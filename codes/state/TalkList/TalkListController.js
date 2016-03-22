@@ -5,27 +5,37 @@
 
   TalkListController.$inject = [
     '_MockData',
-    '$scope', '$q', '$state',
+    '$ionicHistory', '$scope', '$q', '$state',
     'TalkListModel', 'Util', 'Posts', 'RootScope', 'Message', 'AppStorage'
   ];
 
   function TalkListController(
     _MockData,
-    $scope, $q, $state,
+    $ionicHistory, $scope, $q, $state,
     TalkListModel, Util, Posts, RootScope, Message, AppStorage
   ) {
     var initPromise;
-    var noLoadingStates = [];
+    var noLoadingStates = [
+      'Main.Footer.MyTalkList',
+      'Main.Footer.TalkDetail',
+      'Main.Footer.TalkCreate',
+      'Main.Footer.TalkUpdate',
+    ];
+    var noResetStates = [
+      'Main.Footer.TalkDetail'
+    ];
     var vm = this;
     vm.Model = TalkListModel;
     vm.categoryToggle = categoryToggle;
     vm.selectCategory = selectCategory;
     vm.filterCategory = filterCategory;
     vm.goToState = goToState;
+    vm.infiniteScroll = infiniteScroll;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     //====================================================
     //  View Event
@@ -43,30 +53,39 @@
     }
 
     function onAfterEnter() {
-      initPromise
-        .then((array) => {
-          let noticePostsWrapper = array[0];  //공지
-          let normalPostsWrapper = array[1];  //일반 주당톡
-          vm.Model.posts = noticePostsWrapper.posts;  //바인딩 되는것은 이거나 아래나 똑같지만,
-          Util.bindData(normalPostsWrapper, vm.Model, 'posts');  //content 안에서 refresh 하는듯한 로직이 담겨있다.
-          console.log("vm.Model :::\n", vm.Model);
-        })
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        initPromise
+          .then((array) => {
+            let noticePostsWrapper = array[0]; //공지
+            let normalPostsWrapper = array[1]; //일반 주당톡
+            console.log("noticePostsWrapper :::\n", noticePostsWrapper);
+            console.log("normalPostsWrapper :::\n", normalPostsWrapper);
+            vm.Model.notices = noticePostsWrapper.posts;
+            return Util.bindData(normalPostsWrapper, vm.Model, 'posts');
+          })
+          .then(() => {
+            console.log("vm.Model :::\n", vm.Model);
+          })
           /*  bindData(data, model, name, emitPostTrue, loadingModel)
               "data를 이 model에 넣는다, name이라는 attribute를 만들고" 라고 해석해면 될듯.
               model[name] = data;
               model[name] = data[name];  3번째 인자의 끝이 s로 끝나는경우
               ==> Model.posts = PostWrapper
               ==> Model.posts = PostWrapper.posts  */
-      // console.log("_MockData :::\n", _MockData);
-      // vm.Model.notices.push(_MockData.post4);  //공지
-      // Util.bindData(_MockData, vm.Model, 'posts');
-      // console.log("vm.Model :::\n", vm.Model);
-      Util.freeze(false);
+          // console.log("_MockData :::\n", _MockData);
+          // vm.Model.notices.push(_MockData.post4);  //공지
+          // Util.bindData(_MockData, vm.Model, 'posts');
+          // console.log("vm.Model :::\n", vm.Model);
+        Util.freeze(false);
+      }
     }
 
-    function onBeforeLeave() {
-      vm.Model.notices.pop();  //id의 track by 오류가 발생함.
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
 
@@ -76,7 +95,7 @@
 
 
     function categoryToggle() {
-      var status = vm.Model.categoryToggle;  //true & false
+      var status = vm.Model.categoryToggle; //true & false
       if (status) {
         vm.Model.categoryToggle = false;
       } else {
@@ -87,12 +106,29 @@
     function selectCategory(category) {
       console.log("category :::\n", category);
       vm.Model.selectedCategory = category;
+      vm.Model.infiniteScroll = true;
+      var searchObj = { category: vm.Model.selectedCategory };
+      if (vm.Model.selectedCategory === '전체') {
+        searchObj = { showInTalk: true };
+      }
+      return postFind(searchObj)
+        .then(function(postsWrapper) {
+          Util.bindData(postsWrapper, vm.Model, 'posts');
+        })
+        .catch(function(err) {
+          Util.error(err);
+        })
+        .finally(function() {
+          Util.broadcast($scope);
+        });
     }
 
     function filterCategory(selectedCategory) {
       switch (selectedCategory) {
-        case '전체': return false;
-        default: return {category: selectedCategory};
+        case '전체':
+          return {};
+        default:
+          return { category: selectedCategory };
       }
     }
 
@@ -103,13 +139,38 @@
       RootScope.goToState(state, params, direction);
     }
 
+    function infiniteScroll() {
+      var last = vm.Model.posts.length - 1;
+      var searchObj = {
+        category: vm.Model.selectedCategory,
+        id: {
+          '<': vm.Model.posts[last].id,
+        },
+      };
+      if (vm.Model.selectedCategory === '전체') {
+        searchObj = {
+          showInTalk: true,
+          id: {
+            '<': vm.Model.posts[last].id,
+          },
+        };
+      }
+      return postFind(searchObj)
+        .then(function(postsWrapper) {
+          return Util.appendData(postsWrapper, vm.Model, 'posts');
+        })
+        .catch(function(err) {
+          Util.error(err);
+        });
+    }
+
     //====================================================
     //  Private
     //====================================================
 
-    function init() {  //서버에서 data를 가져오는 작업을 진행함.
-      let noticePostPromise = postFind( {showInTalk: false}, {limit: 5} );
-      let normalPostPromise = postFind( {showInTalk: true} );
+    function init() { //서버에서 data를 가져오는 작업을 진행함.
+      let noticePostPromise = postFind({ category: 'TALK-NOTICE' }, { limit: 5 });
+      let normalPostPromise = postFind({ showInTalk: true, category: { '!': 'TALK-NOTICE' } });
       return $q.all([noticePostPromise, normalPostPromise])
         .then(array => {
           return array;
@@ -117,9 +178,16 @@
     }
 
     function reset() {
-      // vm.Model.review.rating = 0;
-      // vm.Model.review.content = '';
-      // vm.Model.review.photos = [];
+      var Model = {
+        handle: 'talk-list',
+        loading: false,
+        infiniteScroll: true,
+        categoryToggle: false,
+        selectedCategory: '전체',
+        notices: [],
+        posts: []
+      };
+      angular.copy(Model, vm.Model);
     }
 
     //====================================================
@@ -133,10 +201,10 @@
     function postFind(extraQuery, extraOperation) {
       let queryWrapper = {
         query: {
-          where: {
-          },
-          // sort: {},
-          populate: ['photos']
+          where: {},
+          limit: 30,
+          sort: 'id DESC',
+          populate: ['photos', 'owner']
         }
       };
       angular.extend(queryWrapper.query.where, extraQuery);

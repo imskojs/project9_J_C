@@ -5,30 +5,54 @@
 
   SearchTabController.$inject = [
     '_MockData',
-    '$scope', '$state',
+    '$ionicHistory', '$scope', '$state', 'Util',
     'SearchTabModel', 'RootScope'
   ];
 
   function SearchTabController(
     _MockData,
-    $scope, $state,
+    $ionicHistory, $scope, $state, Util,
     SearchTabModel, RootScope
   ) {
     var initPromise;
-    var noLoadingStates = [];
+    var noLoadingStates = [
+      'Main.Footer.SearchTab.ProvinceList',
+      'Main.Footer.SearchTab.ThemeList',
+      'Main.Footer.SearchTab.KeywordList',
+    ];
     var vm = this;
     vm.Model = SearchTabModel;
     vm.goToState = goToState;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     //====================================================
     //  View Event
     //====================================================
 
-    function onBeforeEnter() {}
-    function onAfterEnter() {}
+    function onBeforeEnter() {
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        reset();
+        initPromise = init();
+      } else {
+        Util.freeze(false);
+      }
+    }
+
+    function onAfterEnter() {
+      if (!Util.hasPreviousStates(noLoadingStates)) {}
+    }
+
+    function onBeforeLeave() {
+      if (!Util.hasPreviousStates(noLoadingStates)) {}
+    }
+
+    //====================================================
+    //  VM
+    //====================================================
 
     function goToState(state, params) {
       if ($state.includes('Main.Footer.SearchTab.ProvinceList')) {
@@ -45,18 +69,21 @@
       } else if ($state.includes('Main.Footer.SearchTab.KeywordList')) {
         return RootScope.goToState(state, params, 'back');
       }
-
     }
-
-    //====================================================
-    //  VM
-    //====================================================
 
     //====================================================
     //  Private
     //====================================================
 
-    function init() {
+    function init() {}
+
+    function reset() {
+      var Model = {
+        handle: 'search-tab',
+        loading: false,
+        currentTab: 'PROVINCE'
+      };
+      angular.copy(Model, vm.Model);
     }
 
     //====================================================

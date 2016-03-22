@@ -9,6 +9,7 @@
   function EventTabModel() {
 
     var Model = {
+      handle: 'event-tab',
       loading: false,
       currentTab: '주당이벤트',
     };

@@ -1,8 +1,7 @@
-<!--이벤트 사진 슬라이드박스-->
-<ion-slide-box class="w100p h180px" show-pager="true">
-  <ion-slide class=""
-    ng-repeat="photo in vm.Model.event.photos">
-    <img class="w100p h180px"
+cl<!--이벤트 사진 슬라이드박스-->
+<ion-slide-box class="w100p h75vw" show-pager="true">
+  <ion-slide ng-repeat="photo in vm.Model.event.photos">
+    <img class="w100p h75vw"
       ng-src="{{photo.url}}" alt="이벤트 사진">
   </ion-slide>
 </ion-slide-box>
@@ -26,12 +25,12 @@
 <hr class="b0px h2px positive-bg"/>
 
 <!--이벤트 상세내용-->
-<div class="f12px lh20px bold dark-grey pt10px pb10px pl5p pr5p">
+<div class="f12px lh20px dark-grey pt10px pb10px pl5p pr5p">
 
   <!--기간-->
   <div class="row zero mt0px">
     <div class="col zero">
-      <p class="zero positive">기간</p>
+      <p class="zero positive bold">기간</p>
     </div>
   </div>
   <div class="row zero mt0px mb18px">
@@ -43,7 +42,7 @@
   <!--장소-->
   <div class="row zero mt0px">
     <div class="col zero">
-      <p class="zero positive">장소</p>
+      <p class="zero positive bold">장소</p>
     </div>
   </div>
   <div class="row zero mt0px mb18px">
@@ -55,7 +54,7 @@
   <!--이벤트 상세내용-->
   <div class="row zero mt0px">
     <div class="col zero">
-      <p class="zero positive">이벤트 상세내용</p>
+      <p class="zero positive bold">이벤트 상세내용</p>
     </div>
   </div>
   <div class="row zero mt0px mb18px">
@@ -69,7 +68,7 @@
   <!--주의사항-->
   <div class="row zero mt0px">
     <div class="col zero">
-      <p class="zero positive">주의사항</p>
+      <p class="zero positive bold">주의사항</p>
     </div>
   </div>
   <div class="row zero mt0px mb18px">

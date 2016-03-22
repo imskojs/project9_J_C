@@ -4,33 +4,30 @@
     .controller('HomeController', HomeController);
 
   HomeController.$inject = [
-    '_MockData',
     '$scope',
-    'Util', 'HomeModel', 'Banners', 'CurrentPosition', 'AppStorage'
+    'Util', 'HomeModel', 'Banners'
   ];
 
   function HomeController(
-    _MockData,
     $scope,
-    Util, HomeModel, Banners, CurrentPosition, AppStorage
+    Util, HomeModel, Banners
   ) {
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var vm = this;
     vm.Model = HomeModel;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
 
-    vm.goToStateIfGPS = goToStateIfGPS;
-
     //====================================================
     //  View Event
     //====================================================
     function onBeforeEnter() {
-      console.log(_MockData);
       if (!Util.hasPreviousStates(noLoadingStates)) {
-        Util.loading(HomeModel);
+        reset();
+        Util.loading(vm.Model);
         initPromise = init();
       } else {
         Util.freeze(false);
@@ -53,34 +50,26 @@
           });
       }
     }
+
     //====================================================
     //  VM
     //====================================================
-    function goToStateIfGPS(state, params, direction) {
-      if (AppStorage.currentPosition) {
-        return Util.goToState(state, params, direction);
-      } else {
-        AppStorage.currentPosition = {};
-      }
-      return CurrentPosition.set(AppStorage.currentPosition)
-        .then(() => {
-          return Util.goToState(state, params, direction);
-        })
-        .catch((err) => {
-          AppStorage.currentPosition = null;
-          if (err.message === 'geolocationOff') {
-            return false;
-          }
-          return Util.error(err);
-        });
-
-    }
 
     //====================================================
     //  Private
     //====================================================
     function init() { //서버에 query
       return bannerFindFive();
+    }
+
+    function reset() {
+      console.log("'test' :::\n", 'test');
+      let defaultObj = {
+        handle: 'home',
+        loading: false,
+        banners: []
+      };
+      angular.copy(defaultObj, vm.Model);
     }
 
     //====================================================

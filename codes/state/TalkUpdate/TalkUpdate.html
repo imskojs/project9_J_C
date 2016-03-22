@@ -9,10 +9,11 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p">수정하기</p>
+    <p class="zero">수정하기</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+   >
     <div ng-include="'state/0Template/Include/TalkCreate&Update.html'">
     </div>
   </ion-content>

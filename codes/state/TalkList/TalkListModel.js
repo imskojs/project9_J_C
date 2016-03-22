@@ -9,6 +9,8 @@
   function TalkListModel() {
 
     var Model = {
+      handle: 'talk-list',
+      more: false,
       loading: false,
       categoryToggle: false,
       selectedCategory: '전체',

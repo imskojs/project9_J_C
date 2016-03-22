@@ -1,4 +1,4 @@
-<ion-view id="notice-list"
+<ion-view id="notice-detail"
   cache-view="true"
   hide-back-button="true"
 >
@@ -9,34 +9,44 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p bold">공지사항</p>
+    <p class="zero">공지사항</p>
   </ion-nav-title>
+  
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex-h pt250px light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
 
-  <ion-content class="">
+  <ion-content 
+    delegate-handle="notice-detail"
+  >
     <div>  <!--컨텐츠 컨테이너-->
 
-      <div class="bold grey-bb1px pt6px pb6px pl5p pr5p">  <!--제목 컨테이너-->
+      <div class="grey-bb1px pt6px pb6px pl5p pr5p">  <!--제목 컨테이너-->
         <div class="row zero">
           <div class="col zero">
             <div class="row zero mt5px">
               <div class="col zero flex-v">
-                <p class="zero f16px lh20px darker-grey">{{vm.Model.notice.title}}</p>
+                <p class="zero f16px lh20px darker-grey">{{vm.Model.post.title}}</p>
               </div>
             </div>
             <div class="row zero mt5px">
               <div class="col zero flex-v">
-                <p class="zero f14px lh20px grey">{{vm.Model.notice.date}}</p>
+                <p class="zero f14px lh20px grey">{{vm.Model.post.createdAt | date: 'yyyy.MM.dd'}}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="bold pt15px pb40px pl5p pr5p">  <!--내용 컨테이너-->
+      <div class="pt15px pb40px pl5p pr5p">  <!--내용 컨테이너-->
         <div class="row zero">
           <div class="col zero">
             <p class="zero f14px lh20px dark-grey">
-              {{vm.Model.notice.content}}
+              {{vm.Model.post.content}}
             </p>
           </div>
         </div>

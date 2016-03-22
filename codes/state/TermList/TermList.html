@@ -9,39 +9,21 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p bold">이용약관</p>
+    <p class="zero">이용약관</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+   >
     <div>  <!--컨텐츠 컨테이너-->
       <div>  <!--List 컨테이너-->
 
         <!--Node 컨테이너-->
-        <div class="bold grey-bb1px pt12px pb12px pl5p pr5p darker-grey"
-          ng-click="goToState('Main.TermDetail', {}, 'forward');">
+        <div class="grey-bb1px pt12px pb12px pl5p pr5p darker-grey"
+          ng-repeat="term in vm.Model.terms"
+          ng-click="goToState('Main.TermDetail', {'term': term}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
-              <p class="zero f14px">{{"서비스 이용약관"}}</p>
-            </div>
-          </div>
-        </div>
-
-        <!--Node 컨테이너-->
-        <div class="bold grey-bb1px pt12px pb12px pl5p pr5p darker-grey"
-          ng-click="goToState('Main.TermDetail', {}, 'forward');">
-          <div class="row zero">
-            <div class="col zero flex-v">
-              <p class="zero f14px">{{"개인정보 취급방침"}}</p>
-            </div>
-          </div>
-        </div>
-
-        <!--Node 컨테이너-->
-        <div class="bold grey-bb1px pt12px pb12px pl5p pr5p darker-grey"
-          ng-click="goToState('Main.TermDetail', {}, 'forward');">
-          <div class="row zero">
-            <div class="col zero flex-v">
-              <p class="zero f14px">{{"위치기반 서비스 이용약관"}}</p>
+              <p class="zero f14px">{{term.title}}</p>
             </div>
           </div>
         </div>

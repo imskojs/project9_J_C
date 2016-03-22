@@ -8,7 +8,7 @@
     >
     </button>
   </ion-nav-buttons>
-  
+
   <ion-nav-title>
     <div class="row zero flex h44px">
       <img class="h24px"
@@ -20,8 +20,9 @@
   <ion-header-bar class="zero light-grey-bb h33px bar-subheader lighter-bg flex-v">
     <p class="zero center f14px positive w100p bold">이용약관</p>
   </ion-header-bar>
-  
-  <ion-content class="pt2px top77px light-bg">
+
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="pt2px top77px light-bg">
     <div class="w96p lighter-bg auto mt3px r5px p5px">
       <p class="zero pre dark-grey"> {{Terms.appKorean}} 어플리케이션 관련 개인정보 취급방침 및 이용약관에 대한 내용입니다.
 

@@ -13,6 +13,7 @@
   ) {
 
     var Model = {
+      handle: 'post-detail',
       loading: false,
       post: {},
       comments: [],

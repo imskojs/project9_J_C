@@ -8,7 +8,8 @@
 
   function zCouponDetailModel() {
 
-    var model = {
+    var Model = {
+      handle: 'coupon-detail',
       loading: false,
       coupon: {},
       form: {

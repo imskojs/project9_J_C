@@ -9,10 +9,11 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p">Menu</p>
+    <p class="zero">Menu</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+   >
     <div class="relative p15px">  <!--컨텐츠 컨테이너-->
 
       <!--Food Header-->
@@ -25,16 +26,16 @@
       <hr class="b0px h2px positive-bg" />
 
       <!--Food List 컨테이너-->
-      <div class="relative dark-grey">
+      <div class="relative">
 
         <!--Food Node-->
         <div class="row zero pb5px"
           ng-repeat="product in vm.Model.products | filter: {category: 'FOOD'}">
           <div class="col zero">
-            <p class="f12px bold">{{product.name}}</p>
+            <p class="f12px grey">{{product.name}}</p>
           </div>
           <div class="zero flex">
-            <p class="f12px bold grey">{{product.price}}</p>
+            <p class="f12px dark-grey">{{product.price}}</p>
           </div>
         </div>
 
@@ -50,16 +51,16 @@
       <hr class="b0px h2px positive-bg" />
 
       <!--Drinks List 컨테이너-->
-      <div class="relative dark-grey">
+      <div class="relative">
 
         <!--Food Node-->
         <div class="row zero pb5px"
           ng-repeat="product in vm.Model.products | filter: {category: 'DRINK'}">
           <div class="col zero">
-            <p class="f12px bold">{{product.name}}</p>
+            <p class="f12px grey">{{product.name}}</p>
           </div>
           <div class="zero flex">
-            <p class="f12px bold grey">{{product.price}}</p>
+            <p class="f12px dark-grey">{{product.price}}</p>
           </div>
         </div>
 
@@ -68,5 +69,5 @@
     </div>
   </ion-content>
 
-  <!-- <ion-footer-bar class=""></ion-footer-bar> -->
+  <!-- <ion-footer-bar></ion-footer-bar> -->
 </ion-view>

@@ -4,12 +4,12 @@
     .controller('GoogleMapController', GoogleMapController);
 
   GoogleMapController.$inject = [
-    '$rootScope', '$scope', '$state',
+    '$rootScope', '$scope', '$state', '$timeout',
     'GoogleMapModel'
   ];
 
   function GoogleMapController(
-    $rootScope, $scope, $state,
+    $rootScope, $scope, $state, $timeout,
     GoogleMapModel
   ) {
     var vm = this;

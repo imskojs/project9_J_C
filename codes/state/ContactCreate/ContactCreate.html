@@ -8,11 +8,12 @@
     </button>
   </ion-nav-buttons>
 
-  <ion-nav-title class="bold">
+  <ion-nav-title>
     <p class="zero">문의하기</p>
   </ion-nav-title>
 
-  <ion-content class="has-header lighter-grey-bg">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="has-header lighter-grey-bg">
     <!--문의하기에 대한 이미지 및 설명-->
     <div class="positive-bg pt20px pb20px">
       <div class="row zero">

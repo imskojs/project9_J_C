@@ -13,7 +13,8 @@
     <p class="zero">Transaction</p>
   </ion-nav-title>
 
-  <ion-content class="has-header">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="has-header">
     <p class="zero"
       ng-click="Transaction.test()"
     >

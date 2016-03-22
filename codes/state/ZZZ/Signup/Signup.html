@@ -15,7 +15,8 @@
   <ion-nav-title>
     회원가입
   </ion-nav-title>
-  <ion-content class="pt1px">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="pt1px">
     <div class="w100p h100p flex light-grey-bg absolute"
       style="z-index: 2"
       ng-if="Signup.Model.loading"

@@ -15,12 +15,6 @@
       <div class="absolute white w100p r3px darker-grey-bg pt10px pb10px opacity9"
         ng-if="vm.Model.categoryToggle">  <!--메뉴선택-->
         <div class="row zero pl10p pr10p"
-          ng-click="vm.selectCategory('전체');">
-          <div class="col zero">
-            <p class="zero lh30px">전체</p>
-          </div>
-        </div>
-        <div class="row zero pl10p pr10p"
           ng-click="vm.selectCategory('자유톡');">
           <div class="col zero">
             <p class="zero lh30px">자유톡</p>
@@ -35,7 +29,7 @@
         <div class="row zero pl10p pr10p"
           ng-click="vm.selectCategory('번개톡');">
           <div class="col zero">
-            <p class="zero lh30px">번개dsdas톡</p>
+            <p class="zero lh30px">번개톡</p>
           </div>
         </div>
         <div class="row zero pl10p pr10p"
@@ -62,8 +56,8 @@
       ng-click="vm.isAnnonymousToggle();">
       <i class="zero f20px pr5px ion-checkmark-circled"
         ng-class="{
-          'positive': !vm.Model.post.showInTalk,
-          'grey': vm.Model.post.showInTalk
+          'positive': vm.Model.post.isAnnonymous,
+          'grey': !vm.Model.post.isAnnonymous
         }"></i>
     </div>
     <div class="col-auto zero flex">
@@ -100,25 +94,37 @@
   </div>
   <div class="row zero mb30px">
     <div class="col-16 zero flex mr1p"
-      ng-click="vm.camera();">
+      ng-click="vm.getPhoto();">
       <img class="h50px r5px" src="img/camera.png" alt="">
     </div>
-    <!--사진 Node-->
-    <div class="col-16 zero flex mr1p">
+    <!-- Image Preview -->
+    <div class="col-16 zero flex-v mr1p"
+      ng-repeat="image in vm.Model.images"
+    >
       <div class="relative">
         <img class="absolute positive h26px top-15px right-5px"
+          alt="지우기 버튼"
           src="img/icon_photo_delete.png"
-          ng-click="vm.photoDelete();" />
+          ng-click="PhotoClass.deselectImage(vm.Model.images, $index)"
+        >
         <img class="h50px r5px"
-          ng-src="{{'img/_box200x200.png'}}">
+          alt="리뷰 사진"
+          ng-src="image"
+          ng-if="!image.id"
+        >
+        <img class="h50px r5px"
+          alt="리뷰 사진"
+          ng-src="{{image.url}}"
+          ng-if="image.id"
+        >
       </div>
-    </div>  <!--사진 Node 종료-->
+    </div> <!-- Image Preview End -->
   </div>
 
   <!--글쓰기 또는 수정하기 버튼-->
   <div class="flex">
     <p class="zero positive-bg r50px white pl30p pr30p pt10px pb10px"
-      ng-click="vm.updateTalk();">
+      ng-click="vm.create();">
       <span ng-if="!vm.Model.post.id">글쓰기</span>
       <span ng-if="vm.Model.post.id">수정하기</span>
     </p>

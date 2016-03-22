@@ -5,23 +5,25 @@
 
   JoodangEventDetailController.$inject = [
     '_MockData',
-    '$scope', '$q', '$state',
+    '$ionicHistory', '$scope', '$q', '$state',
     'JoodangEventDetailModel', 'Util', 'Events'
   ];
 
   function JoodangEventDetailController(
     _MockData,
-    $scope, $q, $state,
+    $ionicHistory, $scope, $q, $state,
     JoodangEventDetailModel, Util, Events
   ) {
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var vm = this;
     vm.Model = JoodangEventDetailModel;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     //====================================================
     //  View Event
@@ -39,24 +41,28 @@
 
     function onAfterEnter() {
       initPromise
-        .then((event) => {  //initPromise 를 실행하고 나온 결과값인가?
-          Util.bindData(event, JoodangEventDetailModel, 'event');  //content 안에서 refresh 하는듯한 로직이 담겨있다.
+        .then((event) => { //initPromise 를 실행하고 나온 결과값인가?
+          Util.bindData(event, JoodangEventDetailModel, 'event'); //content 안에서 refresh 하는듯한 로직이 담겨있다.
           console.log("vm.Model :::\n", vm.Model);
         })
-          /*  bindData(data, model, name, emitEventTrue, loadingModel)
-              "data를 이 model에 넣는다, name이라는 attribute를 만들고" 라고 해석해면 될듯.
-              model[name] = data;
-              model[name] = data[name];  3번째 인자의 끝이 s로 끝나는경우
-              ==> Model.events = EventWrapper
-              ==> Model.events = EventWrapper.events  */
-      // console.log("_MockData :::\n", _MockData);
-      // Util.bindData(_MockData, JoodangEventDetailModel, 'events');
-      // console.log("JoodangEventDetailModel :::\n", JoodangEventDetailModel);
+        /*  bindData(data, model, name, emitEventTrue, loadingModel)
+            "data를 이 model에 넣는다, name이라는 attribute를 만들고" 라고 해석해면 될듯.
+            model[name] = data;
+            model[name] = data[name];  3번째 인자의 끝이 s로 끝나는경우
+            ==> Model.events = EventWrapper
+            ==> Model.events = EventWrapper.events  */
+        // console.log("_MockData :::\n", _MockData);
+        // Util.bindData(_MockData, JoodangEventDetailModel, 'events');
+        // console.log("JoodangEventDetailModel :::\n", JoodangEventDetailModel);
       Util.freeze(false);
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
 
@@ -68,7 +74,7 @@
     //  Private
     //====================================================
 
-    function init() {  //서버에서 data를 가져오는 작업을 진행함.
+    function init() { //서버에서 data를 가져오는 작업을 진행함.
       return eventFind({ id: $state.params.eventId });
     }
 
@@ -100,7 +106,7 @@
       return Events.findOne(queryWrapper).$promise
         .then((event) => {
           console.log("event :::\n", event);
-          return event;  //{id: 12321, name: 'eventName'}
+          return event; //{id: 12321, name: 'eventName'}
         });
     }
   }

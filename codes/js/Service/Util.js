@@ -8,12 +8,14 @@
   Util.$inject = [
     '$ionicHistory', '$ionicScrollDelegate', '$timeout', '$filter', '$window', '$rootScope',
     '$ionicSideMenuDelegate', '$state', '$ionicViewSwitcher', '$ionicSlideBoxDelegate', '$q',
+    '$location',
     'Message', 'RootScope', 'Dom'
   ];
 
   function Util(
     $ionicHistory, $ionicScrollDelegate, $timeout, $filter, $window, $rootScope,
     $ionicSideMenuDelegate, $state, $ionicViewSwitcher, $ionicSlideBoxDelegate, $q,
+    $location,
     Message, RootScope, Dom
   ) {
 
@@ -32,9 +34,12 @@
       appendData: appendData,
       broadcast: broadcast,
       top: top,
+      scrollBottom: scrollBottom,
+      scrollTop: scrollTop,
       scrollTo: scrollTo,
+      scrollToId: scrollToId,
       freeze: freeze,
-      loading: loading
+      loading: loading,
     };
 
     _.defaults(service, RootScope); //extends
@@ -206,6 +211,14 @@
       $ionicScrollDelegate.scrollTop(false);
     }
 
+    function scrollBottom(animationTrue) {
+      $ionicScrollDelegate.scrollBottom(animationTrue);
+    }
+
+    function scrollTop(animationTrue) {
+      $ionicScrollDelegate.scrollTop(animationTrue);
+    }
+
     function scrollTo(Model) {
       if (Model) {
         if (Model.scrollPosition === undefined) {
@@ -221,14 +234,31 @@
       }
     }
 
+    function scrollToId(elementId, animationTrue) {
+      $location.hash(elementId);
+      $ionicScrollDelegate.anchorScroll(animationTrue);
+    }
+
     function freeze(shouldFreezeTrue) {
-      $ionicScrollDelegate.freezeScroll(shouldFreezeTrue);
+      $ionicScrollDelegate.freezeAllScrolls(shouldFreezeTrue);
+      // if (shouldFreezeTrue) {
+      //   $ionicScrollDelegate.getScrollView().options.scrollingY = false;
+      // } else {
+      //   $ionicScrollDelegate.getScrollView().options.scrollingY = true;
+      // }
+      // $ionicScrollDelegate.freezeScroll(shouldFreezeTrue);
     }
 
     function loading(Model) {
       Model.loading = true;
-      top();
-      freeze(true);
+      // freeze(true);
+      $timeout(function() {
+        if (Model.handle) {
+          $ionicScrollDelegate.$getByHandle(Model.handle).scrollTop(false);
+        } else {
+          top();
+        }
+      }, 0);
     }
 
 

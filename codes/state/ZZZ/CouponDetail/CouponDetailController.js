@@ -15,6 +15,7 @@
 
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var CouponDetail = this;
     CouponDetail.Model = zCouponDetailModel;
 

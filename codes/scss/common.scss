@@ -1,33 +1,39 @@
 #setting-list {
-  .handle {
-    background-color: $white !important;
-  }
+    .handle {
+        background-color: $white !important;
+    }
 }
 
-
+#talk-list .ion-android-personbutton-icon.ion-android-person:before {
+    font-size: 26px !important;
+}
 
 #customer-list {
-  .com-bottom30.9vw {
-    bottom: 30.9vw;
-  }
+    .com-bottom30.9vw {
+        bottom: 30.9vw;
+    }
 }
 
-
-
 #home {
-  .com-gradient-bg {
-    background: linear-gradient(#ac1e44, #d3302f);
-  }
+    .com-gradient-bg {
+        background: linear-gradient(#ac1e44, #d3302f);
+    }
 }
 
 #login {
-  .com-gradient-bg {
-    background: linear-gradient(#ac1e44, #d3302f);
-  }
+    .com-gradient-bg {
+        background: linear-gradient(#ac1e44, #d3302f);
+    }
+}
+
+#setting-list .toggle.toggle-assertive input:checked+.track {
+    border-color: $positive;
+    background-color: $positive;
 }
 
 
 /* 모달에 대한 배경색 */
+
 ion-modal-view.modal-bg {
-  background-color: rgba(0,0,0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
 }

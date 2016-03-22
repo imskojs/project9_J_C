@@ -9,10 +9,11 @@
   </ion-nav-buttons> -->
 
   <ion-nav-title>
-    <p class="zero pl1p">검색</p>
+    <p class="zero">검색</p>
   </ion-nav-title>
 
-  <ion-content class="light-grey-bg">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="light-grey-bg">
     <div class="h100p relative p1p">  <!--컨텐츠 컨테이너-->
       <div class="relative dark-grey f12px">  <!--Keyword List 컨테이너-->
 
@@ -101,5 +102,5 @@
     </div>
   </ion-content>
 
-  <!-- <ion-footer-bar class=""></ion-footer-bar> -->
+  <!-- <ion-footer-bar></ion-footer-bar> -->
 </ion-view>

@@ -5,15 +5,15 @@
 
   TermListController.$inject = [
     '_MockData',
-    'TermListModel'
+    '$ionicHistory', 'TermListModel'
   ];
 
   function TermListController(
     _MockData,
-    TermListModel
+    $ionicHistory, TermListModel
   ) {
-    var TermList = this;
-    TermList.Model = TermListModel;
+    var vm = this;
+    vm.Model = TermListModel;
 
     //====================================================
     //  Implementation

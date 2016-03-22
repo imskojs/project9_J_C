@@ -9,12 +9,13 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p bold">고객센터</p>
+    <p class="zero">고객센터</p>
   </ion-nav-title>
 
-  <ion-content class="com-bottom30.9vw">  <!--희한하게도 31vw이면 스크롤이 생김...-->
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="com-bottom30.9vw">  <!--희한하게도 31vw이면 스크롤이 생김...-->
     <div>  <!--컨텐츠 컨테이너-->
-      <div class="">  <!--List 컨테이너-->
+      <div>  <!--List 컨테이너-->
 
         <!--Node 컨테이너-->
         <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey"

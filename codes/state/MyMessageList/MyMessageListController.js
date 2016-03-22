@@ -4,62 +4,103 @@
     .controller('MyMessageListController', MyMessageListController);
 
   MyMessageListController.$inject = [
-    '_MockData',
-    '$scope', '$state',
-    'MyMessageListModel'
+    '$scope', '$state', '$ionicHistory',
+    'MyMessageListModel', 'Util', 'Messages', 'AppStorage'
   ];
 
   function MyMessageListController(
-    _MockData,
-    $scope, $state,
-    MyMessageListModel
+    $scope, $state, $ionicHistory,
+    MyMessageListModel, Util, Messages, AppStorage
   ) {
+    // var _ = $window._;
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var vm = this;
     vm.Model = MyMessageListModel;
+    vm.infiniteScroll = infiniteScroll;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     //====================================================
     //  View Event
     //====================================================
 
     function onBeforeEnter() {
-      console.log("$state.params.keywords :::\n", $state.params.keywords);
-      console.log("$state.params.keywordString :::\n", $state.params.keywordString);
-      // initPromise = init();
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        Util.loading(vm.Model);
+        initPromise = init();
+      } else {
+        Util.freeze(false);
+      }
     }
 
     function onAfterEnter() {
-      // initPromise
-      //   .then((array) => {
-      //     let premiumPlacesWrapper = array[0];
-      //     let specialPlacesWrapper = array[1];
-      //     let normalPlacesWrapper = array[2];
-      //     // MyMessageListModel.premium.places = premiumPlacesWrapper.places;
-      //     // MyMessageListModel.special.places = specialPlacesWrapper.places;
-      //     // Util.bindData(normalPlacesWrapper, MyMessageListModel.normal, 'places');
-      //   })
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        return initPromise
+          .then((messagesWrapper) => {
+            console.log("messagesWrapper :::\n", messagesWrapper);
+            return Util.bindData(messagesWrapper, vm.Model, 'messages');
+          })
+          .then(() => {
+            console.log("vm.Model -- MyMessageList --:::\n", vm.Model);
+          })
+          .catch((err) => {
+            Util.error(err);
+          });
+      } else {
+        Util.freeze(false);
+      }
+    }
+
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
     //====================================================
     //  VM
     //====================================================
 
+    function infiniteScroll() {
+      var last = vm.Model.posts.length - 1;
+      var searchObj = {
+        owner: AppStorage.user.id,
+        id: {
+          '<': vm.Model.posts[last].id,
+        },
+      };
+      return messageFindUnique()
+        .then(function(messagesWrapper) {
+          return Util.appendData(messagesWrapper, vm.Model, 'messages');
+        })
+        .catch(function(err) {
+          Util.error(err);
+        });
+    }
+
     //====================================================
     //  Private
     //====================================================
-
     function init() {
-      let premiumPromise = placeFind({ category: 'PREMIUM' });
-      let specialPromise = placeFind({ category: 'SPECIAL' });
-      let normalPromise = placeFind({ category: 'NORMAL' });
-      return $q.all([premiumPromise, specialPromise, normalPromise])
-        .then((array) => {
-          return array;
-        })
+      return messageFindUnique()
+        .then((messagesWrapper) => {
+          return messagesWrapper;
+        });
+    }
+
+    function reset() {
+      let defaultObj = {
+        loading: false,
+        messages: [],
+      };
+      angular.copy(defaultObj, vm.Model);
     }
 
     //====================================================
@@ -70,18 +111,18 @@
     //  REST
     //====================================================
 
-    function placeFind(extraQuery, extraOperation) {
+    function messageFindUnique(extraQuery, extraOperation) {
       let queryWrapper = {
         query: {
-          where: {},
-          keywords: $state.params.keywords,
-          sort: {},
-          limit: 30
+          where: {
+            receiver: AppStorage.user.id
+          },
+          sort: 'id DESC'
         }
       };
       angular.extend(queryWrapper.query.where, extraQuery);
       angular.extend(queryWrapper.query, extraOperation);
-      return Places.find(queryWrapper).$promise
+      return Messages.findUnique(queryWrapper).$promise
         .then((placeList) => {
           return placeList;
         });

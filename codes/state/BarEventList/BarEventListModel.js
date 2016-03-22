@@ -9,7 +9,9 @@
   function BarEventListModel() {
 
     var Model = {
+      handle: 'bar-event-list',
       loading: false,
+      infiniteScroll: true,
       events: []
     };
 

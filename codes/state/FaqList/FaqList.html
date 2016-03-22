@@ -9,40 +9,56 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p bold">자주 묻는 질문</p>
+    <p class="zero">자주 묻는 질문</p>
   </ion-nav-title>
 
-  <ion-content class="">
-    <div>  <!--컨텐츠 컨테이너-->
-      <div class="">  <!--List 컨테이너-->
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex-h pt250px light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
 
-        <div ng-repeat="faq in vm.Model.faqList">  <!--Node 컨테이너-->
+  <ion-content
+    delegate-handle="faq-list"
+  >
+    <div>  <!--컨텐츠 컨테이너-->
+      <div>  <!--List 컨테이너-->
+
+        <div ng-repeat="post in vm.Model.posts">  <!--Node 컨테이너-->
           <!--질문-->
-          <div class="grey-bb1px pt10px pb10px pl5p pr5p darker-grey lh24px bold"
-            ng-click="vm.toggle(faq);">
+          <div class="grey-bb1px pt10px pb10px pl5p pr5p darker-grey lh24px"
+            ng-click="vm.toggle(post);">
             <div class="row zero">
               <div class="col zero flex-v">
-                <p class="zero f14px">{{faq.title}}</p>
+                <p class="zero f14px">{{post.title}}</p>
               </div>
               <div class="col-auto zero flex-v">
                 <i class="zero f16px"
-                  ng-class="{'ion-arrow-down-b': !faq.show,
-                             'ion-arrow-up-b': faq.show}"></i>
+                  ng-class="{'ion-arrow-down-b': vm.toggleArray.indexOf(post.id) === -1,
+                             'ion-arrow-up-b': vm.toggleArray.indexOf(post.id) !== -1}"></i>
               </div>
             </div>
           </div>
           <!--답변-->
           <div class="grey-bb1px pt10px pb10px pl5p pr5p dark-grey lighter-grey-bg"
-            ng-if="faq.show">
+            ng-if="vm.toggleArray.indexOf(post.id) !== -1">
             <div class="row zero">
               <div class="col zero flex-v">
-                <p class="zero f14px">{{faq.content}}</p>
+                <p class="zero f14px">{{post.content}}</p>
               </div>
             </div>
           </div>
         </div>  <!--Node 컨테이너 종료-->
 
       </div>  <!--List 컨테이너 종료-->
+
+      <ion-infinite-scroll
+        on-infinite="vm.infiniteScroll()"
+        immediate-check="false"
+        ng-if="vm.Model.more">
+      </ion-infinite-scroll>
 
     </div>  <!--컨텐츠 컨테이너 종료-->
   </ion-content>

@@ -9,6 +9,7 @@
   function CustomerListModel() {
 
     var Model = {
+      handle: 'customer-list',
       loading: false,
 
     };

@@ -8,19 +8,22 @@
     >
     </button>
   </ion-nav-buttons>
+
   <ion-nav-title>
     프로필 변경
   </ion-nav-title>
-  <ion-content class="pt2px">
 
-    <!-- loading -->
-    <div class="w100p h95vh flex light-grey-bg absolute"
-      style="z-index: 2"
-      ng-if="Profile.Model.loading"
-      >
-      <ion-spinner class="spinner-40px mb88px" icon="ripple">
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
       </ion-spinner>
-    </div>
+    </section>
+  </ion-pane>
+
+
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="pt2px">
 
     <p class="zero positive bold ml5p f14px mt5px dark">
       내 프로필
@@ -98,7 +101,7 @@
         <div class="ion-chevron-right f20px positive"></div>
       </div>
     </div>
-    
+
   </ion-content>
 
   <ion-footer-bar class="bar-positive footer zero flex">

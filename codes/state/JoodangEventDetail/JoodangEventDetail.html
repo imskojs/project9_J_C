@@ -9,14 +9,25 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero zero pl1p">이벤트</p>  <!--상위로부터 상속은 되지않음-->
+    <p class="zero">이벤트</p>  <!--상위로부터 상속은 되지않음-->
   </ion-nav-title>
 
-  <ion-content class="">
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
+
+
+  <ion-content
+    delegate-handle="joodang-event-detail"
+  >
     <div ng-include="'state/0Template/Include/EventDetail.html'">  <!--컨텐츠 컨테이너-->
 
     </div>  <!--컨텐츠 컨테이너 종료-->
   </ion-content>
 
-  <!-- <ion-footer-bar class=""></ion-footer-bar> -->
+  <!-- <ion-footer-bar></ion-footer-bar> -->
 </ion-view>

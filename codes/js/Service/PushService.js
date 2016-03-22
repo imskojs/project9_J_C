@@ -8,13 +8,13 @@
   PushService.$inject = [
     '$http', '$log', '$q', '$cordovaDialogs', '$window',
     '$timeout', '$rootScope', '$cordovaMedia',
-    'GOOGLE_PROJECT_NUMBER', 'SERVER_URL'
+    'GOOGLE_PROJECT_NUMBER', 'SERVER_URL', 'AppStorage'
   ];
 
   function PushService(
     $http, $log, $q, $cordovaDialogs, $window,
     $timeout, $rootScope, $cordovaMedia,
-    GOOGLE_PROJECT_NUMBER, SERVER_URL
+    GOOGLE_PROJECT_NUMBER, SERVER_URL, AppStorage
   ) {
     var deviceId = null;
 
@@ -94,6 +94,7 @@
         .then(function(dataWrapper) {
           $log.info("PushService - registered to server: " + JSON.stringify(dataWrapper));
           deviceId = dataWrapper.data.device.deviceId;
+          AppStorage.deviceId = deviceId;
         })
         .catch(function(err) {
           $log.info("PushService - error: " + JSON.stringify(err));

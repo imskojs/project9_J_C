@@ -5,25 +5,27 @@
 
   PlaceListController.$inject = [
     '_MockData',
-    '$scope', '$q', '$window',
+    '$ionicHistory', '$scope', '$q', '$window',
     'PlaceListModel', 'Util', 'Places', 'Distance', 'CurrentPosition', 'AppStorage'
   ];
 
   function PlaceListController(
     _MockData,
-    $scope, $q, $window,
+    $ionicHistory, $scope, $q, $window,
     PlaceListModel, Util, Places, Distance, CurrentPosition, AppStorage
 
   ) {
     // var _ = $window._;
     var initPromise;
-    var noLoadingStates = [];
+    var noLoadingStates = ['Main.PlaceDetail'];
+    var noResetStates = [];
     var vm = this;
     vm.Model = PlaceListModel;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
     vm.getAverageRating = getAverageRating;
 
     vm.setCurrentPosition = setCurrentPosition;
@@ -79,8 +81,12 @@
       }
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
     //====================================================

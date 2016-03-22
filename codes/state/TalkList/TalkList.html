@@ -9,17 +9,21 @@
   </ion-nav-buttons> -->
 
   <ion-nav-buttons side="right">
-    <button class="button-icon ion-android-person white"
-      ng-click="vm.goToState('Main.Footer.MyTalkList', {}, 'forward', '내글관리', '로그인 후에 이용가능합니다.');"></button>
+    <button class="button-icon ion-android-person white f26px"
+      ng-click="needLogin()
+                ? goToState('Main.Footer.MyTalkList', {}, 'forward')
+                : return;"></button>
     <button class="button-icon ion-edit white"
-      ng-click="goToState('Main.Footer.TalkCreate', {}, 'forward', '내글관리', '로그인 후에 이용가능합니다.');"></button>
+      ng-click="needLogin()
+                ? goToState('Main.Footer.TalkCreate', {}, 'forward')
+                : return;"></button>
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p">주당톡</p>
+    <p class="zero">주당톡</p>
   </ion-nav-title>
 
-  <ion-header-bar class="h30px top44px grey-bb1px white-bg"
+  <ion-header-bar class="h36px top44px grey-bb1px white-bg"
     no-tap-scroll="true"
   >
     <div class="row zero pl3p pr3p">
@@ -29,9 +33,9 @@
       <div class="col-30 zero flex-v">
         <div class="relative w100p"
           ng-click="vm.categoryToggle();">  <!--오른쪽 선택박스-->
-          <div class="row zero dark-grey-b1px pl10p pr10p r3px">
+          <div class="row zero dark-grey-b1px pl10p pr10p r3px dark-grey">
             <div class="col zero flex-v">
-              <p class="zero f14px bold dark-grey">{{vm.Model.selectedCategory}}</p>
+              <p class="zero f14px bold">{{vm.Model.selectedCategory}}</p>
             </div>
             <div class="col-10 zero flex-v"><i class="ion-arrow-down-b"></i></div>
           </div>
@@ -74,15 +78,24 @@
     </div>
   </ion-header-bar>
 
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
 
 
-  <ion-content class="top74px bold darker-grey">
+  <ion-content class="top80px darker-grey"
+    delegate-handle="talk-list"
+  >
     <div>   <!--컨텐츠 컨테이너-->
 
       <div>  <!--공지 List 컨테이너-->
 
         <!--공지 Node 컨테이너-->
-        <div class="grey-bb1px pl5p pr5p pt10px pb10px lighter-bg"
+        <div class="grey-bb1px pl5p pr5p pt13px pb13px lighter-bg"
           ng-repeat="notice in vm.Model.notices
                     | orderBy: notice.id"
           ng-click="goToState('Main.Footer.TalkDetail', {postId: notice.id}, 'forward');">
@@ -97,6 +110,12 @@
 
       <div ng-include="'state/0Template/Include/TalkList.html'">
       </div>
+
+      <ion-infinite-scroll
+        on-infinite="vm.infiniteScroll()"
+        immediate-check="false"
+        ng-if="vm.Model.more">
+      </ion-infinite-scroll>
 
     </div>  <!--컨텐츠 컨테이너 종료-->
   </ion-content>

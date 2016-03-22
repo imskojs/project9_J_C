@@ -9,6 +9,7 @@
   function GoogleMapModel() {
 
     var Model = {
+      handle: 'google-map',
       loading: false,
       place: {}
     };

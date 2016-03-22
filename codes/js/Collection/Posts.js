@@ -14,77 +14,48 @@
   ) {
 
     var postUrl = SERVER_URL + '/post' +
-      '/:find' +
-      '/:findOne' +
-      // '/:create' +
-      // '/:update' +
-      '/:destroy';
+      '/:uri';
 
     var params = {
-      find: '@find',
-      findOne: '@findOne',
-      // create: '@create',
-      // update: '@update',
-      destroy: '@destroy'
+      uri: '@uri'
     };
 
     var actions = {
       find: {
         method: 'GET',
         params: {
-          find: 'find'
+          uri: 'find'
         }
       },
       findOne: {
         method: 'GET',
         params: {
-          findOne: 'findOne'
+          uri: 'findOne'
         }
       },
-      // create: {
-      //   method: 'POST',
-      //   params: {
-      //     create: 'create'
-      //   }
-      // },
-      // update: {
-      //   method: 'PUT',
-      //   params: {
-      //     update: 'update'
-      //   }
-      // },
+      create: {
+        method: 'POST',
+        params: {
+          uri: 'create'
+        }
+      },
+      update: {
+        method: 'PUT',
+        params: {
+          uri: 'update'
+        }
+      },
       destroy: {
         method: 'DELETE',
         params: {
-          destroy: 'destroy'
+          uri: 'destroy'
         }
       }
     };
 
     var service = $resource(postUrl, params, actions);
-    service.create = create;
-    service.update = update;
 
     return service;
-
-    // (param: null, body: {files: base64[], query: {property: any}})
-    //=> Promise
-    function create(param, body) {
-      var photoPromise = Photo.post('/post/create', body, 'POST');
-      return {
-        $promise: photoPromise
-      };
-    }
-
-    // (param: null, body: {files: base64[], query: {property: any}})
-    //=> Promise
-    function update(param, body) {
-      var photoPromise = Photo.post('/post/update', body, 'PUT');
-      return {
-        $promise: photoPromise
-      };
-    }
-
   }
 })(angular);
 /**

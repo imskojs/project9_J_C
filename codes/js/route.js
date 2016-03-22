@@ -17,7 +17,7 @@
         controller: 'MainController as Main'
       })
       .state('Main.Footer', {
-        //abstract: true,
+        // abstract: true,
         url: '/Footer',
         views: {
           Main: {
@@ -72,7 +72,8 @@
 
     .state('Main.RequestUpdate', { //상태의 이름
       params: {
-        placeId: ''
+        placeId: '',
+        placeName: ''
       },
       url: '/RequestUpdate', //접속할 angular의 url
       views: { //ion-nav-view의 name속성의 값을 참조함.
@@ -127,10 +128,9 @@
 
     .state('Main.MessageCreate', {
       params: {
-        placeId: '',
-        messageId: ''
+        placeName: ''
       },
-      url: '/MessageCreate',
+      url: '/MessageCreate/:ownerId',
       views: {
         Main: {
           templateUrl: 'state/MessageCreate/MessageCreate.html',
@@ -403,7 +403,7 @@
 
     .state('Main.NoticeDetail', {
       params: {
-        noticeId: ''
+        postId: ''
       },
       url: '/NoticeDetail',
       views: {
@@ -419,17 +419,20 @@
       views: {
         Main: {
           templateUrl: 'state/TermList/TermList.html',
-          controller: 'TermListController as TermList'
+          controller: 'TermListController as vm'
         }
       }
     })
 
     .state('Main.TermDetail', {
+      params: {
+        term: {}
+      },
       url: '/TermDetail',
       views: {
         Main: {
           templateUrl: 'state/TermDetail/TermDetail.html',
-          controller: 'TermDetailController as TermDetail'
+          controller: 'TermDetailController as vm'
         }
       }
     })

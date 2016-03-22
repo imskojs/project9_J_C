@@ -5,42 +5,52 @@
 
   ThemeListController.$inject = [
     '_MockData',
-    '$scope',
-    'ThemeListModel', 'RootScope'
+    '$ionicHistory', '$scope', '$q', '$state',
+    'ThemeListModel', 'Util', 'RootScope'
   ];
 
   function ThemeListController(
     _MockData,
-    $scope,
-    ThemeListModel, RootScope
+    $ionicHistory, $scope, $q, $state,
+    ThemeListModel, Util, RootScope
   ) {
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var vm = this;
     vm.Model = ThemeListModel;
-    vm.search = search;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     //====================================================
     //  View Event
     //====================================================
 
     function onBeforeEnter() {
-
+      // console.log("$state.params :::\n", $state.params);
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        Util.loading(vm.Model);
+        initPromise = init();
+      } else {
+        Util.freeze(false);
+      }
     }
 
     function onAfterEnter() {
-
+      Util.freeze(false);
     }
 
-    function search (theme) {
-      console.log("theme.title :::\n", theme.title);
-      RootScope.goToState('Main.ThemeSearchList', {
-        themeTitle: theme.title
-      }, 'forward');
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
+
 
     //====================================================
     //  VM
@@ -50,9 +60,9 @@
     //  Private
     //====================================================
 
-    function init() {
-      //업체정보를 가져오는 로직
-    }
+    function init() {}
+
+    function reset() {}
 
     //====================================================
     //  Modals
@@ -61,5 +71,6 @@
     //====================================================
     //  REST
     //====================================================
+
   }
 })();

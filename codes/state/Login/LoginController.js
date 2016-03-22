@@ -5,13 +5,13 @@
 
   LoginController.$inject = [
     '_MockData',
-    'LoginModel', 'Message', 'Users', 'AppStorage', 'Oauth', 'Util',
+    '$ionicHistory', 'LoginModel', 'Message', 'Users', 'AppStorage', 'Oauth', 'Util',
     'KAKAO_KEY', 'FACEBOOK_KEY'
   ];
 
   function LoginController(
     _MockData,
-    LoginModel, Message, Users, AppStorage, Oauth, Util,
+    $ionicHistory, LoginModel, Message, Users, AppStorage, Oauth, Util,
     KAKAO_KEY, FACEBOOK_KEY
   ) {
     var vm = this;
@@ -62,12 +62,6 @@
     //====================================================
     //  REST
     //====================================================
-    function oauthKakao() {
-      return Oauth.kakao(KAKAO_KEY)
-        .then((userWrapper) => {
-          return userWrapper;
-        });
-    }
 
   }
 })();

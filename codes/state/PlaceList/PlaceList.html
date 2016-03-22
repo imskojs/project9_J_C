@@ -10,7 +10,7 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p">내 주변 추천술집</p>
+    <p class="zero">내 주변 추천술집</p>
   </ion-nav-title>
 
   <ion-header-bar class="h30px top44px light-grey-bb1px white-bg"
@@ -23,13 +23,19 @@
       <div class="col-auto flex-v">
         <p class="f14px zero">{{AppStorage.currentAddress}}</p>
       </div>
-      <div class="col flex-v pl5p"
-        ng-click="vm.setCurrentPosition()"
-      >
-        <p class="f8px zero grey-bg r20px p5">재설정</p>
+      <div class="col flex-v pl5p">
+        <p class="f12px zero grey-bg r20px p5"
+          ng-click="vm.setCurrentPosition()">재설정</p>
       </div>
     </div>
   </ion-header-bar>
+
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
 
   <!-- <ion-header-bar class="h35px top74px white-bg"
     no-tap-scroll="true"
@@ -41,16 +47,10 @@
     </div>
   </ion-header-bar> -->
 
-  <ion-content class="light-grey-bg top74px">
-    <!-- Loading -->
-    <section class="w100p h100vh flex-h light-grey-bg absolute"
-      style="z-index: 2"
-      ng-if="vm.Model.loading"
-    >
-      <ion-spinner class="spinner-40px mt150px" icon="ripple">
-      </ion-spinner>
-    </section>
 
+  <ion-content class="light-grey-bg top74px"
+    delegate-handle="place-list"
+  >
     <div>   <!--컨텐츠 컨테이너-->
       <div ng-include="'state/0Template/Include/PlaceList.html'">
       </div>

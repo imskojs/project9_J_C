@@ -8,7 +8,7 @@
     </button>
   </ion-nav-buttons>
 
-  <ion-nav-title class="bold zero">
+  <ion-nav-title>
     <p class="zero">검색</p>
   </ion-nav-title>
 
@@ -40,10 +40,10 @@
     </div>
   </ion-header-bar>
 
-  <ion-content class="has-subheader">
+  <ion-content delegate-handle="search"
+    class="has-subheader">
 
-    <!-- Loading -->
-    <section class="w100p h100p flex-h lighter-grey-bg absolute"
+    <section class="w100p h100vh flex-h light-grey-bg absolute"
       style="z-index: 2"
       ng-if="vm.Model.loading"
     >

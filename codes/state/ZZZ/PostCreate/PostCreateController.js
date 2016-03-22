@@ -14,12 +14,14 @@
   ) {
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var PostCreate = this;
     PostCreate.Model = zPostCreateModel;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     PostCreate.createPost = createPost;
 
@@ -49,8 +51,12 @@
       } else {}
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
     //====================================================

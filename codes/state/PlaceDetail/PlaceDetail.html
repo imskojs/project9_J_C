@@ -8,7 +8,7 @@
     </button>
   </ion-nav-buttons>
 
-  <ion-nav-title class="bold">
+  <ion-nav-title>
     <p class="zero">
       {{vm.Model.place.name}}
     </p>
@@ -16,30 +16,37 @@
 
   <ion-nav-buttons side="right">
     <button class="button-icon ion-edit white f20px"
-      ng-click="goToState('Main.ReviewCreate', {placeId: vm.Model.place.id}, 'forward');">
+      ng-click="needLogin()
+                ? goToState('Main.ReviewCreate', {placeId: vm.Model.place.id}, 'forward')
+                : return;">
     </button>
   </ion-nav-buttons>
 
-  <ion-content class="has-header">
-
-    <section class="w100p h100vh flex-h light-grey-bg absolute"
-      style="z-index: 2"
-      ng-if="vm.Model.loading"
-    >
-      <ion-spinner class="spinner-40px mt150px" icon="ripple">
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
       </ion-spinner>
     </section>
+  </ion-pane>
+
+
+
+  <ion-content class="has-header"
+    overflow-scroll="false"
+    delegate-handle="place-detail"
+  >
 
     <div class="relative">  <!--placeDetail 전체 컨테이너-->
       <!--슬라이드 box-->
       <ion-slide-box class="w100p auto" show-pager="true">
         <ion-slide ng-repeat="photo in vm.Model.place.photos">
-          <img class="w100p block h60vw lazy-show"
+          <img class="w100p block h75vw lazy-show"
             ng-src="{{photo.url}}" />
         </ion-slide>
         <!--포토가 하나도 없을경우-->
         <ion-slide ng-if="!mv.Model.place.photos">
-          <img class="w100p block h60vw lazy-show"
+          <img class="w100p block h75vw lazy-show"
             src="img/no_image.png" />
         </ion-slide>
       </ion-slide-box>
@@ -58,25 +65,25 @@
       <!--업체명-->
       <div class="row zero">
         <div class="col zero center">
-          <p class="positive f24px bold mt15px">{{vm.Model.place.name}}</p>
+          <p class="positive f24px mt15px">{{vm.Model.place.name}}</p>
         </div>
       </div>
       <!--업체 점수 표현-->
-      <div class="row zero flex f20px"
+      <div class="row zero flex f20px mt0px"
         average-stars
         rating="vm.Model.place.averageRating"
         vm="vm"
       >
       </div>
       <!--(눈)조회수, (하트)즐겨찾기수-->
-      <div class="row zero flex grey">
-        <div class="col-auto zero flex"><i class="f18px m5px ion-eye "></i></div>
-        <div class="col-auto zero flex"><p class="f10px m5px">{{vm.Model.place.viewCount}}</p></div>
+      <div class="row zero flex dark-grey mt0px">
+        <div class="col-auto zero flex"><i class="f22px m5px ion-eye "></i></div>
+        <div class="col-auto zero flex"><p class="f12px m5px">{{vm.Model.place.viewCount}}</p></div>
         <div class="col-auto zero flex"><i class="f16px m5px ion-heart "></i></div>
-        <div class="col-auto zero flex"><p class="f10px m5px">{{vm.Model.place.favoriteCount}}</p></div>
+        <div class="col-auto zero flex"><p class="f12px m5px">{{vm.Model.place.favoriteCount}}</p></div>
       </div>
       <!--태그-->
-      <div class="row zero flex center f10px bold positive pl3p pr3p">
+      <div class="row zero flex center mt0px f12px bold positive pl3p pr3p">
         <div class="col zero ml1p"
           ng-repeat="tag in vm.Model.place.tags track by $index">
           <p class="p5 positive-b1px r3px text-overflow">{{tag}}</p>
@@ -87,9 +94,9 @@
 
       <!-- 상세정보 -->
       <div class="pt10px pr5p pb10px pl5p">  <!--상세정보 전체 컨테이너-->
-        <div class="row zero bold">
+        <div class="row zero">
           <div class="col zero">
-            <p class="positive f20px">[ 상세정보 ]</p>
+            <p class="positive f16px">[ 상세정보 ]</p>
           </div>
         </div>
 
@@ -104,7 +111,9 @@
             <p class="f12px">{{vm.Model.place.address}}</p>
           </div>
         </div>
-        <div class="row w100px zero flex-v p3 positive-bg white r20px">
+
+        <!--지도보기 버튼-->
+        <div class="row zero mt5px w100px flex-v p3 positive-bg white r20px">
           <div class="col-auto zero">
             <i class="ion-ios-location f14px"></i>
           </div>
@@ -119,7 +128,7 @@
         </div>
 
         <!--영업시간-->
-        <div class="row zero mt5px bold">
+        <div class="row zero mt15px bold">
           <div class="col zero">
             <p class="positive f14px">영업시간</p>
           </div>
@@ -209,7 +218,7 @@
       <!--수정요청 버튼-->
       <div class="row zero light-grey-bg dark-grey flex pt10px pb10px pr10p pl10p">
         <div class="row flex black-b1px r50px pt5px pb5px pr10p pl10p"
-          ng-click="goToState('Main.RequestUpdate', {placeId: vm.Model.place.id}, 'forward');">
+          ng-click="goToState('Main.RequestUpdate', {placeId: vm.Model.place.id, placeName: vm.Model.place.name}, 'forward');">
           <div class="col-auto zero">
             <i class="ion-settings f20px"></i>
           </div>
@@ -230,8 +239,15 @@
       <div class="row zero pl1p pr1p pt5px pb5px">  <!--리뷰 List 컨테이너-->
         <!--리뷰 Node 컨테이너 시작-->
         <div class="col zero">
-          <div class="light-grey-b1px pl2p pr2p pt5px pb10px mb5px"
+          <div class="relative light-grey-b1px pl2p pr2p pt5px pb10px mb5px"
             ng-repeat="review in vm.Model.reviews">
+            <!-- Loading -->
+            <section class="absolute top0px left0px w100p h100p flex lighter-grey-bg z-index2 opacity5"
+              ng-if="vm.Model.loadingById.indexOf(review.id) !== -1"
+            >
+              <ion-spinner class="spinner-40px" icon="ripple">
+              </ion-spinner>
+            </section>
             <!--회원 프로필사진 | 아이디, 작성일자, 평점 | 삭제버튼-->
             <div class="row zero">
               <div class="col-15 zero flex">
@@ -263,10 +279,12 @@
                 </div>
               </div>
               <div class="col-20 zero flex mt5px">
-                <!-- <p class="dark-grey dark-grey-b1px min-w50px r50px pl5px pr5px pt2px pb2px"
-                  ng-click="vm.reviewDelete();">삭제</p> -->
+                <p class="dark-grey dark-grey-b1px f12px min-w50px r50px pl5px pr5px pt2px pb2px center"
+                  ng-if="isOwner(review)"
+                  ng-click="vm.reviewDelete(review.id);">삭제</p>
                 <!--사장님 전용 댓글달기버튼-->
                 <p class="grey-bg white min-w67px r50px pl8px pr8px pt4px pb7px f12px"
+                  ng-if="isOwner(vm.Model.place)"
                   ng-click="goToState('Main.CommentCreate', {reviewId: review.id, reviewOwner: review.owner}, 'forward');">댓글달기</p>
               </div>
             </div>
@@ -281,7 +299,8 @@
               <div class="col zero flex-v"
                 ng-repeat="photo in review.photos">
                 <img class="w50px h50px r5px"
-                  ng-src="{{photo.url}}" alt="후기사진" />
+                  ng-src="{{photo.url}}" alt="후기사진"
+                  ng-click="vm.expandPhoto(photo);" />
               </div><!--
               <div class="col zero flex-v"
                 ng-repeat="count in vm.getAverageRating(5-review.photos.length)">
@@ -289,12 +308,20 @@
               </div> -->
             </div>
             <!--사장님 댓글-->
-            <div class="mt5px p10px relative lighter-bg"
+            <div class="relative mt5px p10px lighter-bg"
               ng-repeat="comment in review.comments"
-            >
+            ><!-- | orderBy: 'createdAt' -->
+              <!-- Loading -->
+              <section class="absolute top0px left0px w100p h100p flex lighter-grey-bg z-index5 opacity5"
+                ng-if="vm.Model.loadingById.indexOf(comment.id) !== -1"
+              >
+                <ion-spinner class="spinner-40px" icon="ripple">
+                </ion-spinner>
+              </section>
               <!--사장님 댓글 삭제버튼-->
               <p class="absolute top8px right10px dark-grey dark-grey-b1px r50px f12px pl5px pr5px pt2px pb2px"
-                  ng-click="vm.commentDelete();">삭제</p>
+                ng-if="isOwner(comment)"
+                ng-click="vm.commentDelete(comment.id);">삭제</p>
               <!--아이콘 | 사장님 아이디 | 작성일자-->
               <div class="row zero">
                 <div class="col-auto zero">
@@ -337,31 +364,45 @@
   <ion-footer-bar class="bar-positive footer zero">
     <div class="row zero">
 
-      <div class="col zero flex">
-        <button class="button-icon ion-heart white f20px">
-        </button>
-      </div>
+      <!--즐겨찾기-->
+      <button class="button-icon col zero flex relative"
+        ng-click="vm.isNotFavorite ? vm.favoriteCreate() : vm.favoriteDestory();"
+        ng-disabled="vm.Model.loadingById.indexOf('FAVORITE') !== -1">
+        <!-- Loading -->
+        <section class="absolute top0px left0px w100p h100p flex lighter-grey-bg z-index2 opacity6"
+          ng-if="vm.Model.loadingById.indexOf('FAVORITE') !== -1">
+          <ion-spinner class="spinner-40px" icon="ripple">
+          </ion-spinner>
+        </section>
+        <i class="white f32px ion-android-favorite-outline"
+          ng-if="vm.isNotFavorite"></i>
+        <i class="white f32px ion-android-favorite"
+          ng-if="!vm.isNotFavorite"></i>
+      </button>
 
+      <!--업체와 1:1 메세지-->
       <div class="col zero flex light-grey-bl1px"
-        ng-click="goToState('Main.MessageCreate', {
-          ownerId: vm.Model.place.owner
-        }, 'forward');">
-        <button class="button-icon ion-chatbubble-working white f20px">
-        </button>
+        ng-click="
+        needLogin()
+        ? goToState('Main.MessageCreate', {
+          ownerId: vm.Model.place.owner,
+          placeName: vm.Model.place.name
+        }, 'forward')
+        : return;">
+        <i class="white f32px ion-chatbubble-working"></i>
       </div>
 
+      <!--메뉴 보기-->
       <div class="col zero flex light-grey-bl1px"
         ng-click="goToState('Main.MenuList', {placeId: vm.Model.place.id}, 'forward');">
-        <button class="button-icon ion-clipboard white f20px">
-        </button>
+        <i class="white f32px ion-clipboard"></i>
       </div>
 
-      <div class="col-40 flex light-grey-bl1px">
-        <button class="button-icon ion-ios-telephone white f20px">
-        </button>
-        <p class="zero">
-          전화하기
-        </p>
+      <!--전화하기-->
+      <div class="col-40 flex light-grey-bl1px"
+        ng-click="call(vm.Model.place.phone);">
+        <i class="white f32px ion-ios-telephone"></i>
+        <p class="zero pl10px">전화하기</p>
       </div>
 
     </div>

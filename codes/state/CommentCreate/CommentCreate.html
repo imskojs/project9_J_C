@@ -9,10 +9,11 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p">댓글 달기</p>
+    <p class="zero">댓글 달기</p>
   </ion-nav-title>
 
-  <ion-content class="bottom80px">  <!--footer bar에 height를 주면, 해당 크기만큼 content의 bottom을 준다.-->
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="bottom80px">  <!--footer bar에 height를 주면, 해당 크기만큼 content의 bottom을 준다.-->
     <div class="relative">
 
       <div class="pt10px pb5px pl15px pr15px">  <!--리뷰Node 컨테이너 시작-->

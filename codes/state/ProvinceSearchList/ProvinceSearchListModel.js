@@ -9,6 +9,7 @@
   function ProvinceSearchListModel() {
 
     var Model = {
+      handle: 'province-search-list',
       loading: false,
       longitude: 126,
       latitude: 37,

@@ -10,6 +10,7 @@
   function MessageCreateModel() {
 
     var Model = {
+      handle: 'message-create',
       loading: false,
       // [{dayBreaker: true}, {dayBreaker: false}]
       messages: [],
@@ -17,7 +18,10 @@
         sender: '',
         receiver: '',
         content: ''
-      }
+      },
+      places: [],
+      placesString: ''
+
     };
 
     return Model;

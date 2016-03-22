@@ -1,23 +1,24 @@
 <ion-view id="home"
   cache-view="true"
   hide-back-button="true">
-  <ion-nav-title class="bold">
-    <p class="zero pl5p">
-      JOODANG
-    </p>
+  <ion-nav-title>
+    <p class="zero">JOODANG</p>
   </ion-nav-title>
 
   <ion-nav-buttons side="right">
     <button class="button-icon ion-android-search white"
-      ng-click="vm.goToStateIfGPS('Main.Search', {}, 'forward');">
+      ng-click="goToStateIfGPS('Main.Search', {}, 'forward');">
     </button>
   </ion-nav-buttons>
 
 
+    <!-- delegate-handle="home" -->
   <ion-content class="pb15px com-gradient-bg"
-    scroll="false"
+    delegate-handle="home"
+    scroll="true"
   >
 
+<!--
     <div class="w100p h100vh flex-h light-grey-bg absolute"
       style="z-index: 2"
       ng-if="vm.Model.loading"
@@ -25,7 +26,7 @@
       <ion-spinner class="spinner-40px mt100px" icon="ripple">
       </ion-spinner>
     </div>
-
+ -->
 
 
     <div>  <!--컨텐츠 컨테이너-->
@@ -37,26 +38,46 @@
 
       <div class="row zero mt5vh flex">
         <div class="col-auto p8 white-b r50px"
-          ng-click="vm.goToStateIfGPS('Main.PlaceList', null, 'forward')"
+          ng-click="goToStateIfGPS('Main.PlaceList', null, 'forward')"
         >
           <p class="f20px zero white center w100p">보러가기</p>
         </div>
       </div>
 
 
-      <div class="row zero flex absolute bottom8px">
-        <div class="col-95 zero flex">
+      <div class="row zero flex absolute bottom8px"
+      >
+        <div class="col-95 zero flex h25vw"
+          ng-if="vm.Model.banners.length === 0"
+        >
+          <ion-spinner class="spinner-40px spinner-white" icon="ripple">
+          </ion-spinner>
+        </div>
+
+        <div class="col-95 zero flex"
+          ng-if="vm.Model.banners.length > 0"
+        >
           <!--슬라이드 box-->
           <ion-slide-box class="w100p auto"
-            show-pager="false"
+            show-pager="true"
           >
-            <ion-slide ng-repeat="banner in vm.Model.banners">
+            <ion-slide class="relative"
+              auto-play="true"
+              ng-repeat="banner in vm.Model.banners">
               <img class="w100p block h25vw lazy-show"
-                ng-src="{{banner.photo.url}}"
-              >
+                ng-src="{{banner.photo.url}}">
+              <div class="absolute top0px left0px w100p h100p opacity0"
+                ng-if="banner.isExternal"
+                ng-click="open(banner.homepage);">
+              </div>
+              <div class="absolute top0px left0px w100p h100p opacity0"
+                ng-if="!banner.isExternal"
+                ng-click="goToState('Main.JoodangEventDetail', {eventId: banner.event}, 'forward');">
+              </div>
             </ion-slide>
           </ion-slide-box>
         </div>
+
       </div>
 
     </div>

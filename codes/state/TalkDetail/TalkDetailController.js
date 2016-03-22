@@ -5,17 +5,18 @@
 
   TalkDetailController.$inject = [
     '_MockData',
-    '$scope', '$q', '$state', '$ionicModal', '$ionicScrollDelegate',
+    '$ionicHistory', '$scope', '$q', '$state', '$ionicModal', '$ionicScrollDelegate',
     'TalkDetailModel', 'Util', 'RootScope', 'Posts', 'Comments', 'Message', 'AppStorage'
   ];
 
   function TalkDetailController(
     _MockData,
-    $scope, $q, $state, $ionicModal, $ionicScrollDelegate,
+    $ionicHistory, $scope, $q, $state, $ionicModal, $ionicScrollDelegate,
     TalkDetailModel, Util, RootScope, Posts, Comments, Message, AppStorage
   ) {
     var initPromise;
-    var noLoadingStates = ['Main.Footer.TalkDetail'];
+    var noLoadingStates = [];
+    var noResetStates = [];
     var vm = this;
     vm.Model = TalkDetailModel;
     vm.isAnnonymousToggle = isAnnonymousToggle;
@@ -28,14 +29,14 @@
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     $ionicModal.fromTemplateUrl('state/TalkDetail/Modal/ConfirmModal.html', {
       scope: $scope,
       animation: 'mh-slide'
     }).then(function(modal) {
       vm.ConfirmModal = modal;
-
     });
 
     //====================================================
@@ -84,8 +85,11 @@
       // console.log("vm.Model :::\n", vm.Model);
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1) {
+        return reset();
+      }
     }
 
 
@@ -102,10 +106,10 @@
     }
 
     function isAnnonymousToggle() {
-      if (vm.Model.isAnnonymous) {
-        vm.Model.isAnnonymous = false;
+      if (vm.Model.comment.isAnnonymous) {
+        vm.Model.comment.isAnnonymous = false;
       } else {
-        vm.Model.isAnnonymous = true;
+        vm.Model.comment.isAnnonymous = true;
       }
     }
 
@@ -132,7 +136,7 @@
     //====================================================
 
     function init() {
-      let postPromise = postFind({ id: $state.params.postId });
+      let postPromise = postFindOne({ id: $state.params.postId });
       let commentPromise = commentFind({ post: $state.params.postId });
       return $q.all([postPromise, commentPromise])
         .then((array) => {
@@ -141,17 +145,17 @@
     }
 
     function reset() {
-      var defaultObj = {
+      var Model = {
         loading: false,
-        isAnnonymous: false,
         toggleMore: false,
         post: {},
         comments: [],
         comment: {
+          isAnnonymous: false,
           content: ''
         }
       };
-      angular.copy(defaultObj, vm.Model);
+      angular.copy(Model, vm.Model);
     }
 
     //====================================================
@@ -162,11 +166,10 @@
     //  REST
     //====================================================
 
-    function postFind(extraQuery, extraOperation) {
+    function postFindOne(extraQuery, extraOperation) {
       let queryWrapper = {
         query: {
           where: {},
-          sort: {},
           populate: ['photos']
         }
       };
@@ -210,13 +213,13 @@
       var queryWrapper = {
         query: {
           post: $state.params.postId,
-          isAnnonymous: vm.Model.isAnnonymous,
+          isAnnonymous: vm.Model.comment.isAnnonymous,
           content: vm.Model.comment.content,
           category: 'POST-COMMENT'
         }
       };
       $ionicScrollDelegate.scrollBottom();
-      vm.Model.isAnnonymous = false;
+      vm.Model.comment.isAnnonymous = false;
       vm.Model.comment.content = '';
       return Comments.createComment({}, queryWrapper).$promise
         .then(function(commentsWrapper) {
@@ -230,12 +233,15 @@
     }
 
     function talkDelete() {
-      console.log("$state.params.postId :::\n", $state.params.postId);
+      closeModal();
+      return Posts.destroy({ id: $state.params.postId }).$promise
+        .then(obj => {
+          console.log("obj :::\n", obj);
+          RootScope.goToState('Main.Footer.TalkList', {}, 'forward');
+        });
       //1. 게시물id 를 서버로 쿼리전송
       //2. 서버에서는 해당 게시물의 댓글을 모두 삭제하는 작업
       //완료되면 goToState
-      closeModal();
-      RootScope.goToState('Main.Footer.TalkList', {}, 'forward');
     }
 
   }

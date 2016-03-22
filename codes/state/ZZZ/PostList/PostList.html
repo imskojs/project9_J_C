@@ -20,7 +20,8 @@
     </button>
   </ion-nav-buttons>
 
-  <ion-content class="has-header">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="has-header">
     <ion-refresher
       on-refresh="PostList.refresh()"
     >

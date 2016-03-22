@@ -9,50 +9,32 @@
   function ProfileModel() {
 
     var Model = {
+      handle: 'profile',
       loading: false,
       hopeNickname: '',
 
+      images: [],
+      files: [],
+      create: [],
+      // tempFiles: [],
+      // destroy: [],
+
       user: {
-        username: {
-          type: 'string',
-          unique: true,
-          index: true
-        },
-        email: {
-          type: 'email',
-          unique: true,
-          index: true
-        },
-
-        // Properties
-        nickname: {
-          // unique: true,
-          type: 'String'
-        },
-
+        username: '',
+        email: '',
+        nickname: '',
         profilePhoto: {
-          model: 'Photo'
+          url: ''
         },
-
-        devices: {
-          collection: 'Device',
-          via: 'user'
-        },
-
+        devices: {},
+        favorites: {},
         //====================================================
         //  Not used
         //====================================================
-        password_reset_code: {
-          type: 'string'
-        },
-        password_reset_time: {
-          type: 'integer'
-        },
-        accesscount: {
-          type: 'integer'
-        },
-
-      }
+        password_reset_code: '',
+        password_reset_time: 0,
+        accesscount: 0,
+      },
     };
 
     return Model;

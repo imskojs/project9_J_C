@@ -5,17 +5,18 @@
 
   CommentCreateController.$inject = [
     '_MockData',
-    '$scope', '$state', '$q',
+    '$ionicHistory', '$scope', '$state', '$q',
     'CommentCreateModel', 'Util', 'RootScope', 'AppStorage', 'Users', 'Reviews', 'Comments'
   ];
 
   function CommentCreateController(
     _MockData,
-    $scope, $state, $q,
+    $ionicHistory, $scope, $state, $q,
     CommentCreateModel, Util, RootScope, AppStorage, Users, Reviews, Comments
   ) {
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var vm = this;
     vm.Model = CommentCreateModel;
     vm.getAverageRating = getAverageRating;
@@ -23,14 +24,15 @@
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     //====================================================
     //  View Event
     //====================================================
 
     function onBeforeEnter() {
-      console.log('\n\n\n====================\n'+$state.current.url+'\n====================\n');
+      console.log('\n\n\n====================\n' + $state.current.url + '\n====================\n');
       if (!Util.hasPreviousStates(noLoadingStates)) {
         Util.loading(vm.Model);
         initPromise = init();
@@ -48,25 +50,29 @@
           vm.Model.reviewOwner = user;
           Util.bindData(review, vm.Model, 'review');
         })
-      // var review = _MockData.findOne($state.params.reviewId);
-      // console.log("review :::\n", review);
-      // Util.bindData(review, vm.Model, 'review');
+        // var review = _MockData.findOne($state.params.reviewId);
+        // console.log("review :::\n", review);
+        // Util.bindData(review, vm.Model, 'review');
 
       vm.Model.user = AppStorage.user;
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
     //====================================================
     //  VM
     //====================================================
 
-    function getAverageRating (num) {
+    function getAverageRating(num) {
       var roundNum = Math.round(num);
       var array = [];
-      for (var i=0; i<roundNum; i++) {
+      for (var i = 0; i < roundNum; i++) {
         array.push(i);
       }
       return array;
@@ -88,7 +94,7 @@
     function reset() {
       var defaultObj = {
         loading: false,
-        user: {},  //로그인한 유저 본인, 세션
+        user: {}, //로그인한 유저 본인, 세션
         review: {},
         reviewOwner: {},
         comment: {
@@ -132,7 +138,7 @@
       angular.extend(queryWrapper.query.where, extraQuery);
       angular.extend(queryWrapper.query, extraOperation);
       return Reviews.findOne(queryWrapper).$promise
-        .then(review => {    //{id: 1300, name: 'asda' ... }
+        .then(review => { //{id: 1300, name: 'asda' ... }
           console.log("review :::\n", review);
           return review;
         });
@@ -148,7 +154,8 @@
         }
       };
       return Comments.createComment(null, queryWrapper).$promise
-        .then((createdComment) => {
+        .then((commentsWrapper) => {
+          console.log("commentsWrapper :::\n", commentsWrapper);
           vm.Model.loading = false;
           RootScope.goBack('forward');
         })

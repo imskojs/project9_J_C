@@ -4,26 +4,30 @@
     .controller('ProvinceSearchListController', ProvinceSearchListController);
 
   ProvinceSearchListController.$inject = [
-    '_MockData',
-    '$scope', '$state', '$q',
+    '$ionicHistory', '$scope', '$state', '$q',
     'ProvinceSearchListModel', 'Util', 'Places', 'Distance', 'CurrentPosition', 'AppStorage'
   ];
 
   function ProvinceSearchListController(
-    _MockData,
-    $scope, $state, $q,
+    $ionicHistory, $scope, $state, $q,
     ProvinceSearchListModel, Util, Places, Distance, CurrentPosition, AppStorage
 
   ) {
     // var _ = $window._;
     var initPromise;
-    var noLoadingStates = [];
+    var noLoadingStates = [
+      'Main.PlaceDetail'
+    ];
+    var noResetStates = [
+      'Main.PlaceDetail'
+    ];
     var vm = this;
     vm.Model = ProvinceSearchListModel;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
     vm.getAverageRating = getAverageRating;
 
     vm.setCurrentPosition = setCurrentPosition;
@@ -38,8 +42,6 @@
         Util.loading(vm.Model);
         initPromise = init();
         //3개의 array Promise가 들어있는 array Promise 를 initPromise 변수에 대입
-      } else {
-        Util.freeze(false);
       }
     }
 
@@ -74,13 +76,15 @@
             ==> Model.places = PlaceWrapper.places  */
         // console.log("_MockData :::\n", _MockData);
         // Util.bindData(_MockData, vm.Model, 'places');
-      } else {
-        Util.freeze(false);
       }
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
     //====================================================
@@ -149,9 +153,25 @@
     }
 
     function reset() {
-      // vm.Model.review.rating = 0;
-      // vm.Model.review.content = '';
-      // vm.Model.review.photos = [];
+      var Model = {
+        handle: 'province-search-list',
+        loading: false,
+        longitude: 126,
+        latitude: 37,
+        PREMIUM: {
+          places: [],
+          buttonLoading: false
+        },
+        SPECIAL: {
+          places: [],
+          buttonLoading: false
+        },
+        NORMAL: {
+          places: [],
+          buttonLoading: false
+        }
+      };
+      angular.copy(Model, vm.Model);
     }
 
     //====================================================

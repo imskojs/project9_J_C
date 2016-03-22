@@ -9,7 +9,7 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p text-overflow">즐겨찾기 모아보기</p>
+    <p class="zero">즐겨찾기 모아보기</p>
   </ion-nav-title>
 
   <!-- <ion-header-bar class="h30px top44px light-grey-bb1px white-bg"
@@ -28,76 +28,51 @@
     </div>
   </ion-header-bar> -->
 
-  <!-- <ion-header-bar class=""
+  <!-- <ion-header-bar
     no-tap-scroll="true"
   >
   </ion-header-bar> -->
 
-  <ion-content class="light-grey-bg">
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
+
+
+  <ion-content delegate-handle="favorite-list"
+    class="light-grey-bg">
     <div>   <!--컨텐츠 컨테이너-->
 
-      <!--프리미엄 리스트-->
       <div class="row zero pl1p pr1p h30px flex-v white-bg">
         <div class="col-auto zero flex-v pl5p pr5p h30px">
           <p class="zero bold">즐겨찾기한 주점 <span class="positive">{{vm.Model.places.length}}</span>개</p>
         </div>
       </div>
 
-      <div>  <!--매장 List 컨테이너-->
+      <!--매장 List 컨테이너-->
+      <div>
 
         <!--매장 Node 컨테이너-->
         <div class="row zero white-bg grey-bt1px grey-bb1px mt5px"
-          ng-click="goToState('Main.PlaceDetail', {}, 'forward');"
-          ng-repeat="place in vm.Model.places">
-          <div class="col-40 zero flex lighter-grey-bg relative">
-            <img class="w50p" ng-src="{{place.photos[0].url}}" alt="매장 대표사진" />
-            <div class="absolute top8px left0px w70px h25px"
-             ng-if="place.showDiscountTag">
-              <div class="row zero h20px">
-                <div class="col zero h25px flex positive-bg">
-                  <p class="f12px zero white center">{{place.discountTitle}}</p>
-                </div>
-                <div class="col-10 zero">
-                  <img class="h25px" src="img/home_detail_tag.png" alt="끝에 잘리는이미지" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-60 zero pt1p pb1p pl2p pr2p">
-            <div class="row zero">
-              <div class="col zero">
-                <p class="zero f20px lh26px bold text-overflow">{{place.name}}</p>
-              </div>
-              <div class="col-auto zero flex-v f18px positive ion-ios-location mr2p"></div>
-              <div class="col-auto zero flex-v f16px positive">{{"60m"}}</div>
-            </div>
-            <div class="row zero mt5px">
-              <div class="col-auto zero mr2p"><i class="f16px ion-android-star positive"></i></div>
-              <div class="col-auto zero mr2p"><i class="f16px ion-android-star positive"></i></div>
-              <div class="col-auto zero mr2p"><i class="f16px ion-android-star positive"></i></div>
-              <div class="col-auto zero mr2p"><i class="f16px ion-android-star positive"></i></div>
-              <div class="col-auto zero mr2p"><i class="f16px ion-android-star-outline positive"></i></div>
-            </div>
-            <div class="row zero mt1px mb10px">
-              <div class="col zero">
-                <p class="zero text-overflow">{{place.address}}</p>
-              </div>
-            </div>
-            <div class="row zero center">
-              <div class="col zero p1px"
-                ng-repeat="tag in place.tags">
-                <p class="p5 positive positive-b1px r3px f8px text-overflow">{{tag}}</p>
-              </div>
-            </div>
-          </div>
+          ng-click="goToState('Main.PlaceDetail', {placeId: place.id}, 'forward');"
+          ng-repeat="place in vm.Model.places"
+          ng-include="'state/0Template/Include/PlaceList-node.html'">
         </div>  <!--매장 Node 컨테이너 종료-->
 
-        <!--더보기 버튼-->
+        <!--더보기 버튼--><!--
         <div class="flex zero mt10px mb10px">
           <div class="dark-grey-b1px r20px pt5px pb5px pl10p pr10p"
             ng-click="vm.readMore();">더보기</div>
-        </div>
+        </div> -->
+
+        <ion-infinite-scroll
+          on-infinite="vm.infiniteScroll()"
+          immediate-check="false"
+          ng-if="vm.Model.more">
+        </ion-infinite-scroll>
 
       </div>  <!--매장 List 컨테이너 종료-->
 

@@ -3,28 +3,30 @@
 //====================================================
 .platform-ios,
 .platform-android {
-  .activated {
-    background-color: $positive !important;
-    opacity: 0.7 !important;
-  }
+    .activated {
+        // background-color: $positive !important;
+        // opacity: 0.7 !important;
+        box-shadow: 0px 0px 15px #dcdcdc inset !important;
+        transition: box-shadow 0.1s;
+    }
 }
 
 .tab-selected {
-  @extend .positive-bb3px;
-  @extend .pt3px
+    @extend .positive-bb3px;
+    @extend .pt3px
 }
 
 .dark-grey-selected {
-  @extend .dark-grey-bg;
+    @extend .dark-grey-bg;
 }
 
 .loading {
-  & > .scroll {
-    height: 100%;
-  }
+    & > .scroll {
+        height: 100%;
+    }
 }
 
 .disabled {
-  pointer-events: none;
-  cursor: default;
+    pointer-events: none;
+    cursor: default;
 }

@@ -10,12 +10,13 @@
   function TalkDetailModel() {
 
     var Model = {
+      handle: 'talk-detail',
       loading: false,
-      isAnnonymous: false,
       toggleMore: false,
       post: {},
       comments: [],
       comment: {
+        isAnnonymous: false,
         content: ''
       }
     };

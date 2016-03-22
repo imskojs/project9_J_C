@@ -10,13 +10,13 @@
 
   <ion-nav-buttons side="right">
     <button class="button-icon ion-android-person white"
-      ng-click="vm.goToState('Main.Footer.MyTalkList', {}, 'forward', '내글관리', '로그인 후에 이용가능합니다.');"></button>
+      ng-click="vm.goToState('Main.Footer.MyTalkList', {}, 'forward', '글쓰기', '로그인 후에 이용가능합니다.');"></button>
     <button class="button-icon ion-edit white"
       ng-click="vm.goToState('Main.Footer.TalkCreate', {}, 'forward', '내글관리', '로그인 후에 이용가능합니다.');"></button>
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p bold">주당톡</p>
+    <p class="zero">주당톡</p>
   </ion-nav-title>
 
   <ion-header-bar class="h30px top44px grey-bb1px white-bg"
@@ -29,9 +29,17 @@
     </div>
   </ion-header-bar>
 
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex-h pt250px light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
 
 
-  <ion-content class="top74px bold darker-grey">
+  <ion-content delegate-handle="talk-detail"
+    class="top74px darker-grey">
     <div class="pb100px">   <!--컨텐츠 컨테이너-->
 
       <div>  <!--주당톡 List 컨테이너-->
@@ -41,7 +49,11 @@
 
             <div class="col-auto zero mr2p flex-v">
               <img class="h37px w37px r50p"
-                src="{{vm.Model.post.photos[0].url}}" alt="프로필사진" />
+                ng-if="vm.Model.post.isAnnonymous || !vm.Model.post.owner.profilePhoto.url"
+                src="img/defaultimg.png" />
+              <img class="h37px w37px r50p"
+                ng-if="!vm.Model.post.isAnnonymous && vm.Model.post.owner.profilePhoto.url"
+                ng-src="{{vm.Model.post.owner.profilePhoto.url}}" />
             </div>
 
             <div class="col zero">
@@ -60,7 +72,8 @@
               </div>
             </div>
 
-            <div class="col-auto zero w25px"
+            <div class="col-auto zero w25px z-index10"
+              ng-if="isOwner(vm.Model.post);"
               ng-click="vm.toggleMore();">
               <div class="row zero">
                 <div class="col zero flex">
@@ -92,11 +105,21 @@
         </div>  <!--주당톡 Node 컨테이너 종료-->
       </div>  <!--주당톡 List 컨테이너 종료-->
 
-      <div class="row zero mt0px p15px dark-grey">
-        <div class="col zero">
-          <p>{{vm.Model.post.content}}</p>
+      <!--주당톡의 내용-->
+      <div>
+        <ion-slide-box show-pager="true">
+          <ion-slide ng-repeat="photo in vm.Model.post.photos">
+            <img class="w100p h75vw"
+              ng-src="{{photo.url}}" />
+          </ion-slide>
+        </ion-slide-box>
+        <div class="row zero mt0px p15px dark-grey">
+          <div class="col zero">
+            <p>{{vm.Model.post.content}}</p>
+          </div>
         </div>
       </div>
+
 
       <div class="row zero dark-grey p2p light-bg">
         <div class="col zero flex-v">
@@ -106,7 +129,7 @@
 
       <!--주당톡 Node 컨테이너-->
       <div class="grey-bb1px pl3p pr3p pt5px pb5px"
-        ng-repeat="comment in vm.Model.comments">
+        ng-repeat="comment in vm.Model.comments | orderBy: 'createdAt'">
         <div class="row zero">
 
           <div class="col-auto zero mr2p flex-v">
@@ -117,7 +140,7 @@
           <div class="col zero">
             <div class="row zero mt0px mb5px">
               <div class="col-auto zero flex-v mr2p">
-                <p class="zero f12px dark-grey">{{comment.createdBy.nickname}}</p>
+                <p class="zero f12px dark-grey">{{comment.owner.nickname}}</p>
               </div>
               <div class="col-auto zero flex-v">
                 <p class="zero f11px grey">{{comment.createdAt | date: 'HH:mm'}}
@@ -133,13 +156,6 @@
         </div>
       </div>  <!--주당톡 Node 컨테이너 종료-->
 
-      <!-- Loading -->
-      <section class="h48px flex-h grey-bb1px"
-        ng-if="vm.Model.loading">
-        <ion-spinner class="spinner-40px" icon="ripple">
-        </ion-spinner>
-      </section>
-
     </div>  <!--컨텐츠 컨테이너 종료-->
   </ion-content>
 
@@ -152,8 +168,8 @@
           ng-click="vm.isAnnonymousToggle();">
           <i class="zero f20px lh24px pr5px ion-checkmark-circled"
             ng-class="{
-              'positive': vm.Model.isAnnonymous,
-              'white': !vm.Model.isAnnonymous
+              'positive': vm.Model.comment.isAnnonymous,
+              'white': !vm.Model.comment.isAnnonymous
             }"></i>
         </div>
         <div class="col-auto zero flex-v">
@@ -170,7 +186,9 @@
         <div class="col-10 zero flex">
           <div class="top4px right10px white-bg h40px w100p grey-b1px bl0px flex-v">
             <p class="zero r50p center w32px h32px lh32px grey-bg white f13px"
-              ng-click="vm.commentCreate();">등록</p>
+              ng-click="needLogin()
+                        ? vm.commentCreate()
+                        : return;">등록</p>
           </div>
         </div>
       </div>

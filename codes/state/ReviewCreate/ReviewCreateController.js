@@ -5,7 +5,7 @@
 
   ReviewCreateController.$inject = [
     '_MockData',
-    '$scope', '$q', '$state',
+    '$ionicHistory', '$scope', '$q', '$state',
     'ReviewCreateModel', 'Util', 'RootScope', 'Places', 'Reviews', 'Photo',
     'Upload', 'Message',
     'SERVER_URL'
@@ -13,20 +13,22 @@
 
   function ReviewCreateController(
     _MockData,
-    $scope, $q, $state,
-    ReviewCreateModel, Util, RootScope, Places, Reviews, Photo,
-    Upload, Message,
+    $ionicHistory, $scope, $q, $state,
+    ReviewCreateModel, Util, RootScope, Places, Reviews, Photo, Upload, Message,
     SERVER_URL
+
   ) {
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var vm = this;
     vm.Model = ReviewCreateModel;
 
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     vm.setRating = setRating;
     vm.getPhoto = getPhoto;
@@ -58,8 +60,12 @@
       }
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
     //====================================================

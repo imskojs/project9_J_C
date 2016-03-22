@@ -8,22 +8,32 @@
     </button>
   </ion-nav-buttons> -->
 
+  <ion-nav-buttons side="right">
+    <button class="button-icon ion-android-search white"
+      ng-click="goToStateIfGPS('Main.Search', {}, 'forward');">
+    </button>
+  </ion-nav-buttons>
+
   <ion-nav-title>
-    <p class="zero pl1p">EVENT</p>  <!--상위로부터 상속은 되지않음-->
+    <p class="zero">EVENT</p>  <!--상위로부터 상속은 되지않음-->
   </ion-nav-title>
 
-  <ion-content class="">
-    <div class="w100p h100vh flex-h light-grey-bg absolute"
-      style="z-index: 2"
-      ng-if="vm.Model.loading"
-    >
-      <ion-spinner class="spinner-40px mt100px" icon="ripple">
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
       </ion-spinner>
-    </div>
+    </section>
+  </ion-pane>
+
+
+  <ion-content
+    delegate-handle="bar-event-list"
+  >
     <!--컨텐츠 컨테이너-->
     <div ng-include="'state/0Template/Include/EventList.html'">
     </div>
   </ion-content>
 
-  <!-- <ion-footer-bar class=""></ion-footer-bar> -->
+  <!-- <ion-footer-bar></ion-footer-bar> -->
 </ion-view>

@@ -9,6 +9,7 @@
   function ThemeListModel() {
 
     var Model = {
+      handle: 'theme-list',
       loading: false,
       themes: [
         {

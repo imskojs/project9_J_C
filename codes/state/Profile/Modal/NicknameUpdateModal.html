@@ -1,5 +1,6 @@
 <ion-modal-view class="modal-bg">
-  <ion-content class="p1px"
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="p1px"
     scroll="false"
   >
 
@@ -34,7 +35,7 @@
       <div class="row zero pt10px pb10px pl10p pr10p mt20px">
         <div class="col zero flex">
           <p class="zero positive positive-b2px r30px f16px bold lh40px w100p center"
-            ng-click="vm.NicknameUpdate();">확인</p>
+            ng-click="vm.nicknameUpdate();">확인</p>
         </div>
       </div>
 

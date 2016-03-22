@@ -9,6 +9,7 @@
   function zPostListModel() {
 
     var Model = {
+      handle: 'post-list',
       loading: false,
       posts: []
     };

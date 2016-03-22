@@ -5,43 +5,61 @@
 
   NoticeDetailController.$inject = [
     '_MockData',
-    '$scope', '$state',
-    'NoticeDetailModel'
+    '$ionicHistory', '$scope', '$q', '$state',
+    'NoticeDetailModel', 'Util', 'Posts'
   ];
 
   function NoticeDetailController(
     _MockData,
-    $scope, $state,
-    NoticeDetailModel
+    $ionicHistory, $scope, $q, $state,
+    NoticeDetailModel, Util, Posts
   ) {
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var vm = this;
     vm.Model = NoticeDetailModel;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     //====================================================
     //  View Event
     //====================================================
 
     function onBeforeEnter() {
-      console.log("$state.params.noticeId :::\n", $state.params.noticeId);
-      // initPromise = init();
+      console.log("$state.params :::\n", $state.params);
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        Util.loading(vm.Model);
+        initPromise = init();
+      }
     }
 
     function onAfterEnter() {
-      // initPromise
-      //   .then((array) => {
-      //     let premiumPlacesWrapper = array[0];
-      //     let specialPlacesWrapper = array[1];
-      //     let normalPlacesWrapper = array[2];
-      //     // NoticeDetailModel.premium.places = premiumPlacesWrapper.places;
-      //     // NoticeDetailModel.special.places = specialPlacesWrapper.places;
-      //     // Util.bindData(normalPlacesWrapper, NoticeDetailModel.normal, 'places');
-      //   })
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        return initPromise
+          .then((post) => {
+            return Util.bindData(post, vm.Model, 'post');
+          })
+          .then(() => {
+            console.log("vm.Model :::\n", vm.Model);
+          })
+          .catch((err) => {
+            return Util.error(err);
+          });
+      }
     }
+
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
+    }
+
 
     //====================================================
     //  VM
@@ -51,14 +69,19 @@
     //  Private
     //====================================================
 
-    function init() {
-      let premiumPromise = placeFind({ category: 'PREMIUM' });
-      let specialPromise = placeFind({ category: 'SPECIAL' });
-      let normalPromise = placeFind({ category: 'NORMAL' });
-      return $q.all([premiumPromise, specialPromise, normalPromise])
-        .then((array) => {
-          return array;
-        })
+    function init() { //서버에서 data를 가져오는 작업을 진행함.
+      return postFindOne({ id: $state.params.postId })
+        .then(post => {
+          return post;
+        });
+    }
+
+    function reset() {
+      var Model = {
+        loading: false,
+        post: {}
+      };
+      angular.copy(Model, vm.Model);
     }
 
     //====================================================
@@ -69,20 +92,20 @@
     //  REST
     //====================================================
 
-    function placeFind(extraQuery, extraOperation) {
+    function postFindOne(extraQuery, extraOperation) {
       let queryWrapper = {
         query: {
-          where: {},
-          keywords: $state.params.keywords,
-          sort: {},
-          limit: 30
+          where: {}
         }
       };
       angular.extend(queryWrapper.query.where, extraQuery);
       angular.extend(queryWrapper.query, extraOperation);
-      return Places.find(queryWrapper).$promise
-        .then((placeList) => {
-          return placeList;
+      return Posts.findOne(queryWrapper).$promise
+        .then((post) => {
+          console.log("post :::\n", post);
+          // Resource object안에 array가 존재
+          // {events: [{id:101, name:'aaa'}, {id: 102, name:'bbb'} ...]}
+          return post;
         });
     }
   }

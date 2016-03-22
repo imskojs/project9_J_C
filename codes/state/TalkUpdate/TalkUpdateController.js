@@ -5,30 +5,35 @@
 
   TalkUpdateController.$inject = [
     '_MockData',
-    '$scope', '$q', '$state',
-    'TalkUpdateModel', 'Util', 'RootScope', 'Posts'
+    '$ionicHistory', '$scope', '$q', '$state',
+    'TalkUpdateModel', 'Util', 'RootScope', 'Posts', 'Photo',
+    'Upload', 'Message',
+    'SERVER_URL'
   ];
 
   function TalkUpdateController(
     _MockData,
-    $scope, $q, $state,
-    TalkUpdateModel, Util, RootScope, Posts
+    $ionicHistory, $scope, $q, $state,
+    TalkUpdateModel, Util, RootScope, Posts, Photo,
+    Upload, Message,
+    SERVER_URL
   ) {
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var vm = this;
     vm.Model = TalkUpdateModel;
     vm.isAnnonymousToggle = isAnnonymousToggle;
     vm.categoryToggle = categoryToggle;
     vm.selectCategory = selectCategory;
-    vm.updateTalk = updateTalk;
-    vm.camera = camera;
-    vm.photoDelete = photoDelete;
-    var photoIndex = 0;
+    // vm.updateTalk = updateTalk;
+    vm.getPhoto = getPhoto;
+    vm.create = create;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     //====================================================
     //  View Event
@@ -36,11 +41,9 @@
 
     function onBeforeEnter() {
       console.log("$state.params :::\n", $state.params);
-      vm.Model.post.id = $state.params.postId;
       if (!Util.hasPreviousStates(noLoadingStates)) {
-        Util.loading(TalkUpdateModel);
+        Util.loading(vm.Model);
         initPromise = init();
-        //2개의 array Promise가 들어있는 Promise array 를 initPromise 변수에 대입
       } else {
         Util.freeze(false);
       }
@@ -48,26 +51,22 @@
 
     function onAfterEnter() {
       initPromise
-        .then((post) => {
-          // let noticePostsWrapper = array[0];  //공지
-          // let normalPostsWrapper = array[1];  //일반 주당톡
-          // TalkUpdateModel.posts = noticePostWrapper.posts;  //바인딩 되는것은 이거나 아래나 똑같지만,
-          // Util.bindData(postsWrapper, TalkUpdateModel, 'posts');  //content 안에서 refresh 하는듯한 로직이 담겨있다.
-          // console.log("TalkUpdateModel :::\n", TalkUpdateModel);
+        .then(post => {
+          return Util.bindData(post, vm.Model, 'post');
         })
-          /*  bindData(data, model, name, emitPostTrue, loadingModel)
-              "data를 이 model에 넣는다, name이라는 attribute를 만들고" 라고 해석해면 될듯.
-              model[name] = data;
-              model[name] = data[name];  3번째 인자의 끝이 s로 끝나는경우
-              ==> Model.posts = PostWrapper
-              ==> Model.posts = PostWrapper.posts  */
-      TalkUpdateModel.post = _MockData.findOne($state.params.postId);
-      console.log("TalkUpdateModel :::\n", TalkUpdateModel);
+        .then(() => {
+          vm.Model.images = vm.Model.post.photos;
+          console.log("vm.Model :::\n", vm.Model);
+        });
       Util.freeze(false);
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
 
@@ -75,11 +74,11 @@
     //  VM
     //====================================================
 
-    function isAnnonymousToggle () {
+    function isAnnonymousToggle() {
       if (vm.Model.post.isAnnonymous) {
-        vm.Model.post.isAnnonymous = false;
+        vm.Model.post.isAnnonymous = false; //실명으로
       } else {
-        vm.Model.post.isAnnonymous = true;
+        vm.Model.post.isAnnonymous = true; //익명으로
       }
     }
 
@@ -98,40 +97,84 @@
       //사진의 경로(디바이스의 경로?)를 Model의 Array에 push
     }
 
-    function camera() {
-      //implementation
-      //사진을 선택하면 vm.Model.photos.push(photo)
-      photoIndex++;
-      //삭제를 위한 index
-    }
-
-    function photoDelete() {
-      //implementation
-      //클릭하면 vm.Model.photos.splice(index, 1);
-      photoIndex--;
-    }
-
-    function goToState(state, params, direction, messageTitle, messageContent) {
-      if (!AppStorage.token) {
-        return Message.alert(messageTitle, messageContent);
+    // 카메라 버튼 클릭
+    function getPhoto() {
+      if (vm.Model.images.length >= 5) {
+        Message.alert('사진수 초과', '사진은 최대 5개 까지만 업로드 가능합니다.');
+        return false;
       }
-      RootScope.goToState(state, params, direction);
+      return Photo.get('camera', 800, true, 600, 'square')
+        .then((blob) => {
+          console.log("blob :::\n", blob);
+          vm.Model.images.push(blob);
+        })
+        .catch((err) => {
+          console.log("err :::\n", err);
+        });
+    }
+
+    // 수정하기 버튼 클릭
+    function create() {
+      console.log('111 aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+      Message.loading();
+      console.log('111 bbbbbbbbbbbbbbbbbbbbbbbbbbbb');
+      return createPhotos()
+        .then((idsWrapper) => {
+          console.log("idsWrapper :::\n", idsWrapper);
+          console.log("111 ggggggggggggggggggg");
+          if (!idsWrapper) {
+            return false;
+          }
+          let ids = idsWrapper.ids;
+          let photos = Util.PhotoClass.createPhotoIds(vm.Model.images, vm.Model.post.photos, ids);
+          console.log("111 hhhhhhhhhhhhhhhhhhhhhhhhhhh");
+          vm.Model.post.photos = photos;
+        })
+        .then(() => {
+          return reviewUpdateReview();
+        })
+        .then((post) => {
+          console.log("post :::\n", post);
+          return Message.alert("글 수정 알림", "게시물이 성공적으로 수정되었습니다.");
+        })
+        .then(() => {
+          Util.goBack();
+        })
+        .catch((err) => {
+          Util.error(err);
+        });
     }
 
     //====================================================
     //  Private
     //====================================================
 
-    function init() {  //서버에서 data를 가져오는 작업을 진행함.
-      return postFind( {id: $state.params.postId} );
+    function init() {
+      return postFindOne({ id: $state.params.postId })
+        .then(post => {
+          return post;
+        });
     }
 
     function reset() {
-      vm.Model.post.category = '';
-      vm.Model.post.isAnnonymous = true;  //true이면 보이기, false면 익명
-      vm.Model.post.title = '';
-      vm.Model.post.content = '';
-      //vm.Model.post.photos = [];
+      var Model = {
+        loading: false,
+        categoryToggle: false,
+        images: [],
+        files: [],
+        create: [],
+        tempFiles: [],
+        destroy: [],
+        post: {
+          title: '',
+          category: '',
+          isAnnonymous: false, //false는 실명, true는 익명
+          content: '',
+          photos: [],
+          showInTalk: true //false이면 공지글, true이면 일반게시글
+        }
+      };
+      angular.copy(Model, vm.Model);
     }
 
     //====================================================
@@ -142,7 +185,7 @@
     //  REST
     //====================================================
 
-    function postFind(extraQuery, extraOperation) {
+    function postFindOne(extraQuery, extraOperation) {
       let queryWrapper = {
         query: {
           where: {},
@@ -152,7 +195,7 @@
       };
       angular.extend(queryWrapper.query.where, extraQuery);
       angular.extend(queryWrapper.query, extraOperation);
-      return Posts.find(queryWrapper).$promise
+      return Posts.findOne(queryWrapper).$promise
         .then((post) => {
           console.log("post :::\n", post);
           // {id:101, name:'aaa'}
@@ -160,18 +203,61 @@
         });
     }
 
-    // 수정하기 버튼 클릭
+    function createPhotos() {
+      console.log("111 cccccccccccccccccccccccccccc");
+      Util.PhotoClass.processCreate(vm.Model.images, vm.Model.create, vm.Model.files);
+      console.log("111 ddddddddddddddddddddddddddd");
+      let uploadOptions = {
+        url: SERVER_URL + '/photo/createPhotos',
+        method: 'POST',
+        file: vm.Model.files,
+        fields: {
+          query: {
+            create: vm.Model.create
+          }
+        },
+        headers: {
+          enctype: "multipart/form-data"
+        }
+      };
+      let promise = Upload.upload(uploadOptions);
+      console.log("111 eeeeeeeeeeeeeeeeeeeeeeee");
+      return promise
+        .then((dataWrapper) => {
+          console.log("111 ffffffffffffffff");
+          console.log("dataWrapper --createPhotos-- :::\n", dataWrapper);
+          let idsWrapper = dataWrapper.data;
+          return idsWrapper;
+        });
+    }
+
+    function reviewUpdateReview(extraQuery) {
+      let queryWrapper = {
+        query: vm.Model.post
+      };
+      angular.extend(queryWrapper.query, extraQuery);
+      console.log("111 iiiiiiiiiiiiiiiii");
+      console.log("queryWrapper --reviewUpdateReview-- :::\n", queryWrapper);
+      return Posts.update(null, queryWrapper).$promise
+        .then((updatedPost) => {
+          console.log("updatedPost :::\n", updatedPost);
+          return updatedPost;
+        });
+    }
+
+    // 글쓰기 버튼 클릭
     function updateTalk() {
-      console.log("$state.params.postId ==> ", $state.params.postId);
-      console.log("vm.Model.post.category ==> ", vm.Model.post.category);
-      console.log("vm.Model.post.isAnnonymous ==> ", vm.Model.post.isAnnonymous);  //true이면 보이기, false면 익명
-      console.log("vm.Model.post.title ==> ", vm.Model.post.title);
-      console.log("vm.Model.post.content ==> ", vm.Model.post.content);
-      console.log("vm.Model.post.photos ==> ", vm.Model.post.photos);
-      //1. Validation Check 진행
-      //   vm.Model.post를 body에 붙여서 서버로 query를 보냄
-      reset();
-      return RootScope.goBack('forward');
+      console.log("vm.Model :::\n", vm.Model);
+      let queryWrapper = {
+        query: vm.Model.post
+      };
+
+      Posts.create(null, queryWrapper).$promise
+        .then(updatedPost => {
+          console.log("updatedPost :::\n", updatedPost);
+          reset();
+          return RootScope.goToState('Main.Footer.TalkList', {}, 'forward');
+        })
     }
 
   }

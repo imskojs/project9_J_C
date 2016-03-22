@@ -5,24 +5,28 @@
 
   EventTabController.$inject = [
     '_MockData',
-    '$scope', '$q',
+    '$ionicHistory', '$scope', '$q',
     'EventTabModel', 'Util', 'Events', 'RootScope'
   ];
 
   function EventTabController(
     _MockData,
-    $scope, $q,
+    $ionicHistory, $scope, $q,
     EventTabModel, Util, Events, RootScope
   ) {
     var initPromise;
-    var noLoadingStates = [];
+    var noLoadingStates = [
+      'Main.Footer.EventTab.JoodangEventList',
+      'Main.Footer.EventTab.BarEventList'
+    ];
     var vm = this;
     vm.Model = EventTabModel;
     vm.tabChange = tabChange;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     //====================================================
     //  View Event
@@ -30,6 +34,7 @@
 
     function onBeforeEnter() {
       if (!Util.hasPreviousStates(noLoadingStates)) {
+        reset();
         Util.loading(EventTabModel);
         initPromise = init();
       } else {
@@ -39,17 +44,19 @@
 
     function onAfterEnter() {}
 
-    function onBeforeLeave() {}
+    function onBeforeLeave() {
+      if (!Util.hasPreviousStates(noLoadingStates)) {}
+    }
 
 
     //====================================================
     //  VM
     //====================================================
 
-    function tabChange ($event) {
+    function tabChange($event) {
       console.log("$event.currentTarget :::\n", $event.currentTarget);
       if ($event.currentTarget.textContent === '주당이벤트') {
-        $event.currrentTarget.classList.add('positive positive-bb3px')
+        $event.currrentTarget.classList.add('positive positive-bb3px');
 
       }
       RootScope.goToState('Main.Footer.EventTab.JoodangEventList', {}, 'back');
@@ -62,7 +69,14 @@
 
     function init() {}
 
-    function reset() {}
+    function reset() {
+      var Model = {
+        handle: 'event-tab',
+        loading: false,
+        currentTab: '주당이벤트',
+      };
+      angular.copy(Model, vm.Model);
+    }
 
     //====================================================
     //  Modals

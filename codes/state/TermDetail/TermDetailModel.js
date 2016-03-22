@@ -9,8 +9,9 @@
   function TermDetailModel() {
 
     var Model = {
+      handle: 'term-detail',
       loading: false,
-
+      term: {},
     };
 
     return Model;

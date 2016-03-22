@@ -9,32 +9,39 @@
   </ion-nav-buttons> -->
 
   <ion-nav-title>
-    <p class="zero pl1p bold">더보기</p>
+    <p class="zero">더보기</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+   >
     <div>  <!--컨텐츠 컨테이너-->
       <div>  <!--List 컨테이너-->
 
         <!--Node 컨테이너-->
-        <div class="grey-bb1px pt10px pb10px pl5p pr5p dark-grey"
-          ng-click="goToState('Login', {}, 'forward');">
-          <!-- ng-click="goToState('Main.Footer.Profile', {}, 'forward');"> -->
-          <!-- ng-click="goToState('Login', {}, 'forward');"> -->
+        <div ng-class="{'grey-bb1px pt10px pb10px pl5p pr5p white calm-bg': !isLogin(),
+                        'grey-bb1px pt15px pb15px pl5p pr5p dark-grey': isLogin()}"
+          ng-click="isLogin()
+                    ? goToState('Main.Footer.Profile', {}, 'forward')
+                    : goToState('Login', {}, 'forward');">
           <div class="row zero">
 
             <!--로그인 안했을 경우-->
-            <div class="col zero flex-v">
-              <p class="zero f18px lh22px">로그인</p>
-            </div><!--
-            <div class="col zero flex-v mt-6px mb-6px">
-              <img class="h40px r50p inline-block" src="img/_box200x200.png" alt="">
-              <p class="zero f18px lh22px ml7p">{{"user아이디"}}</p>
-              <span class="f18px black">&nbsp;님</span>
+            <div class="col zero flex-v"
+              ng-if="!isLogin();">
+              <p class="zero f14px lh22px">로그인</p>
             </div>
-            <div class="col-auto zero flex-v mr3p">
+            <div class="col zero flex-v mt-6px mb-6px"
+              ng-if="isLogin();">
+              <img class="h40px r50p inline-block"
+                ng-src="{{AppStorage.user | GetPhoto}}"
+                alt="프로필사진">
+              <p class="zero f14px lh22px ml7p">{{AppStorage.user.nickname}}</p>
+              <span class="f14px black">&nbsp;님</span>
+            </div>
+            <div class="col-auto zero flex-v mr3p"
+              ng-if="isLogin();">
               <p class="zero f16px">내정보수정</p>
-            </div> -->
+            </div>
 
             <div class="col-auto zero flex-v">
               <i class="zero f16px ion-arrow-right-b"></i>
@@ -43,11 +50,13 @@
         </div>
 
         <!--Node 컨테이너-->
-        <div class="grey-bb1px pt10px pb10px pl5p pr5p white calm-bg"
-          ng-click="goToState('Main.FavoriteList', {}, 'forward');">
+        <div class="grey-bb1px pt10px pb10px pl5p pr5p dark-grey"
+          ng-click="needLogin()
+                    ? goToState('Main.FavoriteList', {}, 'forward')
+                    : return;">
           <div class="row zero">
             <div class="col zero flex-v">
-              <p class="zero f18px lh22px">즐겨찾기 모아보기</p>
+              <p class="zero f14px lh22px">즐겨찾기 모아보기</p>
             </div>
             <div class="col-auto zero flex-v">
               <i class="zero f16px ion-arrow-right-b"></i>
@@ -57,10 +66,12 @@
 
         <!--Node 컨테이너-->
         <div class="grey-bb1px pt10px pb10px pl5p pr5p dark-grey"
-          ng-click="goToState('Main.MyMessageList', {}, 'forward');">
+          ng-click="needLogin()
+                    ? goToState('Main.MyMessageList', {}, 'forward')
+                    : return;">
           <div class="row zero">
             <div class="col zero flex-v">
-              <p class="zero f18px lh22px">1:1쪽지 모아보기</p>
+              <p class="zero f14px lh22px">1:1쪽지 모아보기</p>
             </div>
             <div class="col-auto zero flex-v">
               <i class="zero f16px ion-arrow-right-b"></i>
@@ -73,7 +84,7 @@
           ng-click="goToState('Main.NoticeList', {}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
-              <p class="zero f18px lh22px">공지사항</p>
+              <p class="zero f14px lh22px">공지사항</p>
             </div>
             <div class="col-auto zero flex-v">
               <i class="zero f16px ion-arrow-right-b"></i>
@@ -86,7 +97,7 @@
           ng-click="goToState('Main.TermList', {}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
-              <p class="zero f18px lh22px">이용약관</p>
+              <p class="zero f14px lh22px">이용약관</p>
             </div>
             <div class="col-auto zero flex-v">
               <i class="zero f16px ion-arrow-right-b"></i>
@@ -99,7 +110,7 @@
           ng-click="goToState('Main.CustomerList', {}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
-              <p class="zero f18px lh22px">고객센터</p>
+              <p class="zero f14px lh22px">고객센터</p>
             </div>
             <div class="col-auto zero flex-v">
               <i class="zero f16px ion-arrow-right-b"></i>
@@ -112,7 +123,7 @@
           ng-click="goToState('Main.CompanyCreate', {}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
-              <p class="zero f18px lh22px">제휴문의</p>
+              <p class="zero f14px lh22px">제휴문의</p>
             </div>
             <div class="col-auto zero flex-v">
               <i class="zero f16px ion-arrow-right-b"></i>
@@ -125,7 +136,7 @@
           ng-click="goToState('Main.RequestCreate', {}, 'forward');">
           <div class="row zero">
             <div class="col zero flex-v">
-              <p class="zero f18px lh22px">여기술집 등록해주세요</p>
+              <p class="zero f14px lh22px">여기술집 등록해주세요</p>
             </div>
             <div class="col-auto zero flex-v">
               <i class="zero f16px ion-arrow-right-b"></i>
@@ -135,29 +146,39 @@
 
         <!--Node 컨테이너-->
         <div class="grey-bb1px pt10px pb10px pl5p pr5p dark-grey"
-          ng-click="">
+          ng-click="vm.settingsToggle()">
           <div class="row zero">
             <div class="col zero flex-v">
-              <p class="zero f18px lh22px">설정</p>
+              <p class="zero f14px lh22px">설정</p>
             </div>
             <div class="col-auto zero flex-v">
-              <i class="zero f16px ion-arrow-down-b positive"></i>
+              <i ng-class="{
+                'zero f16px positive ion-arrow-down-b': !vm.Model.isSettingShow,
+                'zero f16px positive ion-arrow-up-b': vm.Model.isSettingShow
+              }"></i>
             </div>
           </div>
         </div>
 
-        <div class="grey-bb1px pt10px pb10px pl5p pr5p dark-grey lighter-grey-bg">  <!--Node 컨테이너-->
-          <div class="row zero">
-            <div class="col zero flex-v">
-              <p class="zero f18px lh22px">푸쉬 알림 설정</p>
-            </div>
-            <div class="col-auto zero flex-v">
-              <label class="toggle toggle-assertive mt-10px mr-10px mb-15px ml-10px">
-                 <input type="checkbox">
-                 <div class="track">
-                   <div class="handle"></div>  <!--토글에서 움직이는 동그라미-->
-                 </div>
-              </label>
+        <!--settings 컨테이너-->
+        <div ng-if="vm.Model.isSettingShow">
+          <!--Node 컨테이너-->
+          <div class="grey-bb1px pt10px pb10px pl5p pr5p dark-grey lighter-grey-bg">
+            <div class="row zero">
+              <div class="col zero flex-v">
+                <p class="zero f14px lh22px">푸쉬 알림 설정</p>
+              </div>
+              <div class="col-auto zero flex-v">
+                <label class="toggle toggle-assertive mt-10px mr-10px mb-15px ml-10px">
+                   <input type="checkbox"
+                    ng-model="vm.Model.settings.isPush"
+                    ng-change="vm.togglePush()"
+                   >
+                   <div class="track">
+                     <div class="handle"></div>  <!--토글에서 움직이는 동그라미-->
+                   </div>
+                </label>
+              </div>
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@
   function PlaceListModel() {
 
     var Model = {
+      handle: 'place-list',
       loading: false,
       longitude: 126,
       latitude: 37,

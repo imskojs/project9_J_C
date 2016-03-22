@@ -9,14 +9,21 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p">내글관리</p>
+    <p class="zero">내글관리</p>
   </ion-nav-title>
 
-  <ion-content class="bold darker-grey">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="bold darker-grey">
     <div>   <!--컨텐츠 컨테이너-->
 
       <div ng-include="'state/0Template/Include/TalkList.html'">
       </div>
+
+      <ion-infinite-scroll
+        on-infinite="vm.infiniteScroll()"
+        immediate-check="false"
+        ng-if="vm.Model.more">
+      </ion-infinite-scroll>
 
     </div>  <!--컨텐츠 컨테이너 종료-->
   </ion-content>

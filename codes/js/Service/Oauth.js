@@ -29,16 +29,16 @@
 
   Oauth.$inject = [
     '$q', '$window', '$http', '$timeout',
-    'Message', 'AppStorage', 'Users',
+    'Message', 'AppStorage', 'Users', 'Devices',
     'OAUTH_CALLBACK_URL', 'SERVER_URL'
   ];
 
   function Oauth(
     $q, $window, $http, $timeout,
-    Message, AppStorage, Users,
+    Message, AppStorage, Users, Devices,
     OAUTH_CALLBACK_URL, SERVER_URL
   ) {
-
+    var _ = $window._;
     var Service = {
       facebook: facebook,
       kakao: kakao
@@ -113,11 +113,21 @@
           var userWrapper = dataWrapper.data;
           console.log("userWrapper :::\n", userWrapper);
           var userFindOne = Users.findOne({
-            where: {
-              id: userWrapper.user.id
-            },
-            populate: ['roles', 'profilePhoto']
-          });
+              query: {
+                where: {
+                  id: userWrapper.user.id
+                },
+                // REFACTOR
+                populate: ['roles', 'profilePhoto', 'favorites']
+              }
+            }).$promise
+            .then(function(user) {
+              user.favorites = _.map(user.favorites, 'place');
+              if (!user.favorites) {
+                user.favorites = [];
+              }
+              return user;
+            });
           return $q.all([dataWrapper, userFindOne]);
         })
         .then(function(array) {
@@ -128,6 +138,19 @@
           AppStorage.user = user;
           AppStorage.token = userWrapper.token;
           AppStorage.isFirstTime = false;
+          let deviceUpdate;
+          if (AppStorage.deviceId) {
+            deviceUpdate = Devices.update({}, {
+              deviceId: AppStorage.deviceId,
+              user: AppStorage.user.id
+            });
+          }
+          return $q.all([deviceUpdate, userWrapper]);
+        })
+        .then(function(array) {
+          var devicesWrapper = array[0];
+          console.log("devicesWrapper :::\n", devicesWrapper);
+          var userWrapper = array[1];
           return userWrapper;
         });
     }
@@ -189,23 +212,49 @@
         })
         .then(function(dataWrapper) {
           var userWrapper = dataWrapper.data;
-          console.log("userWrapper :::\n", userWrapper);
+          console.log("userWrapper --before findOne--:::\n", userWrapper);
+
           var userFindOne = Users.findOne({
-            where: {
-              id: userWrapper.user.id
-            },
-            populate: ['roles', 'profilePhoto']
-          });
+              query: {
+                where: {
+                  id: userWrapper.user.id
+                },
+                // REFACTOR
+                populate: ['roles', 'profilePhoto', 'favorites']
+              }
+            }).$promise
+            .then(function(user) {
+              user.favorites = _.map(user.favorites, 'place');
+              if (!user.favorites) {
+                user.favorites = [];
+              }
+              return user;
+            });
+
           return $q.all([dataWrapper, userFindOne]);
         })
         .then(function(array) {
           var dataWrapper = array[0];
           var user = array[1];
+          console.log("user :::\n", user);
           var userWrapper = dataWrapper.data;
-          console.log("userWrapper :::\n", userWrapper);
           AppStorage.user = user;
           AppStorage.token = userWrapper.token;
           AppStorage.isFirstTime = false;
+
+          let deviceUpdate;
+          if (AppStorage.deviceId) {
+            deviceUpdate = Devices.update({}, {
+              deviceId: AppStorage.deviceId,
+              user: AppStorage.user.id
+            });
+          }
+          return $q.all([deviceUpdate, userWrapper]);
+        })
+        .then(function(array) {
+          var devicesWrapper = array[0];
+          console.log("devicesWrapper :::\n", devicesWrapper);
+          var userWrapper = array[1];
           return userWrapper;
         });
     }

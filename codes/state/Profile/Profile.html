@@ -9,38 +9,74 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p bold">내 정보 수정</p>
+    <p class="zero">내 정보 수정</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+   >
     <div>  <!--컨텐츠 컨테이너-->
       <div>  <!--List 컨테이너-->
 
-        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+        <div class="grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
           <div class="row zero">
             <div class="col zero flex-v mt-6px mb-6px">
-              <img class="h40px r50p inline-block" ng-src="{{vm.Model.user.profilePhoto.url}}" alt="프로필사진">
-              <p class="zero f18px ml7p">{{vm.Model.user.nickname}}</p>
-              <span class="f18px black">&nbsp;님</span>
+
+              <img class="w40px h40px fit r50px inline-block"
+                ng-if="!vm.Model.user.profilePhoto && vm.Model.images.length === 0"
+                ng-src="{{vm.Model.user | GetPhoto}}"
+                ng-click="vm.profileImageUpdate();"
+                alt="프로필사진"
+              >
+
+              <div class="w40px h40px r50px inline-block flex relative"
+                ng-click="vm.profileImageUpdate()"
+                ng-repeat="image in vm.Model.images"
+              >
+
+                <img class="w40px h40px fit r50px"
+                  alt="배너 사진"
+                  ngf-src="image"
+                  ng-if="!image.id"
+                >
+
+                <img class="w40px h40px fit r50px"
+                  alt="배너 사진"
+                  ng-src="{{image.url}}"
+                  ng-if="image.id"
+                >
+              </div>
+<!--
+                <div class="w100p h100p absolute top0px left0px flex opacity-5"
+                  ng-click="PhotoClass.deselectImage(vm.Model.images, $index)"
+                >
+                  <i class="ion-ios-close f50px positive"></i>
+                </div>
+ -->
+
+
+
+
+              <p class="zero f14px ml7p">{{AppStorage.user.nickname}}</p>
+              <span class="f14px black">&nbsp;님</span>
             </div>
-            <div class="col-auto zero flex-v"
-              ng-click="vm.logout();">
-              <p class="zero f12px lh20px w75px center dark-grey-b1px r20px">로그아웃</p>
+            <div class="col-auto zero flex-v">
+              <p class="zero f12px lh20px w75px center dark-grey-b1px r20px"
+                ng-click="vm.logout();">로그아웃</p>
             </div>
           </div>
         </div>
 
-        <div class="bold grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
+        <div class="grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
           <div class="row zero">
             <div class="col-20 zero flex-v">
               <p class="zero f14px">닉네임</p>
             </div>
             <div class="col zero flex-v">
-              <p class="zero f14px black">{{vm.Model.user.nickname}}</p>
+              <p class="zero f14px black">{{AppStorage.user.nickname}}</p>
             </div>
-            <div class="col-auto zero flex-v"
-              ng-click="vm.NicknameUpdateModal.show();">
-              <p class="zero f12px lh20px w75px center dark-grey-b1px r20px">수정</p>
+            <div class="col-auto zero flex-v">
+              <p class="zero f12px lh20px w75px center dark-grey-b1px r20px"
+                ng-click="vm.NicknameUpdateModal.show();">수정</p>
             </div>
           </div>
         </div>

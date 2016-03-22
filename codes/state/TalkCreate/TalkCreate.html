@@ -9,10 +9,12 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p">글쓰기</p>
+    <p class="zero">글쓰기</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <ion-content 
+    delegate-handle="talk-create"
+  >
     <div ng-include="'state/0Template/Include/TalkCreate&Update.html'">
     </div>
   </ion-content>

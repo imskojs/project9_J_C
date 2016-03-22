@@ -9,10 +9,11 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p">리뷰</p>
+    <p class="zero">리뷰</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+   >
 
     <!--상단 별점주는 공간-->
     <div class="pl2p pr2p positive">  <!--컨테이너-->
@@ -94,14 +95,14 @@
 
       <div class="row zero mb30px">
         <!-- camera -->
-        <div class="col zero flex mr1p"
+        <div class="col-16 zero flex-v mr1p"
           ng-click="vm.getPhoto()"
         >
           <img class="h50px r5px" src="img/camera.png" alt="Camera">
         </div>
 
         <!-- Image Preview -->
-        <div class="col zero flex mr1p"
+        <div class="col-16 zero flex-v mr1p"
           ng-repeat="image in vm.Model.images"
           ng-click="PhotoClass.deselectImage(vm.Model.images, $index)"
         >
@@ -110,19 +111,19 @@
               alt="지우기 버튼"
               src="img/icon_photo_delete.png"
             >
-            <img class="h50px r5px" 
+            <img class="h50px r5px"
               alt="리뷰 사진"
-              ngf-src="image" 
+              ngf-src="image"
               ng-if="!image.id"
             >
-            <img class="h50px r5px" 
+            <img class="h50px r5px"
               alt="리뷰 사진"
-              ng-src="{{image.url}}" 
+              ng-src="{{image.url}}"
               ng-if="image.id"
             >
           </div>
         </div> <!-- Image Preview End -->
-      </div> 
+      </div>
       <!--사진 (최대 5장)-->
       <!-- <div class="row zero mt5px">
         <div class="col zero flex-v"

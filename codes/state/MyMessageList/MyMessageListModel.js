@@ -9,6 +9,7 @@
   function MyMessageListModel() {
 
     var Model = {
+      handle: 'my-message-list',
       loading: false,
 
 

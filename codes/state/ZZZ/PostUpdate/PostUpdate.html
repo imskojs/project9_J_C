@@ -13,7 +13,8 @@
     <p class="zero">PostUpdate</p>
   </ion-nav-title>
 
-  <ion-content class="top84px">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="top84px">
     <div class="w100p h100vh flex-h light-grey-bg absolute"
       style="z-index: 2"
       ng-if="PostUpdate.Model.loading"

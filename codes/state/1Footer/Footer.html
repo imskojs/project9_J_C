@@ -21,33 +21,56 @@
 
     <!-- Home -->
     <div class="col zero flex-h">
-      <button class="button-icon ion-android-home positive icon-f25px"
-        ng-click="Footer.goToState('Main.Footer.Home', {}, 'enter');">
+      <button class="button-icon ion-android-home icon-f25px"
+        ng-class="{
+          grey: !areStates(['Main.Footer.Home']),
+          positive: areStates(['Main.Footer.Home'])
+        }"
+        ng-click="Footer.goToState('Main.Footer.Home', {});"
+      >
       </button>
     </div>
 
-    <!--  -->
+    <!-- Event -->
     <div class="col zero flex-h">
       <button class="button-icon ion-wand grey icon-f25px"
-        ng-click="Footer.goToState('Main.Footer.EventTab.JoodangEventList', {}, 'enter');">
+        ng-class="{
+          grey: !$state.includes('Main.Footer.EventTab'),
+          positive: $state.includes('Main.Footer.EventTab')
+        }"
+        ng-click="Footer.goToState('Main.Footer.EventTab.JoodangEventList', {});">
       </button>
     </div>
 
+    <!-- SearchTab -->
     <div class="col zero flex-h mt-9px">
-      <button class="button-icon ion-android-search white-bg r50p p5px grey w44px grey-bt1px icon-f25px"
-        ng-click="Footer.goToState('Main.Footer.SearchTab.ProvinceList', {}, 'enter');">
+      <button class="button-icon ion-android-search white-bg r50p p5px w44px grey-bt1px icon-f25px"
+        ng-class="{
+          grey: !$state.includes('Main.Footer.SearchTab'),
+          positive: $state.includes('Main.Footer.SearchTab')
+        }"
+        ng-click="Footer.goToState('Main.Footer.SearchTab.ProvinceList', {});">
       </button>
     </div>
 
+    <!-- TalkList -->
     <div class="col zero flex-h">
-      <button class="button-icon ion-android-chat grey icon-f25px"
-        ng-click="Footer.goToState('Main.Footer.TalkList', {}, 'enter');">
+      <button class="button-icon ion-android-chat icon-f25px"
+        ng-class="{
+          grey: !areStates(['Main.Footer.TalkList']),
+          positive: areStates(['Main.Footer.TalkList']),
+        }"
+        ng-click="Footer.goToState('Main.Footer.TalkList', {});">
       </button>
     </div>
 
     <div class="col zero flex-h">
       <button class="button-icon ion-android-more-horizontal grey icon-f25px"
-        ng-click="Footer.goToState('Main.Footer.SettingList', {}, 'enter');">
+        ng-class="{
+          grey: !areStates(['Main.Footer.SettingList']),
+          positive: areStates(['Main.Footer.SettingList'])
+        }"
+        ng-click="Footer.goToState('Main.Footer.SettingList', {});">
       </button>
     </div>
 

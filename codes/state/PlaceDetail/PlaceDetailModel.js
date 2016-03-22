@@ -9,7 +9,12 @@
   function PlaceDetailModel() {
 
     var Model = {
+      handle: 'place-detail',
       loading: false,
+      isNotFavorite: true,
+
+      loadingById: [],
+      commentDestroyLoading: false,
       place: {},
       reviews: [],
       comments: [],

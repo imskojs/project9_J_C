@@ -14,12 +14,14 @@
   ) {
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var PostDetail = this;
     PostDetail.Model = zPostDetailModel;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     PostDetail.refresh = refresh;
     PostDetail.loadMoreComments = loadMoreComments;
@@ -61,8 +63,12 @@
       } else {}
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
     //====================================================
@@ -215,7 +221,7 @@
           },
           sort: 'id DESC',
           limit: 20,
-          populate: ['owner']
+          // populate: ['owner']
         }
       };
       angular.extend(queryWrapper.query.where, extraQuery);

@@ -9,7 +9,7 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p text-overflow">{{"지역 이름"}}</p>
+    <p class="zero">{{"지역 이름"}}</p>
   </ion-nav-title>
 
   <!-- <ion-header-bar class="h30px top44px light-grey-bb1px white-bg"
@@ -28,14 +28,22 @@
     </div>
   </ion-header-bar> -->
 
-  <!-- <ion-header-bar class=""
+  <!-- <ion-header-bar
     no-tap-scroll="true"
   >
   </ion-header-bar> -->
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
 
-  <ion-content class="light-grey-bg">
+  <ion-content  class="light-grey-bg"
+    delegate-handle="province-search-list"
+   >
     <div>   <!--컨텐츠 컨테이너-->
-
       <div ng-include="'state/0Template/Include/PlaceList.html'">
       </div>
 

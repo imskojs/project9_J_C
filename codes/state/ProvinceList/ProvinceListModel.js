@@ -9,6 +9,7 @@
   function ProvinceListModel(Province) {
 
     var Model = {
+      handle: 'province-list',
       loading: false,
       toggleArray: [],
       province: Province

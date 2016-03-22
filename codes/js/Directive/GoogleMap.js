@@ -287,10 +287,11 @@
           type: 'Feature'
         };
         if (item.geoJSON) {
-          var geometry = _.clone(item.geoJSON);
-          delete item.geoJSON;
+          // var geometry = _.clone(item.geoJSON);
+          // delete item.geoJSON;
           feature.properties = item;
-          feature.geometry = geometry;
+          // feature.geometry = geometry;
+          feature.geometry = item.geoJSON;
           return feature;
         }
       });

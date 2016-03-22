@@ -9,6 +9,7 @@
   function ReviewCreateModel() {
 
     var Model = {
+      handle: 'review-create',
       loading: false,
       review: {
         rating: 5,

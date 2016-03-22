@@ -61,6 +61,15 @@
   }
 }
 
+@each $app-color in $app-colors {
+  .spinner-#{$app-color} {
+    svg {
+      fill: return-var-from-text($app-color) !important;
+      stroke: return-var-from-text($app-color) !important;
+    }
+  }
+}
+
 @for $i from 1 through 100 {
   .icon-f#{$i}px::before {
     font-size: #{$i}px !important;

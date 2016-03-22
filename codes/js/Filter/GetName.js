@@ -12,10 +12,10 @@
         return user.name;
       } else if (user.nickname) {
         return user.nickname;
-      } else if (user.username) {
-        return user.username;
       } else if (user.fullname) {
         return user.fullname;
+      } else if (user.username) {
+        return user.username;
       } else {
         return 'UserX';
       }

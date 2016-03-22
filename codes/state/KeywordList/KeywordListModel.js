@@ -9,7 +9,11 @@
   function KeywordListModel() {
 
     var Model = {
+      handle: 'keyword-list',
       loading: false,
+      selectedUniqueKeyword: '',
+      selectedMultipleKeywords: [],
+      keywordString: '',
       uniqueKeywords: [
         {
           title: '포차/호프',
@@ -94,10 +98,7 @@
           photoUrl: 'img/keyword_icon16.png',
           photoHoverUrl: 'img/keyword_hover_icon16.png'
         }
-      ],
-      selectedUniqueKeyword: '',
-      selectedMultipleKeywords: [],
-      keywordString: ''
+      ]
     };
 
     return Model;

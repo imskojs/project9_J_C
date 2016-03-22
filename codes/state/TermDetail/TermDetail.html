@@ -9,28 +9,27 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p bold">이용약관</p>
+    <p class="zero">이용약관</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+   >
     <div>  <!--컨텐츠 컨테이너-->
 
       <div class="bold grey-bb1px pt10px pb10px pl5p pr5p">  <!--제목 컨테이너-->
         <div class="row zero">
           <div class="col zero flex-v">
-            <p class="zero f14px lh20px darker-grey">{{"이용약관 게시물 제목"}}</p>
+            <p class="zero f14px lh20px darker-grey">{{vm.Model.term.title}}</p>
           </div>
         </div>
       </div>
 
-      <div class="bold pt15px pb40px pl5p pr5p">  <!--내용 컨테이너-->
+      <div class="pt15px pb40px pl5p pr5p">  <!--내용 컨테이너-->
         <div class="row zero">
           <div class="col zero">
-            <p class="zero f12px lh20px dark-grey">
-              {{"세계문자 가운데 한글, 즉 훈민정음은 흔히들 신비로운 문자라 부르곤 합니다. 그것은 세계 문자 가운데 유일하게 한글만이 그것을 만든 사람과 반포일을 알며, 글자를 만든 원리까지 알기 때문입니다. 세계에 이런 문자는 없습니다. 그래서 한글은, 정확히 말해 [훈민정음 해례본](국보 70호)은 진즉에 유네스코 세계기록유산으로 등재되었습니다. ‘한글’이라는 이름은 1910년대 초에 주시경 선생을 비롯한 한글학자들이 쓰기 시작한 것입니다. 여기서 ‘한’이란 크다는 것을 뜻하니, 한글은 ‘큰 글’을 말한다고 하겠습니다.
-              한글의 창제 원리를 담고 있는 [훈민정음 해례본]
-              [훈민정음 해례본]은 세종이 직접 서문을 쓰고 정인지 같은 신하들에게 글자에 대한 설명을 적게 한 것입니다. 이 책이 1940년에 안동에서 발견될 때까지 우리는 한글의 창제 원리에 대해 전혀 모르고 있었습니다. 그러다 이 책이 발견됨으로 해서 한글이 얼마나 과학적인 원리로 만들어졌는지 알게 되었답니다. 이 책이 우리에게 전해진 것은 전적으로 성북동에 있는 간송미술관을 세운 전형필 선생의 공입니다. 선생은 아주 비싼 가격으로 이 책을 샀고 6∙25 때에도 이 책 한 권만 들고 피난 갈 정도로 이 책을 지키기 위해 몸을 바친 분입니다. 이 분도 [직지]를 세계에 알린 박병선 선생처럼 우리의 문화영웅입니다."}}
-            </p>
+            <pre class="zero f12px lh20px dark-grey">
+              {{vm.Model.term.content}}
+            </pre>
           </div>
         </div>
       </div>

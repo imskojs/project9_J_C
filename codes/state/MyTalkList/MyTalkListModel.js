@@ -9,7 +9,11 @@
   function MyTalkListModel() {
 
     var Model = {
+      handle: 'my-talk-list',
       loading: false,
+      // categoryToggle: false,
+      // selectedCategory: '전체',
+      // notices: [],
       posts: []
     };
 

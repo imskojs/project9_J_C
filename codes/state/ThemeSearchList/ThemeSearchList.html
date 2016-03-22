@@ -9,7 +9,7 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p">테마 검색</p>
+    <p class="zero">테마 검색</p>
   </ion-nav-title>
 
   <ion-header-bar class="h30px top44px light-grey-bg"
@@ -31,8 +31,16 @@
       </div>
     </div>
   </ion-header-bar> -->
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
 
-  <ion-content class="light-grey-bg top74px">
+  <ion-content delegate-handle="theme-search-list"
+    class="light-grey-bg top74px">
     <div>   <!--컨텐츠 컨테이너-->
 
       <div ng-include="'state/0Template/Include/PlaceList.html'">

@@ -1,10 +1,8 @@
 <ion-view id="login"
   cache-view="true"
   hide-back-button="true"><!-- 아래 태그들은 <ion-nav-bar> 안에 들어갈 경우에만 사용할 수 있다.
-  <ion-nav-title class="bold">
-    <p class="zero pl5p">
-      JOODANG
-    </p>
+  <ion-nav-title>
+    <p class="zero">JOODANG</p>
   </ion-nav-title>
 
   <ion-nav-buttons side="right">
@@ -30,7 +28,8 @@
   </ion-nav-view>
 
 
-  <ion-content class="com-gradient-bg">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="com-gradient-bg">
     <div class="pt5p pb5p pl10p pr10p">  <!--컨텐츠 컨테이너-->
 
       <div class="row zero mt0px">

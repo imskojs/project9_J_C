@@ -1,0 +1,28 @@
+<ion-modal-view class="modal-bg">
+  <ion-content delegate-handle="{{vm.Model.handle}}"
+    class="p1px flex"
+    scroll="false"
+  >
+    <div class="flex zero auto black-bg r5px">
+
+      <div class="relative col zero">
+        <div class="row zero mt0px">
+          <div class="col zero flex">
+            <p class="zero f18px lh30px white">이미지 확대보기</p>
+          </div>
+          <!--X버튼-->
+          <div class="absolute top0px right0px flex w30px h30px"
+            ng-click="vm.expandPhoto();">
+            <i class="zero f20px bold ion-close-round white"></i>
+          </div>
+        </div>
+
+        <!--이미지 컨테이너-->
+        <img class="block max-w100p max-h100p"
+          ng-src="{{vm.Model.selectedPhoto.url}}" />
+
+      </div>
+    </div>
+
+  </ion-content>
+</ion-modal-view>

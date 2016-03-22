@@ -1,12 +1,12 @@
 <div class="p1p">  <!--주당이벤트 List 컨테이너-->
 
   <!--주당이벤트 Node-->
-  <div class="mb4px grey-b1px"
+  <div class="mb4px r4px grey-b1px"
     ng-click="vm.goToState(event.category, {eventId: event.id}, 'forward');"
-    ng-repeat="event in vm.Model.events">
+    ng-repeat="event in vm.Model.events track by event.id">
     <div class="row zero">
       <div class="col zero">
-        <img class="w100p h100px" ng-src="{{event.photos[0].url | Cloudinary800}}" alt="이벤트 사진">
+        <img class="w100p h100px lazy-show" ng-src="{{event.photos[0].url | Cloudinary800}}" alt="이벤트 사진">
       </div>
     </div>
     <div class="pt5px pb5px pl10px pr10px">
@@ -27,5 +27,18 @@
       </div>
     </div>
   </div>  <!--주당이벤트 Node 종료-->
+
+  <ion-infinite-scroll
+    on-infinite="vm.infiniteScroll()"
+    immediate-check="false"
+    ng-if="vm.Model.infiniteScroll">
+  </ion-infinite-scroll>
+
+  <!-- <ion-infinite-scroll
+    on-infinite="vm.loadMore()"
+    immediate-check="false"
+    ng-if="vm.Model.more"
+  >
+  </ion-infinite-scroll> -->
 
 </div>  <!--주당이벤트 List 컨테이너 종료-->

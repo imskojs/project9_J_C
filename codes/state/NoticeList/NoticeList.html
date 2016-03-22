@@ -9,29 +9,46 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p bold">공지사항</p>
+    <p class="zero">공지사항</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex-h pt250px light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
+
+  <ion-content
+    delegate-handle="notice-list"
+  >
     <div>  <!--컨텐츠 컨테이너-->
       <div>  <!--List 컨테이너-->
 
         <!--Node 컨테이너-->
-        <div class="bold grey-bb1px pt12px pb12px pl5p pr5p dark-grey"
-          ng-click="goToState('Main.NoticeDetail', {}, 'forward');"
-          ng-repeat="notice in vm.Model.notices">
+        <div class="grey-bb1px pt12px pb12px pl5p pr5p dark-grey"
+          ng-click="goToState('Main.NoticeDetail', {postId: post.id}, 'forward');"
+          ng-repeat="post in vm.Model.posts">
           <div class="row zero">
             <div class="col zero flex-v">
-              <p class="zero f14px">{{notice.title}}</p>
+              <p class="zero f14px">{{post.title}}</p>
             </div>
             <div class="col-auto zero flex-v">
-              <p class="zero f12px">{{notice.date}}</p>
+              <p class="zero f12px">{{post.createdAt | date: 'yyyy.MM.dd'}}</p>
             </div>
           </div>
         </div>
 
       </div>
     </div>
+
+    <ion-infinite-scroll
+      on-infinite="vm.infiniteScroll()"
+      immediate-check="false"
+      ng-if="vm.Model.more">
+    </ion-infinite-scroll>
+
   </ion-content>
 
   <!-- <ion-footer-bar class="bottom44px zero">

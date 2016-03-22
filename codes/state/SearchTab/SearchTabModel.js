@@ -9,9 +9,9 @@
   function SearchTabModel() {
 
     var Model = {
+      handle: 'search-tab',
       loading: false,
-      currentTab: ''
-
+      currentTab: 'PROVINCE'
     };
 
     return Model;

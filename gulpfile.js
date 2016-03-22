@@ -1,11 +1,7 @@
 var gulp = require('gulp');
-//var gutil = require('gulp-util');
-//var bower = require('bower');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
-var purify = require('gulp-purifycss');
-var uglify = require('gulp-uglify');
 var ngTemplate = require('gulp-ng-template');
 var imageop = require('gulp-image-optimization');
 var rename = require('gulp-rename');
@@ -48,8 +44,8 @@ var paths = {
     './codes/scss/15_flexboxes.scss',
     './codes/scss/20_popUpModalAnimations.scss',
     './codes/scss/30_touched.scss',
-    './codes/scss/common.scss',
-    './codes/state/**/*.scss'
+    './codes/state/**/*.scss',
+    // './codes/scss/common.scss' // common.scss is not purified
   ],
   js: [
     './codes/js/app.js',
@@ -65,7 +61,7 @@ var paths = {
   ],
   lib: [
     // Non-Angular 3rd Party Libraries
-    './codes/lib/jQuery/dist/jquery.js',
+    // './codes/lib/jQuery/dist/jquery.js',
     './codes/lib/Geolib/src/geolib.js',
     './codes/lib/lodash/lodash.js',
     './codes/lib/moment/moment.js',
@@ -73,24 +69,17 @@ var paths = {
     // Ionic/Angular Core
     './codes/lib/ionic/js/ionic.bundle.js',
     // Angular 3rd Party Libraries
+    // './codes/lib/ng-img-crop-full-extended/compile/minified/ng-img-crop.js', // minification problem, included in index.html manually
     './codes/lib/ngstorage/ngStorage.js',
     './codes/lib/angular-resource/angular-resource.js',
     './codes/lib/ngCordova/dist/ng-cordova.js',
-    './codes/lib/ng-file-upload//ng-file-upload.js',
-    './codes/lib/ng-img-crop-full-extended/compile/minified/ng-img-crop.js'
-    // './codes/lib/ng-img-crop-full-extended/compile/unminified/ng-img-crop.js'
+    './codes/lib/ng-file-upload//ng-file-upload.js'
   ]
 };
 
 gulp.task('lib', function(done) {
   gulp.src(paths.lib)
     .pipe(concat('lib.all.js'))
-    .pipe(gulpif(argv.production, uglify({
-      mangle: false
-    })))
-    .pipe(rename({
-      extname: '.min.js'
-    }))
     .pipe(gulp.dest('./www/lib/'))
     .on('end', done);
 });
@@ -111,9 +100,9 @@ gulp.task('sassLib', function(done) {
     .pipe(sass({
       errLogToConsole: true
     }))
-    .pipe(gulpif(argv.production, minifyCss({
+    .pipe(minifyCss({
       keepSpecialComments: 0
-    })))
+    }))
     .pipe(rename({
       extname: '.min.css'
     }))
@@ -121,8 +110,6 @@ gulp.task('sassLib', function(done) {
     .on('end', done);
 });
 
-var purifyTargets = paths.lib.concat(paths.js)
-  .concat(paths.view);
 gulp.task('sass', function(done) {
   gulp.src(paths.sass)
     .pipe(concat('ionic.app.all.scss'))
@@ -130,10 +117,23 @@ gulp.task('sass', function(done) {
     .pipe(sass({
       errLogToConsole: true
     }))
-    .pipe(gulpif(argv.production, purify(purifyTargets)))
-    .pipe(gulpif(argv.production, minifyCss({
+    .pipe(gulp.dest('./www/css/'))
+    .on('end', done);
+});
+
+gulp.task('sassCommon', function(done) {
+  gulp.src([
+    './codes/scss/00_variables.scss',
+    './codes/scss/00_functions.scss',
+    './codes/scss/common.scss'
+  ])
+    .pipe(concat('common.scss'))
+    .pipe(sass({
+      errLogToConsole: true
+    }))
+    .pipe(minifyCss({
       keepSpecialComments: 0
-    })))
+    }))
     .pipe(rename({
       extname: '.min.css'
     }))
@@ -150,12 +150,6 @@ gulp.task('js', function(done) {
     .pipe(remember('013_clientJooDang'))
     .pipe(concat('app.all.js'))
     .pipe(gulpif(argv.production, stripDebug()))
-    // .pipe(gulpif(argv.production, uglify({
-    //   mangle: false
-    // })))
-    .pipe(rename({
-      extname: '.min.js'
-    }))
     .pipe(gulp.dest('./www/js/'))
     .on('end', done);
 });
@@ -180,11 +174,15 @@ gulp.task('img', function(done) {
 });
 
 gulp.task('compile', ['img', 'lib']);
-gulp.task('default', ['view', 'sassLib', 'sass', 'js']);
+gulp.task('default', ['view', 'sassLib', 'sass', 'sassCommon', 'js']);
+// gulp release --production
+gulp.task('release', ['lib', 'view', 'sassLib', 'sass', 'sassCommon', 'js']);
 
 gulp.task('watch', function() {
   gulp.watch(paths.view, ['view']);
   gulp.watch(paths.sassLib, ['sassLib']);
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch(['./codes/scss/00_variables.scss', './codes/scss/00_functions.scss', './codes/scss/common.scss'], ['sassCommon']);
   gulp.watch(paths.js, ['js']);
+  gulp.watch(paths.lib, ['lib']);
 });

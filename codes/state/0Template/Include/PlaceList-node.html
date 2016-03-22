@@ -9,11 +9,11 @@
     ng-src="img/no_image.png" />
 
   <!--할인 정보-->
-  <div class="absolute top8px left0px w70px h25px"
+  <div class="absolute left0px w70px h25px top8px"
      ng-if="place.showDiscountTag">
     <div class="row zero h20px">
-      <div class="col zero h25px flex positive-bg">
-        <p class="f12px zero white center">{{place.discountTitle}}</p>
+      <div class="col zero h25px flex-v positive-bg">
+        <p class="pl10px f12px zero white">{{place.discountTitle}}</p>
       </div>
       <div class="col-10 zero">
         <img class="h25px" src="img/home_detail_tag.png" alt="끝에 잘리는이미지" />
@@ -21,11 +21,12 @@
     </div>
   </div>
   <!--이벤트 정보-->
-  <div class="absolute top38px left0px w70px h25px"
+  <div ng-class="{'absolute left0px w70px h25px top38px': place.showDiscountTag,
+                  'absolute left0px w70px h25px top8px': !place.showDiscountTag}"
      ng-if="place.showEventTag">
     <div class="row zero h20px">
-      <div class="col zero h25px flex positive-bg">
-        <p class="f12px zero white center">{{"이벤트"}}</p>
+      <div class="col zero h25px flex-v positive-bg">
+        <p class="pl10px f12px zero white">{{"이벤트"}}</p>
       </div>
       <div class="col-10 zero">
         <img class="h25px" src="img/home_detail_tag.png" alt="끝에 잘리는이미지" />
@@ -35,11 +36,11 @@
 </div>
 
 
-<div class="col-60 zero pt1p pb1p pl2p pr2p">
+<div class="col-60 zero pt1p pb2p pl2p pr2p">
   <!--업체명-->
   <div class="row zero">
     <div class="col zero">
-      <p class="zero f12px bold lh26px text-overflow">{{place.name}}</p>
+      <p class="zero f14px lh26px text-overflow">{{place.name}}</p>
     </div>
     <!--나와 업체의 거리-->
     <div class="col-auto zero flex-v f16px positive ion-ios-location mr2p"></div>
@@ -53,16 +54,16 @@
   >
   </div>
   <!--업체 주소-->
-  <div class="row zero mt1px mb10px">
+  <div class="row zero mt10px">
     <div class="col zero">
       <p class="zero text-overflow f12px letter-spacing-1">{{place.address}}</p>
     </div>
   </div>
   <!--업체 태그-->
-  <div class="row zero center">
+  <div class="row zero mt10px center">
     <div class="col zero p1px"
       ng-repeat="tag in place.tags track by $index">
-      <p class="p5 positive positive-b1px r3px f8px text-overflow">{{tag}}</p>
+      <p class="zero p3 positive positive-b1px r3px f10px text-overflow">{{tag}}</p>
     </div>
   </div>
 </div>

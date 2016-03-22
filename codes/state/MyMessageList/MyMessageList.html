@@ -9,33 +9,54 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p bold">1:1 쪽지 모아보기</p>
+    <p class="zero">1:1 쪽지 모아보기</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
+
+
+  <ion-content
+    delegate-handle="my-message-list"
+  >
     <div>  <!--컨텐츠 컨테이너-->
       <div>  <!--List 컨테이너-->
-
         <!--Node 컨테이너-->
-        <div class="bold grey-bb1px pt5px pb5px pl5p pr5p dark-grey"
-          ng-click="goToState('Main.MessageCreate', { messageId: message.id }, 'forward');"
-          ng-repeat="message in vm.Model.messages">
+        <div class="grey-bb1px pt5px pb5px pl5p pr5p dark-grey"
+          ng-click="goToState('Main.MessageCreate', {
+            ownerId: message.sender.id
+          }, 'forward')"
+          ng-repeat="message in vm.Model.messages | orderBy: '-isNew'"
+        >
           <div class="row zero">
             <div class="col zero flex-v">
               <div class="relative">
-                <img class="h40px r50p inline-block relative"
-                  ng-src="{{message.sender.profilePhoto.url}}" alt="매장 대표사진">
+                <img class="w40px h40px fit r50px inline-block relative"
+                  ng-src="{{message.sender | GetPhoto}}" alt="장소주인 사진"
+                >
                 <img class="absolute h20px top-3px right-10px"
                   src="img/icon_message_new.png" alt="새쪽지 알림"
-                  ng-if="message.isNew" />  <!--읽지않은 쪽지가 있을경우-->
+                  ng-if="message.isNew"
+                >  <!--읽지않은 쪽지가 있을경우-->
               </div>
               <p class="zero f16px ml7p">{{message.sender.nickname}}</p>
             </div>
             <div class="col-auto zero flex-v">
-              <p class="zero f12px">{{message.time}}</p>
+              <p class="zero f12px">{{message.createdAt | date: 'yyyy.MM.dd HH:mm'}}</p>
             </div>
           </div>
         </div><!--Node 컨테이너-->
+
+        <ion-infinite-scroll
+          on-infinite="vm.infiniteScroll()"
+          immediate-check="false"
+          ng-if="vm.Model.more">
+        </ion-infinite-scroll>
 
       </div>
     </div>

@@ -532,6 +532,15 @@ img {
   }
 }
 
+@each $app-color in $app-colors {
+  .spinner-#{$app-color} {
+    svg {
+      fill: return-var-from-text($app-color) !important;
+      stroke: return-var-from-text($app-color) !important;
+    }
+  }
+}
+
 @for $i from 1 through 100 {
   .icon-f#{$i}px::before {
     font-size: #{$i}px !important;
@@ -1078,66 +1087,33 @@ progress[value]::-webkit-progress-bar {
 //====================================================
 .platform-ios,
 .platform-android {
-  .activated {
-    background-color: $positive !important;
-    opacity: 0.7 !important;
-  }
+    .activated {
+        // background-color: $positive !important;
+        // opacity: 0.7 !important;
+        box-shadow: 0px 0px 15px #dcdcdc inset !important;
+        transition: box-shadow 0.1s;
+    }
 }
 
 .tab-selected {
-  @extend .positive-bb3px;
-  @extend .pt3px
+    @extend .positive-bb3px;
+    @extend .pt3px
 }
 
 .dark-grey-selected {
-  @extend .dark-grey-bg;
+    @extend .dark-grey-bg;
 }
 
 .loading {
-  & > .scroll {
-    height: 100%;
-  }
+    & > .scroll {
+        height: 100%;
+    }
 }
 
 .disabled {
-  pointer-events: none;
-  cursor: default;
+    pointer-events: none;
+    cursor: default;
 }
-
-#setting-list {
-  .handle {
-    background-color: $white !important;
-  }
-}
-
-
-
-#customer-list {
-  .com-bottom30.9vw {
-    bottom: 30.9vw;
-  }
-}
-
-
-
-#home {
-  .com-gradient-bg {
-    background: linear-gradient(#ac1e44, #d3302f);
-  }
-}
-
-#login {
-  .com-gradient-bg {
-    background: linear-gradient(#ac1e44, #d3302f);
-  }
-}
-
-
-/* 모달에 대한 배경색 */
-ion-modal-view.modal-bg {
-  background-color: rgba(0,0,0, 0.8);
-}
-
 #z-post-detail {
   ion-content {
     .bubble {

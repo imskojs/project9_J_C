@@ -5,18 +5,19 @@
 
   RequestUpdateController.$inject = [
     '_MockData',
-    '$scope', '$state',
-    'RequestUpdateModel', 'Util', 'RootScope'
-  ];  //Controller함수에 factory로 생성된 model을 주입(factory 이름).
+    '$ionicHistory', '$scope', '$state',
+    'RequestUpdateModel', 'Util', 'RootScope', 'Users'
+  ]; //Controller함수에 factory로 생성된 model을 주입(factory 이름).
   //동일한 app 모듈에 선언한 factory이기 때문에 주입받을 수 있다.
 
   function RequestUpdateController(
     _MockData,
-    $scope, $state,
-    RequestUpdateModel, Util, RootScope
+    $ionicHistory, $scope, $state,
+    RequestUpdateModel, Util, RootScope, Users
   ) {
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var vm = this;
     vm.Model = RequestUpdateModel;
     vm.checkBox = checkBox;
@@ -24,7 +25,8 @@
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     //====================================================
     //  View Event
@@ -38,6 +40,7 @@
         Util.freeze(false);
       }
       console.log("$state.params.placeId :::\n", $state.params.placeId);
+      vm.Model.sendEmail.placeName = $state.params.placeName;
     }
 
     function onAfterEnter() {
@@ -45,31 +48,27 @@
       //   .then(place => {    //{id: 1300, name: 'asda' ... }
       //     Util.bindData(place, RequestUpdateModel, 'place');  //Model['place'] = place
       //   })
-      vm.Model.update.place.id = _MockData.findOne($state.params.placeId);
+      vm.Model.sendEmail.options.placeId = _MockData.findOne($state.params.placeId);
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
     //====================================================
     //  VM
     //====================================================
 
-    function getAverageRating (num) {
-      var roundNum = Math.round(num);
-      var array = [];
-      for (var i=0; i<roundNum; i++) {
-        array.push(i);
-      }
-      return array;
-    }
-
     //체크박스 클릭
-    function checkBox (modelObj, attr) {
-      switch (modelObj[attr]) {
-        case true : modelObj[attr] = false; return;
-        case false: modelObj[attr] = true; return;
+    function checkBox(modelObj, attr, data) {
+      if (modelObj[attr]) {
+        modelObj[attr] = '';
+      } else {
+        modelObj[attr] = data;
       }
     }
 
@@ -80,13 +79,30 @@
     function init() {}
 
     function reset() {
-      vm.Model.update.place = {id: ''};
-      vm.Model.update.infomation = false;
-      vm.Model.update.menuAndPrice = false;
-      vm.Model.update.eventAndDiscount = false;
-      vm.Model.update.stateChange = false;
-      vm.Model.update.other = false;
-      vm.Model.update.detail = '';
+      var Model = {
+        loading: false,
+        sendEmail: {
+          type: '', //Not Null
+          email: '',
+          contact: '',
+          title: '',
+          content: '',
+          placeName: '',
+          placeContact: '',
+          location: '',
+          userName: '',
+          userContact: '',
+          options: {
+            placeId: '',
+            infomation: '',
+            menuAndPrice: '',
+            eventAndDiscount: '',
+            stateChange: '',
+            other: '',
+          }
+        }
+      };
+      angular.copy(Model, vm.Model);
     }
 
     //====================================================
@@ -97,11 +113,22 @@
     //  REST
     //====================================================
 
-    function requestUpdate () {
-      var form = vm.Model.update;
-      console.log("form :::\n", form);
-      //업체 또는 주당본사에 메일보내는 로직
-      return RootScope.goToState('Main.PlaceDetail', {placeId: form.place.id}, 'forward');
+    function requestUpdate() {
+      vm.Model.sendEmail.type = document.getElementsByClassName('zero')[0].textContent;
+      vm.Model.sendEmail.placeName = $state.params.placeName;
+      vm.Model.sendEmail.options.placeId = $state.params.placeId;
+      console.log("vm.Model :::\n", vm.Model);
+
+      var queryWrapper = {
+        query: vm.Model.sendEmail
+      };
+      return Users.sendEmail(null, queryWrapper).$promise
+        .then(arrayWrapper => {
+          console.log("arrayWrapper :::\n", arrayWrapper);
+          return RootScope.goToState('Main.PlaceDetail', { placeId: $state.params.placeId }, 'forward');
+        })
+        //업체 또는 주당본사에 메일보내는 로직
+
     }
   }
 })();

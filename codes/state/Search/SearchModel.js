@@ -9,6 +9,7 @@
   function SearchModel() {
 
     var Model = {
+      handle: 'search',
       loading: false,
       searchWord: '',
       places: []

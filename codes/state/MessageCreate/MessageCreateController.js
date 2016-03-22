@@ -4,24 +4,28 @@
     .controller('MessageCreateController', MessageCreateController);
 
   MessageCreateController.$inject = [
-    '$scope', '$state', '$window',
-    'MessageCreateModel', 'Util', 'AppStorage', 'Messages'
+    '$scope', '$state', '$window', '$location', '$ionicScrollDelegate', '$q',
+    '$ionicHistory',
+    'MessageCreateModel', 'Util', 'AppStorage', 'Message', 'Messages', 'Places'
   ];
 
   function MessageCreateController(
-    $scope, $state, $window,
-    MessageCreateModel, Util, AppStorage, Messages
+    $scope, $state, $window, $location, $ionicScrollDelegate, $q,
+    $ionicHistory,
+    MessageCreateModel, Util, AppStorage, Message, Messages, Places
   ) {
     var _ = $window._;
     var moment = $window.moment;
     var initPromise;
     var noLoadingStates = [];
+    var noResetStates = [];
     var vm = this;
     vm.Model = MessageCreateModel;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     vm.getAverageRating = getAverageRating;
     vm.create = create;
@@ -42,12 +46,31 @@
     function onAfterEnter() {
       if (!Util.hasPreviousStates(noLoadingStates)) {
         return initPromise
-          .then((messagesWrapper) => {
+          .then((array) => {
+            let messagesWrapper = array[0];
+            let placesWrapper = array[1];
+            // placesString
+            vm.Model.places = placesWrapper.places;
+            let placeNames = _.map(vm.Model.places, 'name');
+            vm.Model.placesString = placeNames.join(', ');
+            // dayBreak adn bind messages
             _.reduce(messagesWrapper.messages, dayBreaker, null);
             return Util.bindData(messagesWrapper, vm.Model, 'messages');
           })
           .then(() => {
-            console.log("vm.Model :::\n", vm.Model);
+            let hasNewMessage = false;
+            for (let i = 0; i < vm.Model.messages.length; i++) {
+              let message = vm.Model.messages[i];
+              if (message.sender.id !== AppStorage.user.id && message.isNew) {
+                hasNewMessage = true;
+                break;
+              }
+            }
+            if (hasNewMessage) {
+              Util.scrollToId('firstNew');
+            } else {
+              Util.scrollBottom(true);
+            }
           })
           .catch((err) => {
             Util.error(err);
@@ -58,8 +81,12 @@
 
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
     //====================================================
@@ -83,7 +110,21 @@
           return Util.bindData(messagesWrapper, vm.Model, 'messages');
         })
         .then(() => {
-          Message.alert('메세지 쓰기 알림', '메세지가 전송 되었습니다.');
+          let hasNewMessage = false;
+          for (let i = 0; i < vm.Model.messages.length; i++) {
+            let message = vm.Model.messages[i];
+            if (message.sender.id !== AppStorage.user.id && message.isNew) {
+              hasNewMessage = true;
+              break;
+            }
+          }
+          if (hasNewMessage) {
+            Util.scrollToId('firstNew');
+          } else {
+            Util.scrollBottom(true);
+          }
+          vm.Model.message.content = '';
+          Message.hide();
         })
         .catch((err) => {
           Util.error(err);
@@ -95,10 +136,15 @@
     //====================================================
 
     function init() {
-      return messageFind()
+      let P_messageFind = messageFind()
         .then((messagesWrapper) => {
           return messagesWrapper;
         });
+      let P_placeFind = placeFind()
+        .then((placesWrapper) => {
+          return placesWrapper;
+        });
+      return $q.all([P_messageFind, P_placeFind]);
     }
 
     function reset() {
@@ -110,7 +156,9 @@
           sender: '',
           receiver: '',
           content: ''
-        }
+        },
+        places: [],
+        placesString: ''
       };
       angular.copy(defaultObj, vm.Model);
     }
@@ -136,6 +184,17 @@
       } else {
         message2.dayBreaker = false;
       }
+      //====================================================
+      //  TEST
+      //====================================================
+      // var second1 = moment1.second();
+      // var second2 = moment2.second();
+      // if (second1 !== second2) {
+      //   message2.dayBreaker = true;
+      // } else {
+      //   message2.dayBreaker = false;
+      // }
+
       return message2;
     }
 
@@ -168,6 +227,20 @@
       return Messages.find(queryWrapper).$promise
         .then(messagesWrapper => {
           return messagesWrapper;
+        });
+    }
+
+    function placeFind(extraQuery, extraOperation) {
+      let queryWrapper = {
+        query: {
+          where: {}
+        }
+      };
+      angular.extend(queryWrapper.query.where, extraQuery);
+      angular.extend(queryWrapper.query, extraOperation);
+      return Places.find(queryWrapper).$promise
+        .then((placesWrapper) => {
+          return placesWrapper;
         });
     }
 

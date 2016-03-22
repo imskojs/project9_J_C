@@ -4,33 +4,64 @@
     .controller('SearchController', SearchController);
 
   SearchController.$inject = [
-    '$scope',
+    '$scope', '$q',
     'SearchModel', 'Places', 'AppStorage', 'Util', 'Distance'
   ];
 
   function SearchController(
-    $scope,
+    $scope, $q,
     SearchModel, Places, AppStorage, Util, Distance
   ) {
+    var initPromise;
+    var noLoadingStates = ['Main.PlaceDetail'];
     var vm = this;
     vm.Model = SearchModel;
+
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
+    $scope.$on('$ionicView.afterEnter', onAfterEnter);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
+    $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
+
     vm.getAverageRating = getAverageRating;
-
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
-
     vm.search = search;
 
     //====================================================
     //  View Event
     //====================================================
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeEnter() {
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        // Util.loading(vm.Model);
+        initPromise = init();
+      } else {
+        Util.freeze(false);
+      }
+    }
+
+    function onAfterEnter() {
+      if (!Util.hasPreviousStates(noLoadingStates)) {
+        return initPromise
+          .then((message) => {
+            console.log("message :::\n", message);
+          })
+          .catch((err) => {
+            Util.error(err);
+          });
+      }
+    }
+
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
     //====================================================
     //  VM
     //====================================================
-
     function search() {
       if (!vm.Model.searchWord) {
         return;
@@ -47,7 +78,9 @@
           return Util.bindData(placesWrapper, vm.Model, 'places');
         })
         .then(() => {
+
           console.log("vm.Model.places :::\n", vm.Model.places);
+          Util.freeze(true);
           vm.Model.loading = false;
         })
         .catch((err) => {
@@ -68,8 +101,12 @@
     //====================================================
     //  Private
     //====================================================
+    function init() {
+      return $q.resolve({ message: 'empty' });
+    }
+
     function reset() {
-      vm.Model.searchWord = '';
+      // vm.Model.searchWord = '';
       vm.Model.loading = false;
       // let defaultObj = {
       //   searchWord: '',

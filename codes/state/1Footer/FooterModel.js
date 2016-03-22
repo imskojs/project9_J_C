@@ -9,6 +9,7 @@
   function FooterModel() {
 
     var Model = {
+      handle: 'footer',
       loading: false,
 
     };

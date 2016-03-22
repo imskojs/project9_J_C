@@ -4,63 +4,68 @@
     .controller('SettingListController', SettingListController);
 
   SettingListController.$inject = [
-    '_MockData',
-    '$scope', '$state',
-    'SettingListModel'
+    '$ionicHistory', '$scope', '$state',
+    'SettingListModel', 'Util', 'Devices'
   ];
 
   function SettingListController(
-    _MockData,
-    $scope, $state,
-    SettingListModel
+    $ionicHistory, $scope, $state,
+    SettingListModel, Util, Devices
   ) {
-    var initPromise;
-    var noLoadingStates = [];
+    // var initPromise;
+    // var noLoadingStates = [];
+    // var noResetStates = [];
     var vm = this;
-    vm.Model = SettingListModel;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
 
+    vm.Model = SettingListModel;
+    vm.settingsToggle = settingsToggle;
+    vm.togglePush = togglePush;
     //====================================================
     //  View Event
     //====================================================
 
-    function onBeforeEnter() {
-      console.log("$state.params.keywords :::\n", $state.params.keywords);
-      console.log("$state.params.keywordString :::\n", $state.params.keywordString);
-      // initPromise = init();
-    }
+    function onBeforeEnter() {}
 
-    function onAfterEnter() {
-      // initPromise
-      //   .then((array) => {
-      //     let premiumPlacesWrapper = array[0];
-      //     let specialPlacesWrapper = array[1];
-      //     let normalPlacesWrapper = array[2];
-      //     // SettingListModel.premium.places = premiumPlacesWrapper.places;
-      //     // SettingListModel.special.places = specialPlacesWrapper.places;
-      //     // Util.bindData(normalPlacesWrapper, SettingListModel.normal, 'places');
-      //   })
-    }
+    function onAfterEnter() {}
 
     //====================================================
     //  VM
     //====================================================
 
+    function settingsToggle() {
+      if (vm.Model.isSettingShow) {
+        vm.Model.isSettingShow = false;
+      } else {
+        vm.Model.isSettingShow = true;
+      }
+    }
+
+    function togglePush() {
+      if (!Util.needLogin()) {
+        vm.Model.settings.isPush = true;
+        return false;
+      }
+      let devicePromise;
+      if (vm.Model.settings.isPush) {
+        devicePromise = Devices.pushOff(null, null).$promise;
+      } else {
+        devicePromise = Devices.pushOn(null, null).$promise;
+      }
+      return devicePromise
+        .then(function(devicesWrapper) {
+          console.log("devicesWrapper :::\n", devicesWrapper);
+        })
+        .catch(function(err) {
+          Util.error(err);
+        });
+    }
+
     //====================================================
     //  Private
     //====================================================
-
-    function init() {
-      let premiumPromise = placeFind({ category: 'PREMIUM' });
-      let specialPromise = placeFind({ category: 'SPECIAL' });
-      let normalPromise = placeFind({ category: 'NORMAL' });
-      return $q.all([premiumPromise, specialPromise, normalPromise])
-        .then((array) => {
-          return array;
-        })
-    }
 
     //====================================================
     //  Modals
@@ -70,21 +75,5 @@
     //  REST
     //====================================================
 
-    function placeFind(extraQuery, extraOperation) {
-      let queryWrapper = {
-        query: {
-          where: {},
-          keywords: $state.params.keywords,
-          sort: {},
-          limit: 30
-        }
-      };
-      angular.extend(queryWrapper.query.where, extraQuery);
-      angular.extend(queryWrapper.query, extraOperation);
-      return Places.find(queryWrapper).$promise
-        .then((placeList) => {
-          return placeList;
-        });
-    }
   }
 })();

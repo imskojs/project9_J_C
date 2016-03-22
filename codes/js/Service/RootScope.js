@@ -14,14 +14,14 @@
   RootScope.$inject = [
     '$state', '$stateParams', '$ionicHistory', '$ionicSideMenuDelegate', '$timeout',
     '$rootScope', '$ionicViewSwitcher', '$ionicModal', '$ionicScrollDelegate',
-    'Message', 'AppStorage', 'Favorite', 'Link', 'PhotoClass',
+    'Message', 'AppStorage', 'Favorite', 'Link', 'PhotoClass', 'CurrentPosition',
     'DEV_MODE'
   ];
 
   function RootScope(
     $state, $stateParams, $ionicHistory, $ionicSideMenuDelegate, $timeout,
     $rootScope, $ionicViewSwitcher, $ionicModal, $ionicScrollDelegate,
-    Message, AppStorage, Favorite, Link, PhotoClass,
+    Message, AppStorage, Favorite, Link, PhotoClass, CurrentPosition,
     DEV_MODE
   ) {
     var service = {
@@ -46,7 +46,12 @@
       likePost: Favorite.likePost,
       likePlace: Favorite.likePlace,
 
-      open: Link.open
+      open: Link.open,
+      call: Link.call,
+      isOwner: isOwner,
+      goToStateIfGPS: goToStateIfGPS,
+      isLogin: isLogin,
+      needLogin: needLogin,
     };
 
     return service;
@@ -150,6 +155,62 @@
     //====================================================
     function comingSoon(title) {
       return Message.alert(title + ' 준비중인 서비스입니다.', '빠른시일내에 준비완료하겠습니다.');
+    }
+
+    function isOwner(data) {
+      if (!AppStorage.user) {
+        return; //로그인정보 없음
+      }
+      // console.log("RootScope... isOwner(data) :::\n", data);
+      //data 자체가 owner의 id일 경우
+      if (typeof data === 'string' && data === AppStorage.user.id) {
+        return true;
+
+        //data.owner가 id일 경우
+      } else if (typeof data.owner === 'string' && data.owner === AppStorage.user.id) {
+        return true;
+
+        //data.owner가 object고 data.owner.id 가 존재할 경우
+      } else if (data.owner.id === AppStorage.user.id) {
+        return true;
+      }
+
+      //위의 모든 사항에 해당하지 않을경우 오너가 아님.
+      return false;
+    }
+
+    function goToStateIfGPS(state, params, direction) {
+      if (AppStorage.currentPosition) {
+        return goToState(state, params, direction);
+      } else {
+        AppStorage.currentPosition = {};
+      }
+      return CurrentPosition.set(AppStorage.currentPosition)
+        .then(() => {
+          return goToState(state, params, direction);
+        })
+        .catch((err) => {
+          AppStorage.currentPosition = null;
+          if (err.message === 'geolocationOff') {
+            return false;
+          }
+          return Message.alert();
+        });
+    }
+
+    function isLogin() {
+      if (AppStorage.user) {
+        return true;
+      }
+      //return undefined
+    }
+
+    function needLogin() {
+      if (!isLogin()) {
+        Message.alert('알림', '로그인을 해주세요.');
+        return false;
+      }
+      return true;
     }
 
 

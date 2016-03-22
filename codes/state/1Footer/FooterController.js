@@ -4,13 +4,11 @@
     .controller('FooterController', FooterController);
 
   FooterController.$inject = [
-    '_MockData',
     '$rootScope', '$state',
     'FooterModel'
   ];
 
   function FooterController(
-    _MockData,
     $rootScope, $state,
     FooterModel
   ) {
@@ -39,7 +37,7 @@
         //SearchTab 과 하위 state까지 포함 (ProvinceSearchList 등)
       } else if ($state.includes('Main.Footer.SearchTab')) {
         if (state === 'Main.Footer.Home' ||
-            state === 'Main.Footer.EventTab.JoodangEventList'
+          state === 'Main.Footer.EventTab.JoodangEventList'
         ) {
           return $rootScope.goToState(state, params, 'back');
         } else {
@@ -49,13 +47,13 @@
 
         //TalkList
       } else if ($state.includes('Main.Footer.TalkList') ||
-                 $state.includes('Main.Footer.MyTalkList') ||
-                 $state.includes('Main.Footer.TalkDetail') ||
-                 $state.includes('Main.Footer.TalkCreate') ||
-                 $state.includes('Main.Footer.TalkUpdate') ) {
+        $state.includes('Main.Footer.MyTalkList') ||
+        $state.includes('Main.Footer.TalkDetail') ||
+        $state.includes('Main.Footer.TalkCreate') ||
+        $state.includes('Main.Footer.TalkUpdate')) {
         if (state === 'Main.Footer.Home' ||
-            state === 'Main.Footer.EventTab.JoodangEventList' ||
-            state === 'Main.Footer.SearchTab.ProvinceList') {
+          state === 'Main.Footer.EventTab.JoodangEventList' ||
+          state === 'Main.Footer.SearchTab.ProvinceList') {
           return $rootScope.goToState(state, params, 'back');
         } else {
           return $rootScope.goToState(state, params, 'forward');
@@ -64,11 +62,11 @@
 
         //SettingList
       } else if ($state.includes('Main.Footer.SettingList') ||
-                 $state.includes('Main.Footer.Profile') ) {
+        $state.includes('Main.Footer.Profile')) {
         if (state === 'Main.Footer.Home' ||
-            state === 'Main.Footer.EventTab.JoodangEventList' ||
-            state === 'Main.Footer.SearchTab.ProvinceList' ||
-            state === 'Main.Footer.TalkList') {
+          state === 'Main.Footer.EventTab.JoodangEventList' ||
+          state === 'Main.Footer.SearchTab.ProvinceList' ||
+          state === 'Main.Footer.TalkList') {
           return $rootScope.goToState(state, params, 'back');
         } else {
           return $rootScope.goToState(state, params, 'forward');

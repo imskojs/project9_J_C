@@ -9,6 +9,7 @@
       'ngTemplates',
       'ngStorage',
       'ngImgCrop',
+      'ngAnimate',
       // "ui.bootstrap.tpls",
       // "ui.bootstrap.datepicker"
     ])

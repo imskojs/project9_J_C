@@ -9,16 +9,18 @@
   </ion-nav-buttons> -->
 
   <ion-nav-title>
-    <p class="zero pl1p">검색</p>
+    <p class="zero">검색</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <ion-content
+    delegate-handle="theme-list"
+  >
     <div class="relative">  <!--컨텐츠 컨테이너-->
       <div class="relative">  <!--Theme List 컨테이너-->
 
         <div class="row zero mt0px"
           ng-repeat="theme in vm.Model.themes"
-          ng-click="vm.search(theme);">
+          ng-click="goToState('Main.ThemeSearchList', {themeTitle: theme.title}, 'forward')">
           <div class="col zero">
             <img class="w100p h80p"
               ng-src="{{theme.url}}" alt="테마 사진">
@@ -29,5 +31,5 @@
     </div>
   </ion-content>
 
-  <!-- <ion-footer-bar class=""></ion-footer-bar> -->
+  <!-- <ion-footer-bar></ion-footer-bar> -->
 </ion-view>

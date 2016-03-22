@@ -5,11 +5,11 @@
 
   CustomerListController.$inject = [
     '_MockData',
-    'CustomerListModel'
+    '$ionicHistory', 'CustomerListModel'
   ];
 
   function CustomerListController(
-    _MockData,CustomerListModel) {
+    _MockData, CustomerListModel) {
     var CustomerList = this;
     CustomerList.Model = CustomerListModel;
 

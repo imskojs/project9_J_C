@@ -15,7 +15,8 @@
     var Password = this;
     Password.Model = zPasswordModel;
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
-    $scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
+    $scope.$on('$stateChangeStart', onBeforeLeave);
 
     Password.sendForm = sendForm;
 
@@ -26,8 +27,12 @@
       Util.freeze(false);
     }
 
-    function onBeforeLeave() {
-      return reset();
+    function onBeforeLeave(event, nextState) {
+      if ($ionicHistory.currentStateName() !== nextState.name &&
+        noResetStates.indexOf(nextState.name) === -1
+      ) {
+        return reset();
+      }
     }
 
     //====================================================

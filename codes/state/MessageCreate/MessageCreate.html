@@ -9,18 +9,29 @@
   </ion-nav-buttons>
 
   <ion-nav-title>
-    <p class="zero pl1p">{{"업체이름"}}</p>
+    <p class="zero">{{vm.Model.placesString}}의 사장님과 대화</p>
   </ion-nav-title>
 
-  <ion-content class="">
+  <!-- Loading -->
+  <ion-pane ng-if="vm.Model.loading">
+    <section class="absolute w100p h100p flex-h pt250px light-grey-bg z-index5">
+      <ion-spinner class="spinner-40px" icon="ripple">
+      </ion-spinner>
+    </section>
+  </ion-pane>
+  <ion-content class="lighter-bg"
+    delegate-handle="message-create"
+  >
     <!--List 컨테이너-->
-    <div class="relative w100p h100p pt10px lighter-bg">
+    <div class="relative w100p h100p pt10px">
 
       <!--Node 컨테이너-->
       <div ng-repeat="message in vm.Model.messages">
 
         <!--날짜가 바뀌었을 때-->
-        <div class="row zero pb20px">
+        <div class="row zero pb20px"
+          ng-if="message.dayBreaker === true"
+        >
           <div class="col zero flex color0-bg">
             <p class="zero">{{message.createdAt | date: 'yyyy.MM.dd'}}</p>
           </div>
@@ -28,8 +39,9 @@
 
         <!--내가 보낸 쪽지-->
         <div class="row zero pb20px pl3p pr3p"
-          ng-if="message.sender.id === AppStorage.user.id">
-          <div class="col-85 zero r5px pl5p pr5p shadow color0-bg">
+          ng-if="message.sender.id === AppStorage.user.id"
+        >
+          <div class="col-85 zero r5px pl5p pr5p grey-br1px grey-bb1px color0-bg">
             <div class="row zero">
               <div class="col-auto zero flex mr10px">
                 <p class="zero lh25px f12px positive bold">{{message.sender.nickname}}</p>
@@ -40,24 +52,29 @@
             </div>
             <div class="row zero">
               <div class="col zero">
-                <p class="">{{message.content}}</p>
+                <p>{{message.content}}</p>
               </div>
             </div>
           </div>
           <div class="col-15 zero flex-h pt5px">
-            <img class="h40px r50p"
-              ng-src="{{message.sender.profilePhoto.url}}" alt="프로필사진">
+            <img class="w40px h40px fit r50px lazy-show"
+              ng-src="{{ message.sender | GetPhoto }}" alt="프로필사진">
           </div>
         </div>
 
         <!--남으로부터 받은 쪽지-->
         <div class="row zero pb20px pl3p pr3p"
-          ng-if="message.sender.id !== AppStorage.user.id">
+          ng-if="message.sender.id !== AppStorage.user.id"
+          id="{{
+            message.isNew && vm.Model.messages[$index - 1].isNew === false ?
+            'firstNew': ''
+          }}"
+        >
           <div class="col-15 zero flex-h pt5px">
-            <img class="h40px r50p"
-              ng-src="{{message.sender.profilePhoto.url}}" alt="프로필사진">
+            <img class="w40px h40px fit r50px lazy-show"
+              ng-src="{{ message.sender | GetPhoto }}" alt="프로필사진">
           </div>
-          <div class="col-85 zero r5px pl5p pr5p shadow white-bg">
+          <div class="col-85 zero r5px pl5p pr5p grey-br1px grey-bb1px white-bg">
             <div class="row zero">
               <div class="col-auto zero flex mr10px">
                 <p class="zero lh25px f12px positive bold">{{message.sender.nickname}}</p>
@@ -68,7 +85,7 @@
             </div>
             <div class="row zero">
               <div class="col zero">
-                <p class="">{{message.content}}</p>
+                <p>{{message.content}}</p>
               </div>
             </div>
           </div>

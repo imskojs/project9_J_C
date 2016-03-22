@@ -19,13 +19,15 @@
       '/:login' +
       '/:findOne' +
       '/:update' +
-      '/:changePassword';
+      '/:changePassword' +
+      '/:sendEmail';
 
     var params = {
       login: '@login',
       findOne: '@findOne',
       update: '@update',
-      changePassword: '@changePassword'
+      changePassword: '@changePassword',
+      sendEmail: '@sendEmail'
     };
 
     var actions = {
@@ -55,48 +57,20 @@
         params: {
           changePassword: 'changePassword'
         }
+      },
+
+      sendEmail: {
+        method: 'POST',
+        params: {
+          sendEmail: 'sendEmail'
+        }
       }
     };
 
     var service = $resource(postUrl, params, actions);
 
-    service.register = register;
-    service.updateMyPageBg = updateMyPageBg;
-    service.update = update;
-
     return service;
 
-    function register(param, query) {
-      console.log("---------- Users.register Service Query ----------");
-      console.log(query);
-      var promise = Photo.post('/user/register', query, 'POST')
-        .then(function(dataWrapper) {
-          return dataWrapper.data;
-        });
-      return {
-        $promise: promise
-      };
-    }
-
-    function updateMyPageBg(param, query) {
-      var promise = Photo.post('/user/updateMyPageBg', query, 'PUT')
-        .then(function(dataWrapper) {
-          return dataWrapper.data;
-        });
-      return {
-        $promise: promise
-      };
-    }
-
-    function update(param, query) {
-      var promise = Photo.post('/user/update', query, 'PUT')
-        .then(function(dataWrapper) {
-          return dataWrapper;
-        });
-      return {
-        $promise: promise
-      };
-    }
 
   }
 })(angular);

@@ -9,6 +9,7 @@
   function MenuListModel() {
 
     var Model = {
+      handle: 'menu-list',
       loading: false,
       products: []
     };

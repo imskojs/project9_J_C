@@ -9,6 +9,7 @@
   function JoodangEventDetailModel() {
 
     var Model = {
+      handle: 'joodang-event-detail',
       loading: false,
       events: []
     };

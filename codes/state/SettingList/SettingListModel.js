@@ -9,8 +9,12 @@
   function SettingListModel() {
 
     var Model = {
+      handle: 'setting-list',
       loading: false,
-
+      isSettingShow: true,
+      settings: {
+        isPush: true,
+      }
     };
 
     return Model;

@@ -72,43 +72,43 @@
     //  Helper
     //====================================================
     function validate() {
-      var alert = Message.alert.bind(Message, '회원가입 알림');
+      var alerty = Message.alert.bind(Message, '회원가입 알림');
       var form = zSignupModel.form;
       if (zSignupModel.form.files.length === 0) {
-        alert('사진을 등록해주세요');
+        alerty('사진을 등록해주세요');
         return false;
       } else if (!form.name) {
-        alert('이름을 입력해주세요')
+        alerty('이름을 입력해주세요')
           .then(function() {
             Dom.focusById('name');
           });
         return false;
       } else if (!form.nickname) {
-        alert('별명을 입력해주세요')
+        alerty('별명을 입력해주세요')
           .then(function() {
             Dom.focusById('nickname');
           });
         return false;
       } else if (!form.email) {
-        alert('이메일을 입력해주세요')
+        alerty('이메일을 입력해주세요')
           .then(function() {
             Dom.focusById('email');
           });
         return false;
       } else if (form.password !== zSignupModel.confirmPassword) {
-        alert('비밀번호를 동일하게 입력해주세요')
+        alerty('비밀번호를 동일하게 입력해주세요')
           .then(function() {
             Dom.focusById('password');
           });
         return false;
       } else if (!validateEmail(form.email)) {
-        alert('이메일이 아닙니다, 다시 입력해주세요')
+        alerty('이메일이 아닙니다, 다시 입력해주세요')
           .then(function() {
             Dom.focusById('email');
           });
         return false;
       } else if (!zSignupModel.agree) {
-        alert('이용약관을 동의 해주시기 바랍니다');
+        alerty('이용약관을 동의 해주시기 바랍니다');
         return false;
       } else {
         return true;
