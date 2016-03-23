@@ -18,12 +18,11 @@
     var noLoadingStates = [
       'Main.Footer.MyTalkList',
       'Main.Footer.TalkDetail',
-      'Main.Footer.TalkCreate',
-      'Main.Footer.TalkUpdate',
     ];
-    var noResetStates = [
-      'Main.Footer.TalkDetail'
-    ];
+    // var noResetStates = [
+    //   'Main.Footer.MyTalkList',
+    //   'Main.Footer.TalkDetail'
+    // ];
     var vm = this;
     vm.Model = TalkListModel;
     vm.categoryToggle = categoryToggle;
@@ -82,7 +81,7 @@
 
     function onBeforeLeave(event, nextState) {
       if ($ionicHistory.currentStateName() !== nextState.name &&
-        noResetStates.indexOf(nextState.name) === -1
+        noLoadingStates.indexOf(nextState.name) === -1
       ) {
         return reset();
       }
@@ -219,3 +218,57 @@
     }
   }
 })();
+
+/*
+{
+  "isFirstTime": false,
+  "deviceId": "eqrEWmM6AMo:APA91bExFVVhWCzHIe_2MH-CYY2znMwwFghlYMFNR9N9akqj-kjAgIxnaT2bMEGwVhkG-TOZAmHVsX4YsOvpY5qUTrT1lhY3jTmL3caDHPdhX3MrMjEBLUbGpqbnMkgj4pxoVi63k9hz",
+  "currentPosition": { "longitude": 127.0412811, "latitude": 37.5001549 },
+  "currentAddress": "서울특별시 강남구 역삼2동",
+  "user": {
+    "roles": [
+      {
+        "name": "USER",
+        "active": true,
+        "createdAt": "2016-03-22T08:06:46.723Z",
+        "updatedAt": "2016-03-22T08:06:46.723Z",
+        "id": "56f0fd165f9374c7fc0371bd"
+      }],
+    "favorites": ["56f0fe8d5f9374c7fc037277"],
+    "profilePhoto": {
+      "public_id": "ddmvy23cmh61cbue5eeq",
+      "version": 1458707725,
+      "signature": "e2051999ffd185917c28bc047aef98a52470b6b2",
+      "width": 600,
+      "height": 600,
+      "format": "png",
+      "resource_type": "image",
+      "created_at": "2016-03-23T04:35:25Z",
+      "tags": ["JOODANG"],
+      "bytes": 494523,
+      "type": "upload",
+      "etag": "35dfaebddf06d7c46123e38fdf4b6010",
+      "url": "http://res.cloudinary.com/appdev/image/upload/v1458707725/ddmvy23cmh61cbue5eeq.png",
+      "secure_url": "https://res.cloudinary.com/appdev/image/upload/v1458707725/ddmvy23cmh61cbue5eeq.png",
+      "original_filename": "338f7f14-343d-4897-801e-670c47f12437",
+      "createdBy": "56f10b17eb57050e3d41bc06",
+      "updatedBy": "56f10b17eb57050e3d41bc06",
+      "owner": "56f10b17eb57050e3d41bc06",
+      "index": 0,
+      "createdAt": "2016-03-23T04:34:03.973Z",
+      "updatedAt": "2016-03-23T04:34:03.973Z",
+      "id": "56f21cbb6b87f09246bf2f0f"
+    },
+    "owner": "56f10b17eb57050e3d41bc06",
+    "username": "94322116",
+    "nickname": "Rex",
+    "thumbnail_image": "http://mud-kage.kakao.co.kr/14/dn/btqcMcBxfpK/kzSPZslsuzMGjQ1qSIGvok/o.jpg",
+    "profile_image": "http://mud-kage.kakao.co.kr/14/dn/btqcL9EPhUa/OymItKoYOCDD9dW1sQ0XJk/o.jpg",
+    "createdAt": "2016-03-22T09:06:31.326Z",
+    "updatedAt": "2016-03-23T05:46:23.177Z",
+    "id": "56f10b17eb57050e3d41bc06",
+    "gravatarUrl": "https://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "token": "2Ir-nEW2--Dw1W2i1dDQobksKxRBTUz3a-03RawQQI0AAAFTogOzHA"
+}
+*/

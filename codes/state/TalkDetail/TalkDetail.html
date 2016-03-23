@@ -72,15 +72,15 @@
               </div>
             </div>
 
-            <div class="col-auto zero w25px z-index10"
-              ng-if="isOwner(vm.Model.post);"
+            <div class="col-auto zero w40px z-index10"
+              ng-if="isOwner(vm.Model.post.owner);"
               ng-click="vm.toggleMore();">
               <div class="row zero">
                 <div class="col zero flex">
                   <div class="relative">
                     <i class="zero f40px lh40px ion-android-more-vertical positive"></i>
 
-                    <div class="absolute top10px right10px w120px white-bg shadow"
+                    <div class="absolute top10px right30px w120px white-bg shadow"
                       ng-if="vm.Model.toggleMore">  <!--더보기 버튼 누르면 나오는 수정, 삭제버튼-->
                       <div class="row zero mt0px grey-bb1px"
                         ng-click="goToState('Main.Footer.TalkUpdate', {postId: vm.Model.post.id}, 'forward');">
@@ -134,7 +134,7 @@
 
           <div class="col-auto zero mr2p flex-v">
             <img class="h37px w37px r50p"
-              src="img/_box200x200.png" alt="프로필사진" />
+              ng-src="{{comment.owner | GetPhoto}}" alt="프로필사진" />
           </div>
 
           <div class="col zero">
