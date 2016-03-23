@@ -165,6 +165,12 @@ function devCode() {
     '  <!-- <link href="c8js.com.css" rel="stylesheet"> -->',
     'www/index.html'
   );
+
+  del.sync([
+    'www/c8js.com.css',
+    'www/c8js.com.js',
+  ]);
+  return 'backToDevCodeDone';
 }
 
 function runGulp(productionTrue) {
