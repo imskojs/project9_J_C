@@ -171,12 +171,12 @@ function releaseCode(message) {
 }
 
 function devCode() {
-  // sh.sed(
-  //   '-i',
-  //   /  <!-- <script src="cordova\.js"><\/script> -->/,
-  //   '  <script src="cordova.js"></script>',
-  //   'www/index.html'
-  // );
+  sh.sed(
+    '-i',
+    /  <!-- <script src="cordova\.js"><\/script> -->/,
+    '  <script src="cordova.js"></script>',
+    'www/index.html'
+  );
   sh.sed(
     '-i',
     /  <!-- <script src="lib\/lib\.all\.js"><\/script> -->/,
