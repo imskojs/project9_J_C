@@ -127,8 +127,11 @@
       let queryWrapper = {
         query: {
           where: {},
-          // sort: {},
-          populate: ['photos', 'owner']
+          sort: 'id DESC',
+          populate: [{
+            property: 'photos',
+            criteria: { sort: 'index ASC' }
+          }, 'owner']
         }
       };
       angular.extend(queryWrapper.query.where, extraQuery);
