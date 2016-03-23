@@ -103,7 +103,7 @@
           where: {
             category: 'CATEGORY_NAME-POST',
           },
-          limit: 20,
+          limit: 30,
           sort: 'updatedAt DESC',
           populate: ['owner']
         }

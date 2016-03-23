@@ -4,16 +4,17 @@
     .controller('SearchController', SearchController);
 
   SearchController.$inject = [
-    '$scope', '$q',
+    '$scope', '$q', '$ionicHistory',
     'SearchModel', 'Places', 'AppStorage', 'Util', 'Distance'
   ];
 
   function SearchController(
-    $scope, $q,
+    $scope, $q, $ionicHistory,
     SearchModel, Places, AppStorage, Util, Distance
   ) {
     var initPromise;
     var noLoadingStates = ['Main.PlaceDetail'];
+    var noResetStates = [];
     var vm = this;
     vm.Model = SearchModel;
 
@@ -141,7 +142,7 @@
             }
           },
 
-          limit: 30,
+          limit: 999,
           populate: [{
             property: 'photos',
             criteria: { sort: 'index ASC' }

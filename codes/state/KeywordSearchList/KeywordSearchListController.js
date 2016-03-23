@@ -117,7 +117,7 @@
 
         }, {
           skip: vm.Model[category].places.length,
-          limit: 1
+          limit: 30
         })
         .then((placesWrapper) => {
           console.log("placesWrapper --loadMore-- :::\n", placesWrapper);
@@ -209,7 +209,7 @@
             // id: {$gt: someId }, id: {$lt: someId }
           },
           // skip: 30,
-          limit: 3,
+          limit: 30,
           populate: [{
             property: 'photos',
             criteria: { sort: 'index ASC' }

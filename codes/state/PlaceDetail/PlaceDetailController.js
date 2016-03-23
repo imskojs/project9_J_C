@@ -71,7 +71,7 @@
             }
             return restAPI({ place: $state.params.placeId }, {
                 populate: ['photos', 'comments', 'owner'],
-                limit: 5
+                limit: 30
               },
               Reviews,
               'find'
