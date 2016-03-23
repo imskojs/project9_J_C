@@ -49,10 +49,6 @@
 
             <div class="col-auto zero mr2p flex-v">
               <img class="h37px w37px r50p"
-                ng-if="vm.Model.post.isAnnonymous || !vm.Model.post.owner.profilePhoto.url"
-                src="img/defaultimg.png" />
-              <img class="h37px w37px r50p"
-                ng-if="!vm.Model.post.isAnnonymous && vm.Model.post.owner.profilePhoto.url"
                 ng-src="{{vm.Model.post.owner | GetPhoto}}" />
             </div>
 

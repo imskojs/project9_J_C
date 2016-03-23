@@ -115,8 +115,7 @@
       let queryWrapper = {
         query: {
           where: {
-            or: [{ receiver: AppStorage.user.id },
-              { sender: AppStorage.user.id }]
+            receiver: AppStorage.user.id
           },
           sort: 'id DESC'
         }

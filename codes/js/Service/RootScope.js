@@ -163,15 +163,16 @@
       }
       // console.log("RootScope... isOwner(data) :::\n", data);
       //data 자체가 owner의 id일 경우
-      if (typeof data === 'string' && data === AppStorage.user.id) {
-        return true;
+      if (typeof data === 'string') {
+        if (data === AppStorage.user.id) {
+          return true;
+        }
 
         //data.owner가 id일 경우
       } else if (typeof data.owner === 'string') {
         if (data.owner === AppStorage.user.id) {
           return true;
         }
-        return false; //string임에도 id와 owner가 다르면 오너가 아님.
 
         //data.owner가 object고 data.owner.id 가 존재할 경우
       } else if (data.owner.id === AppStorage.user.id) {
