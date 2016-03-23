@@ -11,7 +11,6 @@
     var Model = {
       handle: 'joodang-event-list',
       loading: false,
-      infiniteScroll: true,
       events: []
     };
 

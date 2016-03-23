@@ -92,9 +92,6 @@
           },
         })
         .then(function(eventsWrapper) {
-          if (!eventsWrapper.events.length) {
-            return vm.Model.infiniteScroll = false;
-          }
           Util.appendData(eventsWrapper, vm.Model, 'events');
         })
         .catch(function(err) {
