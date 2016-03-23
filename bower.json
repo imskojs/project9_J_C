@@ -16,7 +16,6 @@
     "ngstorage": "^0.3.10",
     "ng-file-upload": "7.3.9",
     "Geolib": "https://github.com/manuelbieh/Geolib.git#~2.0.18",
-    "ng-img-crop-full-extended": "https://github.com/imskojs/ngImgCropFullExtended.git#master",
-    "jQuery": "^2.2.0"
+    "ng-img-crop-full-extended": "https://github.com/imskojs/ngImgCropFullExtended.git#master"
   }
 }
