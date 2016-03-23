@@ -9,8 +9,24 @@ var sh = require('shelljs');
 var del = require('del');
 
 var doneStates = [];
+var platform = process.argv[2];
 // devCode();
-prepare();
+if (platform === 'dev' || platform === 'development' || platform === 'revert') {
+  return runGulp()
+    .then(function() {
+      return devCode();
+    })
+    .catch(function(err) {
+      console.log("err :::\n", err);
+    });
+} else if (platform === 'ios') {
+  return prepare();
+} else if (platform === 'android') {
+  return prepare();
+} else {
+  console.log('please specify platform\n EXAMPLE) \n node release.js android \n node release.js ios \n node release.js dev "');
+  return false;
+}
 //====================================================
 //  TODO
 //====================================================
@@ -27,9 +43,9 @@ function prepare() {
     .then(function() {
       return runGulp('--production');
     })
-    // .then(function() {
-    //   return purifyAndMinifyCss();
-    // })
+    .then(function() {
+      return purifyAndMinifyCss();
+    })
     .then(function(message) {
       return uglifyJs(message);
     })
@@ -229,12 +245,38 @@ function runCordova(message) {
   console.log("message :::\n", message);
   doneStates.push(message);
   var deferred = Promise.pending();
-  sh.exec('cordova build --release android', function(code, stdout, stderr) {
-    if (code !== 0) {
-      deferred.reject(stderr);
-    } else {
-      deferred.resolve('buildDone');
-    }
-  });
-  return deferred.promise;
+  if (platform === 'android') {
+    sh.exec('cordova build --release android', function(code, stdout, stderr) {
+      if (code !== 0) {
+        deferred.reject(stderr);
+      } else {
+        deferred.resolve('buildDone');
+      }
+    });
+  } else if (platform === 'ios') {
+    sh.exec('ionic build ios', function(code, stdout, stderr) {
+      if (code !== 0) {
+        deferred.reject(stderr);
+      } else {
+        deferred.resolve('buildDone');
+      }
+    });
+  }
+
+  return deferred.promise
+    .then(function() {
+      var deferred = Promise.pending();
+      if (platform === 'ios') {
+        sh.exec('open -a Xcode', function(code, stdout, stderr) {
+          if (code !== 0) {
+            deferred.reject(stderr);
+          } else {
+            deferred.resolve('buildDone');
+          }
+        });
+      } else {
+        deferred.resolve('buildDone');
+      }
+      return deferred.promise;
+    });
 }
