@@ -20,7 +20,7 @@
       'Main.MessageCreate',
       'Main.MenuList'
     ];
-    var noResetStates = ['Main.GoogleMap'];
+    // var noResetStates = ['Main.GoogleMap'];
     var vm = this;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
@@ -70,8 +70,14 @@
               vm.isNotFavorite = AppStorage.user.favorites.indexOf(vm.Model.place.id) === -1;
             }
             return restAPI({ place: $state.params.placeId }, {
-                populate: ['photos', 'comments', 'owner'],
-                limit: 5
+                populate: [
+                  {
+                    property: 'photos',
+                    criteria: {
+                      sort: 'index ASC'
+                    }
+              }, 'comments', 'owner'],
+                limit: 30
               },
               Reviews,
               'find'
@@ -91,7 +97,7 @@
 
     function onBeforeLeave(event, nextState) {
       if ($ionicHistory.currentStateName() !== nextState.name &&
-        noResetStates.indexOf(nextState.name) === -1
+        noLoadingStates.indexOf(nextState.name) === -1
       ) {
         return reset();
       }
@@ -122,8 +128,16 @@
     function init() {
       // let placePromise = find({id: $state.params.placeId}, null, Places, 'findOne');
       //$state.params.placeId 를 통해 Place를 findOne()
-      return restAPI({ id: $state.params.placeId },
-          null,
+      return restAPI({
+            id: $state.params.placeId
+          }, {
+            populate: [{
+              property: 'photos',
+              criteria: {
+                sort: 'index ASC'
+              }
+            }]
+          },
           Places,
           'findOne'
         )
@@ -198,9 +212,8 @@
     function reviewDelete(id) {
       loadingByIdToggle(id);
       let queryWrapper = {
-        query: {
-          where: { id: id }
-        }
+        id: id,
+        owner: AppStorage.user && AppStorage.user.id
       };
       return Reviews.destroyReview(queryWrapper).$promise
         .then(reviewsWrapper => {
@@ -215,11 +228,10 @@
     function commentDelete(id) {
       loadingByIdToggle(id);
       let queryWrapper = {
-        query: {
-          where: { id: id }
-        }
+        id: id,
+        owner: AppStorage.user && AppStorage.user.id
       };
-      return Comments.destroyComment(queryWrapper.query.where).$promise
+      return Comments.destroyComment(queryWrapper).$promise
         .then(commentsWrapper => {
           // console.log("commentsWrapper :::\n", commentsWrapper);
           // Util.bindData(commentsWrapper, vm.Model, 'comments');
