@@ -7,9 +7,11 @@ var uglify = require('uglify-js');
 var fs = require('fs');
 var sh = require('shelljs');
 var del = require('del');
+var wrench = require('wrench');
 
 var doneStates = [];
 var platform = process.argv[2];
+var noPurify = process.argv[3];
 // devCode();
 if (platform === 'dev' || platform === 'development' || platform === 'revert') {
   return runGulp()
@@ -24,6 +26,8 @@ if (platform === 'dev' || platform === 'development' || platform === 'revert') {
 } else if (platform === 'ios') {
   return prepare();
 } else if (platform === 'android') {
+  return prepare();
+} else if (platform === 'web') {
   return prepare();
 } else {
   console.log('please specify platform\n EXAMPLE) \n node release.js android \n node release.js ios \n node release.js dev "');
@@ -47,7 +51,11 @@ function prepare() {
       return runGulp(option);
     })
     .then(function() {
-      return purifyAndMinifyCss();
+      if (noPurify !== undefined) {
+        return Promise.resolve('purificationSkipped');
+      } else {
+        return purifyAndMinifyCss();
+      }
     })
     .then(function(message) {
       return uglifyJs(message);
@@ -60,11 +68,42 @@ function prepare() {
     })
     .then(function(message) {
       doneStates.push(message);
+      if (platform === 'web') {
+        sh.sed(
+          '-i',
+          /  <script src="cordova\.js"><\/script>/,
+          '  <!-- <script src="cordova.js"></script> -->',
+          'www/index.html'
+        );
+      }
+      if (noPurify !== undefined) {
+        sh.sed(
+          '-i',
+          /  <!-- <link href="css\/ionic\.app\.all\.css" rel="stylesheet"> -->/,
+          '  <link href="css/ionic.app.all.css" rel="stylesheet">',
+          'www/index.html'
+        );
+        sh.sed(
+          '-i',
+          /  <link href="c8js\.com\.css" rel="stylesheet">/,
+          '  <!-- <link href="c8js.com.css" rel="stylesheet"> -->',
+          'www/index.html'
+        );
+      }
       return runCordova(message);
     })
     .then(function(message) {
       console.log("message :::\n", message);
       doneStates.push(message);
+      if (platform === 'web') {
+        sh.sed(
+          '-i',
+          /  <script src="cordova\.js"><\/script>/,
+          '  <!-- <script src="cordova.js"></script> -->',
+          'www/index.html'
+        );
+        return 'webDone';
+      }
       return Promise.all([runGulp(), devCode()]);
     })
     .catch(function(err) {
@@ -86,6 +125,12 @@ function releaseCode(message) {
   //   '  <!-- <script src="cordova.js"></script> -->',
   //   'www/index.html'
   // );
+  sh.sed(
+    '-i',
+    /  <!-- <script src="cordova\.js"><\/script> -->/,
+    '  <script src="cordova.js"></script>',
+    'www/index.html'
+  );
   sh.sed(
     '-i',
     /  <script src="lib\/lib\.all\.js"><\/script>/,
@@ -126,12 +171,12 @@ function releaseCode(message) {
 }
 
 function devCode() {
-  // sh.sed(
-  //   '-i',
-  //   /  <!-- <script src="cordova\.js"><\/script> -->/,
-  //   '  <script src="cordova.js"></script>',
-  //   'www/index.html'
-  // );
+  sh.sed(
+    '-i',
+    /  <!-- <script src="cordova\.js"><\/script> -->/,
+    '  <script src="cordova.js"></script>',
+    'www/index.html'
+  );
   sh.sed(
     '-i',
     /  <!-- <script src="lib\/lib\.all\.js"><\/script> -->/,
@@ -241,12 +286,21 @@ function uglifyJs(message) {
 function deleteFiles(message) {
   console.log("message :::\n", message);
   doneStates.push(message);
-  del.sync([
+  var filesToDelete = [
     'www/css/ionic.app.all.css',
     'www/js/app.all.js',
     'www/lib/lib.all.js',
     'www/view/ngTemplates.js',
-  ]);
+  ];
+  if (noPurify !== undefined) {
+    filesToDelete = [
+      'www/js/app.all.js',
+      'www/lib/lib.all.js',
+      'www/view/ngTemplates.js',
+      'www/c8js.com.css'
+    ];
+  }
+  del.sync(filesToDelete);
   return 'fileDeleteDone';
 }
 
@@ -278,6 +332,12 @@ function runCordova(message) {
         deferred.resolve('buildDone');
       }
     });
+  } else if (platform === 'web') {
+    del.sync([
+      'ionicWebDist'
+    ]);
+    wrench.copyDirSyncRecursive('www', 'ionicWebDist');
+    deferred.resolve('buildDone');
   }
 
   return deferred.promise
