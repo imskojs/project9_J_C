@@ -45,7 +45,7 @@
             ng-src="{{photo.url}}" />
         </ion-slide>
         <!--포토가 하나도 없을경우-->
-        <ion-slide ng-if="!mv.Model.place.photos">
+        <ion-slide ng-if="!vm.Model.place.photos">
           <img class="w100p block h75vw lazy-show"
             src="img/no_image.png" />
         </ion-slide>

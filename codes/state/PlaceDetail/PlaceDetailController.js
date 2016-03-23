@@ -122,8 +122,14 @@
     function init() {
       // let placePromise = find({id: $state.params.placeId}, null, Places, 'findOne');
       //$state.params.placeId 를 통해 Place를 findOne()
-      return restAPI({ id: $state.params.placeId },
-          null,
+      return restAPI({ id: $state.params.placeId }, {
+            populate: [{
+              property: 'photos',
+              criteria: {
+                sort: 'index ASC'
+              }
+          }]
+          },
           Places,
           'findOne'
         )
