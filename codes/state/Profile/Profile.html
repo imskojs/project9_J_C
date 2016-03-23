@@ -21,41 +21,34 @@
           <div class="row zero">
             <div class="col zero flex-v mt-6px mb-6px">
 
+              <!--기존의 프로필사진이 있을경우 표시됨-->
               <img class="w40px h40px fit r50px inline-block"
-                ng-if="!vm.Model.user.profilePhoto && vm.Model.images.length === 0"
+                ng-if="!vm.Model.images.length"
                 ng-src="{{vm.Model.user | GetPhoto}}"
                 ng-click="vm.profileImageUpdate();"
                 alt="프로필사진"
               >
 
+              <!--프로필사진이 변경되었을경우 표시됨.-->
               <div class="w40px h40px r50px inline-block flex relative"
                 ng-click="vm.profileImageUpdate()"
                 ng-repeat="image in vm.Model.images"
               >
-
                 <img class="w40px h40px fit r50px"
-                  alt="배너 사진"
                   ngf-src="image"
                   ng-if="!image.id"
                 >
 
                 <img class="w40px h40px fit r50px"
-                  alt="배너 사진"
                   ng-src="{{image.url}}"
                   ng-if="image.id"
                 >
-              </div>
-<!--
-                <div class="w100p h100p absolute top0px left0px flex opacity-5"
+              </div><!--
+              <div class="w100p h100p absolute top0px left0px flex opacity-5"
                   ng-click="PhotoClass.deselectImage(vm.Model.images, $index)"
                 >
                   <i class="ion-ios-close f50px positive"></i>
-                </div>
- -->
-
-
-
-
+              </div> -->
               <p class="zero f14px ml7p">{{AppStorage.user.nickname}}</p>
               <span class="f14px black">&nbsp;님</span>
             </div>

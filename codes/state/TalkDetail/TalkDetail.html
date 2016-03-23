@@ -53,7 +53,7 @@
                 src="img/defaultimg.png" />
               <img class="h37px w37px r50p"
                 ng-if="!vm.Model.post.isAnnonymous && vm.Model.post.owner.profilePhoto.url"
-                ng-src="{{vm.Model.post.owner.profilePhoto.url}}" />
+                ng-src="{{vm.Model.post.owner | GetPhoto}}" />
             </div>
 
             <div class="col zero">
@@ -80,7 +80,7 @@
                   <div class="relative">
                     <i class="zero f40px lh40px ion-android-more-vertical positive"></i>
 
-                    <div class="absolute top10px right30px w120px white-bg shadow"
+                    <div class="absolute top10px right25px w120px white-bg shadow"
                       ng-if="vm.Model.toggleMore">  <!--더보기 버튼 누르면 나오는 수정, 삭제버튼-->
                       <div class="row zero mt0px grey-bb1px"
                         ng-click="goToState('Main.Footer.TalkUpdate', {postId: vm.Model.post.id}, 'forward');">

@@ -26,7 +26,6 @@
     vm.logout = logout;
     vm.nicknameUpdate = nicknameUpdate;
     vm.profileImageUpdate = profileImageUpdate;
-    var newPhoto = null; //프로필사진 바꾸기용
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
@@ -156,8 +155,10 @@
       return Users.update(queryWrapper.query).$promise
         .then((user) => {
           console.log("user :::\n", user);
-          vm.NicknameUpdateModal.hide();
           Util.bindData(user, vm.Model, 'user');
+          AppStorage.user = user;
+          console.log("AppStorage.user :::\n", AppStorage.user);
+          vm.NicknameUpdateModal.hide();
           // $state.reload();
           return user;
           //David Seunghoon Ko

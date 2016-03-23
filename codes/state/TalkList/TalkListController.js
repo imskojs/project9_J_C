@@ -203,7 +203,12 @@
           where: {},
           limit: 30,
           sort: 'id DESC',
-          populate: ['photos', 'owner']
+          populate: [{
+            property: 'photos',
+            criteria: {
+              sort: 'index ASC'
+            }
+          }, 'owner']
         }
       };
       angular.extend(queryWrapper.query.where, extraQuery);
