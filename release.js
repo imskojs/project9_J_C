@@ -19,6 +19,8 @@ if (platform === 'dev' || platform === 'development' || platform === 'revert') {
     .catch(function(err) {
       console.log("err :::\n", err);
     });
+} else if (platform === 'test') {
+  return prepare();
 } else if (platform === 'ios') {
   return prepare();
 } else if (platform === 'android') {
@@ -41,7 +43,8 @@ function prepare() {
   // purify css
   return Promise.resolve()
     .then(function() {
-      return runGulp('--production');
+      let option = platform === 'test' ? null : '--production';
+      return runGulp(option);
     })
     .then(function() {
       return purifyAndMinifyCss();
@@ -261,6 +264,14 @@ function runCordova(message) {
     });
   } else if (platform === 'ios') {
     sh.exec('ionic build ios', function(code, stdout, stderr) {
+      if (code !== 0) {
+        deferred.reject(stderr);
+      } else {
+        deferred.resolve('buildDone');
+      }
+    });
+  } else if (platform === 'test') {
+    sh.exec('ionic run android', function(code, stdout, stderr) {
       if (code !== 0) {
         deferred.reject(stderr);
       } else {
