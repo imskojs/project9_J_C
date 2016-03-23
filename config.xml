@@ -19,7 +19,7 @@
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="500000" />
+    <preference name="SplashScreenDelay" value="20000" />
     <preference name="ShowSplashScreenSpinner" value="true"/>
     <preference name="FadeSplashScreen" value="true" />
     <preference name="FadeSplashScreenDuration" value="400"/>
