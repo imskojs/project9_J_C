@@ -130,13 +130,20 @@
 
           <div class="col-auto zero mr2p flex-v">
             <img class="h37px w37px r50p"
+              ng-if="comment.isAnnonymous"
+              src="img/defaultimg.png" alt="익명사진" />
+            <img class="h37px w37px r50p"
+              ng-if="!comment.isAnnonymous"
               ng-src="{{comment.owner | GetPhoto}}" alt="프로필사진" />
           </div>
 
           <div class="col zero">
             <div class="row zero mt0px mb5px">
               <div class="col-auto zero flex-v mr2p">
-                <p class="zero f12px dark-grey">{{comment.owner.nickname}}</p>
+                <p class="zero f12px dark-grey">
+                  <span ng-if="comment.isAnnonymous">익명</span>
+                  <span ng-if="!comment.isAnnonymous">{{comment.owner.nickname}}</span>
+                </p>
               </div>
               <div class="col-auto zero flex-v">
                 <p class="zero f11px grey">{{comment.createdAt | date: 'HH:mm'}}
@@ -156,7 +163,7 @@
   </ion-content>
 
 
-  <!--아이콘 | 사장님 아이디 | 작성일자-->
+  <!--아이콘 | 아이디 | 작성일자-->
   <ion-footer-bar class="zero h85px flex bottom44px light-bg">
     <div class="relative w100p pl1p pr1p">
       <div class="row zero pl10px">

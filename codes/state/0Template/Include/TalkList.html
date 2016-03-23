@@ -6,7 +6,13 @@
     ng-click="goToState('Main.Footer.TalkDetail', {postId: post.id}, 'forward');">
     <div class="row zero">
       <div class="col-auto zero mr2p flex-v">
+        <!--익명일경우-->
         <img class="h37px w37px r50p"
+          ng-if="post.isAnnonymous"
+          src="img/defaultimg.png" >
+        <!--익명아니면-->
+        <img class="h37px w37px r50p"
+          ng-if="!post.isAnnonymous"
           ng-src="{{post.owner | GetPhoto}}" >
       </div>
       <div class="col zero">
