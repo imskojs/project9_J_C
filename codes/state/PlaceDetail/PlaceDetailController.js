@@ -204,9 +204,8 @@
     function reviewDelete(id) {
       loadingByIdToggle(id);
       let queryWrapper = {
-        query: {
-          where: { id: id }
-        }
+        id: id,
+        owner: AppStorage.user && AppStorage.user.id
       };
       return Reviews.destroyReview(queryWrapper).$promise
         .then(reviewsWrapper => {
