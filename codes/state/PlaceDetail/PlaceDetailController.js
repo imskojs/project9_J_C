@@ -107,6 +107,27 @@
 
     //리뷰 더보기 버튼 클릭
     function loadMoreReviews() {
+      let last = vm.Model.reviews.length - 1;
+      if (last < 0) {
+        return Message.alert('리뷰 더보기 알림', '더이상의 리뷰가 없습니다.');
+      }
+      return reviewFind({
+          '<': { id: vm.Model.reviews[last] }
+        }, {
+          limit: 30
+        })
+        .then((reviewsWrapper) => {
+          if (reviewsWrapper.reviews.length === 0) {
+            return Message.alert('리뷰 더보기 알림', '더이상의 리뷰가 없습니다.');
+          }
+          return Util.appendData(reviewsWrapper, vm.Model, 'reviews');
+        })
+        .then(() => {
+          console.log("vm.Model.reviews :::\n", vm.Model.reviews);
+        })
+        .catch((err) => {
+          return Util.error(err);
+        });
 
     }
 
