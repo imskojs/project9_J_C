@@ -100,16 +100,16 @@
     <!-- Image Preview -->
     <div class="col-16 zero flex-v mr1p"
       ng-repeat="image in vm.Model.images"
+      ng-click="PhotoClass.deselectImage(vm.Model.images, $index)"
     >
       <div class="relative">
         <img class="absolute positive h26px top-15px right-5px"
           alt="지우기 버튼"
           src="img/icon_photo_delete.png"
-          ng-click="PhotoClass.deselectImage(vm.Model.images, $index)"
         >
         <img class="h50px r5px"
           alt="리뷰 사진"
-          ng-src="image"
+          ngf-src="image"
           ng-if="!image.id"
         >
         <img class="h50px r5px"

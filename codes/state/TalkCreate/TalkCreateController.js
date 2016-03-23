@@ -44,13 +44,11 @@
       if (!Util.hasPreviousStates(noLoadingStates)) {
         Util.loading(vm.Model);
         initPromise = init();
-      } else {
-        Util.freeze(false);
       }
     }
 
     function onAfterEnter() {
-      Util.freeze(false);
+      // Util.freeze(false);
     }
 
     function onBeforeLeave(event, nextState) {
@@ -110,19 +108,15 @@
       if (!validationCheck()) {
         return;
       }
-      console.log('111 aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
       Message.loading();
-      console.log('111 bbbbbbbbbbbbbbbbbbbbbbbbbbbb');
       return createPhotos()
         .then((idsWrapper) => {
           console.log("idsWrapper :::\n", idsWrapper);
-          console.log("111 ggggggggggggggggggg");
           if (!idsWrapper) {
             return false;
           }
           let ids = idsWrapper.ids;
           let photos = Util.PhotoClass.createPhotoIds(vm.Model.images, vm.Model.post.photos, ids);
-          console.log("111 hhhhhhhhhhhhhhhhhhhhhhhhhhh");
           vm.Model.post.photos = photos;
         })
         .then(() => {
