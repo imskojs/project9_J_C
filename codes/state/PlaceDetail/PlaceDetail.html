@@ -251,12 +251,9 @@
             <!--회원 프로필사진 | 아이디, 작성일자, 평점 | 삭제버튼-->
             <div class="row zero">
               <div class="col-15 zero flex">
-                <img class="h35px"
-                  ng-if="review.owner.profilePhoto.url"
-                  ng-src="{{review.owner.profilePhoto.url}}" />
-                <img class="h35px"
-                  ng-if="!review.owner.profilePhoto.url"
-                  src="img/defaultimg.png" />
+                <img class="h35px w35px r35px"
+                  ng-src="{{review.owner | GetPhoto}}" 
+                >
               </div>
               <div class="col-65 zero">
                 <div class="row zero mt5px">
