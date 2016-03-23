@@ -16,13 +16,13 @@
     .run(init);
 
   init.$inject = [
-    '$ionicPlatform', '$window', '$rootScope', '$state',
+    '$ionicPlatform', '$window', '$rootScope', '$state', '$timeout',
     'RootScope', 'Preload', 'PushService',
     'DEV_MODE', 'Assets', 'BackButton'
   ];
 
   function init(
-    $ionicPlatform, $window, $rootScope, $state,
+    $ionicPlatform, $window, $rootScope, $state, $timeout,
     RootScope, Preload, PushService,
     DEV_MODE, Assets, BackButton
   ) {
@@ -51,6 +51,9 @@
         //안드로이드 5.0 이상에서만 작동
       }
       setInitialState();
+      $timeout(function() {
+        $window.navigator.splashscreen.hide();
+      }, 300);
     }
     //====================================================
     //  Helper
@@ -67,12 +70,6 @@
         // $state.go('Main.Home');
         $state.go('Main.Footer.Home');
       }
-    }
-
-    document.addEventListener('deviceready', onDeviceReady, false);
-
-    function onDeviceReady() {
-      navigator.splashscreen.hide();
     }
 
   }
