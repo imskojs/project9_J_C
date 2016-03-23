@@ -43,7 +43,7 @@ function prepare() {
   // purify css
   return Promise.resolve()
     .then(function() {
-      let option = platform === 'test' ? null : '--production';
+      var option = platform === 'test' ? null : '--production';
       return runGulp(option);
     })
     .then(function() {
