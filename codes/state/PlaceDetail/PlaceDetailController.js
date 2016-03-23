@@ -18,7 +18,8 @@
     var noLoadingStates = [
       'Main.GoogleMap',
       'Main.MessageCreate',
-      'Main.MenuList'
+      'Main.MenuList',
+      'Main.RequestUpdate'
     ];
     // var noResetStates = ['Main.GoogleMap'];
     var vm = this;
@@ -30,7 +31,7 @@
 
     vm.Model = PlaceDetailModel;
     vm.getAverageRating = getAverageRating;
-    vm.moreReview = moreReview;
+    vm.loadMoreReviews = loadMoreReviews;
     vm.reviewDelete = reviewDelete;
     vm.commentDelete = commentDelete;
     vm.favoriteCreate = favoriteCreate;
@@ -69,19 +70,7 @@
             if (AppStorage.user) {
               vm.isNotFavorite = AppStorage.user.favorites.indexOf(vm.Model.place.id) === -1;
             }
-            return restAPI({ place: $state.params.placeId }, {
-                populate: [
-                  {
-                    property: 'photos',
-                    criteria: {
-                      sort: 'index ASC'
-                    }
-              }, 'comments', 'owner'],
-                limit: 30
-              },
-              Reviews,
-              'find'
-            );
+            return reviewFind();
           })
           .then((reviewsWrapper) => {
             return Util.bindData(reviewsWrapper, vm.Model, 'reviews');
@@ -117,7 +106,7 @@
     }
 
     //리뷰 더보기 버튼 클릭
-    function moreReview() {
+    function loadMoreReviews() {
 
     }
 
@@ -126,24 +115,7 @@
     //====================================================
 
     function init() {
-      // let placePromise = find({id: $state.params.placeId}, null, Places, 'findOne');
-      //$state.params.placeId 를 통해 Place를 findOne()
-      return restAPI({
-            id: $state.params.placeId
-          }, {
-            populate: [{
-              property: 'photos',
-              criteria: {
-                sort: 'index ASC'
-              }
-            }]
-          },
-          Places,
-          'findOne'
-        )
-        .then(obj => {
-          return obj;
-        });
+      return placeFindOne();
     }
 
     function reset() {
@@ -191,23 +163,47 @@
     //  REST
     //====================================================
 
-    //view Review,
-    function restAPI(extraQuery, extraOperation, Obj, method) {
+    function placeFindOne(extraQuery, extraOperation) {
       let queryWrapper = {
         query: {
-          where: {},
+          where: {
+            id: $state.params.placeId
+          },
+          populate: [{ property: 'photos', criteria: { sort: 'index ASC' } }]
         }
       };
-
       angular.extend(queryWrapper.query.where, extraQuery);
       angular.extend(queryWrapper.query, extraOperation);
-      return Obj[method](queryWrapper).$promise
-        .then(obj => { //{id: 1300, name: 'asda' ... }
-          console.log('쿼리 성공! ==> ', obj);
-          return obj;
+      return Places.findOne(queryWrapper).$promise
+        .then((placesWrapper) => {
+          return placesWrapper;
         });
     }
 
+    // return restAPI({ place: $state.params.placeId }, {populate: [{property: 'photos', criteria: {sort: 'index ASC'} }, 'comments', 'owner'], limit: 30 }, Reviews, 'find');
+
+    function reviewFind(extraQuery, extraOperation) {
+      let queryWrapper = {
+        query: {
+          where: {
+            place: $state.params.placeId,
+          },
+          limit: 5,
+          sort: 'id DESC',
+          populates: [
+            { property: 'photos', criteria: { sort: 'index ASC' } },
+            { property: 'comments', criteria: { sort: 'id DESC' } },
+            'owner'
+          ]
+        }
+      };
+      angular.extend(queryWrapper.query.where, extraQuery);
+      angular.extend(queryWrapper.query, extraOperation);
+      return Reviews.find(queryWrapper).$promise
+        .then((reviewsWrapper) => {
+          return reviewsWrapper;
+        });
+    }
     // 유저 리뷰삭제 버튼 클릭
     function reviewDelete(id) {
       loadingByIdToggle(id);

@@ -4,18 +4,16 @@
     .controller('RequestUpdateController', RequestUpdateController);
 
   RequestUpdateController.$inject = [
-    '_MockData',
-    '$ionicHistory', '$scope', '$state',
+    '$ionicHistory', '$scope', '$state', '$window',
     'RequestUpdateModel', 'Util', 'RootScope', 'Users'
   ]; //Controller함수에 factory로 생성된 model을 주입(factory 이름).
   //동일한 app 모듈에 선언한 factory이기 때문에 주입받을 수 있다.
 
   function RequestUpdateController(
-    _MockData,
-    $ionicHistory, $scope, $state,
+    $ionicHistory, $scope, $state, $window,
     RequestUpdateModel, Util, RootScope, Users
   ) {
-    var initPromise;
+    // var initPromise;
     var noLoadingStates = [];
     var noResetStates = [];
     var vm = this;
@@ -34,12 +32,9 @@
 
     function onBeforeEnter() {
       if (!Util.hasPreviousStates(noLoadingStates)) {
-        Util.loading(RequestUpdateModel);
+        Util.loading(vm.Model);
         // initPromise = init();
-      } else {
-        Util.freeze(false);
       }
-      console.log("$state.params.placeId :::\n", $state.params.placeId);
       vm.Model.sendEmail.placeName = $state.params.placeName;
     }
 
@@ -48,7 +43,7 @@
       //   .then(place => {    //{id: 1300, name: 'asda' ... }
       //     Util.bindData(place, RequestUpdateModel, 'place');  //Model['place'] = place
       //   })
-      vm.Model.sendEmail.options.placeId = _MockData.findOne($state.params.placeId);
+      // vm.Model.sendEmail.options.placeId = _MockData.findOne($state.params.placeId);
     }
 
     function onBeforeLeave(event, nextState) {
@@ -76,10 +71,11 @@
     //  Private
     //====================================================
 
-    function init() {}
+    // function init() {}
 
     function reset() {
       var Model = {
+        handle: 'request-update',
         loading: false,
         sendEmail: {
           type: '', //Not Null
@@ -114,7 +110,7 @@
     //====================================================
 
     function requestUpdate() {
-      vm.Model.sendEmail.type = document.getElementsByClassName('zero')[0].textContent;
+      vm.Model.sendEmail.type = $window.document.getElementsByClassName('zero')[0].textContent;
       vm.Model.sendEmail.placeName = $state.params.placeName;
       vm.Model.sendEmail.options.placeId = $state.params.placeId;
       console.log("vm.Model :::\n", vm.Model);
@@ -127,7 +123,10 @@
           console.log("arrayWrapper :::\n", arrayWrapper);
           return RootScope.goToState('Main.PlaceDetail', { placeId: $state.params.placeId }, 'forward');
         })
-        //업체 또는 주당본사에 메일보내는 로직
+        .catch((err) => {
+          return Util.error(err);
+        });
+      //업체 또는 주당본사에 메일보내는 로직
 
     }
   }

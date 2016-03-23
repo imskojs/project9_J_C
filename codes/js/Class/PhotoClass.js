@@ -107,7 +107,7 @@
           initialPhotos = [];
         }
         if (!Array.isArray(initialPhotos)) {
-          initialPhotos = _.compact([initialPhotos]);
+          initialPhotos = [initialPhotos];
         }
         let photosArray = [];
         angular.forEach(imagesArray, (image) => {
