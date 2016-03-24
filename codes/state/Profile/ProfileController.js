@@ -174,7 +174,7 @@
     // 프로필사진 클릭
     function profileImageUpdate() {
       // getPhoto
-      return Photo.get('camera', 800, true, 600, 'square')
+      return Photo.get('gallery', 800, true, 600, 'square')
         .then((blob) => { //photo return
           // vm.Model.images.push(blob);
           vm.Model.images[0] = blob;
@@ -203,6 +203,9 @@
         })
         .catch((err) => {
           console.log("err :::\n", err);
+          if (err.message === 'cancelled') {
+            return Message.alert('알림', '사진 선택을 취소하셨습니다.');
+          }
           Util.error(err);
         });
 

@@ -101,7 +101,8 @@
 
     .state('Main.ReviewCreate', {
       params: {
-        placeId: ''
+        placeId: '',
+        placeName: '',
       },
       url: '/ReviewCreate',
       views: {

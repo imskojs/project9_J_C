@@ -11,6 +11,7 @@
     var Model = {
       handle: 'province-search-list',
       loading: false,
+      selectedProvince: '',
       longitude: 126,
       latitude: 37,
       PREMIUM: {

@@ -20,7 +20,7 @@
 
         <div class="row zero mt0px"
           ng-repeat="theme in vm.Model.themes"
-          ng-click="goToState('Main.ThemeSearchList', {themeTitle: theme.title}, 'forward')">
+          ng-click="goToStateIfGPS('Main.ThemeSearchList', {themeTitle: theme.title}, 'forward')">
           <div class="col zero">
             <img class="w100p h80p"
               ng-src="{{theme.url}}" alt="테마 사진">

@@ -211,7 +211,7 @@
           },
           limit: 5,
           sort: 'id DESC',
-          populates: [
+          populate: [
             { property: 'photos', criteria: { sort: 'index ASC' } },
             { property: 'comments', criteria: { sort: 'id DESC' } },
             'owner'

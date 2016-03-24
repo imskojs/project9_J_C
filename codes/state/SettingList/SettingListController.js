@@ -5,12 +5,12 @@
 
   SettingListController.$inject = [
     '$ionicHistory', '$scope', '$state',
-    'SettingListModel', 'Util', 'Devices'
+    'SettingListModel', 'Util', 'Devices', 'AppStorage'
   ];
 
   function SettingListController(
     $ionicHistory, $scope, $state,
-    SettingListModel, Util, Devices
+    SettingListModel, Util, Devices, AppStorage
   ) {
     // var initPromise;
     // var noLoadingStates = [];
@@ -27,7 +27,9 @@
     //  View Event
     //====================================================
 
-    function onBeforeEnter() {}
+    function onBeforeEnter() {
+      vm.Model.settings.isPush = AppStorage.devices[0].active;
+    }
 
     function onAfterEnter() {}
 
@@ -49,14 +51,18 @@
         return false;
       }
       let devicePromise;
-      if (vm.Model.settings.isPush) {
-        devicePromise = Devices.pushOff(null, null).$promise;
+      console.log("vm.Model.settings.isPush :::\n", vm.Model.settings.isPush);
+      if (!vm.Model.settings.isPush) {
+        devicePromise = Devices.pushOff(null, null).$promise
+
       } else {
         devicePromise = Devices.pushOn(null, null).$promise;
       }
       return devicePromise
         .then(function(devicesWrapper) {
           console.log("devicesWrapper :::\n", devicesWrapper);
+          AppStorage.devices = devicesWrapper.devices;  //devicesWrapper.devices[0].active == true 푸시 메세지 옴
+          vm.Model.settings.isPush = AppStorage.devices[0].active;
         })
         .catch(function(err) {
           Util.error(err);

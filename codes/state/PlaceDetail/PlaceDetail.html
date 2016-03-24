@@ -17,7 +17,7 @@
   <ion-nav-buttons side="right">
     <button class="button-icon ion-edit white f20px"
       ng-click="needLogin()
-                ? goToState('Main.ReviewCreate', {placeId: vm.Model.place.id}, 'forward')
+                ? goToState('Main.ReviewCreate', {placeId: vm.Model.place.id, placeName: vm.Model.place.name}, 'forward')
                 : return;">
     </button>
   </ion-nav-buttons>
@@ -251,7 +251,7 @@
             <div class="row zero">
               <div class="col-15 zero flex">
                 <img class="h35px w35px r35px"
-                  ng-src="{{review.owner | GetPhoto}}" 
+                  ng-src="{{review.owner | GetPhoto}}"
                 >
               </div>
               <div class="col-65 zero">

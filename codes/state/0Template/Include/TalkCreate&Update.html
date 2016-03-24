@@ -1,5 +1,5 @@
 <!--게시판 선택하는부분-->
-<div class="row zero pl3p pr3p pt7px pb7px">
+<div class="row zero pl3p pr3p pt15px pb7px">
   <div class="col-auto zero flex-v mr10p">  <!--왼쪽-->
     <p class="zero f16px bold">게시판선택</p>
   </div>
@@ -8,7 +8,10 @@
       ng-click="vm.categoryToggle();">  <!--오른쪽 선택박스-->
       <div class="row zero dark-grey-b1px pl10p pr10p r3px">
         <div class="col zero flex-v">
-          <p class="zero f14px lh30px bold dark-grey">{{vm.Model.post.category}}</p>
+          <p class="zero f14px lh30px bold dark-grey"
+            ng-if="!vm.Model.post.category">선택</p>
+          <p class="zero f14px lh30px bold dark-grey"
+            ng-if="vm.Model.post.category">{{vm.Model.post.category}}</p>
         </div>
         <div class="col-10 zero flex-v"><i class="ion-arrow-down-b"></i></div>
       </div>

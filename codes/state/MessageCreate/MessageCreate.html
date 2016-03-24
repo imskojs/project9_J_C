@@ -113,7 +113,9 @@
       ng-click="vm.create()"
     >
       <div class="top4px right10px white-bg h44px w100p grey-b1px bl0px flex-v">
-        <i class="ion-android-send zero r50p center w32px lh32px grey-bg white f16px"></i>
+        <i class="ion-android-send zero r50p center w32px lh32px white f16px"
+          ng-class="{ 'grey-bg ': vm.Model.message.content.length < 1,
+                      'positive-bg': vm.Model.message.content.length > 0}"></i>
       </div>
     </div>
   </ion-footer-bar>

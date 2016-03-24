@@ -32,7 +32,7 @@
             </div>
             <div class="col zero flex-v mt-6px mb-6px"
               ng-if="isLogin();">
-              <img class="h40px r50p inline-block"
+              <img class="h40px w40px r50p inline-block"
                 ng-src="{{AppStorage.user | GetPhoto}}"
                 alt="프로필사진">
               <p class="zero f14px lh22px ml7p">{{AppStorage.user.nickname}}</p>
@@ -188,7 +188,8 @@
       <div class="row zero">
         <div class="col zero">
           <img class="w100p mt50px"
-            src="img/customercenter.png" alt="주당 고객센터 이미지">
+            src="img/customercenter.png" alt="주당 고객센터 이미지"
+            ng-click="call('02-6404-2079');">
         </div>
       </div>
     </div>

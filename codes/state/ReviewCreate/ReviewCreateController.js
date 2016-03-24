@@ -43,6 +43,7 @@
         // Util.loading(vm.Model);
         initPromise = init();
       }
+      vm.Model.placeName = $state.params.placeName;
     }
 
     function onAfterEnter() {
@@ -76,7 +77,7 @@
         Message.alert('사진수 초과', '사진은 최대 5개 까지만 업로드 가능합니다.');
         return false;
       }
-      return Photo.get('camera', 800, true, 600, 'square')
+      return Photo.get('gallery', 800, true, 600, 'square')
         .then((blob) => {
           vm.Model.images.push(blob);
         })

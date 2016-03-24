@@ -43,6 +43,7 @@
         initPromise = init();
         //3개의 array Promise가 들어있는 array Promise 를 initPromise 변수에 대입
       }
+      vm.Model.selectedProvince = $state.params.province;
     }
 
     function onAfterEnter() {

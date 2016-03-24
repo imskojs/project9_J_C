@@ -11,6 +11,7 @@
     var Model = {
       handle: 'review-create',
       loading: false,
+      placeName: '',
       review: {
         rating: 5,
         content: '',

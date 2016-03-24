@@ -50,7 +50,7 @@
             ng-if="vm.Model.toggleArray.indexOf(key) != -1">
             <div class="row zero mt0px wrap">
               <div class="col-50 zero flex-v pl4p pr4p pt9px pb10px grey-br grey-bb"
-                ng-click="goToState('Main.ProvinceSearchList', { province: value.text }, 'forward');"
+                ng-click="goToStateIfGPS('Main.ProvinceSearchList', { province: value.text }, 'forward');"
                 ng-repeat="value in valueArray"
               >
                 <p class="zero lh16px f12px">{{value.text}}</p>

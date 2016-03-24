@@ -72,7 +72,7 @@
 
     function search() {
       beforeSearch();
-      $rootScope.goToState('Main.KeywordSearchList', {
+      RootScope.goToStateIfGPS('Main.KeywordSearchList', {
         keywords: vm.Model.selectedMultipleKeywords,
         keywordString: vm.Model.keywordString
       }, 'forward');
