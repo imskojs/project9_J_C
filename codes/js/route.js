@@ -27,14 +27,10 @@
         }
       })
 
-    .state('Main.WalkThrough', {
+    .state('WalkThrough', {
       url: '/WalkThrough',
-      views: {
-        Main: {
-          templateUrl: 'state/WalkThrough/WalkThrough.html',
-          controller: 'WalkThroughController as vm'
-        }
-      }
+      templateUrl: 'state/WalkThrough/WalkThrough.html',
+      controller: 'WalkThroughController as vm'
     })
 
     .state('Main.Footer.Home', {

@@ -5,7 +5,7 @@
 
   TalkUpdateController.$inject = [
     '_MockData',
-    '$ionicHistory', '$scope', '$q', '$state',
+    '$ionicHistory', '$scope', '$q', '$state', '$ionicModal',
     'TalkUpdateModel', 'Util', 'RootScope', 'Posts', 'Photo',
     'Upload', 'Message',
     'SERVER_URL'
@@ -13,7 +13,7 @@
 
   function TalkUpdateController(
     _MockData,
-    $ionicHistory, $scope, $q, $state,
+    $ionicHistory, $scope, $q, $state, $ionicModal,
     TalkUpdateModel, Util, RootScope, Posts, Photo,
     Upload, Message,
     SERVER_URL
@@ -34,6 +34,13 @@
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
     //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
     $scope.$on('$stateChangeStart', onBeforeLeave);
+
+    $ionicModal.fromTemplateUrl('state/0Template/CameraOrGalleryModal.html', {
+      scope: $scope,
+      animation: 'mh-slide'
+    }).then(function(modal) {
+      vm.CameraOrGalleryModal = modal;
+    });
 
     //====================================================
     //  View Event
@@ -98,14 +105,15 @@
     }
 
     // 카메라 버튼 클릭
-    function getPhoto() {
+    function getPhoto(cameraOrGallery) {
       if (vm.Model.images.length >= 5) {
         Message.alert('사진수 초과', '사진은 최대 5개 까지만 업로드 가능합니다.');
         return false;
       }
-      return Photo.get('gallery', 800, true, 600, 'square')
+      return Photo.get(cameraOrGallery, 800, true, 600, 'square')
         .then((blob) => {
-          console.log("blob :::\n", blob);
+          // console.log("blob :::\n", blob);
+          vm.CameraOrGalleryModal.hide();
           vm.Model.images.push(blob);
         })
         .catch((err) => {

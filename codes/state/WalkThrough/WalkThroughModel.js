@@ -13,7 +13,7 @@
         'img/walkthrough01.png',
         'img/walkthrough02.png',
         'img/walkthrough03.png',
-        'img/walkthrough03.png'
+        'img/walkthrough04.png'
       ]
     };
     return model;

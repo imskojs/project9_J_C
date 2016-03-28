@@ -25,13 +25,13 @@
               <img class="w40px h40px fit r50px inline-block"
                 ng-if="!vm.Model.images.length"
                 ng-src="{{vm.Model.user | GetPhoto}}"
-                ng-click="vm.profileImageUpdate();"
+                ng-click="vm.CameraOrGalleryModal.show();"
                 alt="프로필사진"
               >
 
               <!--프로필사진이 변경되었을경우 표시됨.-->
               <div class="w40px h40px r50px inline-block flex relative"
-                ng-click="vm.profileImageUpdate()"
+                ng-click="vm.CameraOrGalleryModal.show();"
                 ng-repeat="image in vm.Model.images"
               >
                 <img class="w40px h40px fit r50px"

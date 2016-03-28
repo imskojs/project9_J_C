@@ -22,7 +22,7 @@
     $scope.$on('$ionicView.enter', onEnter);
 
     //====================================================
-    // View Events 
+    // View Events
     //====================================================
 
     function onBeforeEnter() {
@@ -40,15 +40,11 @@
     //  VM
     //====================================================
     //====================================================
-    // Private 
+    // Private
     //====================================================
-    function leaveWalkThrough(state) {
-      AppStorage.firstTime = false;
-      if (!state) {
-        return Util.goToState('Login', null, 'forward');
-      } else {
-        return Util.goToState(state, null, 'forward');
-      }
+    function leaveWalkThrough() {
+      AppStorage.isFirstTime = false;  //작업완료되면 false로
+      return Util.goToState('Main.Footer.Home', null, 'forward');
     }
 
   }

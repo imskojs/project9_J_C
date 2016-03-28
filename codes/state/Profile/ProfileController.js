@@ -25,12 +25,19 @@
     vm.Model = TalkDetailModel;
     vm.logout = logout;
     vm.nicknameUpdate = nicknameUpdate;
-    vm.profileImageUpdate = profileImageUpdate;
+    vm.getPhoto = getPhoto;
 
     $scope.$on('$ionicView.beforeEnter', onBeforeEnter);
     $scope.$on('$ionicView.afterEnter', onAfterEnter);
     //$scope.$on('$ionicView.beforeLeave', onBeforeLeave);
     $scope.$on('$stateChangeStart', onBeforeLeave);
+
+    $ionicModal.fromTemplateUrl('state/0Template/CameraOrGalleryModal.html', {
+      scope: $scope,
+      animation: 'mh-slide'
+    }).then(function(modal) {
+      vm.CameraOrGalleryModal = modal;
+    });
 
     //====================================================
     //  View Event
@@ -87,6 +94,12 @@
         loading: false,
         hopeNickname: '',
 
+        images: [],
+        files: [],
+        create: [],
+        // tempFiles: [],
+        // destroy: [],
+
         user: {
           username: '',
           email: '',
@@ -96,6 +109,9 @@
           },
           devices: {},
           favorites: {},
+          //====================================================
+          //  Not used
+          //====================================================
           password_reset_code: '',
           password_reset_time: 0,
           accesscount: 0,
@@ -172,10 +188,12 @@
 
 
     // 프로필사진 클릭
-    function profileImageUpdate() {
+    function getPhoto(cameraOrGallery) {
+      vm.CameraOrGalleryModal.hide();
       // getPhoto
-      return Photo.get('gallery', 800, true, 600, 'square')
+      return Photo.get(cameraOrGallery, 800, true, 600, 'square')
         .then((blob) => { //photo return
+          console.log("blob :::\n", blob);
           // vm.Model.images.push(blob);
           vm.Model.images[0] = blob;
           Message.loading();

@@ -1,0 +1,43 @@
+<ion-modal-view class="modal-bg">
+  <ion-content scroll="false"
+    class="flex">
+
+    <!--모달 컨텐츠 컨테이너-->
+    <div class="relative auto w90p mt-30px shadow white-bg">
+
+      <!--X버튼-->
+      <i class="absolute top0px right0px flex w40px h40px f20px grey bold ion-close-round"
+        ng-click="vm.CameraOrGalleryModal.hide();"></i>
+
+      <!--모달 제목 컨테이너-->
+      <div class="row zero mt0px pt15px pb5px">
+        <div class="col zero flex">
+          <p class="zero f18px darker-grey">선택</p>
+        </div>
+      </div>
+      <!--모달 제목 컨테이너 종료-->
+
+      <hr class="b0px h1px grey-bg" />
+
+      <!--모달 내용 컨테이너-->
+      <div class="flex pt20px pb20px">
+        <div>
+          <div class="row zero mt0px">
+            <div class="col zero flex positive positive-b1px r10px p15px mr20px"
+              ng-click="vm.getPhoto('camera');">
+              <p class="zero f16px">카메라</p>
+            </div>
+
+            <div class="col zero flex positive positive-b1px r10px p15px"
+              ng-click="vm.getPhoto('gallery');">
+              <p class="zero f16px">갤러리</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--모달 내용 컨테이너 종료-->
+
+    </div>  <!--모달 컨텐츠 컨테이너 종료-->
+
+  </ion-content>
+</ion-modal-view>

@@ -1,7 +1,11 @@
 #walk-through {
   .walk-through-content {
-
+    background-color: $positive;
   }
+
+  .slider-pager-page { opacity: 0.3; }
+  .slider-pager-page.active { opacity: 1; }
+  .slider-pager-page i { color: white; }
 
   .slide-container {
     height: 100%;
