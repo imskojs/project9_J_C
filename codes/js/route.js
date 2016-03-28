@@ -27,6 +27,16 @@
         }
       })
 
+    .state('Main.WalkThrough', {
+      url: '/WalkThrough',
+      views: {
+        Main: {
+          templateUrl: 'state/WalkThrough/WalkThrough.html',
+          controller: 'WalkThroughController as vm'
+        }
+      }
+    })
+
     .state('Main.Footer.Home', {
       url: '/Home',
       views: {
