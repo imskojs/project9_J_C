@@ -142,7 +142,7 @@
 
         multipleKeywords: [
           {
-            title: '음식',
+            title: '룸식',
             photoUrl: 'img/keyword_icon09.png',
             photoHoverUrl: 'img/keyword_hover_icon09.png'
           },
