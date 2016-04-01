@@ -1,7 +1,8 @@
 <!--이벤트 사진 슬라이드박스-->
-<ion-slide-box class="w100p h75vw" show-pager="true">
-  <ion-slide ng-repeat="photo in vm.Model.event.photos">
-    <img class="w100p h75vw"
+<ion-slide-box show-pager="true">
+  <ion-slide class="com-16-9-parent"
+    ng-repeat="photo in vm.Model.event.photos">
+    <img class="com-16-9-child"
       ng-src="{{photo.url}}" alt="이벤트 사진">
   </ion-slide>
 </ion-slide-box>

@@ -50,7 +50,7 @@
                   <i class="ion-ios-close f50px positive"></i>
               </div> -->
               <p class="zero f14px ml7p">{{AppStorage.user.nickname}}</p>
-              <span class="f14px black">&nbsp;님</span>
+              <span class="f14px black">&nbsp;님</span><br/>
             </div>
             <div class="col-auto zero flex-v">
               <p class="zero f12px lh20px w75px center dark-grey-b1px r20px"
@@ -62,10 +62,16 @@
         <div class="grey-bb1px pt10px pb10px pl5p pr5p dark-grey">  <!--Node 컨테이너-->
           <div class="row zero">
             <div class="col-20 zero flex-v">
-              <p class="zero f14px">닉네임</p>
+              <div>
+                <p class="zero f14px right mb10px">닉네임 :</p>
+                <p class="zero f11px right dark-grey">고유 id :</p>
+              </div>
             </div>
             <div class="col zero flex-v">
-              <p class="zero f14px black">{{AppStorage.user.nickname}}</p>
+              <div>
+                <p class="zero f14px mb10px black">{{AppStorage.user.nickname}}</p>
+                <p class="zero f11px dark-grey">{{AppStorage.user.username}}</p>
+              </div>
             </div>
             <div class="col-auto zero flex-v">
               <p class="zero f12px lh20px w75px center dark-grey-b1px r20px"

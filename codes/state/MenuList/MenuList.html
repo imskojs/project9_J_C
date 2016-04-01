@@ -12,7 +12,7 @@
     <p class="zero">Menu</p>
   </ion-nav-title>
 
-  <ion-content 
+  <ion-content
     delegate-handle="menu-list"
   >
     <div class="relative p15px">  <!--컨텐츠 컨테이너-->
@@ -33,7 +33,7 @@
         <div class="row zero pb5px"
           ng-repeat="product in vm.Model.products | filter: {category: 'FOOD'}">
           <div class="col zero">
-            <p class="f12px grey">{{product.name}}</p>
+            <p class="f12px darker-grey">{{product.name}}</p>
           </div>
           <div class="zero flex">
             <p class="f12px dark-grey">{{product.price}}</p>
@@ -58,7 +58,7 @@
         <div class="row zero pb5px"
           ng-repeat="product in vm.Model.products | filter: {category: 'DRINK'}">
           <div class="col zero">
-            <p class="f12px grey">{{product.name}}</p>
+            <p class="f12px darker-grey">{{product.name}}</p>
           </div>
           <div class="zero flex">
             <p class="f12px dark-grey">{{product.price}}</p>

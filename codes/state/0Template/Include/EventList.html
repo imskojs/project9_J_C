@@ -5,8 +5,8 @@
     ng-click="vm.goToState(event.category, {eventId: event.id}, 'forward');"
     ng-repeat="event in vm.Model.events track by event.id">
     <div class="row zero">
-      <div class="col zero">
-        <img class="w100p h100px lazy-show" ng-src="{{event.photos[0].url | Cloudinary800}}" alt="이벤트 사진">
+      <div class="col zero com-16-9-parent">
+        <img class="com-16-9-child lazy-show" ng-src="{{event.photos[0].url | Cloudinary800}}" alt="이벤트 사진">
       </div>
     </div>
     <div class="pt5px pb5px pl10px pr10px">
