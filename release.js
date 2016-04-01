@@ -76,6 +76,22 @@ function prepare() {
           'www/index.html'
         );
       }
+      if (platform === 'ios') {
+        sh.sed(
+          '-i',
+          /  <preference name="SplashScreenDelay" value=".*"\/>/,
+          '  <preference name="SplashScreenDelay" value="4000"/>',
+          'config.xml'
+        );
+      }
+      if (platform === 'android') {
+        sh.sed(
+          '-i',
+          /  <preference name="SplashScreenDelay" value=".*"\/>/,
+          '  <preference name="SplashScreenDelay" value="10000"/>',
+          'config.xml'
+        );
+      }
       if (noPurify !== undefined) {
         sh.sed(
           '-i',

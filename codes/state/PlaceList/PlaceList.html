@@ -13,17 +13,18 @@
     <p class="zero">내 주변 추천술집</p>
   </ion-nav-title>
 
-  <ion-header-bar class="h30px top44px light-grey-bb1px white-bg"
+  <ion-header-bar class="h30px light-grey-bb1px white-bg zero"
+    top="44"
     no-tap-scroll="true"
   >
-    <div class="row pl3p">
-      <div class="col-10 flex-v">
+    <div class="row pl3p zero mt0px">
+      <div class="col-10 flex-v zero">
         <i class="ion-android-locate positive f20px pl4p"></i>
       </div>
-      <div class="col-auto flex-v">
+      <div class="col-auto flex-v zero">
         <p class="f14px zero">{{AppStorage.currentAddress}}</p>
       </div>
-      <div class="col flex-v pl5p">
+      <div class="col flex-v pl5p zero">
         <p class="f12px zero grey-bg r20px p5"
           ng-click="vm.setCurrentPosition()">재설정</p>
       </div>
@@ -48,7 +49,8 @@
   </ion-header-bar> -->
 
 
-  <ion-content class="light-grey-bg top74px"
+  <ion-content class="light-grey-bg"
+    top="74"
     delegate-handle="place-list"
   >
     <div>   <!--컨텐츠 컨테이너-->

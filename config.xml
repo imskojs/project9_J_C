@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="kr.co.joodang" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>주당</name>
+  <name>JooDang</name>
   <description>
     JooDang project
-    </description>
+  </description>
   <author email="developer@applicat.co.kr" href="http://www.joodang.co.kr">
     Applicat
-    </author>
+  </author>
   <content src="index.html"/>
   <access origin="*"/>
   <access launch-external="yes" origin="*"/>
@@ -19,7 +19,7 @@
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="20000"/>
+  <preference name="SplashScreenDelay" value="4000"/>
   <preference name="ShowSplashScreenSpinner" value="true"/>
   <preference name="FadeSplashScreen" value="true"/>
   <preference name="FadeSplashScreenDuration" value="400"/>

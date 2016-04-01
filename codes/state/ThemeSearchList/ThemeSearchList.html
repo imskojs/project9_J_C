@@ -12,10 +12,11 @@
     <p class="zero">테마 검색</p>
   </ion-nav-title>
 
-  <ion-header-bar class="h30px top44px light-grey-bg"
+  <ion-header-bar class="h30px light-grey-bg"
+    top="44"
     no-tap-scroll="true"
   >
-    <div class="row zero pl3p">
+    <div class="row zero pl3p mt0px">
       <div class="col zero flex-v">
         <p class="zero f12px bold">{{vm.Model.themeTitle}}</p>
       </div>
@@ -39,8 +40,10 @@
     </section>
   </ion-pane>
 
-  <ion-content delegate-handle="theme-search-list"
-    class="light-grey-bg top74px">
+  <ion-content class="light-grey-bg"
+    top="74"
+    delegate-handle="theme-search-list"
+  >
     <div>   <!--컨텐츠 컨테이너-->
 
       <div ng-include="'state/0Template/Include/PlaceList.html'">

@@ -19,10 +19,11 @@
     <p class="zero">주당톡</p>
   </ion-nav-title>
 
-  <ion-header-bar class="h30px top44px grey-bb1px white-bg"
+  <ion-header-bar class="h30px grey-bb1px white-bg"
+    top="44"
     no-tap-scroll="true"
   >
-    <div class="row zero pl3p pr3p">
+    <div class="row zero pl3p pr3p mt0px">
       <div class="col zero flex-v">  <!--왼쪽-->
         <p class="zero f14px bold positive">{{vm.Model.post.category}}</p>
       </div>
@@ -38,8 +39,10 @@
   </ion-pane>
 
 
-  <ion-content delegate-handle="talk-detail"
-    class="top74px darker-grey">
+  <ion-content class="darker-grey"
+    delegate-handle="talk-detail"
+    top="74"
+  >
     <div class="pb100px">   <!--컨텐츠 컨테이너-->
 
       <div>  <!--주당톡 List 컨테이너-->
