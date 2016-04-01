@@ -50,14 +50,29 @@
         </ion-slide>
       </ion-slide-box>
 
-      <!--슬라이드 위에 붙는 스티커-->
-      <div class="absolute h25px w100px top20px left0px"
-        ng-if="vm.Model.place.showDiscountTag">
-        <div class="row zero h25px">
-          <div class="col zero h25px flex positive-bg">
-            <p class="f12px white zero center">{{vm.Model.place.discountTitle}}</p>
+      <!--할인 정보 스티커-->
+      <div class="absolute left0px w70px h25px top10px"
+         ng-if="vm.Model.place.showDiscountTag">
+        <div class="row zero h20px">
+          <div class="col zero h25px flex-v positive-bg">
+            <p class="pl10px f12px zero white">{{vm.Model.place.discountTitle}}</p>
           </div>
-          <img class="col-10 h25px" src="img/home_detail_tag.png">
+          <div class="col-10 zero">
+            <img class="h25px" src="img/home_detail_tag.png" alt="끝에 잘리는이미지" />
+          </div>
+        </div>
+      </div>
+      <!--이벤트 정보 스티커-->
+      <div ng-class="{'absolute left0px w70px h25px top40px': vm.Model.place.showDiscountTag,
+                      'absolute left0px w70px h25px top10px': !vm.Model.place.showDiscountTag}"
+         ng-if="vm.Model.place.showEventTag">
+        <div class="row zero h20px">
+          <div class="col zero h25px flex-v positive-bg">
+            <p class="pl10px f12px zero white">{{"이벤트"}}</p>
+          </div>
+          <div class="col-10 zero">
+            <img class="h25px" src="img/home_detail_tag.png" alt="끝에 잘리는이미지" />
+          </div>
         </div>
       </div>
 
