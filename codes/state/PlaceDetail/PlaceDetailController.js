@@ -67,9 +67,6 @@
             return Util.bindData(place, vm.Model, 'place'); //Model['place'] = place
           })
           .then(() => {
-            if (AppStorage.user) {
-              vm.isNotFavorite = AppStorage.user.favorites.indexOf(vm.Model.place.id) === -1;
-            }
             return reviewFind();
           })
           .then((reviewsWrapper) => {
@@ -77,6 +74,9 @@
           })
           .then(() => {
             console.log("vm.Model :::\n", vm.Model);
+            if (AppStorage.user) {
+              vm.isNotFavorite = AppStorage.user.favorites.indexOf(vm.Model.place.id) === -1;
+            }
           })
           .catch((err) => {
             return console.log("err :::\n", err);

@@ -5,7 +5,7 @@
 
   ReviewCreateController.$inject = [
     '_MockData',
-    '$ionicHistory', '$scope', '$q', '$state',
+    '$ionicHistory', '$scope', '$q', '$state', '$ionicModal',
     'ReviewCreateModel', 'Util', 'RootScope', 'Places', 'Reviews', 'Photo',
     'Upload', 'Message',
     'SERVER_URL'
@@ -13,7 +13,7 @@
 
   function ReviewCreateController(
     _MockData,
-    $ionicHistory, $scope, $q, $state,
+    $ionicHistory, $scope, $q, $state, $ionicModal,
     ReviewCreateModel, Util, RootScope, Places, Reviews, Photo, Upload, Message,
     SERVER_URL
 
@@ -33,6 +33,13 @@
     vm.setRating = setRating;
     vm.getPhoto = getPhoto;
     vm.create = create;
+
+    $ionicModal.fromTemplateUrl('state/0Template/CameraOrGalleryModal.html', {
+      scope: $scope,
+      animation: 'mh-slide'
+    }).then(function(modal) {
+      vm.CameraOrGalleryModal = modal;
+    });
 
     //====================================================
     //  View Event
@@ -72,13 +79,15 @@
     //====================================================
     //  VM
     //====================================================
-    function getPhoto() {
+
+    function getPhoto(cameraOrGallery) {
       if (vm.Model.images.length >= 5) {
         Message.alert('사진수 초과', '사진은 최대 5개 까지만 업로드 가능합니다.');
         return false;
       }
-      return Photo.get('gallery', 800, true, 600, 'square')
+      return Photo.get(cameraOrGallery, 800, true, 600, 'square')
         .then((blob) => {
+          vm.CameraOrGalleryModal.hide();
           vm.Model.images.push(blob);
         })
         .catch((err) => {

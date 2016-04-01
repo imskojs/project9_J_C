@@ -1,13 +1,11 @@
 <ion-view id="walk-through"
     cache-view="true"
-    hide-nav-bar="true"
 >
   <ion-content class="walk-through-content">
 
     <ion-slide-box class="slide-container"
       show-pager="true"
       delegate-handle="walk-through-slide"
-      on-slide-changed="vm.onLastSlide($index)"
     >
       <ion-slide class="slide zero"
         id="slide{{$index}}"

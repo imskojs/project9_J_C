@@ -37,3 +37,16 @@
 ion-modal-view.modal-bg {
     background-color: rgba(0, 0, 0, 0.8);
 }
+
+
+/* ion-slide-box */
+#home {
+  div.slider div.slider-pager {
+    /* 페이지네이션의 position을 정해줄 수 있다. */
+    bottom: 5px;
+  }
+  div.slider div.slider-pager span.slider-pager-page i.icon.ion-record {
+    /* 페이지네이션의 color와 크기를 정해줄 수 있다. */
+    font-size: 10px;
+  }
+}

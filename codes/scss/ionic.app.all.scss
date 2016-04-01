@@ -1114,6 +1114,38 @@ progress[value]::-webkit-progress-bar {
     pointer-events: none;
     cursor: default;
 }
+#walk-through {
+  .walk-through-content {
+    background-color: $positive;
+  }
+
+  .slider-pager-page { opacity: 0.3; }
+  .slider-pager-page.active { opacity: 1; }
+  .slider-pager-page i { color: white; }
+
+  .slide-container {
+    height: 100%;
+    width: 100%;
+    .slide {
+      height: 100vh;
+      width: 100vw;
+      background-size: cover;
+      background-position: center;
+      .slide-image {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  .skip-button {
+    top: 5px;
+    right: 5px;
+    color: white;
+    font-size: 20px;
+  }
+}
+
 #z-post-detail {
   ion-content {
     .bubble {
