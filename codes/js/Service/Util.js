@@ -124,7 +124,6 @@
 
     function error(err) {
       console.log(err);
-      freeze(false);
       $rootScope.$broadcast('scroll.refreshComplete');
       $rootScope.$broadcast('scroll.infiniteScrollComplete');
       if (err.data && err.data.invalidAttributes && err.data.invalidAttributes.username) {
@@ -165,7 +164,6 @@
         } else {
           loadingModel.loading = false; //부분적 로딩으로 사용
         }
-        freeze(false);
         update();
         resize();
         $rootScope.$broadcast('scroll.refreshComplete');
@@ -186,7 +184,6 @@
             model[name].push(item);
           });
           model.more = dataWrapper.more;
-          freeze(false);
           resize();
           $rootScope.$broadcast('scroll.refreshComplete');
           $rootScope.$broadcast('scroll.infiniteScrollComplete');
