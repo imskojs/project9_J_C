@@ -149,12 +149,7 @@
         </div>
         <div class="row zero">
           <div class="col zero">
-            <p class="f12px">평일 {{vm.Model.place.hours}}</p>
-          </div>
-        </div>
-        <div class="row zero">
-          <div class="col zero">
-            <p class="f12px">주말 {{vm.Model.place.hours}}</p>
+            <p class="f12px">{{vm.Model.place.hours}}</p>
           </div>
         </div>
 
@@ -397,13 +392,7 @@
 
       <!--업체와 1:1 메세지-->
       <div class="col zero flex light-grey-bl1px"
-        ng-click="
-        needLogin()
-        ? goToState('Main.MessageCreate', {
-          ownerId: vm.Model.place.owner,
-          placeName: vm.Model.place.name
-        }, 'forward')
-        : return;">
+        ng-click="vm.goMessageCreate();">
         <i class="white f32px ion-chatbubble-working"></i>
       </div>
 

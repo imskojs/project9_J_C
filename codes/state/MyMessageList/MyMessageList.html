@@ -29,7 +29,8 @@
         <!--Node 컨테이너-->
         <div class="grey-bb1px pt5px pb5px pl5p pr5p dark-grey"
           ng-click="goToState('Main.MessageCreate', {
-            ownerId: message.sender.id
+            ownerId: message.sender.id,
+            receiverName: message.sender.nickname
           }, 'forward')"
           ng-repeat="message in vm.Model.messages | orderBy: '-isNew'"
         >

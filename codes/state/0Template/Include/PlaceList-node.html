@@ -13,7 +13,7 @@
      ng-if="place.showDiscountTag">
     <div class="row zero h20px">
       <div class="col zero h25px flex-v positive-bg">
-        <p class="pl10px f12px zero white">{{place.discountTitle}}</p>
+        <p class="pl10px f12px zero white text-overflow">{{place.discountTitle}}</p>
       </div>
       <div class="col-10 zero">
         <img class="h25px" src="img/home_detail_tag.png" alt="끝에 잘리는이미지" />
@@ -26,7 +26,7 @@
      ng-if="place.showEventTag">
     <div class="row zero h20px">
       <div class="col zero h25px flex-v positive-bg">
-        <p class="pl10px f12px zero white">{{"이벤트"}}</p>
+        <p class="pl10px f12px zero white text-overflow">{{"이벤트"}}</p>
       </div>
       <div class="col-10 zero">
         <img class="h25px" src="img/home_detail_tag.png" alt="끝에 잘리는이미지" />
@@ -61,7 +61,7 @@
   </div>
   <!--업체 태그-->
   <div class="row zero mt10px center">
-    <div class="col zero p1px"
+    <div class="col-20 zero p1px"
       ng-repeat="tag in place.tags track by $index">
       <p class="zero p3 positive positive-b1px r3px f10px text-overflow">{{tag}}</p>
     </div>

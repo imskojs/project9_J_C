@@ -91,6 +91,7 @@
       let queryWrapper = {
         query: {
           where: {},
+          sort: 'id DESC',  //어드민에서 등록한 순서대로 출력
         }
       };
 

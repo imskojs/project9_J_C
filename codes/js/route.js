@@ -135,7 +135,9 @@
 
     .state('Main.MessageCreate', {
       params: {
-        placeName: ''
+        ownerId: '',
+        placeName: '',
+        receiverName: ''
       },
       url: '/MessageCreate/:ownerId',
       views: {

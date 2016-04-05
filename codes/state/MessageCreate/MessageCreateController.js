@@ -72,8 +72,16 @@
               Util.scrollBottom(true);
             }
           })
+          .then(() => {
+            console.log('$state.params', $state.params);
+            vm.Model.placesString = $state.params.receiverName;
+            console.log('vm.Model', vm.Model);
+          })
           .catch((err) => {
-            Util.error(err);
+            if (err.status === 403) {
+              Message.alert('알림', '로그인을 하지 않으셨습니다.');
+            }
+            // Util.error(err);
           });
       } else {
         Util.freeze(false);
@@ -252,7 +260,7 @@
       };
 
       angular.extend(queryWrapper.query, extraQuery);
-      return Messages.create(queryWrapper).$promise
+      return Messages.create(queryWrapper.query).$promise
         .then(messagesWrapper => {
           return messagesWrapper; // all messages
         });
