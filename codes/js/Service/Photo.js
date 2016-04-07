@@ -65,7 +65,7 @@
       if (sourceType === 'camera') {
         promise = $cordovaCamera.getPicture({
           quality: 50,
-          destinationType: $window.Camera.DestinationType.FILE_URI,
+          destinationType: $window.Camera.DestinationType.FILE_URI,  //에러발생지점
           encodingType: $window.Camera.EncodingType.JPEG,
           targetWidth: width || 800,
           correctOrientation: true,
@@ -188,7 +188,7 @@
 
     function pickImage(width) {
       var deferred = $q.defer();
-      $window.imagePicker.getPictures(function(results) {
+      $window.imagePicker.getPictures(function(results) {  //에러발생지점
         if (results.length === 0) {
           deferred.reject({
             message: 'cancelled'

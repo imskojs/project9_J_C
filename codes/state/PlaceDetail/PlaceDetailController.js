@@ -129,23 +129,25 @@
         .catch((err) => {
           return Util.error(err);
         });
-
     }
 
     function goMessageCreate() {
-      // if (무료등록업소 일 경우)
-      // Message.alert('알림', '쪽지대화가 불가능한 업체입니다.');
-      if (vm.Model.place.owner === AppStorage.user.id) {
-        Message.alert('알림', '사장님께서는 "1:1쪽지 모아보기" 기능을 이용해주세요.');
-        return;
-      }
       if ( RootScope.needLogin() ) {
+        if (vm.Model.place.category === 'NORMAL') {
+          Message.alert('알림', '일반등록업체는 쪽지기능을 지원하지 않습니다.');
+          return;
+        }
+        if (vm.Model.place.owner === AppStorage.user.id) {
+          Message.alert('알림', '사장님께서는 "1:1쪽지 모아보기" 기능을 이용해주세요.');
+          return;
+        }
         RootScope.goToState(
           'Main.MessageCreate', {
             ownerId: vm.Model.place.owner,
             receiverName: vm.Model.place.name
         }, 'forward');
       }
+      //Message.alert('알림', '로그인을 해주세요.');
       return;
     }
 

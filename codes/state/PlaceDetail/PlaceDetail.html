@@ -39,13 +39,15 @@
     <div class="relative">  <!--placeDetail 전체 컨테이너-->
       <!--슬라이드 box-->
       <ion-slide-box class="w100p auto" show-pager="true">
-        <ion-slide ng-repeat="photo in vm.Model.place.photos">
-          <img class="w100p block h75vw lazy-show"
+        <ion-slide class="com-6-4-parent"
+          ng-repeat="photo in vm.Model.place.photos">
+          <img class="com-6-4-child block lazy-show"
             ng-src="{{photo.url}}" />
         </ion-slide>
         <!--포토가 하나도 없을경우-->
-        <ion-slide ng-if="!vm.Model.place.photos">
-          <img class="w100p block h75vw lazy-show"
+        <ion-slide class="com-6-4-parent"
+          ng-if="!vm.Model.place.photos">
+          <img class="com-6-4-child block lazy-show"
             src="img/no_image.png" />
         </ion-slide>
       </ion-slide-box>
@@ -98,7 +100,7 @@
       </div>
       <!--태그-->
       <div class="row zero flex center mt0px f12px bold positive pl3p pr3p">
-        <div class="col zero ml1p"
+        <div class="col-19 zero ml1p"
           ng-repeat="tag in vm.Model.place.tags track by $index">
           <p class="p5 positive-b1px r3px text-overflow">{{tag}}</p>
         </div>

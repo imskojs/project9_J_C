@@ -210,11 +210,11 @@
     }
 
     function needLogin() {
-      if (!isLogin()) {
-        Message.alert('알림', '로그인을 해주세요.');
-        return false;
+      if (isLogin()) {
+        return true;
       }
-      return true;
+      Message.alert('알림', '로그인을 해주세요.');
+      //return undefined
     }
 
 

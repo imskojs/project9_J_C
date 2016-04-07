@@ -40,7 +40,12 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-geolocation",
     "cordova-plugin-inappbrowser",
-    "phonegap-plugin-push",
+    {
+      "variables": {
+        "SENDER_ID": "445639165930"
+      },
+      "locator": "phonegap-plugin-push"
+    },
     "cordova-plugin-camera",
     "cordova-plugin-file-transfer",
     {

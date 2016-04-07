@@ -79,7 +79,7 @@
           })
           .catch((err) => {
             if (err.status === 403) {
-              Message.alert('알림', '로그인을 하지 않으셨습니다.');
+              Message.alert('알림', '오류가 발생하였습니다.');
             }
             // Util.error(err);
           });

@@ -51,21 +51,30 @@ ion-modal-view.modal-bg {
   }
 }
 
-.com-16-9-parent {
-  position: relative;
+
+// usage
+// .com-16-9-parent > .com-16-9-child
+@mixin imageRatioFactory($width, $height) {
+  .com-#{$width}-#{$height}-parent {
+    position: relative;
+  }
+  .com-#{$width}-#{$height}-parent:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: (($height/$width)*100) + %;
+  }
+  .com-#{$width}-#{$height}-parent > .com-#{$width}-#{$height}-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
-.com-16-9-parent:before {
-  display: block;
-  content: "";
-  width: 100%;
-  padding-top: 56.25%;
-}
-.com-16-9-parent > .com-16-9-child {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-}
+
+@include imageRatioFactory(16, 9);
+@include imageRatioFactory(19, 5);
+@include imageRatioFactory(6, 4);
