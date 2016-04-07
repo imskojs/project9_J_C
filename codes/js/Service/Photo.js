@@ -58,6 +58,7 @@
     //  Photo.get('camera' || 'gallery', 800, true, 300,'square | circle | rectangle', aspectRatioIfRectangle)
     //Output:
     //  'data:base64, asdfk1jmcl1...'
+    //       get(cameraOrry, 800  , true    , 600            , 'square', 1.777778)
     function get(sourceType, width, cropTrue, resultImageSize, areaType, aspectRatio) {
 
       var promise;
@@ -65,7 +66,7 @@
       if (sourceType === 'camera') {
         promise = $cordovaCamera.getPicture({
           quality: 50,
-          destinationType: $window.Camera.DestinationType.FILE_URI,  //에러발생지점
+          destinationType: $window.Camera.DestinationType.FILE_URI,
           encodingType: $window.Camera.EncodingType.JPEG,
           targetWidth: width || 800,
           correctOrientation: true,
@@ -188,7 +189,7 @@
 
     function pickImage(width) {
       var deferred = $q.defer();
-      $window.imagePicker.getPictures(function(results) {  //에러발생지점
+      $window.imagePicker.getPictures(function(results) {
         if (results.length === 0) {
           deferred.reject({
             message: 'cancelled'
