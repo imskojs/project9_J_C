@@ -194,9 +194,7 @@
     //====================================================
 
     function createPhotos() {
-      console.log("111 cccccccccccccccccccccccccccc");
       Util.PhotoClass.processCreate(vm.Model.images, vm.Model.create, vm.Model.files);
-      console.log("111 ddddddddddddddddddddddddddd");
       let uploadOptions = {
         url: SERVER_URL + '/photo/createPhotos',
         method: 'POST',
@@ -211,10 +209,8 @@
         }
       };
       let promise = Upload.upload(uploadOptions);
-      console.log("111 eeeeeeeeeeeeeeeeeeeeeeee");
       return promise
         .then((dataWrapper) => {
-          console.log("111 ffffffffffffffff");
           console.log("dataWrapper --createPhotos-- :::\n", dataWrapper);
           let idsWrapper = dataWrapper.data;
           return idsWrapper;
@@ -226,7 +222,6 @@
         query: vm.Model.post
       };
       angular.extend(queryWrapper.query, extraQuery);
-      console.log("111 iiiiiiiiiiiiiiiii");
       console.log("queryWrapper --reviewCreateReview-- :::\n", queryWrapper);
       return Posts.create(null, queryWrapper).$promise
         .then((createdPost) => {
