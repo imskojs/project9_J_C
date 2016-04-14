@@ -5,13 +5,13 @@
 
   RequestUpdateController.$inject = [
     '$ionicHistory', '$scope', '$state', '$window',
-    'RequestUpdateModel', 'Util', 'RootScope', 'Users'
+    'RequestUpdateModel', 'Util', 'RootScope', 'Users', 'Message'
   ]; //Controller함수에 factory로 생성된 model을 주입(factory 이름).
   //동일한 app 모듈에 선언한 factory이기 때문에 주입받을 수 있다.
 
   function RequestUpdateController(
     $ionicHistory, $scope, $state, $window,
-    RequestUpdateModel, Util, RootScope, Users
+    RequestUpdateModel, Util, RootScope, Users, Message
   ) {
     // var initPromise;
     var noLoadingStates = [];
@@ -121,6 +121,7 @@
       return Users.sendEmail(null, queryWrapper).$promise
         .then(arrayWrapper => {
           console.log("arrayWrapper :::\n", arrayWrapper);
+          Message.alert('알림', '수정요청을 성공적으로 전송하였습니다.');
           return RootScope.goToState('Main.PlaceDetail', { placeId: $state.params.placeId }, 'forward');
         })
         .catch((err) => {

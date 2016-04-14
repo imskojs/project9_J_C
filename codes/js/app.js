@@ -51,7 +51,7 @@
         //안드로이드 5.0 이상에서만 작동
       }
       setInitialState();
-      if ($window.cordova) {
+      if ($window.cordova && ionic.Platform.isAndroid()) {
         $timeout(function() {
           $window.navigator.splashscreen.hide();
         }, 300);

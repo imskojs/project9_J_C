@@ -96,6 +96,7 @@
 
     // 카메라 버튼 클릭
     function getPhoto(cameraOrGallery) {
+      vm.CameraOrGalleryModal.hide();
       if (vm.Model.images.length >= 5) {
         Message.alert('사진수 초과', '사진은 최대 5개 까지만 업로드 가능합니다.');
         return false;
@@ -103,7 +104,6 @@
       return Photo.get(cameraOrGallery, 800, true, 600, 'square')
         .then((blob) => {
           // console.log("blob :::\n", blob);
-          vm.CameraOrGalleryModal.hide();
           vm.Model.images.push(blob);
         })
         .catch((err) => {
