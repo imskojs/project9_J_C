@@ -8,7 +8,7 @@
 
   function GetPhoto() {
     return function(user) {
-      if (user.profilePhoto && user.profilePhoto.url) {
+      if (user && user.profilePhoto && user.profilePhoto.url) {
         return user.profilePhoto.url;
       } else if (user.profile_image) {
         return user.profile_image;
