@@ -111,7 +111,7 @@
         Message.alert('사진수 초과', '사진은 최대 5개 까지만 업로드 가능합니다.');
         return false;
       }
-      return Photo.get(cameraOrGallery, 800, true, 600, 'square')
+      return Photo.get(cameraOrGallery, 800, true, {w: 640, h: 360}, 'rectangle', 1.8)
         .then((blob) => {
           // console.log("blob :::\n", blob);
           vm.Model.images.push(blob);
