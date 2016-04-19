@@ -111,7 +111,7 @@
         Message.alert('사진수 초과', '사진은 최대 5개 까지만 업로드 가능합니다.');
         return false;
       }
-      return Photo.get(cameraOrGallery, 800, true, {w: 640, h: 360}, 'rectangle', 1.8)
+      return Photo.get(cameraOrGallery, 2560, true, {w: 1280, h: 720}, 'rectangle', 1.777778)  //16:9 비율
         .then((blob) => {
           // console.log("blob :::\n", blob);
           vm.Model.images.push(blob);
@@ -123,19 +123,18 @@
 
     // 수정하기 버튼 클릭
     function create() {
-      console.log('111 aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+      if (!validationCheck()) {
+        return;
+      }
       Message.loading();
-      console.log('111 bbbbbbbbbbbbbbbbbbbbbbbbbbbb');
       return createPhotos()
         .then((idsWrapper) => {
           console.log("idsWrapper :::\n", idsWrapper);
-          console.log("111 ggggggggggggggggggg");
           if (!idsWrapper) {
             return false;
           }
           let ids = idsWrapper.ids;
           let photos = Util.PhotoClass.createPhotoIds(vm.Model.images, vm.Model.post.photos, ids);
-          console.log("111 hhhhhhhhhhhhhhhhhhhhhhhhhhh");
           vm.Model.post.photos = photos;
         })
         .then(() => {
@@ -185,6 +184,22 @@
       angular.copy(Model, vm.Model);
     }
 
+    function validationCheck() {
+      if (!vm.Model.post.category) {
+        Message.alert('알림', '카테고리를 선택해주세요.');
+        return false;
+      }
+      if (!vm.Model.post.title) {
+        Message.alert('알림', '제목을 입력해주세요.');
+        return false;
+      }
+      if (!vm.Model.post.content) {
+        Message.alert('알림', '내용을 입력해주세요.');
+        return false;
+      }
+      return true;
+    }
+
     //====================================================
     //  Modals
     //====================================================
@@ -212,9 +227,7 @@
     }
 
     function createPhotos() {
-      console.log("111 cccccccccccccccccccccccccccc");
       Util.PhotoClass.processCreate(vm.Model.images, vm.Model.create, vm.Model.files);
-      console.log("111 ddddddddddddddddddddddddddd");
       let uploadOptions = {
         url: SERVER_URL + '/photo/createPhotos',
         method: 'POST',
@@ -229,10 +242,8 @@
         }
       };
       let promise = Upload.upload(uploadOptions);
-      console.log("111 eeeeeeeeeeeeeeeeeeeeeeee");
       return promise
         .then((dataWrapper) => {
-          console.log("111 ffffffffffffffff");
           console.log("dataWrapper --createPhotos-- :::\n", dataWrapper);
           let idsWrapper = dataWrapper.data;
           return idsWrapper;
@@ -244,7 +255,6 @@
         query: vm.Model.post
       };
       angular.extend(queryWrapper.query, extraQuery);
-      console.log("111 iiiiiiiiiiiiiiiii");
       console.log("queryWrapper --reviewUpdateReview-- :::\n", queryWrapper);
       return Posts.update(null, queryWrapper).$promise
         .then((updatedPost) => {
@@ -255,6 +265,10 @@
 
     // 글쓰기 버튼 클릭
     function updateTalk() {
+      if (!validationCheck()) {
+        return;
+      }
+      Message.loading();
       console.log("vm.Model :::\n", vm.Model);
       let queryWrapper = {
         query: vm.Model.post
@@ -263,6 +277,7 @@
       Posts.create(null, queryWrapper).$promise
         .then(updatedPost => {
           console.log("updatedPost :::\n", updatedPost);
+          Message.alert("글 수정 알림", "게시물이 성공적으로 수정되었습니다.");
           reset();
           return RootScope.goToState('Main.Footer.TalkList', {}, 'forward');
         })
