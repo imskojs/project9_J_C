@@ -29,9 +29,13 @@
             </p>
           </div>
           <div class="col-auto zero flex-v">
-            <p class="zero f11px grey">{{post.createdAt | date: 'HH:ss'}}</p>
+            <p class="zero f10px grey">{{post.createdAt | date: 'yyyy.MM.dd HH:ss'}}</p>
           </div>
         </div>
+      </div>
+      <div class="col-13 zero flex-v f10px dark-grey pb6px"
+        style="align-items: flex-end; -webkit-align-items: flex-end;">
+        <span>댓글 {{post.commentCount}}</span>
       </div>
     </div>
   </div>  <!--주당톡 Node 컨테이너 종료-->

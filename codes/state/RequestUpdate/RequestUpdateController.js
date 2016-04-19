@@ -110,6 +110,7 @@
     //====================================================
 
     function requestUpdate() {
+      vm.Model.sendEmail.title = '수정요청';
       vm.Model.sendEmail.type = $window.document.getElementsByClassName('zero')[0].textContent;
       vm.Model.sendEmail.placeName = $state.params.placeName;
       vm.Model.sendEmail.options.placeId = $state.params.placeId;

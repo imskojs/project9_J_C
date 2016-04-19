@@ -10,9 +10,11 @@
 
   <ion-nav-buttons side="right">
     <button class="button-icon ion-android-person white"
-      ng-click="vm.goToState('Main.Footer.MyTalkList', {}, 'forward', '글쓰기', '로그인 후에 이용가능합니다.');"></button>
+      ng-click="vm.goToState('Main.Footer.MyTalkList', {}, 'forward', '글쓰기', '로그인 후에 이용가능합니다.');"></button><!--
     <button class="button-icon ion-edit white"
-      ng-click="vm.goToState('Main.Footer.TalkCreate', {}, 'forward', '내글관리', '로그인 후에 이용가능합니다.');"></button>
+      ng-click="vm.goToState('Main.Footer.TalkCreate', {}, 'forward', '내글관리', '로그인 후에 이용가능합니다.');"></button> -->
+    <button class="button-icon ion-edit white"
+      ng-click="goToState('Main.Footer.TalkCreate', {}, 'forward');"></button>
   </ion-nav-buttons>
 
   <ion-nav-title>
@@ -63,18 +65,19 @@
                 ng-src="{{vm.Model.post.owner | GetPhoto}}" alt="프로필사진" />
             </div>
 
-            <div class="col zero">
+            <div class="col zero pt2px">
               <div class="row zero mt0px">
                 <div class="col zero flex-v">
                   <p class="zero">[{{vm.Model.post.category}}] {{vm.Model.post.title}}</p>
                 </div>
               </div>
               <div class="row zero mt0px">
-                <div class="col-auto zero flex-v mr2p">
-                  <p class="zero f12px dark-grey">{{vm.Model.post.createdBy.nickname}}</p>
+                <div class="col-auto zero flex-v f12px dark-grey mr2p">
+                  <span ng-if="vm.Model.post.isAnnonymous">익명</span>
+                  <span ng-if="!vm.Model.post.isAnnonymous">{{vm.Model.post.owner.nickname}}</span>
                 </div>
                 <div class="col-auto zero flex-v">
-                  <p class="zero f11px grey">{{vm.Model.post.createdAt | date: 'HH:mm'}}
+                  <p class="zero f10px grey">{{vm.Model.post.createdAt | date: 'yyyy.MM.dd HH:ss'}}
                 </div>
               </div>
             </div>
@@ -115,8 +118,9 @@
       <!--주당톡의 내용-->
       <div>
         <ion-slide-box show-pager="true">
-          <ion-slide ng-repeat="photo in vm.Model.post.photos">
-            <img class="w100p h75vw"
+          <ion-slide class="com-16-9-parent"
+            ng-repeat="photo in vm.Model.post.photos">
+            <img class="com-16-9-child"
               ng-src="{{photo.url}}" />
           </ion-slide>
         </ion-slide-box>
@@ -157,7 +161,7 @@
                 </p>
               </div>
               <div class="col-auto zero flex-v">
-                <p class="zero f11px grey">{{comment.createdAt | date: 'HH:mm'}}
+                <p class="zero f10px grey">{{comment.createdAt | date: 'yyyy.MM.dd HH:ss'}}
               </div>
             </div>
             <div class="row zero mt0px">

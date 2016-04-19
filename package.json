@@ -55,10 +55,17 @@
     {
       "locator": "https://github.com/katzer/cordova-plugin-local-notifications.git",
       "id": "de.appplant.cordova.plugin.local-notification"
+    },
+    {
+      "variables": {
+        "KAKAO_APP_KEY": "8a069e0d65e58f2f3515ecea8c7836f0"
+      },
+      "locator": "https://github.com/lihak/KakaoTalkCordovaPlugin.git",
+      "id": "phonegap-plugin-push"
     }
   ],
   "cordovaPlatforms": [
-    "ios",
-    "android"
+    "android",
+    "ios"
   ]
 }
