@@ -40,6 +40,7 @@
       scrollToId: scrollToId,
       freeze: freeze,
       loading: loading,
+      getResetModel: getResetModel,
     };
 
     _.defaults(service, RootScope); //extends
@@ -256,6 +257,17 @@
           top();
         }
       }, 0);
+    }
+
+    function getResetModel(model) {
+      var resetModel = {};
+      var swapper = null;
+      var attr = null;
+      for (attr in model) {
+        swapper = model[attr];
+        resetModel[attr] = swapper;
+      }
+      return resetModel;
     }
 
 

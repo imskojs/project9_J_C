@@ -10,22 +10,23 @@
     $httpProvider.interceptors.push('AuthInterceptor');
 
     $stateProvider
-      .state('Main', {
-        // abstract: true,
-        url: '/Main',
-        templateUrl: 'state/0Main/Main.html',
-        controller: 'MainController as Main'
-      })
-      .state('Main.Footer', {
-        // abstract: true,
-        url: '/Footer',
-        views: {
-          Main: {
-            templateUrl: 'state/1Footer/Footer.html',
-            controller: 'FooterController as Footer'
-          }
+    .state('Main', {
+      // abstract: true,
+      url: '/Main',
+      templateUrl: 'state/0Main/Main.html',
+      controller: 'MainController as Main'
+    })
+
+    .state('Main.Footer', {
+      // abstract: true,
+      url: '/Footer',
+      views: {
+        Main: {
+          templateUrl: 'state/1Footer/Footer.html',
+          controller: 'FooterController as Footer'
         }
-      })
+      }
+    })
 
     .state('WalkThrough', {
       url: '/WalkThrough',

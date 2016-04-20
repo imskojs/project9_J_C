@@ -128,8 +128,6 @@
         .catch((err) => {
           return Util.error(err);
         });
-      //업체 또는 주당본사에 메일보내는 로직
-
     }
   }
 })();

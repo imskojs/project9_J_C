@@ -33,14 +33,10 @@
  -->
 
 
-    <div>  <!--컨텐츠 컨테이너-->
-      <div class="row zero flex pt5vh">
-        <div class="col-55">
-          <img class="w100p" src="img/home01.png" />
-        </div>
-      </div>
+    <div class="pt10vh">  <!--컨텐츠 컨테이너-->
+      <img class="auto h32vh" src="img/home01.png" />
 
-      <div class="row zero mt5vh flex">
+      <div class="row zero mt7vh flex">
         <div class="col-auto white-b r50px"
           ng-click="goToStateIfGPS('Main.PlaceList', null, 'forward')">
           <p class="f20px zero white center w100p lh35px">
@@ -50,11 +46,10 @@
       </div>
 
 
-      <div class="row zero flex absolute bottom8px"
-      >
+      <div class="row zero flex absolute bottom8px">
+        <!--배너 4:1비율-->
         <div class="col-95 zero flex h25vw"
-          ng-if="vm.Model.banners.length === 0"
-        >
+          ng-if="vm.Model.banners.length === 0">
           <ion-spinner class="spinner-40px spinner-white" icon="ripple">
           </ion-spinner>
         </div>

@@ -9,13 +9,15 @@
 
   function RequestCreateModel() {
     var Model = {
-      placeName: '',
-      placeNumber: '',
-      location: '',
-      name: '',
-      phoneNumber: '',
-      title: '',
-      content: ''
+      sendEmail: {
+        placeName: '',
+        placeNumber: '',
+        location: '',
+        name: '',
+        phoneNumber: '',
+        title: '',
+        content: ''
+      }
     };
     return Model;
   }
