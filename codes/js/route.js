@@ -7,6 +7,7 @@
   function route($stateProvider, $httpProvider, $ionicConfigProvider) {
 
     $ionicConfigProvider.scrolling.jsScrolling(false);
+    $ionicConfigProvider.views.swipeBackEnabled(false);
     $httpProvider.interceptors.push('AuthInterceptor');
 
     $stateProvider
